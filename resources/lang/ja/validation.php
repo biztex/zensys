@@ -239,6 +239,13 @@ return [
         'type19_number' => '予約人数',
         'type20_number' => '予約人数',
         'account_number' => '口座番号',
+        'cancel' => 'キャンセル規定',
+        'road_map1' => '行程表1',
+        'road_map2' => '行程表2',
+        'road_map3' => '行程表3',
+        'road_map4' => '行程表4',
+        'road_map5' => '行程表5',
+        'road_map6' => '行程表6',
         '' => '',
     ],
 
