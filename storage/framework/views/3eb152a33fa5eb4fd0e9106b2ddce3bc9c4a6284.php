@@ -1,11 +1,11 @@
-@extends('adminlte::page')
 
-@section('title', 'プラン追加')
 
-@section('content_header')
-@stop
+<?php $__env->startSection('title', 'プラン追加'); ?>
 
-@section('content')
+<?php $__env->startSection('content_header'); ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 
 <p>
@@ -17,195 +17,196 @@
             <div class="card">
                 <div class="card-header">項目を入力後、「追加する」ボタンを押してください</div>
                 <div class="card-body">
-                    {{--成功もしくは失敗のメッセージ--}}
-                    @if (Session::has('message'))
+                    
+                    <?php if(Session::has('message')): ?>
                     <div class="alert alert-primary">
-                        {{ session('message') }}
+                        <?php echo e(session('message')); ?>
+
                     </div>
-                    @endif
-                    @if ($errors->any())
+                    <?php endif; ?>
+                    <?php if($errors->any()): ?>
                     <div class="alert alert-danger">
                     <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                     </div>
-                    @endif
-                    <form action="{{config('app.url')}}client/plans/store" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('POST')
+                    <?php endif; ?>
+                    <form action="<?php echo e(config('app.url')); ?>client/plans/store" method="POST" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('POST'); ?>
                         <div class="form-group row mt-3 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 基本設定</span></label>
                         </div>
                          <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"> {{ __('ツアーコード') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('ツアーコード')); ?></label>
                             <div class="col-md-6">
-                                <input id="code" type="text" class="form-control" name="code" value="{{ old('code') }}">
+                                <input id="code" type="text" class="form-control" name="code" value="<?php echo e(old('code')); ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> サイトカテゴリ</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="kind">
-                                     @foreach($kinds as $kind)
-                                  <option value="{{$kind->number}}" @if(old('kind')==$kind->number) selected  @endif>{{$kind->name}}</option>
+                                     <?php $__currentLoopData = $kinds; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kind): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                  <option value="<?php echo e($kind->number); ?>" <?php if(old('kind')==$kind->number): ?> selected  <?php endif; ?>><?php echo e($kind->name); ?></option>
 
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                  
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('ステータス') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('ステータス')); ?></label>
                             <div class="col-md-6">
                                 <select class="form-control" name="is_listed">
                                   <option disabled selected>選択してください</option>
-                                  <option value="1" @if(old('is_listed')=='1') selected @endif>掲載中</option>
-                                  <option value="0" @if(old('is_listed')=='0') selected @endif>休止</option>
+                                  <option value="1" <?php if(old('is_listed')=='1'): ?> selected <?php endif; ?>>掲載中</option>
+                                  <option value="0" <?php if(old('is_listed')=='0'): ?> selected <?php endif; ?>>休止</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('プラン名') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('プラン名')); ?></label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                <input id="name" type="text" class="form-control" name="name" value="<?php echo e(old('name')); ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> キャッチコピー</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control" name="catchphrase" rows="5" placeholder="※最大100文字まで">{{ old('catchphrase') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="catchphrase" rows="5" placeholder="※最大100文字まで"><?php echo e(old('catchphrase')); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> プラン説明文</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control" name="description" rows="15" placeholder="※最大1200文字まで">{{ old('description') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="description" rows="15" placeholder="※最大1200文字まで"><?php echo e(old('description')); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 出発日</label>
                             <div class="col-md-2">
-                                <input id="name" type="date" class="form-control" name="start_day" value="{{ old('start_day') }}">
+                                <input id="name" type="date" class="form-control" name="start_day" value="<?php echo e(old('start_day')); ?>">
                             </div>
                             <label class="col-md-1 col-form-label text-md-center">〜</label>
                             <div class="col-md-2">
-                                <input id="name" type="date" class="form-control" name="end_day" value="{{ old('end_day') }}">
+                                <input id="name" type="date" class="form-control" name="end_day" value="<?php echo e(old('end_day')); ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">繰り返し設定</label>
                             <div class="col-md-2">
                                 <select class="form-control" name="repetition_flag">
-                                  <option value="0" @if(old('repetition_flag')=='0') selected @endif>曜日</option>
-                                  <option value="1" @if(old('repetition_flag')=='1') selected @endif>日にち</option>
+                                  <option value="0" <?php if(old('repetition_flag')=='0'): ?> selected <?php endif; ?>>曜日</option>
+                                  <option value="1" <?php if(old('repetition_flag')=='1'): ?> selected <?php endif; ?>>日にち</option>
                                 </select>
                             </div>
                             <p class="col-md-4 col-form-label text-md-left">※販売期間内で有効となります</p>
                         </div>
                         <div class="form-group row ml-5 week-flag">
                             <label class="radio-inline">
-                              <input class="ml-5" type="checkbox" name="monday" value="1" checked @if(old('monday')=='1') checked @endif> <span> 月</span>
+                              <input class="ml-5" type="checkbox" name="monday" value="1" checked <?php if(old('monday')=='1'): ?> checked <?php endif; ?>> <span> 月</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="tuesday" value="1" checked @if(old('tuesday')=='1') checked @endif> <span> 火</span>
+                              <input class="ml-5" type="checkbox" name="tuesday" value="1" checked <?php if(old('tuesday')=='1'): ?> checked <?php endif; ?>> <span> 火</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="wednesday" value="1" checked @if(old('wednesday')=='1') checked @endif> <span> 水</span>
+                              <input class="ml-5" type="checkbox" name="wednesday" value="1" checked <?php if(old('wednesday')=='1'): ?> checked <?php endif; ?>> <span> 水</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="thursday" value="1" checked @if(old('thursday')=='1') checked @endif> <span> 木</span>
+                              <input class="ml-5" type="checkbox" name="thursday" value="1" checked <?php if(old('thursday')=='1'): ?> checked <?php endif; ?>> <span> 木</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="friday" value="1" checked @if(old('friday')=='1') checked @endif> <span> 金</span>
+                              <input class="ml-5" type="checkbox" name="friday" value="1" checked <?php if(old('friday')=='1'): ?> checked <?php endif; ?>> <span> 金</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="saturday" value="1" checked @if(old('saturday')=='1') checked @endif> <span> 土</span>
+                              <input class="ml-5" type="checkbox" name="saturday" value="1" checked <?php if(old('saturday')=='1'): ?> checked <?php endif; ?>> <span> 土</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="sunday" value="1" checked @if(old('sunday')=='1') checked @endif> <span> 日</span>
+                              <input class="ml-5" type="checkbox" name="sunday" value="1" checked <?php if(old('sunday')=='1'): ?> checked <?php endif; ?>> <span> 日</span>
                             </label>
                         </div>
                         <div class="form-group row ml-5 month-flag">
                             <label class="col-md-1 col-form-label text-md-right ml-5">毎月</label>
                             <div class="col-md-1">
-                                <input id="name" type="text" class="form-control" name="repetition_day" value="{{ old('repetition_day') }}">
+                                <input id="name" type="text" class="form-control" name="repetition_day" value="<?php echo e(old('repetition_day')); ?>">
                             </div>
                             <label class="col-md-1 col-form-label text-md-right">日に設定</label>
                         </div>
                         <div class="form-group row week-flag">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">選択した曜日が<br />祝日の場合</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="holiday_selected" value="1" @if(old('holiday_selected', '1')=='1') checked @endif> <span> 開催する</span>
+                              <input class="ml-5" type="radio" name="holiday_selected" value="1" <?php if(old('holiday_selected', '1')=='1'): ?> checked <?php endif; ?>> <span> 開催する</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="holiday_selected" value="0" @if(old('holiday_selected')=='0') checked @endif> <span> 開催しない</span>
+                              <input class="ml-5" type="radio" name="holiday_selected" value="0" <?php if(old('holiday_selected')=='0'): ?> checked <?php endif; ?>> <span> 開催しない</span>
                             </label>
                         </div>
                         <div class="form-group row week-flag">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">選択していない曜日が<br />祝日の場合</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="holiday_nonselected" value="1" @if(old('holiday_nonselected', '1')=='1') checked @endif> <span> 開催する</span>
+                              <input class="ml-5" type="radio" name="holiday_nonselected" value="1" <?php if(old('holiday_nonselected', '1')=='1'): ?> checked <?php endif; ?>> <span> 開催する</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="holiday_nonselected" value="0" @if(old('holiday_nonselected')=='0') checked @endif> <span> 開催しない</span>
+                              <input class="ml-5" type="radio" name="holiday_nonselected" value="0" <?php if(old('holiday_nonselected')=='0'): ?> checked <?php endif; ?>> <span> 開催しない</span>
                             </label>
                         </div>
 <!--                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">自動延長設定</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="is_autoextend" value="1" @if(old('holiday_selected')=='1') checked @endif> <span> 自動で延長する</span>
+                              <input class="ml-5" type="radio" name="is_autoextend" value="1" <?php if(old('holiday_selected')=='1'): ?> checked <?php endif; ?>> <span> 自動で延長する</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="is_autoextend" value="0" @if(old('is_autoextend', '0')=='0') checked @endif> <span> 自動で延長しない</span>
+                              <input class="ml-5" type="radio" name="is_autoextend" value="0" <?php if(old('is_autoextend', '0')=='0'): ?> checked <?php endif; ?>> <span> 自動で延長しない</span>
                             </label>
                         </div> -->
                          <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('目的地') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('目的地')); ?></label>
                             <div class="col-md-6">
-                                <input id="destination" type="text" class="form-control" name="destination" value="{{ old('destination') }}">
+                                <input id="destination" type="text" class="form-control" name="destination" value="<?php echo e(old('destination')); ?>">
                             </div>
                         </div>
                         
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('お食事') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('お食事')); ?></label>
                             <div class="col-md-6">
-                                <input id="eat" type="text" class="form-control" name="eat" value="{{ old('eat') }}">
+                                <input id="eat" type="text" class="form-control" name="eat" value="<?php echo e(old('eat')); ?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('旅行日程') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('旅行日程')); ?></label>
                             <div class="col-md-6">
-                                <input id="schedule" type="text" class="form-control" name="schedule" value="{{ old('schedule') }}">
+                                <input id="schedule" type="text" class="form-control" name="schedule" value="<?php echo e(old('schedule')); ?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('最小催行人員') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('最小催行人員')); ?></label>
                             <div class="col-md-6">
-                                <input id="min_cnt" type="text" class="form-control" name="min_cnt" value="{{ old('min_cnt') }}">
+                                <input id="min_cnt" type="text" class="form-control" name="min_cnt" value="<?php echo e(old('min_cnt')); ?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('添乗員の有無') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('添乗員の有無')); ?></label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="conductor_selected" value="1" @if (old('conductor_selected')== 1) checked @endif> <span> あり</span>
+                              <input class="ml-5" type="radio" name="conductor_selected" value="1" <?php if(old('conductor_selected')== 1): ?> checked <?php endif; ?>> <span> あり</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="conductor_selected" value="0" @if (old('conductor_selected') == 0) checked @endif> <span> なし</span>
+                              <input class="ml-5" type="radio" name="conductor_selected" value="0" <?php if(old('conductor_selected') == 0): ?> checked <?php endif; ?>> <span> なし</span>
                             </label>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('受付締切日時') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('受付締切日時')); ?></label>
                             <div class="col-md-6">
-                                <input id="deadline" type="text" class="form-control" name="deadline" value="{{ old('deadline') }}">
+                                <input id="deadline" type="text" class="form-control" name="deadline" value="<?php echo e(old('deadline')); ?>">
                             </div>
                         </div>
                          <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('旅行条件書') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('旅行条件書')); ?></label>
                             <div class="col-md-6">
                                 <div class="col-md-12 p-0">
-                                    <input id="notice" class="form-control" type="text" name="notice" value="{{ old('notice') }}">
+                                    <input id="notice" class="form-control" type="text" name="notice" value="<?php echo e(old('notice')); ?>">
                                 </div>
                                 <div class="col-md-12 mt-2">
                                     or<input type="file" class="col-md-6" name="file_path11" id="file_path11">
@@ -217,40 +218,40 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('利用宿泊施設') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('利用宿泊施設')); ?></label>
                             <div class="col-md-6">
-                                <textarea id="institution" type="textarea" class="form-control" name="institution" rows="5" placeholder="※最大100文字まで">{{ old('institution') }}</textarea>
+                                <textarea id="institution" type="textarea" class="form-control" name="institution" rows="5" placeholder="※最大100文字まで"><?php echo e(old('institution')); ?></textarea>
 
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('利用交通機関') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('利用交通機関')); ?></label>
                             <div class="col-md-6">
-                                <textarea id="transportation" type="textarea" class="form-control" name="transportation" rows="5" placeholder="※最大100文字まで">{{ old('transportation') }}</textarea>
+                                <textarea id="transportation" type="textarea" class="form-control" name="transportation" rows="5" placeholder="※最大100文字まで"><?php echo e(old('transportation')); ?></textarea>
 
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('乗車地　設定') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('乗車地　設定')); ?></label>
                             <div class="col-md-4">
-                                <input id="boarding" type="text" class="form-control" name="boarding" value="{{ old('boarding') }}" placeholder="カンマ区切り複数">
+                                <input id="boarding" type="text" class="form-control" name="boarding" value="<?php echo e(old('boarding')); ?>" placeholder="カンマ区切り複数">
                             </div>
                             <div class="col-md-2">
                                 <select  class="form-control" name="boarding_type">
-                                    <option value="1" @if (old('boarding_type') == 1) selected @endif>必須
-                                    <option value="2" @if (old('boarding_type') == 2) selected @endif>必須ではない
+                                    <option value="1" <?php if(old('boarding_type') == 1): ?> selected <?php endif; ?>>必須
+                                    <option value="2" <?php if(old('boarding_type') == 2): ?> selected <?php endif; ?>>必須ではない
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('降車地　設定') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('降車地　設定')); ?></label>
                             <div class="col-md-4">
-                                <input id="drop" type="text" class="form-control" name="drop" value="{{ old('drop') }}" placeholder="カンマ区切り複数">
+                                <input id="drop" type="text" class="form-control" name="drop" value="<?php echo e(old('drop')); ?>" placeholder="カンマ区切り複数">
                             </div>
                             <div class="col-md-2">
                                 <select  class="form-control" name="drop_type">
-                                    <option value="1" @if (old('drop_type') == 1) selected @endif>必須
-                                    <option value="2" @if (old('drop_type') == 2) selected @endif>必須ではない
+                                    <option value="1" <?php if(old('drop_type') == 1): ?> selected <?php endif; ?>>必須
+                                    <option value="2" <?php if(old('drop_type') == 2): ?> selected <?php endif; ?>>必須ではない
                                 </select>
                             </div>
                         </div>
@@ -266,53 +267,53 @@
                             <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表 (1)</label>
                         </div>
                          <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"> {{ __('タイトル') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('タイトル')); ?></label>
                             <div class="col-md-6">
-                                <input id="road_map_title" type="text" class="form-control" name="road_map_title1" value="{{ old('road_map_title1') }}">
+                                <input id="road_map_title" type="text" class="form-control" name="road_map_title1" value="<?php echo e(old('road_map_title1')); ?>">
                             </div>
                         </div>
                          <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"> {{ __('利用宿泊施設') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('利用宿泊施設')); ?></label>
                             <div class="col-md-6">
-                                <input id="road_map_build" type="text" class="form-control" name="road_map_build1" value="{{ old('road_map_build1') }}">
+                                <input id="road_map_build" type="text" class="form-control" name="road_map_build1" value="<?php echo e(old('road_map_build1')); ?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"> {{ __('朝食') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('朝食')); ?></label>
                             <div class="col-md-6 d-flex align-items-center">
                                 <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
-                                    <input id="road_eat1_1" type="radio"  name="road_eat1_1" value="1" @if(old('road_eat1')) checked @endif>
+                                    <input id="road_eat1_1" type="radio"  name="road_eat1_1" value="1" <?php if(old('road_eat1')): ?> checked <?php endif; ?>>
                                     <span class="custom-control-description" th:text="#{bool.true}">あり</span>
                                 </label >
                                 <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
-                                    <input id="road_eat1_0" type="radio"  name="road_eat1_1" value="0" @if(!old('road_eat1')) checked @endif>
+                                    <input id="road_eat1_0" type="radio"  name="road_eat1_1" value="0" <?php if(!old('road_eat1')): ?> checked <?php endif; ?>>
                                     <span class="custom-control-description" th:text="#{bool.true}">なし</span>
                                 </label >
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"> {{ __('昼食') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('昼食')); ?></label>
                             <div class="col-md-6 d-flex align-items-center">
                                 <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
-                                    <input id="road_eat2_1" type="radio"  name="road_eat2_1" value="1" @if(old('road_eat2')) checked @endif>
+                                    <input id="road_eat2_1" type="radio"  name="road_eat2_1" value="1" <?php if(old('road_eat2')): ?> checked <?php endif; ?>>
                                     <span class="custom-control-description" th:text="#{bool.true}">あり</span>
 
                                 </label >
                                 <label class="custom-control custom-radio pl-2  m-0 font-weight-normal" role="button">
-                                    <input id="road_eat2_0" type="radio"  name="road_eat2_1" value="0" @if(!old('road_eat2')) checked @endif>
+                                    <input id="road_eat2_0" type="radio"  name="road_eat2_1" value="0" <?php if(!old('road_eat2')): ?> checked <?php endif; ?>>
                                     <span class="custom-control-description">なし</span>
                                 </label>
                             </div>
                             </div>
                           <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"> {{ __('夕食') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('夕食')); ?></label>
                             <div class="col-md-6 d-flex align-items-center">
                                 <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
-                                <input id="road_eat3_1" type="radio"  name="road_eat3_1" value="1" @if(old('road_eat3')) checked @endif>
+                                <input id="road_eat3_1" type="radio"  name="road_eat3_1" value="1" <?php if(old('road_eat3')): ?> checked <?php endif; ?>>
                                     <span class="custom-control-description" th:text="#{bool.true}">あり</span>
                                 </label >
                                 <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
-                                    <input id="road_eat3_0" type="radio"  name="road_eat3_1" value="0" @if(!old('road_eat3')) checked @endif>
+                                    <input id="road_eat3_0" type="radio"  name="road_eat3_1" value="0" <?php if(!old('road_eat3')): ?> checked <?php endif; ?>>
                                     <span class="custom-control-description" th:text="#{bool.true}">なし</span>
                                 </label >
                                 
@@ -322,14 +323,15 @@
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"> 行程表</label>
                             <div class="col-md-6">
                                 <textarea id="road_map" class="form-control"  name="road_map1" rows="10" ></textarea>
-                            <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map1" id="road_map" rows="10" >{{ old('road_map1') }}</textarea>-->
+                            <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map1" id="road_map" rows="10" ><?php echo e(old('road_map1')); ?></textarea>-->
                             </div> 
                         </div>
                         <div class="after-road-section-1"></div>
                                                 <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <div type="" class="btn btn-default" name='add-road'>
-                                    {{ __('+ 行程表を追加する') }}
+                                    <?php echo e(__('+ 行程表を追加する')); ?>
+
                                     <input type="hidden" name="add-road" value="1">
                                 </div>
                             </div>
@@ -340,53 +342,53 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 予約受付タイプ</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="res_type" value="0" @if(old('res_type', '0')=='0') checked @endif> <span> 予約</span>
+                              <input class="ml-5" type="radio" name="res_type" value="0" <?php if(old('res_type', '0')=='0'): ?> checked <?php endif; ?>> <span> 予約</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="res_type" value="2" @if(old('res_type')=='2') checked @endif> <span> リクエスト</span>
+                              <input class="ml-5" type="radio" name="res_type" value="2" <?php if(old('res_type')=='2'): ?> checked <?php endif; ?>> <span> リクエスト</span>
                             </label>
 <!--                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="res_type" value="1" @if(old('res_type')=='1') checked @endif> <span> 併用</span>
+                              <input class="ml-5" type="radio" name="res_type" value="1" <?php if(old('res_type')=='1'): ?> checked <?php endif; ?>> <span> 併用</span>
                             </label> -->
                             
                         </div>
                         <!-- <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 受付開始日時</label>
                             <div class="col-md-1">
-                                <input id="name" type="text" class="form-control" name="res_before_day" value="{{ old('res_before_day') }}">
+                                <input id="name" type="text" class="form-control" name="res_before_day" value="<?php echo e(old('res_before_day')); ?>">
                             </div>
                             <div class="col-md-2">
                                 <select class="form-control" name="res_before_type">
-                                  <option value="0" @if(old('res_before_type', '0')=='0') selected @endif>日前の</option>
-                                  <option value="1" @if(old('res_before_type')=='1') selected @endif>週間前の</option>
+                                  <option value="0" <?php if(old('res_before_type', '0')=='0'): ?> selected <?php endif; ?>>日前の</option>
+                                  <option value="1" <?php if(old('res_before_type')=='1'): ?> selected <?php endif; ?>>週間前の</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <select class="form-control" name="res_before_time">
-                                  <option value="00" @if(old('res_before_time', '00')=='00') selected @endif>00</option>
-                                  <option value="01" @if(old('res_before_time')=='01') selected @endif>01</option>
-                                  <option value="02" @if(old('res_before_time')=='02') selected @endif>02</option>
-                                  <option value="03" @if(old('res_before_time')=='03') selected @endif>03</option>
-                                  <option value="04" @if(old('res_before_time')=='04') selected @endif>04</option>
-                                  <option value="05" @if(old('res_before_time')=='05') selected @endif>05</option>
-                                  <option value="06" @if(old('res_before_time')=='06') selected @endif>06</option>
-                                  <option value="07" @if(old('res_before_time')=='07') selected @endif>07</option>
-                                  <option value="08" @if(old('res_before_time')=='08') selected @endif>08</option>
-                                  <option value="09" @if(old('res_before_time')=='09') selected @endif>09</option>
-                                  <option value="10" @if(old('res_before_time')=='10') selected @endif>10</option>
-                                  <option value="11" @if(old('res_before_time')=='11') selected @endif>11</option>
-                                  <option value="12" @if(old('res_before_time')=='12') selected @endif>12</option>
-                                  <option value="13" @if(old('res_before_time')=='13') selected @endif>13</option>
-                                  <option value="14" @if(old('res_before_time')=='14') selected @endif>14</option>
-                                  <option value="15" @if(old('res_before_time')=='15') selected @endif>15</option>
-                                  <option value="16" @if(old('res_before_time')=='16') selected @endif>16</option>
-                                  <option value="17" @if(old('res_before_time')=='17') selected @endif>17</option>
-                                  <option value="18" @if(old('res_before_time')=='18') selected @endif>18</option>
-                                  <option value="19" @if(old('res_before_time')=='19') selected @endif>19</option>
-                                  <option value="20" @if(old('res_before_time')=='20') selected @endif>20</option>
-                                  <option value="21" @if(old('res_before_time')=='21') selected @endif>21</option>
-                                  <option value="22" @if(old('res_before_time')=='22') selected @endif>22</option>
-                                  <option value="23" @if(old('res_before_time')=='23') selected @endif>23</option>
+                                  <option value="00" <?php if(old('res_before_time', '00')=='00'): ?> selected <?php endif; ?>>00</option>
+                                  <option value="01" <?php if(old('res_before_time')=='01'): ?> selected <?php endif; ?>>01</option>
+                                  <option value="02" <?php if(old('res_before_time')=='02'): ?> selected <?php endif; ?>>02</option>
+                                  <option value="03" <?php if(old('res_before_time')=='03'): ?> selected <?php endif; ?>>03</option>
+                                  <option value="04" <?php if(old('res_before_time')=='04'): ?> selected <?php endif; ?>>04</option>
+                                  <option value="05" <?php if(old('res_before_time')=='05'): ?> selected <?php endif; ?>>05</option>
+                                  <option value="06" <?php if(old('res_before_time')=='06'): ?> selected <?php endif; ?>>06</option>
+                                  <option value="07" <?php if(old('res_before_time')=='07'): ?> selected <?php endif; ?>>07</option>
+                                  <option value="08" <?php if(old('res_before_time')=='08'): ?> selected <?php endif; ?>>08</option>
+                                  <option value="09" <?php if(old('res_before_time')=='09'): ?> selected <?php endif; ?>>09</option>
+                                  <option value="10" <?php if(old('res_before_time')=='10'): ?> selected <?php endif; ?>>10</option>
+                                  <option value="11" <?php if(old('res_before_time')=='11'): ?> selected <?php endif; ?>>11</option>
+                                  <option value="12" <?php if(old('res_before_time')=='12'): ?> selected <?php endif; ?>>12</option>
+                                  <option value="13" <?php if(old('res_before_time')=='13'): ?> selected <?php endif; ?>>13</option>
+                                  <option value="14" <?php if(old('res_before_time')=='14'): ?> selected <?php endif; ?>>14</option>
+                                  <option value="15" <?php if(old('res_before_time')=='15'): ?> selected <?php endif; ?>>15</option>
+                                  <option value="16" <?php if(old('res_before_time')=='16'): ?> selected <?php endif; ?>>16</option>
+                                  <option value="17" <?php if(old('res_before_time')=='17'): ?> selected <?php endif; ?>>17</option>
+                                  <option value="18" <?php if(old('res_before_time')=='18'): ?> selected <?php endif; ?>>18</option>
+                                  <option value="19" <?php if(old('res_before_time')=='19'): ?> selected <?php endif; ?>>19</option>
+                                  <option value="20" <?php if(old('res_before_time')=='20'): ?> selected <?php endif; ?>>20</option>
+                                  <option value="21" <?php if(old('res_before_time')=='21'): ?> selected <?php endif; ?>>21</option>
+                                  <option value="22" <?php if(old('res_before_time')=='22'): ?> selected <?php endif; ?>>22</option>
+                                  <option value="23" <?php if(old('res_before_time')=='23'): ?> selected <?php endif; ?>>23</option>
                                 </select>
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">時から受付を開始する</label>
@@ -401,40 +403,40 @@
                                 <label class=col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
                             </div>
                             <div class="col-md-1">
-                                <input id="name" type="text" class="form-control" name="res_end_day" value="{{ old('res_end_day') }}">
+                                <input id="name" type="text" class="form-control" name="res_end_day" value="<?php echo e(old('res_end_day')); ?>">
                             </div>
                             <div class="col-md-2">
                                 <select class="form-control" name="res_end_type">
-                                  <option value="0" @if(old('res_end_type', '0')=='0') selected @endif>日前の</option>
-                                  <option value="1" @if(old('res_end_type')=='1') selected @endif>週間前の</option>
+                                  <option value="0" <?php if(old('res_end_type', '0')=='0'): ?> selected <?php endif; ?>>日前の</option>
+                                  <option value="1" <?php if(old('res_end_type')=='1'): ?> selected <?php endif; ?>>週間前の</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <select class="form-control" name="res_end_time">
-                                  <option value="00" @if(old('res_end_time', '00')=='00') selected @endif>00</option>
-                                  <option value="01" @if(old('res_end_time')=='01') selected @endif>01</option>
-                                  <option value="02" @if(old('res_end_time')=='02') selected @endif>02</option>
-                                  <option value="03" @if(old('res_end_time')=='03') selected @endif>03</option>
-                                  <option value="04" @if(old('res_end_time')=='04') selected @endif>04</option>
-                                  <option value="05" @if(old('res_end_time')=='05') selected @endif>05</option>
-                                  <option value="06" @if(old('res_end_time')=='06') selected @endif>06</option>
-                                  <option value="07" @if(old('res_end_time')=='07') selected @endif>07</option>
-                                  <option value="08" @if(old('res_end_time')=='08') selected @endif>08</option>
-                                  <option value="09" @if(old('res_end_time')=='09') selected @endif>09</option>
-                                  <option value="10" @if(old('res_end_time')=='10') selected @endif>10</option>
-                                  <option value="11" @if(old('res_end_time')=='11') selected @endif>11</option>
-                                  <option value="12" @if(old('res_end_time')=='12') selected @endif>12</option>
-                                  <option value="13" @if(old('res_end_time')=='13') selected @endif>13</option>
-                                  <option value="14" @if(old('res_end_time')=='14') selected @endif>14</option>
-                                  <option value="15" @if(old('res_end_time')=='15') selected @endif>15</option>
-                                  <option value="16" @if(old('res_end_time')=='16') selected @endif>16</option>
-                                  <option value="17" @if(old('res_end_time')=='17') selected @endif>17</option>
-                                  <option value="18" @if(old('res_end_time')=='18') selected @endif>18</option>
-                                  <option value="19" @if(old('res_end_time')=='19') selected @endif>19</option>
-                                  <option value="20" @if(old('res_end_time')=='20') selected @endif>20</option>
-                                  <option value="21" @if(old('res_end_time')=='21') selected @endif>21</option>
-                                  <option value="22" @if(old('res_end_time')=='22') selected @endif>22</option>
-                                  <option value="23" @if(old('res_end_time')=='23') selected @endif>23</option>
+                                  <option value="00" <?php if(old('res_end_time', '00')=='00'): ?> selected <?php endif; ?>>00</option>
+                                  <option value="01" <?php if(old('res_end_time')=='01'): ?> selected <?php endif; ?>>01</option>
+                                  <option value="02" <?php if(old('res_end_time')=='02'): ?> selected <?php endif; ?>>02</option>
+                                  <option value="03" <?php if(old('res_end_time')=='03'): ?> selected <?php endif; ?>>03</option>
+                                  <option value="04" <?php if(old('res_end_time')=='04'): ?> selected <?php endif; ?>>04</option>
+                                  <option value="05" <?php if(old('res_end_time')=='05'): ?> selected <?php endif; ?>>05</option>
+                                  <option value="06" <?php if(old('res_end_time')=='06'): ?> selected <?php endif; ?>>06</option>
+                                  <option value="07" <?php if(old('res_end_time')=='07'): ?> selected <?php endif; ?>>07</option>
+                                  <option value="08" <?php if(old('res_end_time')=='08'): ?> selected <?php endif; ?>>08</option>
+                                  <option value="09" <?php if(old('res_end_time')=='09'): ?> selected <?php endif; ?>>09</option>
+                                  <option value="10" <?php if(old('res_end_time')=='10'): ?> selected <?php endif; ?>>10</option>
+                                  <option value="11" <?php if(old('res_end_time')=='11'): ?> selected <?php endif; ?>>11</option>
+                                  <option value="12" <?php if(old('res_end_time')=='12'): ?> selected <?php endif; ?>>12</option>
+                                  <option value="13" <?php if(old('res_end_time')=='13'): ?> selected <?php endif; ?>>13</option>
+                                  <option value="14" <?php if(old('res_end_time')=='14'): ?> selected <?php endif; ?>>14</option>
+                                  <option value="15" <?php if(old('res_end_time')=='15'): ?> selected <?php endif; ?>>15</option>
+                                  <option value="16" <?php if(old('res_end_time')=='16'): ?> selected <?php endif; ?>>16</option>
+                                  <option value="17" <?php if(old('res_end_time')=='17'): ?> selected <?php endif; ?>>17</option>
+                                  <option value="18" <?php if(old('res_end_time')=='18'): ?> selected <?php endif; ?>>18</option>
+                                  <option value="19" <?php if(old('res_end_time')=='19'): ?> selected <?php endif; ?>>19</option>
+                                  <option value="20" <?php if(old('res_end_time')=='20'): ?> selected <?php endif; ?>>20</option>
+                                  <option value="21" <?php if(old('res_end_time')=='21'): ?> selected <?php endif; ?>>21</option>
+                                  <option value="22" <?php if(old('res_end_time')=='22'): ?> selected <?php endif; ?>>22</option>
+                                  <option value="23" <?php if(old('res_end_time')=='23'): ?> selected <?php endif; ?>>23</option>
                                 </select>
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">時まで受付する</label>
@@ -446,40 +448,40 @@
                                 <label class="col-form-label text-md-right" style="padding: 0 0 3px 0;">【リクエスト】</label>
                             </div>
                             <div class="col-md-1">
-                                <input id="name" type="text" class="form-control" name="req_before_day" value="{{ old('req_before_day') }}">
+                                <input id="name" type="text" class="form-control" name="req_before_day" value="<?php echo e(old('req_before_day')); ?>">
                             </div>
                             <div class="col-md-2">
                                 <select class="form-control" name="req_before_type">
-                                  <option value="0" @if(old('req_before_type', '0')=='0') selected @endif>日前の</option>
-                                  <option value="1" @if(old('req_before_type')=='1') selected @endif>週間前の</option>
+                                  <option value="0" <?php if(old('req_before_type', '0')=='0'): ?> selected <?php endif; ?>>日前の</option>
+                                  <option value="1" <?php if(old('req_before_type')=='1'): ?> selected <?php endif; ?>>週間前の</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <select class="form-control" name="req_before_time">
-                                  <option value="00" @if(old('req_before_time', '00')=='00') selected @endif>00</option>
-                                  <option value="01" @if(old('req_before_time')=='01') selected @endif>01</option>
-                                  <option value="02" @if(old('req_before_time')=='02') selected @endif>02</option>
-                                  <option value="03" @if(old('req_before_time')=='03') selected @endif>03</option>
-                                  <option value="04" @if(old('req_before_time')=='04') selected @endif>04</option>
-                                  <option value="05" @if(old('req_before_time')=='05') selected @endif>05</option>
-                                  <option value="06" @if(old('req_before_time')=='06') selected @endif>06</option>
-                                  <option value="07" @if(old('req_before_time')=='07') selected @endif>07</option>
-                                  <option value="08" @if(old('req_before_time')=='08') selected @endif>08</option>
-                                  <option value="09" @if(old('req_before_time')=='09') selected @endif>09</option>
-                                  <option value="10" @if(old('req_before_time')=='10') selected @endif>10</option>
-                                  <option value="11" @if(old('req_before_time')=='11') selected @endif>11</option>
-                                  <option value="12" @if(old('req_before_time')=='12') selected @endif>12</option>
-                                  <option value="13" @if(old('req_before_time')=='13') selected @endif>13</option>
-                                  <option value="14" @if(old('req_before_time')=='14') selected @endif>14</option>
-                                  <option value="15" @if(old('req_before_time')=='15') selected @endif>15</option>
-                                  <option value="16" @if(old('req_before_time')=='16') selected @endif>16</option>
-                                  <option value="17" @if(old('req_before_time')=='17') selected @endif>17</option>
-                                  <option value="18" @if(old('req_before_time')=='18') selected @endif>18</option>
-                                  <option value="19" @if(old('req_before_time')=='19') selected @endif>19</option>
-                                  <option value="20" @if(old('req_before_time')=='20') selected @endif>20</option>
-                                  <option value="21" @if(old('req_before_time')=='21') selected @endif>21</option>
-                                  <option value="22" @if(old('req_before_time')=='22') selected @endif>22</option>
-                                  <option value="23" @if(old('req_before_time')=='23') selected @endif>23</option>
+                                  <option value="00" <?php if(old('req_before_time', '00')=='00'): ?> selected <?php endif; ?>>00</option>
+                                  <option value="01" <?php if(old('req_before_time')=='01'): ?> selected <?php endif; ?>>01</option>
+                                  <option value="02" <?php if(old('req_before_time')=='02'): ?> selected <?php endif; ?>>02</option>
+                                  <option value="03" <?php if(old('req_before_time')=='03'): ?> selected <?php endif; ?>>03</option>
+                                  <option value="04" <?php if(old('req_before_time')=='04'): ?> selected <?php endif; ?>>04</option>
+                                  <option value="05" <?php if(old('req_before_time')=='05'): ?> selected <?php endif; ?>>05</option>
+                                  <option value="06" <?php if(old('req_before_time')=='06'): ?> selected <?php endif; ?>>06</option>
+                                  <option value="07" <?php if(old('req_before_time')=='07'): ?> selected <?php endif; ?>>07</option>
+                                  <option value="08" <?php if(old('req_before_time')=='08'): ?> selected <?php endif; ?>>08</option>
+                                  <option value="09" <?php if(old('req_before_time')=='09'): ?> selected <?php endif; ?>>09</option>
+                                  <option value="10" <?php if(old('req_before_time')=='10'): ?> selected <?php endif; ?>>10</option>
+                                  <option value="11" <?php if(old('req_before_time')=='11'): ?> selected <?php endif; ?>>11</option>
+                                  <option value="12" <?php if(old('req_before_time')=='12'): ?> selected <?php endif; ?>>12</option>
+                                  <option value="13" <?php if(old('req_before_time')=='13'): ?> selected <?php endif; ?>>13</option>
+                                  <option value="14" <?php if(old('req_before_time')=='14'): ?> selected <?php endif; ?>>14</option>
+                                  <option value="15" <?php if(old('req_before_time')=='15'): ?> selected <?php endif; ?>>15</option>
+                                  <option value="16" <?php if(old('req_before_time')=='16'): ?> selected <?php endif; ?>>16</option>
+                                  <option value="17" <?php if(old('req_before_time')=='17'): ?> selected <?php endif; ?>>17</option>
+                                  <option value="18" <?php if(old('req_before_time')=='18'): ?> selected <?php endif; ?>>18</option>
+                                  <option value="19" <?php if(old('req_before_time')=='19'): ?> selected <?php endif; ?>>19</option>
+                                  <option value="20" <?php if(old('req_before_time')=='20'): ?> selected <?php endif; ?>>20</option>
+                                  <option value="21" <?php if(old('req_before_time')=='21'): ?> selected <?php endif; ?>>21</option>
+                                  <option value="22" <?php if(old('req_before_time')=='22'): ?> selected <?php endif; ?>>22</option>
+                                  <option value="23" <?php if(old('req_before_time')=='23'): ?> selected <?php endif; ?>>23</option>
                                 </select>
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">時まで受付する</label>
@@ -489,14 +491,14 @@
 <!--                         <div class="form-group row mt-4">
                             <label class="col-md-2 col-form-label text-md-right">1予約あたり最小人数	</label>
                             <div class="col-md-1">
-                                <input id="name" type="text" class="form-control" name="min_number" value="{{ old('min_number') }}">
+                                <input id="name" type="text" class="form-control" name="min_number" value="<?php echo e(old('min_number')); ?>">
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">人</label>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">1予約あたり最大人数	</label>
                             <div class="col-md-1">
-                                <input id="name" type="text" class="form-control" name="max_number" value="{{ old('max_number') }}">
+                                <input id="name" type="text" class="form-control" name="max_number" value="<?php echo e(old('max_number')); ?>">
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">人</label>
                         </div> -->
@@ -506,18 +508,18 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 支払方法</label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="card" value="1" @if (old('card') == 1) checked @endif> <span> クレジットカード決済</span>
+                              <input class="ml-5" type="checkbox" name="card" value="1" <?php if(old('card') == 1): ?> checked <?php endif; ?>> <span> クレジットカード決済</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="cvs" value="1" @if (old('cvs') == 1) checked @endif> <span> コンビニ決済</span>
+                              <input class="ml-5" type="checkbox" name="cvs" value="1" <?php if(old('cvs') == 1): ?> checked <?php endif; ?>> <span> コンビニ決済</span>
                             </label>
     
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="prepay" value="1" @if (old('prepay') == 1) checked @endif> <span> 事前払い</span>
+                              <input class="ml-5" type="checkbox" name="prepay" value="1" <?php if(old('prepay') == 1): ?> checked <?php endif; ?>> <span> 事前払い</span>
                             </label>
 
                             <label class="radio-inline">
-                              <input class="ml-5" type="checkbox" name="spot" value="1" @if (old('spot') == 1) checked @endif> <span> 現地払い</span>
+                              <input class="ml-5" type="checkbox" name="spot" value="1" <?php if(old('spot') == 1): ?> checked <?php endif; ?>> <span> 現地払い</span>
                             </label>
 
                             
@@ -526,10 +528,10 @@
                         <div class="form-group row spot_payment_section">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 現地での支払方法</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="checkbox" name="cache_flag" value="0" @if(old('cache_flag', 0)=='1') checked @endif> <span> 現地現金払い</span>
+                              <input class="ml-5" type="checkbox" name="cache_flag" value="0" <?php if(old('cache_flag', 0)=='1'): ?> checked <?php endif; ?>> <span> 現地現金払い</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="card_flag" value="0" @if(old('card_flag', '0')=='1') checked @endif> <span> 現地カード払い</span>
+                              <input class="ml-5" type="checkbox" name="card_flag" value="0" <?php if(old('card_flag', '0')=='1'): ?> checked <?php endif; ?>> <span> 現地カード払い</span>
                             </label>
                         </div>
                         <div class="form-group row card_section">
@@ -561,13 +563,13 @@
                               <input class="ml-4" type="checkbox" name="etc_card" value="0"> <span> その他（他に利用可能なカードがあれば右に入力）</span>
                             </label>
                             <div class="col-md-4">
-                                <input id="name" type="text" class="form-control" name="etc_card_name" value="{{ old('etc_card_name') }}" placeholder="※最大50文字まで">
+                                <input id="name" type="text" class="form-control" name="etc_card_name" value="<?php echo e(old('etc_card_name')); ?>" placeholder="※最大50文字まで">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> 支払方法の補足・詳細</label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="payment_comment" rows="2" placeholder="※最大200文字まで">{{ old('payment_comment') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="payment_comment" rows="2" placeholder="※最大200文字まで"><?php echo e(old('payment_comment')); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row mt-5 bg-dark">
@@ -576,10 +578,10 @@
 <!--                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> プロモーション設定</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="is_discount" value="0" @if(old('is_discount', '0')=='0') checked @endif> <span> 通常料金で販売する</span>
+                              <input class="ml-5" type="radio" name="is_discount" value="0" <?php if(old('is_discount', '0')=='0'): ?> checked <?php endif; ?>> <span> 通常料金で販売する</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="is_discount" value="1" @if(old('is_discount')=='1') checked @endif> <span> 割引料金で販売する</span>
+                              <input class="ml-5" type="radio" name="is_discount" value="1" <?php if(old('is_discount')=='1'): ?> checked <?php endif; ?>> <span> 割引料金で販売する</span>
                             </label>
                         </div>
                         <hr /> -->
@@ -591,9 +593,9 @@
                                 <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">【料金区分】</label>
                                 <div class="col-md-6">
                                     <select class="form-control" name="price_type1">
-                                        @foreach ($price_types as $i => $ps)
-                                        <option value="{{ $ps->number }}" @if(old('price_type1')==$ps->number) selected @endif>{{ $ps->name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $price_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $ps): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($ps->number); ?>" <?php if(old('price_type1')==$ps->number): ?> selected <?php endif; ?>><?php echo e($ps->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -608,75 +610,75 @@
                                         </tr>
                                         <tr>
                                             <th>A</th>
-                                            <td><input type="number" name="price_a_1_1" value="{{ old('price_a_1_1') }}"></td>
-                                            <td><input type="number" name="price_a_2_1" value="{{ old('price_a_2_1') }}"></td>
-                                            <td><input type="number" name="price_a_3_1" value="{{ old('price_a_3_1') }}"></td>
+                                            <td><input type="number" name="price_a_1_1" value="<?php echo e(old('price_a_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_a_2_1" value="<?php echo e(old('price_a_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_a_3_1" value="<?php echo e(old('price_a_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>B</th>
-                                            <td><input type="number" name="price_b_1_1" value="{{ old('price_b_1_1') }}"></td>
-                                            <td><input type="number" name="price_b_2_1" value="{{ old('price_b_2_1') }}"></td>
-                                            <td><input type="number" name="price_b_3_1" value="{{ old('price_b_3_1') }}"></td>
+                                            <td><input type="number" name="price_b_1_1" value="<?php echo e(old('price_b_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_b_2_1" value="<?php echo e(old('price_b_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_b_3_1" value="<?php echo e(old('price_b_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>C</th>
-                                            <td><input type="number" name="price_c_1_1" value="{{ old('price_c_1_1') }}"></td>
-                                            <td><input type="number" name="price_c_2_1" value="{{ old('price_c_2_1') }}"></td>
-                                            <td><input type="number" name="price_c_3_1" value="{{ old('price_c_3_1') }}"></td>
+                                            <td><input type="number" name="price_c_1_1" value="<?php echo e(old('price_c_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_c_2_1" value="<?php echo e(old('price_c_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_c_3_1" value="<?php echo e(old('price_c_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>D</th>
-                                            <td><input type="number" name="price_d_1_1" value="{{ old('price_d_1_1') }}"></td>
-                                            <td><input type="number" name="price_d_2_1" value="{{ old('price_d_2_1') }}"></td>
-                                            <td><input type="number" name="price_d_3_1" value="{{ old('price_d_3_1') }}"></td>
+                                            <td><input type="number" name="price_d_1_1" value="<?php echo e(old('price_d_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_d_2_1" value="<?php echo e(old('price_d_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_d_3_1" value="<?php echo e(old('price_d_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>E</th>
-                                            <td><input type="number" name="price_e_1_1" value="{{ old('price_e_1_1') }}"></td>
-                                            <td><input type="number" name="price_e_2_1" value="{{ old('price_e_2_1') }}"></td>
-                                            <td><input type="number" name="price_e_3_1" value="{{ old('price_e_3_1') }}"></td>
+                                            <td><input type="number" name="price_e_1_1" value="<?php echo e(old('price_e_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_e_2_1" value="<?php echo e(old('price_e_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_e_3_1" value="<?php echo e(old('price_e_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>F</th>
-                                            <td><input type="number" name="price_f_1_1" value="{{ old('price_f_1_1') }}"></td>
-                                            <td><input type="number" name="price_f_2_1" value="{{ old('price_f_2_1') }}"></td>
-                                            <td><input type="number" name="price_f_3_1" value="{{ old('price_f_3_1') }}"></td>
+                                            <td><input type="number" name="price_f_1_1" value="<?php echo e(old('price_f_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_f_2_1" value="<?php echo e(old('price_f_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_f_3_1" value="<?php echo e(old('price_f_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>G</th>
-                                            <td><input type="number" name="price_g_1_1" value="{{ old('price_g_1_1') }}"></td>
-                                            <td><input type="number" name="price_g_2_1" value="{{ old('price_g_2_1') }}"></td>
-                                            <td><input type="number" name="price_g_3_1" value="{{ old('price_g_3_1') }}"></td>
+                                            <td><input type="number" name="price_g_1_1" value="<?php echo e(old('price_g_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_g_2_1" value="<?php echo e(old('price_g_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_g_3_1" value="<?php echo e(old('price_g_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>H</th>
-                                            <td><input type="number" name="price_h_1_1" value="{{ old('price_h_1_1') }}"></td>
-                                            <td><input type="number" name="price_h_2_1" value="{{ old('price_h_2_1') }}"></td>
-                                            <td><input type="number" name="price_h_3_1" value="{{ old('price_h_3_1') }}"></td>
+                                            <td><input type="number" name="price_h_1_1" value="<?php echo e(old('price_h_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_h_2_1" value="<?php echo e(old('price_h_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_h_3_1" value="<?php echo e(old('price_h_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>I</th>
-                                            <td><input type="number" name="price_i_1_1" value="{{ old('price_i_1_1') }}"></td>
-                                            <td><input type="number" name="price_i_2_1" value="{{ old('price_i_2_1') }}"></td>
-                                            <td><input type="number" name="price_i_3_1" value="{{ old('price_i_3_1') }}"></td>
+                                            <td><input type="number" name="price_i_1_1" value="<?php echo e(old('price_i_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_i_2_1" value="<?php echo e(old('price_i_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_i_3_1" value="<?php echo e(old('price_i_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>J</th>
-                                            <td><input type="number" name="price_j_1_1" value="{{ old('price_j_1_1') }}"></td>
-                                            <td><input type="number" name="price_j_2_1" value="{{ old('price_j_2_1') }}"></td>
-                                            <td><input type="number" name="price_j_3_1" value="{{ old('price_j_3_1') }}"></td>
+                                            <td><input type="number" name="price_j_1_1" value="<?php echo e(old('price_j_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_j_2_1" value="<?php echo e(old('price_j_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_j_3_1" value="<?php echo e(old('price_j_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>K</th>
-                                            <td><input type="number" name="price_k_1_1" value="{{ old('price_k_1_1') }}"></td>
-                                            <td><input type="number" name="price_k_2_1" value="{{ old('price_k_2_1') }}"></td>
-                                            <td><input type="number" name="price_k_3_1" value="{{ old('price_k_3_1') }}"></td>
+                                            <td><input type="number" name="price_k_1_1" value="<?php echo e(old('price_k_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_k_2_1" value="<?php echo e(old('price_k_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_k_3_1" value="<?php echo e(old('price_k_3_1')); ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>L</th>
-                                            <td><input type="number" name="price_l_1_1" value="{{ old('price_l_1_1') }}"></td>
-                                            <td><input type="number" name="price_l_2_1" value="{{ old('price_l_2_1') }}"></td>
-                                            <td><input type="number" name="price_l_3_1" value="{{ old('price_l_3_1') }}"></td>
+                                            <td><input type="number" name="price_l_1_1" value="<?php echo e(old('price_l_1_1')); ?>"></td>
+                                            <td><input type="number" name="price_l_2_1" value="<?php echo e(old('price_l_2_1')); ?>"></td>
+                                            <td><input type="number" name="price_l_3_1" value="<?php echo e(old('price_l_3_1')); ?>"></td>
                                         </tr>
                                     </table>
                              </div> 
@@ -685,7 +687,8 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <div type="" class="btn btn-default" name='add-price'>
-                                    {{ __('+ 料金区分を追加する') }}
+                                    <?php echo e(__('+ 料金区分を追加する')); ?>
+
                                     <input type="hidden" name="add-price" value="1">
                                 </div>
                             </div>
@@ -695,7 +698,7 @@
                           <div class="form-group row mt-5">
                             <label class="col-md-2 col-form-label text-md-right"> 料金に含まれるもの</label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="included_item" rows="2" placeholder="※最大100文字まで">{{ old('included_item') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="included_item" rows="2" placeholder="※最大100文字まで"><?php echo e(old('included_item')); ?></textarea>
                             </div>
                         </div>
 
@@ -704,7 +707,7 @@
                             <div class="form-group row">
                                 <label class="col-md-2 col-form-label text-md-right discount-price" style="padding: 0 0 3px 0;">【割引前の料金】</label>
                                 <div class="col-md-3 discount-price">
-                                    <input id="name" type="text" class="form-control" name="price_before_price1" value="{{ old('price_before_price1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_before_price1" value="<?php echo e(old('price_before_price1')); ?>">
                                 </div>
                                 <label class="col-md-1 col-form-label text-md-left discount-price">円</label>
                                 <p class="col-md-6 col-form-label text-md-left discount-comment">※価格が取消し線付きで表示されます　 例）<strike>1,500円〜</strike> 1,000円～　</p>
@@ -712,11 +715,11 @@
                             <div class="form-group row">
                                 <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">【販売料金】</label>
                                 <div class="col-md-3">
-                                    <input id="name" type="text" class="form-control" name="price_price1" value="{{ old('price_price1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_price1" value="<?php echo e(old('price_price1')); ?>">
                                 </div>
                                 <label class="col-md-1 col-form-label text-md-left">円</label>
                                 <div class="col-md-3">
-                                    <input class="" type="checkbox" name="price_week_flag1" value="0" @if(old('price_week_flag1', '0')=='1') checked @endif> <span> 曜日別に料金設定する</span>
+                                    <input class="" type="checkbox" name="price_week_flag1" value="0" <?php if(old('price_week_flag1', '0')=='1'): ?> checked <?php endif; ?>> <span> 曜日別に料金設定する</span>
                                 </div>
                             </div>
                             <div class="form-group row ml-5 week-price-section-1">
@@ -731,28 +734,28 @@
                             </div>
                             <div class="form-group row ml-5 week-price-section-1">
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_monday1" value="{{ old('price_monday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_monday1" value="<?php echo e(old('price_monday1')); ?>">
                                 </div>
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_tuesday1" value="{{ old('price_tuesday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_tuesday1" value="<?php echo e(old('price_tuesday1')); ?>">
                                 </div>
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_wednesday1" value="{{ old('price_wednesday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_wednesday1" value="<?php echo e(old('price_wednesday1')); ?>">
                                 </div>
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_thursday1" value="{{ old('price_thursday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_thursday1" value="<?php echo e(old('price_thursday1')); ?>">
                                 </div>
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_friday1"  value="{{ old('price_friday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_friday1"  value="<?php echo e(old('price_friday1')); ?>">
                                 </div>
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_saturday1" value="{{ old('price_saturday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_saturday1" value="<?php echo e(old('price_saturday1')); ?>">
                                 </div>
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_sunday1"  value="{{ old('price_sunday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_sunday1"  value="<?php echo e(old('price_sunday1')); ?>">
                                 </div>
                                 <div class="col-md-1 ml-4">
-                                    <input id="name" type="text" class="form-control" name="price_holiday1" value="{{ old('price_holiday1') }}">
+                                    <input id="name" type="text" class="form-control" name="price_holiday1" value="<?php echo e(old('price_holiday1')); ?>">
                                 </div>
                             </div>
                         </div>
@@ -760,7 +763,8 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <div type="" class="btn btn-default" name='add-price'>
-                                    {{ __('+ 料金区分を追加する') }}
+                                    <?php echo e(__('+ 料金区分を追加する')); ?>
+
                                     <input type="hidden" name="add-price" value="1">
                                 </div>
                             </div>
@@ -769,7 +773,7 @@
                         <div class="form-group row mt-5">
                             <label class="col-md-2 col-form-label text-md-right"> 料金に含まれるもの</label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="included_item" rows="2" placeholder="※最大100文字まで">{{ old('included_item') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="included_item" rows="2" placeholder="※最大100文字まで"><?php echo e(old('included_item')); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row mt-5 bg-dark">
@@ -778,80 +782,80 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 目的地名</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="place_name" value="{{ old('place_name') }}" placeholder="※最大120文字まで">
+                                <input id="name" type="text" class="form-control" name="place_name" value="<?php echo e(old('place_name')); ?>" placeholder="※最大120文字まで">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> 郵便番号</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="place_postalcode" value="{{ old('place_postalcode') }}" onKeyUp="AjaxZip3.zip2addr(this,'','place_prefecture','place_address');" placeholder="自動で住所検索します（ハイフンありなし可）">
+                                <input type="text" class="form-control" name="place_postalcode" value="<?php echo e(old('place_postalcode')); ?>" onKeyUp="AjaxZip3.zip2addr(this,'','place_prefecture','place_address');" placeholder="自動で住所検索します（ハイフンありなし可）">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> 都道府県</label>
                             <div class="col-md-3">
                                 <select class="form-control" name="place_prefecture">
-                                    <option value="" @if(old('place_prefecure', '')=='') selected @endif>選択してください</option>
-                                    <option value="北海道" @if(old('place_prefecture')=='北海道') selected @endif>北海道</option>
-                                    <option value="青森県" @if(old('place_prefecture')=='青森県') selected @endif>青森県</option>
-                                    <option value="岩手県" @if(old('place_prefecture')=='岩手県') selected @endif>岩手県</option>
-                                    <option value="宮城県" @if(old('place_prefecture')=='宮城県') selected @endif>宮城県</option>
-                                    <option value="秋田県" @if(old('place_prefecture')=='秋田県') selected @endif>秋田県</option>
-                                    <option value="山形県" @if(old('place_prefecture')=='山形県') selected @endif>山形県</option>
-                                    <option value="福島県" @if(old('place_prefecture')=='福島県') selected @endif>福島県</option>
-                                    <option value="茨城県" @if(old('place_prefecture')=='茨城県') selected @endif>茨城県</option>
-                                    <option value="栃木県" @if(old('place_prefecture')=='栃木県') selected @endif>栃木県</option>
-                                    <option value="群馬県" @if(old('place_prefecture')=='群馬県') selected @endif>群馬県</option>
-                                    <option value="埼玉県" @if(old('place_prefecture')=='埼玉県') selected @endif>埼玉県</option>
-                                    <option value="千葉県" @if(old('place_prefecture')=='千葉県') selected @endif>千葉県</option>
-                                    <option value="東京都" @if(old('place_prefecture')=='東京都') selected @endif>東京都</option>
-                                    <option value="神奈川県" @if(old('place_prefecture')=='神奈川県') selected @endif>神奈川県</option>
-                                    <option value="新潟県" @if(old('place_prefecture')=='新潟県') selected @endif>新潟県</option>
-                                    <option value="富山県" @if(old('place_prefecture')=='富山県') selected @endif>富山県</option>
-                                    <option value="石川県" @if(old('place_prefecture')=='石川県') selected @endif>石川県</option>
-                                    <option value="福井県" @if(old('place_prefecture')=='福井県') selected @endif>福井県</option>
-                                    <option value="山梨県" @if(old('place_prefecture')=='山梨県') selected @endif>山梨県</option>
-                                    <option value="長野県" @if(old('place_prefecture')=='長野県') selected @endif>長野県</option>
-                                    <option value="岐阜県" @if(old('place_prefecture')=='岐阜県') selected @endif>岐阜県</option>
-                                    <option value="静岡県" @if(old('place_prefecture')=='静岡県') selected @endif>静岡県</option>
-                                    <option value="愛知県" @if(old('place_prefecture')=='愛知県') selected @endif>愛知県</option>
-                                    <option value="三重県" @if(old('place_prefecture')=='三重県') selected @endif>三重県</option>
-                                    <option value="滋賀県" @if(old('place_prefecture')=='滋賀県') selected @endif>滋賀県</option>
-                                    <option value="京都府" @if(old('place_prefecture')=='京都府') selected @endif>京都府</option>
-                                    <option value="大阪府" @if(old('place_prefecture')=='大阪府') selected @endif>大阪府</option>
-                                    <option value="兵庫県" @if(old('place_prefecture')=='兵庫県') selected @endif>兵庫県</option>
-                                    <option value="奈良県" @if(old('place_prefecture')=='奈良県') selected @endif>奈良県</option>
-                                    <option value="和歌山県" @if(old('place_prefecture')=='和歌山県') selected @endif>和歌山県</option>
-                                    <option value="鳥取県" @if(old('place_prefecture')=='鳥取県') selected @endif>鳥取県</option>
-                                    <option value="島根県" @if(old('place_prefecture')=='島根県') selected @endif>島根県</option>
-                                    <option value="岡山県" @if(old('place_prefecture')=='岡山県') selected @endif>岡山県</option>
-                                    <option value="広島県" @if(old('place_prefecture')=='広島県') selected @endif>広島県</option>
-                                    <option value="山口県" @if(old('place_prefecture')=='山口県') selected @endif>山口県</option>
-                                    <option value="徳島県" @if(old('place_prefecture')=='徳島県') selected @endif>徳島県</option>
-                                    <option value="香川県" @if(old('place_prefecture')=='香川県') selected @endif>香川県</option>
-                                    <option value="愛媛県" @if(old('place_prefecture')=='愛媛県') selected @endif>愛媛県</option>
-                                    <option value="高知県" @if(old('place_prefecture')=='高知県') selected @endif>高知県</option>
-                                    <option value="福岡県" @if(old('place_prefecture')=='福岡県') selected @endif>福岡県</option>
-                                    <option value="佐賀県" @if(old('place_prefecture')=='佐賀県') selected @endif>佐賀県</option>
-                                    <option value="長崎県" @if(old('place_prefecture')=='長崎県') selected @endif>長崎県</option>
-                                    <option value="熊本県" @if(old('place_prefecture')=='熊本県') selected @endif>熊本県</option>
-                                    <option value="大分県" @if(old('place_prefecture')=='大分県') selected @endif>大分県</option>
-                                    <option value="宮崎県" @if(old('place_prefecture')=='宮崎県') selected @endif>宮崎県</option>
-                                    <option value="鹿児島県" @if(old('place_prefecture')=='鹿児島県') selected @endif>鹿児島県</option>
-                                    <option value="沖縄県" @if(old('place_prefecture')=='沖縄県') selected @endif>沖縄県</option>
+                                    <option value="" <?php if(old('place_prefecure', '')==''): ?> selected <?php endif; ?>>選択してください</option>
+                                    <option value="北海道" <?php if(old('place_prefecture')=='北海道'): ?> selected <?php endif; ?>>北海道</option>
+                                    <option value="青森県" <?php if(old('place_prefecture')=='青森県'): ?> selected <?php endif; ?>>青森県</option>
+                                    <option value="岩手県" <?php if(old('place_prefecture')=='岩手県'): ?> selected <?php endif; ?>>岩手県</option>
+                                    <option value="宮城県" <?php if(old('place_prefecture')=='宮城県'): ?> selected <?php endif; ?>>宮城県</option>
+                                    <option value="秋田県" <?php if(old('place_prefecture')=='秋田県'): ?> selected <?php endif; ?>>秋田県</option>
+                                    <option value="山形県" <?php if(old('place_prefecture')=='山形県'): ?> selected <?php endif; ?>>山形県</option>
+                                    <option value="福島県" <?php if(old('place_prefecture')=='福島県'): ?> selected <?php endif; ?>>福島県</option>
+                                    <option value="茨城県" <?php if(old('place_prefecture')=='茨城県'): ?> selected <?php endif; ?>>茨城県</option>
+                                    <option value="栃木県" <?php if(old('place_prefecture')=='栃木県'): ?> selected <?php endif; ?>>栃木県</option>
+                                    <option value="群馬県" <?php if(old('place_prefecture')=='群馬県'): ?> selected <?php endif; ?>>群馬県</option>
+                                    <option value="埼玉県" <?php if(old('place_prefecture')=='埼玉県'): ?> selected <?php endif; ?>>埼玉県</option>
+                                    <option value="千葉県" <?php if(old('place_prefecture')=='千葉県'): ?> selected <?php endif; ?>>千葉県</option>
+                                    <option value="東京都" <?php if(old('place_prefecture')=='東京都'): ?> selected <?php endif; ?>>東京都</option>
+                                    <option value="神奈川県" <?php if(old('place_prefecture')=='神奈川県'): ?> selected <?php endif; ?>>神奈川県</option>
+                                    <option value="新潟県" <?php if(old('place_prefecture')=='新潟県'): ?> selected <?php endif; ?>>新潟県</option>
+                                    <option value="富山県" <?php if(old('place_prefecture')=='富山県'): ?> selected <?php endif; ?>>富山県</option>
+                                    <option value="石川県" <?php if(old('place_prefecture')=='石川県'): ?> selected <?php endif; ?>>石川県</option>
+                                    <option value="福井県" <?php if(old('place_prefecture')=='福井県'): ?> selected <?php endif; ?>>福井県</option>
+                                    <option value="山梨県" <?php if(old('place_prefecture')=='山梨県'): ?> selected <?php endif; ?>>山梨県</option>
+                                    <option value="長野県" <?php if(old('place_prefecture')=='長野県'): ?> selected <?php endif; ?>>長野県</option>
+                                    <option value="岐阜県" <?php if(old('place_prefecture')=='岐阜県'): ?> selected <?php endif; ?>>岐阜県</option>
+                                    <option value="静岡県" <?php if(old('place_prefecture')=='静岡県'): ?> selected <?php endif; ?>>静岡県</option>
+                                    <option value="愛知県" <?php if(old('place_prefecture')=='愛知県'): ?> selected <?php endif; ?>>愛知県</option>
+                                    <option value="三重県" <?php if(old('place_prefecture')=='三重県'): ?> selected <?php endif; ?>>三重県</option>
+                                    <option value="滋賀県" <?php if(old('place_prefecture')=='滋賀県'): ?> selected <?php endif; ?>>滋賀県</option>
+                                    <option value="京都府" <?php if(old('place_prefecture')=='京都府'): ?> selected <?php endif; ?>>京都府</option>
+                                    <option value="大阪府" <?php if(old('place_prefecture')=='大阪府'): ?> selected <?php endif; ?>>大阪府</option>
+                                    <option value="兵庫県" <?php if(old('place_prefecture')=='兵庫県'): ?> selected <?php endif; ?>>兵庫県</option>
+                                    <option value="奈良県" <?php if(old('place_prefecture')=='奈良県'): ?> selected <?php endif; ?>>奈良県</option>
+                                    <option value="和歌山県" <?php if(old('place_prefecture')=='和歌山県'): ?> selected <?php endif; ?>>和歌山県</option>
+                                    <option value="鳥取県" <?php if(old('place_prefecture')=='鳥取県'): ?> selected <?php endif; ?>>鳥取県</option>
+                                    <option value="島根県" <?php if(old('place_prefecture')=='島根県'): ?> selected <?php endif; ?>>島根県</option>
+                                    <option value="岡山県" <?php if(old('place_prefecture')=='岡山県'): ?> selected <?php endif; ?>>岡山県</option>
+                                    <option value="広島県" <?php if(old('place_prefecture')=='広島県'): ?> selected <?php endif; ?>>広島県</option>
+                                    <option value="山口県" <?php if(old('place_prefecture')=='山口県'): ?> selected <?php endif; ?>>山口県</option>
+                                    <option value="徳島県" <?php if(old('place_prefecture')=='徳島県'): ?> selected <?php endif; ?>>徳島県</option>
+                                    <option value="香川県" <?php if(old('place_prefecture')=='香川県'): ?> selected <?php endif; ?>>香川県</option>
+                                    <option value="愛媛県" <?php if(old('place_prefecture')=='愛媛県'): ?> selected <?php endif; ?>>愛媛県</option>
+                                    <option value="高知県" <?php if(old('place_prefecture')=='高知県'): ?> selected <?php endif; ?>>高知県</option>
+                                    <option value="福岡県" <?php if(old('place_prefecture')=='福岡県'): ?> selected <?php endif; ?>>福岡県</option>
+                                    <option value="佐賀県" <?php if(old('place_prefecture')=='佐賀県'): ?> selected <?php endif; ?>>佐賀県</option>
+                                    <option value="長崎県" <?php if(old('place_prefecture')=='長崎県'): ?> selected <?php endif; ?>>長崎県</option>
+                                    <option value="熊本県" <?php if(old('place_prefecture')=='熊本県'): ?> selected <?php endif; ?>>熊本県</option>
+                                    <option value="大分県" <?php if(old('place_prefecture')=='大分県'): ?> selected <?php endif; ?>>大分県</option>
+                                    <option value="宮崎県" <?php if(old('place_prefecture')=='宮崎県'): ?> selected <?php endif; ?>>宮崎県</option>
+                                    <option value="鹿児島県" <?php if(old('place_prefecture')=='鹿児島県'): ?> selected <?php endif; ?>>鹿児島県</option>
+                                    <option value="沖縄県" <?php if(old('place_prefecture')=='沖縄県'): ?> selected <?php endif; ?>>沖縄県</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">住所</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="place_address" value="{{ old('place_address') }}" placeholder="※最大100文字まで">
+                                <input id="name" type="text" class="form-control" name="place_address" value="<?php echo e(old('place_address')); ?>" placeholder="※最大100文字まで">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">アクセス方法</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="place_access" value="{{ old('place_access') }}" placeholder="※最大120文字まで">
+                                <input id="name" type="text" class="form-control" name="place_access" value="<?php echo e(old('place_access')); ?>" placeholder="※最大120文字まで">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -864,13 +868,15 @@
                                     <div class="form-group row mt-4">
                                         <div class="col-md-4 offset-md-5">
                                             <div type="" class="btn btn-default" name='map-from-address'>
-                                                {{ __('入力した住所から地図を表示') }}
+                                                <?php echo e(__('入力した住所から地図を表示')); ?>
+
                                                 <input type="hidden" name="" value="1">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div type="" class="btn btn-primary" name='map-from-location'>
-                                                {{ __('確定する') }}
+                                                <?php echo e(__('確定する')); ?>
+
                                                 <input type="hidden" name="tmp_lat1">
                                                 <input type="hidden" name="tmp_lng1">
                                             </div>
@@ -885,25 +891,25 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="col-md-10 col-form-label text-md-left">緯度：<span class="lat1">{{ old('place_latitude') }}</span></label>
-                                <input type="hidden" name="place_latitude" value="{{ old('place_latitude') }}">
+                                <label class="col-md-10 col-form-label text-md-left">緯度：<span class="lat1"><?php echo e(old('place_latitude')); ?></span></label>
+                                <input type="hidden" name="place_latitude" value="<?php echo e(old('place_latitude')); ?>">
                             </div>
                             <div class="col-md-3">
-                                <label class="col-md-10 col-form-label text-md-left">経度：<span class="lng1">{{ old('place_longitude') }}</span></label>
-                                <input type="hidden" name="place_longitude" value="{{ old('place_longitude') }}">
+                                <label class="col-md-10 col-form-label text-md-left">経度：<span class="lng1"><?php echo e(old('place_longitude')); ?></span></label>
+                                <input type="hidden" name="place_longitude" value="<?php echo e(old('place_longitude')); ?>">
                             </div>
                         </div>
                   
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">集合場所</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="meeting_point_flag" value="0" @if(old('meeting_point_flag', '0')=='0') checked @endif> <span> 目的地と同じ場所を設定する</span>
+                              <input class="ml-5" type="radio" name="meeting_point_flag" value="0" <?php if(old('meeting_point_flag', '0')=='0'): ?> checked <?php endif; ?>> <span> 目的地と同じ場所を設定する</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="meeting_point_flag" value="1" @if(old('meeting_point_flag')=='1') checked @endif> <span> 個別設定する</span>
+                              <input class="ml-5" type="radio" name="meeting_point_flag" value="1" <?php if(old('meeting_point_flag')=='1'): ?> checked <?php endif; ?>> <span> 個別設定する</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="meeting_point_flag" value="2" @if(old('meeting_point_flag')=='2') checked @endif> <span> 設定しない</span>
+                              <input class="ml-5" type="radio" name="meeting_point_flag" value="2" <?php if(old('meeting_point_flag')=='2'): ?> checked <?php endif; ?>> <span> 設定しない</span>
                             </label>
                         </div> -->
 
@@ -916,80 +922,80 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 集合場所名</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="meeting_point_name" value="{{ old('meeting_point_name') }}" placeholder="※最大120文字まで">
+                                <input id="name" type="text" class="form-control" name="meeting_point_name" value="<?php echo e(old('meeting_point_name')); ?>" placeholder="※最大120文字まで">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> 郵便番号</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="meeting_point_postalcode" value="{{ old('meeting_point_postalcode') }}" onKeyUp="AjaxZip3.zip2addr(this,'','meeting_point_prefecture','meeting_point_address');" placeholder="自動で住所検索します（ハイフンありなし可）">
+                                <input type="text" class="form-control" name="meeting_point_postalcode" value="<?php echo e(old('meeting_point_postalcode')); ?>" onKeyUp="AjaxZip3.zip2addr(this,'','meeting_point_prefecture','meeting_point_address');" placeholder="自動で住所検索します（ハイフンありなし可）">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> 都道府県</label>
                             <div class="col-md-3">
                                 <select class="form-control" name="meeting_point_prefecture">
-                                    <option value="" @if(old('meeting_point_prefecure', '')=='') selected @endif>選択してください</option>
-                                    <option value="北海道" @if(old('meeting_point_prefecture')=='北海道') selected @endif>北海道</option>
-                                    <option value="青森県" @if(old('meeting_point_prefecture')=='青森県') selected @endif>青森県</option>
-                                    <option value="岩手県" @if(old('meeting_point_prefecture')=='岩手県') selected @endif>岩手県</option>
-                                    <option value="宮城県" @if(old('meeting_point_prefecture')=='宮城県') selected @endif>宮城県</option>
-                                    <option value="秋田県" @if(old('meeting_point_prefecture')=='秋田県') selected @endif>秋田県</option>
-                                    <option value="山形県" @if(old('meeting_point_prefecture')=='山形県') selected @endif>山形県</option>
-                                    <option value="福島県" @if(old('meeting_point_prefecture')=='福島県') selected @endif>福島県</option>
-                                    <option value="茨城県" @if(old('meeting_point_prefecture')=='茨城県') selected @endif>茨城県</option>
-                                    <option value="栃木県" @if(old('meeting_point_prefecture')=='栃木県') selected @endif>栃木県</option>
-                                    <option value="群馬県" @if(old('meeting_point_prefecture')=='群馬県') selected @endif>群馬県</option>
-                                    <option value="埼玉県" @if(old('meeting_point_prefecture')=='埼玉県') selected @endif>埼玉県</option>
-                                    <option value="千葉県" @if(old('meeting_point_prefecture')=='千葉県') selected @endif>千葉県</option>
-                                    <option value="東京都" @if(old('meeting_point_prefecture')=='東京都') selected @endif>東京都</option>
-                                    <option value="神奈川県" @if(old('meeting_point_prefecture')=='神奈川県') selected @endif>神奈川県</option>
-                                    <option value="新潟県" @if(old('meeting_point_prefecture')=='新潟県') selected @endif>新潟県</option>
-                                    <option value="富山県" @if(old('meeting_point_prefecture')=='富山県') selected @endif>富山県</option>
-                                    <option value="石川県" @if(old('meeting_point_prefecture')=='石川県') selected @endif>石川県</option>
-                                    <option value="福井県" @if(old('meeting_point_prefecture')=='福井県') selected @endif>福井県</option>
-                                    <option value="山梨県" @if(old('meeting_point_prefecture')=='山梨県') selected @endif>山梨県</option>
-                                    <option value="長野県" @if(old('meeting_point_prefecture')=='長野県') selected @endif>長野県</option>
-                                    <option value="岐阜県" @if(old('meeting_point_prefecture')=='岐阜県') selected @endif>岐阜県</option>
-                                    <option value="静岡県" @if(old('meeting_point_prefecture')=='静岡県') selected @endif>静岡県</option>
-                                    <option value="愛知県" @if(old('meeting_point_prefecture')=='愛知県') selected @endif>愛知県</option>
-                                    <option value="三重県" @if(old('meeting_point_prefecture')=='三重県') selected @endif>三重県</option>
-                                    <option value="滋賀県" @if(old('meeting_point_prefecture')=='滋賀県') selected @endif>滋賀県</option>
-                                    <option value="京都府" @if(old('meeting_point_prefecture')=='京都府') selected @endif>京都府</option>
-                                    <option value="大阪府" @if(old('meeting_point_prefecture')=='大阪府') selected @endif>大阪府</option>
-                                    <option value="兵庫県" @if(old('meeting_point_prefecture')=='兵庫県') selected @endif>兵庫県</option>
-                                    <option value="奈良県" @if(old('meeting_point_prefecture')=='奈良県') selected @endif>奈良県</option>
-                                    <option value="和歌山県" @if(old('meeting_point_prefecture')=='和歌山県') selected @endif>和歌山県</option>
-                                    <option value="鳥取県" @if(old('meeting_point_prefecture')=='鳥取県') selected @endif>鳥取県</option>
-                                    <option value="島根県" @if(old('meeting_point_prefecture')=='島根県') selected @endif>島根県</option>
-                                    <option value="岡山県" @if(old('meeting_point_prefecture')=='岡山県') selected @endif>岡山県</option>
-                                    <option value="広島県" @if(old('meeting_point_prefecture')=='広島県') selected @endif>広島県</option>
-                                    <option value="山口県" @if(old('meeting_point_prefecture')=='山口県') selected @endif>山口県</option>
-                                    <option value="徳島県" @if(old('meeting_point_prefecture')=='徳島県') selected @endif>徳島県</option>
-                                    <option value="香川県" @if(old('meeting_point_prefecture')=='香川県') selected @endif>香川県</option>
-                                    <option value="愛媛県" @if(old('meeting_point_prefecture')=='愛媛県') selected @endif>愛媛県</option>
-                                    <option value="高知県" @if(old('meeting_point_prefecture')=='高知県') selected @endif>高知県</option>
-                                    <option value="福岡県" @if(old('meeting_point_prefecture')=='福岡県') selected @endif>福岡県</option>
-                                    <option value="佐賀県" @if(old('meeting_point_prefecture')=='佐賀県') selected @endif>佐賀県</option>
-                                    <option value="長崎県" @if(old('meeting_point_prefecture')=='長崎県') selected @endif>長崎県</option>
-                                    <option value="熊本県" @if(old('meeting_point_prefecture')=='熊本県') selected @endif>熊本県</option>
-                                    <option value="大分県" @if(old('meeting_point_prefecture')=='大分県') selected @endif>大分県</option>
-                                    <option value="宮崎県" @if(old('meeting_point_prefecture')=='宮崎県') selected @endif>宮崎県</option>
-                                    <option value="鹿児島県" @if(old('meeting_point_prefecture')=='鹿児島県') selected @endif>鹿児島県</option>
-                                    <option value="沖縄県" @if(old('meeting_point_prefecture')=='沖縄県') selected @endif>沖縄県</option>
+                                    <option value="" <?php if(old('meeting_point_prefecure', '')==''): ?> selected <?php endif; ?>>選択してください</option>
+                                    <option value="北海道" <?php if(old('meeting_point_prefecture')=='北海道'): ?> selected <?php endif; ?>>北海道</option>
+                                    <option value="青森県" <?php if(old('meeting_point_prefecture')=='青森県'): ?> selected <?php endif; ?>>青森県</option>
+                                    <option value="岩手県" <?php if(old('meeting_point_prefecture')=='岩手県'): ?> selected <?php endif; ?>>岩手県</option>
+                                    <option value="宮城県" <?php if(old('meeting_point_prefecture')=='宮城県'): ?> selected <?php endif; ?>>宮城県</option>
+                                    <option value="秋田県" <?php if(old('meeting_point_prefecture')=='秋田県'): ?> selected <?php endif; ?>>秋田県</option>
+                                    <option value="山形県" <?php if(old('meeting_point_prefecture')=='山形県'): ?> selected <?php endif; ?>>山形県</option>
+                                    <option value="福島県" <?php if(old('meeting_point_prefecture')=='福島県'): ?> selected <?php endif; ?>>福島県</option>
+                                    <option value="茨城県" <?php if(old('meeting_point_prefecture')=='茨城県'): ?> selected <?php endif; ?>>茨城県</option>
+                                    <option value="栃木県" <?php if(old('meeting_point_prefecture')=='栃木県'): ?> selected <?php endif; ?>>栃木県</option>
+                                    <option value="群馬県" <?php if(old('meeting_point_prefecture')=='群馬県'): ?> selected <?php endif; ?>>群馬県</option>
+                                    <option value="埼玉県" <?php if(old('meeting_point_prefecture')=='埼玉県'): ?> selected <?php endif; ?>>埼玉県</option>
+                                    <option value="千葉県" <?php if(old('meeting_point_prefecture')=='千葉県'): ?> selected <?php endif; ?>>千葉県</option>
+                                    <option value="東京都" <?php if(old('meeting_point_prefecture')=='東京都'): ?> selected <?php endif; ?>>東京都</option>
+                                    <option value="神奈川県" <?php if(old('meeting_point_prefecture')=='神奈川県'): ?> selected <?php endif; ?>>神奈川県</option>
+                                    <option value="新潟県" <?php if(old('meeting_point_prefecture')=='新潟県'): ?> selected <?php endif; ?>>新潟県</option>
+                                    <option value="富山県" <?php if(old('meeting_point_prefecture')=='富山県'): ?> selected <?php endif; ?>>富山県</option>
+                                    <option value="石川県" <?php if(old('meeting_point_prefecture')=='石川県'): ?> selected <?php endif; ?>>石川県</option>
+                                    <option value="福井県" <?php if(old('meeting_point_prefecture')=='福井県'): ?> selected <?php endif; ?>>福井県</option>
+                                    <option value="山梨県" <?php if(old('meeting_point_prefecture')=='山梨県'): ?> selected <?php endif; ?>>山梨県</option>
+                                    <option value="長野県" <?php if(old('meeting_point_prefecture')=='長野県'): ?> selected <?php endif; ?>>長野県</option>
+                                    <option value="岐阜県" <?php if(old('meeting_point_prefecture')=='岐阜県'): ?> selected <?php endif; ?>>岐阜県</option>
+                                    <option value="静岡県" <?php if(old('meeting_point_prefecture')=='静岡県'): ?> selected <?php endif; ?>>静岡県</option>
+                                    <option value="愛知県" <?php if(old('meeting_point_prefecture')=='愛知県'): ?> selected <?php endif; ?>>愛知県</option>
+                                    <option value="三重県" <?php if(old('meeting_point_prefecture')=='三重県'): ?> selected <?php endif; ?>>三重県</option>
+                                    <option value="滋賀県" <?php if(old('meeting_point_prefecture')=='滋賀県'): ?> selected <?php endif; ?>>滋賀県</option>
+                                    <option value="京都府" <?php if(old('meeting_point_prefecture')=='京都府'): ?> selected <?php endif; ?>>京都府</option>
+                                    <option value="大阪府" <?php if(old('meeting_point_prefecture')=='大阪府'): ?> selected <?php endif; ?>>大阪府</option>
+                                    <option value="兵庫県" <?php if(old('meeting_point_prefecture')=='兵庫県'): ?> selected <?php endif; ?>>兵庫県</option>
+                                    <option value="奈良県" <?php if(old('meeting_point_prefecture')=='奈良県'): ?> selected <?php endif; ?>>奈良県</option>
+                                    <option value="和歌山県" <?php if(old('meeting_point_prefecture')=='和歌山県'): ?> selected <?php endif; ?>>和歌山県</option>
+                                    <option value="鳥取県" <?php if(old('meeting_point_prefecture')=='鳥取県'): ?> selected <?php endif; ?>>鳥取県</option>
+                                    <option value="島根県" <?php if(old('meeting_point_prefecture')=='島根県'): ?> selected <?php endif; ?>>島根県</option>
+                                    <option value="岡山県" <?php if(old('meeting_point_prefecture')=='岡山県'): ?> selected <?php endif; ?>>岡山県</option>
+                                    <option value="広島県" <?php if(old('meeting_point_prefecture')=='広島県'): ?> selected <?php endif; ?>>広島県</option>
+                                    <option value="山口県" <?php if(old('meeting_point_prefecture')=='山口県'): ?> selected <?php endif; ?>>山口県</option>
+                                    <option value="徳島県" <?php if(old('meeting_point_prefecture')=='徳島県'): ?> selected <?php endif; ?>>徳島県</option>
+                                    <option value="香川県" <?php if(old('meeting_point_prefecture')=='香川県'): ?> selected <?php endif; ?>>香川県</option>
+                                    <option value="愛媛県" <?php if(old('meeting_point_prefecture')=='愛媛県'): ?> selected <?php endif; ?>>愛媛県</option>
+                                    <option value="高知県" <?php if(old('meeting_point_prefecture')=='高知県'): ?> selected <?php endif; ?>>高知県</option>
+                                    <option value="福岡県" <?php if(old('meeting_point_prefecture')=='福岡県'): ?> selected <?php endif; ?>>福岡県</option>
+                                    <option value="佐賀県" <?php if(old('meeting_point_prefecture')=='佐賀県'): ?> selected <?php endif; ?>>佐賀県</option>
+                                    <option value="長崎県" <?php if(old('meeting_point_prefecture')=='長崎県'): ?> selected <?php endif; ?>>長崎県</option>
+                                    <option value="熊本県" <?php if(old('meeting_point_prefecture')=='熊本県'): ?> selected <?php endif; ?>>熊本県</option>
+                                    <option value="大分県" <?php if(old('meeting_point_prefecture')=='大分県'): ?> selected <?php endif; ?>>大分県</option>
+                                    <option value="宮崎県" <?php if(old('meeting_point_prefecture')=='宮崎県'): ?> selected <?php endif; ?>>宮崎県</option>
+                                    <option value="鹿児島県" <?php if(old('meeting_point_prefecture')=='鹿児島県'): ?> selected <?php endif; ?>>鹿児島県</option>
+                                    <option value="沖縄県" <?php if(old('meeting_point_prefecture')=='沖縄県'): ?> selected <?php endif; ?>>沖縄県</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">住所</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="meeting_point_address" value="{{ old('meeting_point_address') }}" placeholder="※最大100文字まで">
+                                <input id="name" type="text" class="form-control" name="meeting_point_address" value="<?php echo e(old('meeting_point_address')); ?>" placeholder="※最大100文字まで">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">アクセス方法</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="meeting_point_access" value="{{ old('meeting_point_access') }}" placeholder="※最大120文字まで">
+                                <input id="name" type="text" class="form-control" name="meeting_point_access" value="<?php echo e(old('meeting_point_access')); ?>" placeholder="※最大120文字まで">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -1001,13 +1007,15 @@
                                     <div class="form-group row mt-4">
                                         <div class="col-md-4 offset-md-5">
                                             <div type="" class="btn btn-default" name='map-from-address2'>
-                                                {{ __('入力した住所から地図を表示') }}
+                                                <?php echo e(__('入力した住所から地図を表示')); ?>
+
                                                 <input type="hidden" name="" value="1">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div type="" class="btn btn-primary" name='map-from-location2'>
-                                                {{ __('確定する') }}
+                                                <?php echo e(__('確定する')); ?>
+
                                                 <input type="hidden" name="tmp_lat2">
                                                 <input type="hidden" name="tmp_lng2">
                                             </div>
@@ -1022,12 +1030,12 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="col-md-10 col-form-label text-md-left">緯度：<span class="lat2">{{ old('meeting_point_latitude') }}</span></label>
-                                <input type="hidden" name="meeting_point_latitude" value="{{ old('meeting_point_latitude') }}">
+                                <label class="col-md-10 col-form-label text-md-left">緯度：<span class="lat2"><?php echo e(old('meeting_point_latitude')); ?></span></label>
+                                <input type="hidden" name="meeting_point_latitude" value="<?php echo e(old('meeting_point_latitude')); ?>">
                             </div>
                             <div class="col-md-3">
-                                <label class="col-md-10 col-form-label text-md-left">経度：<span class="lng2">{{ old('meeting_point_longitude') }}</span></label>
-                                <input type="hidden" name="meeting_point_longitude" value="{{ old('meeting_point_longitude') }}">
+                                <label class="col-md-10 col-form-label text-md-left">経度：<span class="lng2"><?php echo e(old('meeting_point_longitude')); ?></span></label>
+                                <input type="hidden" name="meeting_point_longitude" value="<?php echo e(old('meeting_point_longitude')); ?>">
                             </div>
                         </div>
                         </div>
@@ -1037,40 +1045,40 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 予約者への質問</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="question_flag" value="0" @if(old('question_flag', '0')=='0') checked @endif> <span> 設定しない</span>
+                              <input class="ml-5" type="radio" name="question_flag" value="0" <?php if(old('question_flag', '0')=='0'): ?> checked <?php endif; ?>> <span> 設定しない</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="question_flag" value="1" @if(old('question_flag')=='1') checked @endif> <span> 設定する</span>
+                              <input class="ml-5" type="radio" name="question_flag" value="1" <?php if(old('question_flag')=='1'): ?> checked <?php endif; ?>> <span> 設定する</span>
                             </label>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="question_content" rows="10" placeholder="※最大1200文字まで">{{ old('question_content') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="question_content" rows="10" placeholder="※最大1200文字まで"><?php echo e(old('question_content')); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 予約者からの回答</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="answer_flag">
-                                  <option value="0" @if(old('answer_flag', '0')=='0') selected @endif>任意</option>
-                                  <option value="1" @if(old('answer_flag')=='1') selected @endif>必須</option>
+                                  <option value="0" <?php if(old('answer_flag', '0')=='0'): ?> selected <?php endif; ?>>任意</option>
+                                  <option value="1" <?php if(old('answer_flag')=='1'): ?> selected <?php endif; ?>>必須</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 注意事項・その他</label>
                             <label class="radio-inline">
-                              <input class="ml-5" type="radio" name="caution_flag" value="0" @if(old('caution_flag', '0')=='0') checked @endif> <span> 設定しない</span>
+                              <input class="ml-5" type="radio" name="caution_flag" value="0" <?php if(old('caution_flag', '0')=='0'): ?> checked <?php endif; ?>> <span> 設定しない</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="radio" name="caution_flag" value="1" @if(old('caution_flag')=='1') checked @endif> <span> 設定する</span>
+                              <input class="ml-5" type="radio" name="caution_flag" value="1" <?php if(old('caution_flag')=='1'): ?> checked <?php endif; ?>> <span> 設定する</span>
                             </label>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="caution_content" rows="10" placeholder="※最大5000文字まで">{{ old('caution_content') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="caution_content" rows="10" placeholder="※最大5000文字まで"><?php echo e(old('caution_content')); ?></textarea>
                             </div>
                         </div>
 <!--                         <div class="form-group row mt-5 bg-dark">
@@ -1079,13 +1087,13 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">持ち物</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control" name="item" rows="4" placeholder="※最大1000文字まで">{{ old('item') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="item" rows="4" placeholder="※最大1000文字まで"><?php echo e(old('item')); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">服装</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control" name="wear" rows="4" placeholder="※最大1000文字まで">{{ old('wear') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control" name="wear" rows="4" placeholder="※最大1000文字まで"><?php echo e(old('wear')); ?></textarea>
                             </div>
                         </div> -->
                                                 <div class="form-group row mt-5 bg-dark">
@@ -1094,97 +1102,97 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> キャンセル規定</label>
                             <div class="col-md-8">
-                                <textarea id="cancel" type="textarea" class="form-control" name="cancel" rows="4" placeholder="※最大1000文字まで">{{ old('cancel') }}</textarea>
+                                <textarea id="cancel" type="textarea" class="form-control" name="cancel" rows="4" placeholder="※最大1000文字まで"><?php echo e(old('cancel')); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真設定</span></label>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイン画像') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> <?php echo e(__('メイン画像')); ?></label>
                             <div id="div-img1" class="col-md-4">
-                              <input type="file" name="file_path1" value="{{ old('file_path1') }}">
+                              <input type="file" name="file_path1" value="<?php echo e(old('file_path1')); ?>">
                             </div>
                             <div id="div-button1" class="col-md-4 file_path1">
                               <input type='button' id="clearbtn1" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(1)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像①') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像①')); ?></label>
                             <div id="div-img2" class="col-md-4">
-                              <input type="file" name="file_path2" value="{{ old('file_path2') }}">
+                              <input type="file" name="file_path2" value="<?php echo e(old('file_path2')); ?>">
                             </div>
                             <div id="div-button2" class="col-md-4 file_path2">
                               <input type='button' id="clearbtn2" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(2)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像②') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像②')); ?></label>
                             <div id="div-img3" class="col-md-4">
-                              <input type="file" name="file_path3" value="{{ old('file_path3') }}">
+                              <input type="file" name="file_path3" value="<?php echo e(old('file_path3')); ?>">
                             </div>
                             <div id="div-button3" class="col-md-4 file_path3">
                               <input type='button' id="clearbtn3" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(3)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像③') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像③')); ?></label>
                             <div id="div-img4" class="col-md-4">
-                              <input type="file" name="file_path4" value="{{ old('file_path4') }}">
+                              <input type="file" name="file_path4" value="<?php echo e(old('file_path4')); ?>">
                             </div>
                             <div id="div-button4" class="col-md-4 file_path4">
                               <input type='button' id="clearbtn4" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(4)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像④') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像④')); ?></label>
                             <div id="div-img5" class="col-md-4">
-                              <input type="file" name="file_path5" value="{{ old('file_path5') }}">
+                              <input type="file" name="file_path5" value="<?php echo e(old('file_path5')); ?>">
                             </div>
                             <div id="div-button5" class="col-md-4 file_path5">
                               <input type='button' id="clearbtn5" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(5)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像⑤') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像⑤')); ?></label>
                             <div id="div-img6" class="col-md-4">
-                              <input type="file" name="file_path6" value="{{ old('file_path6') }}">
+                              <input type="file" name="file_path6" value="<?php echo e(old('file_path6')); ?>">
                             </div>
                             <div id="div-button6" class="col-md-4 file_path6">
                               <input type='button' id="clearbtn6" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(6)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像⑥') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像⑥')); ?></label>
                             <div id="div-img7" class="col-md-4">
-                              <input type="file" name="file_path7" value="{{ old('file_path7') }}">
+                              <input type="file" name="file_path7" value="<?php echo e(old('file_path7')); ?>">
                             </div>
                             <div id="div-button7" class="col-md-4 file_path7">
                               <input type='button' id="clearbtn7" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(7)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像⑦') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像⑦')); ?></label>
                             <div id="div-img8" class="col-md-4">
-                              <input type="file" name="file_path8" value="{{ old('file_path8') }}">
+                              <input type="file" name="file_path8" value="<?php echo e(old('file_path8')); ?>">
                             </div>
                             <div id="div-button8" class="col-md-4 file_path8">
                               <input type='button' id="clearbtn8" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(8)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像⑧') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像⑧')); ?></label>
                             <div id="div-img9" class="col-md-4">
-                              <input type="file" name="file_path9" value="{{ old('file_path9') }}">
+                              <input type="file" name="file_path9" value="<?php echo e(old('file_path9')); ?>">
                             </div>
                             <div id="div-button9" class="col-md-4 file_path9">
                               <input type='button' id="clearbtn9" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(9)'/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('サブ画像⑨') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('サブ画像⑨')); ?></label>
                             <div id="div-img10" class="col-md-4">
-                              <input type="file" name="file_path10" value="{{ old('file_path10') }}">
+                              <input type="file" name="file_path10" value="<?php echo e(old('file_path10')); ?>">
                             </div>
                             <div id="div-button10" class="col-md-4 file_path10">
                               <input type='button' id="clearbtn10" class="btn btn-light btn-sm" value='画像選択を解除' onClick='clearFile(10)'/>
@@ -1195,14 +1203,15 @@
                             <div class="col-md-6 offset-md-4">
 <!--
                                 <button type="submit" class="btn btn-primary" name='action' value='edit'>
-                                    {{ __('追加する') }}
+                                    <?php echo e(__('追加する')); ?>
+
                                 </button>
 -->
-                                <input type="submit" class="btn btn-primary submit" data-action="{{config('app.url')}}client/plans/store" value="追加する">
+                                <input type="submit" class="btn btn-primary submit" data-action="<?php echo e(config('app.url')); ?>client/plans/store" value="追加する">
 			
-				<input type="submit" class="btn btn-warning submit" data-action="{{config('app.url')}}client/plans/store-tmp" value="下書き保存">
+				<input type="submit" class="btn btn-warning submit" data-action="<?php echo e(config('app.url')); ?>client/plans/store-tmp" value="下書き保存">
 				
-                                <a href="{{config('app.url')}}client/plans" class="btn btn-secondary">戻る</a>
+                                <a href="<?php echo e(config('app.url')); ?>client/plans" class="btn btn-secondary">戻る</a>
                             </div>
                         </div>
                     </form>
@@ -1211,13 +1220,13 @@
         </div>
     </div>
 </div>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('css')
-<link type="text/css" rel="stylesheet" href="{{ asset('/css/colorbox.css')}}" >
-@stop
+<?php $__env->startSection('css'); ?>
+<link type="text/css" rel="stylesheet" href="<?php echo e(asset('/css/colorbox.css')); ?>" >
+<?php $__env->stopSection(); ?>
 
-@section('js')
+<?php $__env->startSection('js'); ?>
 <script>
 
 // イベント
@@ -1670,8 +1679,8 @@ $('div[name="add-price"]').click(function(e) {
     }
     $(this).children('input[name="add-price"]').val(val + 1);
 
-    $(".after-price-section-" + (val)).load('{{config('app.url')}}html/plan-price.php', function() {
-        var priceTypes = @json($price_types);
+    $(".after-price-section-" + (val)).load('<?php echo e(config('app.url')); ?>html/plan-price.php', function() {
+        var priceTypes = <?php echo json_encode($price_types, 15, 512) ?>;
         $.each(priceTypes,(i,val) => {
           $('select').append($('<option>').html(val.name).val(val.number));
         });
@@ -1815,7 +1824,7 @@ $('div[name="add-road"]').click(function(e) {
     }
     $(this).children('input[name="add-road"]').val(val + 1);
 
-    $(".after-road-section-" + (val)).load('{{config('app.url')}}html/plan-road.php', function() {
+    $(".after-road-section-" + (val)).load('<?php echo e(config('app.url')); ?>html/plan-road.php', function() {
 
         if ($('input[name="is_discount"]:checked').val() == 1) {
 	    $('.discount-road').show();   
@@ -2096,7 +2105,7 @@ function deleteFile(i) {
 function ajaxGenres(name) {
     $.ajax({
         type: "GET",
-        url: "{{config('app.url')}}client/genres/json/" + name,
+        url: "<?php echo e(config('app.url')); ?>client/genres/json/" + name,
         dataType : "json"
     })
     .done(function(data){
@@ -2117,10 +2126,10 @@ function ajaxGenres(name) {
 
 </script>
 <script src='https://maps.google.com/maps/api/js?key=AIzaSyCG9SfPt8adGSdlgWkq8jdbt64mYaPRkaM' type="text/javascript"></script>
-<script src="{{ asset('/js/jquery.colorbox-min.js')}}"></script>
-<script src="{{ asset('/js/map.js')}}"></script>
-<script src="{{ asset('/js/map2.js')}}"></script>
-<script src="{{ asset('/js/ajaxzip3.js')}}"></script>
+<script src="<?php echo e(asset('/js/jquery.colorbox-min.js')); ?>"></script>
+<script src="<?php echo e(asset('/js/map.js')); ?>"></script>
+<script src="<?php echo e(asset('/js/map2.js')); ?>"></script>
+<script src="<?php echo e(asset('/js/ajaxzip3.js')); ?>"></script>
 <!-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
@@ -2138,5 +2147,7 @@ $('#road_map').summernote({
 // CKEDITOR.replace( 'cancel' );
 </script>
 
-@stop
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('adminlte::page', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\Task\crowd\_08_laravel\zensys\resources\views/client/plans/create.blade.php ENDPATH**/ ?>

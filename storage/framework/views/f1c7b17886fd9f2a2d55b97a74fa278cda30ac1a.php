@@ -1,14 +1,14 @@
-@extends('adminlte::page')
 
-@section('title', 'プラン設定')
 
-@section('content_header')
-@stop
+<?php $__env->startSection('title', 'プラン設定'); ?>
 
-@section('content')
+<?php $__env->startSection('content_header'); ?>
+<?php $__env->stopSection(); ?>
 
-<script src="{{asset('js/gridjs.umd.js')}}"></script>
-<link rel="stylesheet" href="{{asset('css/mermaid.min.css') }}">
+<?php $__env->startSection('content'); ?>
+
+<script src="<?php echo e(asset('js/gridjs.umd.js')); ?>"></script>
+<link rel="stylesheet" href="<?php echo e(asset('css/mermaid.min.css')); ?>">
 
 
 <div class="row mb-2">
@@ -17,14 +17,14 @@
     <small>※表示順の数字をクリックすると順番を編集できます</small>
   </div>
   <div class="col-sm-6 mt-3">
-    <a href="{{config('app.url')}}client/plans/create" class="btn btn-primary float-right">新規追加</a>　
+    <a href="<?php echo e(config('app.url')); ?>client/plans/create" class="btn btn-primary float-right">新規追加</a>　
   </div>
 </div>
 <div id="result"></div>
 <div class="row mb-2">
   <div class="col-sm-12 mt-4">
-    <form method="post" name="form" action="{{config('app.url')}}client/plans/destroy-selected">
-      @csrf
+    <form method="post" name="form" action="<?php echo e(config('app.url')); ?>client/plans/destroy-selected">
+      <?php echo csrf_field(); ?>
       <input type="hidden" name="ids">
       <button type="submit" id="delete-selected" class="btn btn-secondary float-right" onClick="return confirmDeleteSelected()" >選択データを削除</button>　
     </form>
@@ -106,10 +106,10 @@ new gridjs.Grid ({
       sort: false,
       formatter: (_, row) => gridjs.html(`
         <div class="row ml-2">
-          <a href="{{config('app.url')}}client/plans/edit/${row.cells[1].data}" class="btn btn-warning btn-sm">編集</a>　
-          <a href="{{config('app.url')}}client/plans/replicate/${row.cells[1].data}" class="btn btn-info btn-sm">複製</a>　
-          <form method="post" name="form" action="{{config('app.url')}}client/plans/destroy/${row.cells[1].data}">
-            @csrf
+          <a href="<?php echo e(config('app.url')); ?>client/plans/edit/${row.cells[1].data}" class="btn btn-warning btn-sm">編集</a>　
+          <a href="<?php echo e(config('app.url')); ?>client/plans/replicate/${row.cells[1].data}" class="btn btn-info btn-sm">複製</a>　
+          <form method="post" name="form" action="<?php echo e(config('app.url')); ?>client/plans/destroy/${row.cells[1].data}">
+            <?php echo csrf_field(); ?>
             <button type="submit" class="btn btn-danger btn-sm" onClick="return confirmDelete()">削除</button>
           </form>
         </div>
@@ -117,21 +117,23 @@ new gridjs.Grid ({
     }
   ],
   server: {
-    url: '{{config('app.url')}}client/plans/json',
+    url: '<?php echo e(config('app.url')); ?>client/plans/json',
     then: data => data.map(data => 
       [ '', data.id, data.sort == null ? '' : data.sort, data.name.slice(0, 15), data.start_day, data.end_day, displayIsListed(data.is_listed)]
     )
   } 
 }).render(document.getElementById('result'));
 </script>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('css')
-<link rel="stylesheet" href="{{asset('css/style.css')}}">
-@stop
+<?php $__env->startSection('css'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@section('js')
-<script type="text/javascript" src="{{asset('js/default.js')}}"></script>
+<?php $__env->startSection('js'); ?>
+<script type="text/javascript" src="<?php echo e(asset('js/default.js')); ?>"></script>
 
-@stop
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('adminlte::page', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\Task\crowd\_08_laravel\zensys\resources\views/client/plans/index.blade.php ENDPATH**/ ?>

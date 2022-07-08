@@ -427,7 +427,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => 'js/gridjs.js',
+                    'location' => 'js/gridjs.umd.js',
                 ],
             ],
         ],
