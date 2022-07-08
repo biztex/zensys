@@ -48,6 +48,7 @@ class PlansController extends Controller
     public function store(Request $request)
     {
         ini_set('memory_limit', '256M');
+
         $rules = [
             'code' => ['nullable'],
             'kind' => ['required'],
@@ -118,14 +119,14 @@ class PlansController extends Controller
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
         ];
         /*
-        if ($request->payment_method == 0 || $request->payment_method == 3) {
-            $p_rules = [
-                'cache_flag' => ['required_without:card_flag'],
-                'card_flag' => ['required_without:cache_flag'],
-            ];
-            $rules = array_merge($rules, $p_rules);
-        }
-*/
+            if ($request->payment_method == 0 || $request->payment_method == 3) {
+                $p_rules = [
+                    'cache_flag' => ['required_without:card_flag'],
+                    'card_flag' => ['required_without:cache_flag'],
+                ];
+                $rules = array_merge($rules, $p_rules);
+            }
+        */
         if ($request->meeting_point_flag == 1) {
             $m_rules = [
                 'meeting_point_name' => ['required', 'string', 'max:120'],
@@ -1720,14 +1721,14 @@ class PlansController extends Controller
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
         ];
         /*
-        if ($request->payment_method == 0 || $request->payment_method == 3) {
-            $p_rules = [
-                'cache_flag' => ['required_without:card_flag'],
-                'card_flag' => ['required_without:cache_flag'],
-            ];
-            $rules = array_merge($rules, $p_rules);
-        }
-*/
+                if ($request->payment_method == 0 || $request->payment_method == 3) {
+                    $p_rules = [
+                        'cache_flag' => ['required_without:card_flag'],
+                        'card_flag' => ['required_without:cache_flag'],
+                    ];
+                    $rules = array_merge($rules, $p_rules);
+                }
+        */
         if ($request->meeting_point_flag == 1) {
             $m_rules = [
                 'meeting_point_name' => ['required', 'string', 'max:120'],
@@ -1921,15 +1922,30 @@ class PlansController extends Controller
                 'non_payment_method' => '支払方法は最低1つ必須です',
             ]);
         }
+        $pdf_path = null;
+        $path_flag = false;
+        if(gettype($request->file_path11) == "object"){
+            $pdf_path = $request->file('file_path11');
+             $path_flag = true;
+
+        }
+        else if(gettype($request->file_path11) == 'string'){
+            $pdf_path = $request->file_path11;
+            $path_flag = false; 
+        }
 
         // 画像トリミング処理（forのループ分）
         for ($i = 1; $i <= 11; $i++) {
-            if ($i == 11 && $request->file('file_path11')) {
-                $fileName11 = $request
-                    ->file('file_path11')
-                    ->getClientOriginalName();
+            if ($i == 11 && $pdf_path) {
+                if($path_flag == true){
+                    $fileName11 = $pdf_path->getClientOriginalName();
+                    $request->file('file_path11')->storeAs('uploads', $fileName11);
+                }
+                else{
+                    $fileName11 = $pdf_path ;
+                }
+               
 
-                $request->file('file_path11')->storeAs('uploads', $fileName11);
                 copy(
                     '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
                     '/var/www/html/zenryo/public/uploads/' . $fileName11
