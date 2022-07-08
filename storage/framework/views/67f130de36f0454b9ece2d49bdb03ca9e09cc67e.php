@@ -4,6 +4,8 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
 <p>
 プラン追加
 </p>
@@ -201,8 +203,14 @@
                          <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('旅行条件書')); ?></label>
                             <div class="col-md-6">
-                                <input id="notice" type="text" name="notice" value="<?php echo e(old('notice')); ?>">or
-                            <input type="file" name="file_path11">
+                                <div class="col-md-12 p-0">
+                                    <input id="notice" class="form-control" type="text" name="notice" value="<?php echo e(old('notice')); ?>">
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    or<input type="file" class="col-md-6" name="file_path11" id="file_path11">
+                                </div>
+                               
+                                
 
 
                             </div>
@@ -253,10 +261,9 @@
                                                  <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
-                                                    <div class="form-group row">
-                                <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表 (1)</label>
-
-                            </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表 (1)</label>
+                        </div>
                          <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('タイトル')); ?></label>
                             <div class="col-md-6">
@@ -271,30 +278,51 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('朝食')); ?></label>
-                            <div class="col-md-6">
-                                <input id="road_eat1_1" type="radio"  name="road_eat1_1" value="1" <?php if(old('road_eat1')): ?> checked <?php endif; ?>>あり
-                                <input id="road_eat1_0" type="radio"  name="road_eat1_1" value="0" <?php if(!old('road_eat1')): ?> checked <?php endif; ?>>なし
+                            <div class="col-md-6 d-flex align-items-center">
+                                <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat1_1" type="radio"  name="road_eat1_1" value="1" <?php if(old('road_eat1')): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                                </label >
+                                <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat1_0" type="radio"  name="road_eat1_1" value="0" <?php if(!old('road_eat1')): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">なし</span>
+                                </label >
                             </div>
                           </div>
                           <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('昼食')); ?></label>
-                            <div class="col-md-6">
-                                <input id="road_eat2_1" type="radio"  name="road_eat2_1" value="1" <?php if(old('road_eat2')): ?> checked <?php endif; ?>>あり
-                                <input id="road_eat2_0" type="radio"  name="road_eat2_1" value="0" <?php if(!old('road_eat2')): ?> checked <?php endif; ?>>なし
+                            <div class="col-md-6 d-flex align-items-center">
+                                <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat2_1" type="radio"  name="road_eat2_1" value="1" <?php if(old('road_eat2')): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+
+                                </label >
+                                <label class="custom-control custom-radio pl-2  m-0 font-weight-normal" role="button">
+                                    <input id="road_eat2_0" type="radio"  name="road_eat2_1" value="0" <?php if(!old('road_eat2')): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description">なし</span>
+                                </label>
                             </div>
                             </div>
                           <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('夕食')); ?></label>
-                            <div class="col-md-6">
-                                <input id="road_eat3_1" type="radio"  name="road_eat3_1" value="1" <?php if(old('road_eat3')): ?> checked <?php endif; ?>>あり
-                                <input id="road_eat3_0" type="radio"  name="road_eat3_1" value="0" <?php if(!old('road_eat3')): ?> checked <?php endif; ?>>なし
+                            <div class="col-md-6 d-flex align-items-center">
+                                <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                                <input id="road_eat3_1" type="radio"  name="road_eat3_1" value="1" <?php if(old('road_eat3')): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                                </label >
+                                <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat3_0" type="radio"  name="road_eat3_1" value="0" <?php if(!old('road_eat3')): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">なし</span>
+                                </label >
+                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"> 行程表</label>
                             <div class="col-md-6">
-                            <textarea id="codex-editor" type="textarea" class="form-control" name="road_map1" id="road_map" rows="10" ><?php echo e(old('road_map1')); ?></textarea>
-                            </div>
+                                <textarea id="road_map" class="form-control"  name="road_map1" rows="10" ></textarea>
+                            <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map1" id="road_map" rows="10" ><?php echo e(old('road_map1')); ?></textarea>-->
+                            </div> 
                         </div>
                         <div class="after-road-section-1"></div>
                                                 <div class="form-group row mb-0">
@@ -367,11 +395,12 @@
                         <div class="form-group row mt-4 insert-res-point">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 受付締切日時</label>
                         </div>
-                        <div class="form-group row res-section1 mt-4">
-                            <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
-                        </div>
+                        
                         <div class="form-group row ml-5 res-section2">
-                            <div class="col-md-1 ml-5">
+                            <div class="col-md-2">
+                                <label class=col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
+                            </div>
+                            <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="res_end_day" value="<?php echo e(old('res_end_day')); ?>">
                             </div>
                             <div class="col-md-2">
@@ -410,11 +439,13 @@
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">時まで受付する</label>
                         </div>
-                        <div class="form-group row mt-4">
-                            <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">【リクエスト】</label>
-                        </div>
+                       
                         <div class="form-group row ml-5 req-section">
-                            <div class="col-md-1 ml-5">
+
+                            <div class="col-md-2">
+                                <label class="col-form-label text-md-right" style="padding: 0 0 3px 0;">【リクエスト】</label>
+                            </div>
+                            <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="req_before_day" value="<?php echo e(old('req_before_day')); ?>">
                             </div>
                             <div class="col-md-2">
@@ -1800,6 +1831,8 @@ $('div[name="add-road"]').click(function(e) {
         $(".added-road-number-" + val).text(val + 1);
         $("div.road-section-").attr('class', 'mt-5 road-section-' + (val + 1));
         $(".add-road-section-" + val).attr('name', 'add-road-section-' + val);
+        $(".schedule").attr('class', 'schedule' + val);
+        $(".schedule" + val).text($(".schedule" + val).text() + '(' + (val + 1) + ')');
         $('div[name="delete-road-' + val + '"]').hide();
         $('div[name="delete-road-"]').attr('name', 'delete-road-' + (val + 1));
         $('[name=road_map]').attr('name', 'road_map' + (val + 1));
@@ -1882,7 +1915,11 @@ $('div[name="add-road"]').click(function(e) {
         });
 
 
-        CKEDITOR.replace( 'road_map' + (val + 1) );
+        $('#road_map[name=road_map'+(val + 1) +']').summernote({
+            tabsize: 2,
+            minHeight: 250
+        });
+        // CKEDITOR.replace( 'road_map' + (val + 1) );
     });
     $(".after-road-section-" + val).after('<div class="after-road-section-' + (val + 1) + '"></div>');
 });
@@ -2083,18 +2120,25 @@ function ajaxGenres(name) {
     });
 }
 
+
+
 </script>
 <script src='https://maps.google.com/maps/api/js?key=AIzaSyCG9SfPt8adGSdlgWkq8jdbt64mYaPRkaM' type="text/javascript"></script>
 <script src="<?php echo e(asset('/js/jquery.colorbox-min.js')); ?>"></script>
 <script src="<?php echo e(asset('/js/map.js')); ?>"></script>
 <script src="<?php echo e(asset('/js/map2.js')); ?>"></script>
 <script src="<?php echo e(asset('/js/ajaxzip3.js')); ?>"></script>
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
 
-    
-CKEDITOR.replace( 'road_map1' );
-CKEDITOR.replace( 'cancel' );
+$('#road_map').summernote({
+        tabsize: 2,
+        minHeight: 250
+      });
+// CKEDITOR.replace( 'road_map1' );
+// CKEDITOR.replace( 'cancel' );
 </script>
 
 <?php $__env->stopSection(); ?>

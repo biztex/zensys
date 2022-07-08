@@ -4,10 +4,18 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+<!-- <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="<?php echo e(asset('/vendor/bootstrap/js/bootstrap.bundle.min.js')); ?>"></script>
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <p>
 プラン編集
 </p>
-<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -199,15 +207,22 @@
                          <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><?php echo e(__('旅行条件書')); ?></label>
                             <div class="col-md-6">
-                                <input id="notice" type="text" name="notice" value="<?php echo e(old('notice',$plans->notice)); ?>">or
-                                <input type="file" name="file_path11">
-                            <?php if(empty($plans->file_path11)): ?>
-                             
-                              <?php else: ?>
-                              <a href="<?php echo e(config('app.url')); ?>uploads/<?php echo e($plans->file_path11); ?>" ><?php echo e($plans->file_path11); ?></a>
-                            
-                              <input id="hidden11" type="hidden" name="old_file_path11" value="<?php echo e(old('file_path6',$plans->file_path11)); ?>"><input type="checkbox" name="del_fiel11" value="1">削除
-                              <?php endif; ?>
+                                <div class="col-md-12 p-0">
+                                    <input id="notice" type="text" name="notice" class="form-control" value="<?php echo e(old('notice',$plans->notice)); ?>">or
+                                </div>
+                                
+                                <div class="col-md-12 mt-2">
+                                    
+                                    <?php if(empty($plans->file_path11)): ?>
+                                        <input type="file" class="col-md-6" name="file_path11" id="file_path11">
+                                    <?php else: ?>
+                                        <a id="file_path11_link" href="<?php echo e(config('app.url')); ?>uploads/<?php echo e($plans->file_path11); ?>" ><?php echo e($plans->file_path11); ?></a>
+                                        <input id="file_path11" type="hidden"  class="col-md-4" name="file_path11" value="<?php echo e(old('file_path6',$plans->file_path11)); ?>">
+                                        <button type="button"class="btn btn-secondary p-1 delete_file" onclick="PdfDelete()">削除</button>
+                                    <!-- <input type="checkbox" name="del_fiel11" value="1">削除 -->
+                                    <?php endif; ?>
+                                </div>
+                              
                             </div>
 
                         </div>
@@ -294,24 +309,27 @@
                             <p class="col-md-4 col-form-label text-md-left">※選択した大カテゴリから絞り込まれます</p>
            
                         </div> -->
-                         <div class="after-road-section-1"></div>
+                         <!-- <div class="after-road-section-1"></div> -->
                         <hr />
                                                  <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
                           <?php $__currentLoopData = $plans-> road_maps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $road_map): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                         <div class="after-road-section-<?php echo e($loop->index + 1); ?>">
+
                          
                                                     <div class="form-group row">
                                 <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表 (<?php echo e($loop->index + 1); ?>)</label>
                                 <?php if($loop->last && $loop->count != 1): ?>
                                 <div class="col-md-3">
-                                    <div type="" class="btn btn-default" name='delete-price-<?php echo e($loop->index + 1); ?>' value=''>
+                                    <div type="" class="btn btn-default" name='delete-road-<?php echo e($loop->index + 1); ?>' value=''>
                                         <i class="fas fa-fw fa-window-close"></i> この行程表を削除
                                     </div>
                                 </div>
                                 <?php elseif(!$loop->first && $loop->count != 1): ?> 
                                 <div class="col-md-3">
-                                    <div type="" class="btn btn-default" name='delete-price-<?php echo e($loop->index + 1); ?>' style="display: none;" value=''>
+                                    <div type="" class="btn btn-default" name='delete-road-<?php echo e($loop->index + 1); ?>' style="display: none;" value=''>
                                         <i class="fas fa-fw fa-window-close"></i> この行程表を削除
                                     </div>
                                 </div>
@@ -331,33 +349,59 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('朝食')); ?></label>
-                            <div class="col-md-6">
-                                <input id="road_eat1_1" type="radio"  name="road_eat1_<?php echo e($loop->index + 1); ?>" value="1" <?php if($road_map->road_eat1): ?> checked <?php endif; ?>>あり
-                                <input id="road_eat1_0" type="radio"  name="road_eat1_<?php echo e($loop->index + 1); ?>" value="0" <?php if(!$road_map->road_eat1): ?>) checked <?php endif; ?>>なし
+                            <div class="col-md-6 d-flex align-items-center">
+                            <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                            <input id="road_eat1_1" type="radio"  name="road_eat1_<?php echo e($loop->index + 1); ?>" value="1" <?php if($road_map->road_eat1): ?> checked <?php endif; ?>>
+                                <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                             </label>
+                             <label class="custom-control custom-radio pl-2  m-0 font-weight-normal" role="button">
+                             <input id="road_eat1_0" type="radio"  name="road_eat1_<?php echo e($loop->index + 1); ?>" value="0" <?php if(!$road_map->road_eat1): ?>) checked <?php endif; ?>>
+                                <span class="custom-control-description">なし</span>
+                            </label>
                             </div>
                           </div>
                           <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('昼食')); ?></label>
-                            <div class="col-md-6">
-                                <input id="road_eat2_1" type="radio"  name="road_eat2_<?php echo e($loop->index + 1); ?>" value="1" <?php if($road_map->road_eat2): ?> checked <?php endif; ?>>あり
-                                <input id="road_eat2_0" type="radio"  name="road_eat2_<?php echo e($loop->index + 1); ?>" value="0"  <?php if(!$road_map->road_eat2): ?>) checked <?php endif; ?>>なし
+                            <div class="col-md-6 d-flex align-items-center">
+                                <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat2_1" type="radio"  name="road_eat2_<?php echo e($loop->index + 1); ?>" value="1" <?php if($road_map->road_eat2): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                                </label >
+                                <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat2_0" type="radio"  name="road_eat2_<?php echo e($loop->index + 1); ?>" value="0"  <?php if(!$road_map->road_eat2): ?>) checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">なし</span>
+                                </label>
                             </div>
-                            </div>
+                          </div>
                           <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> <?php echo e(__('夕食')); ?></label>
-                            <div class="col-md-6">
-                                <input id="road_eat3_1" type="radio"  name="road_eat3_<?php echo e($loop->index + 1); ?>" value="1" <?php if($road_map->road_eat3): ?> checked <?php endif; ?>>あり
-                                <input id="road_eat3_0" type="radio"  name="road_eat3_<?php echo e($loop->index + 1); ?>" value="0"  <?php if(!$road_map->road_eat3): ?>) checked <?php endif; ?>>なし
+                            <div class="col-md-6 d-flex align-items-center">
+                                <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat3_1" type="radio"  name="road_eat3_<?php echo e($loop->index + 1); ?>" value="1" <?php if($road_map->road_eat3): ?> checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                                </label >
+                                <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat3_0" type="radio"  name="road_eat3_<?php echo e($loop->index + 1); ?>" value="0"  <?php if(!$road_map->road_eat3): ?>) checked <?php endif; ?>>
+                                    <span class="custom-control-description" th:text="#{bool.true}">なし</span>
+                                </label >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"> 行程表</label>
                             <div class="col-md-6">
-                            <textarea id="codex-editor" type="textarea" class="form-control" name="road_map<?php echo e($loop->index + 1); ?>" rows="10" ><?php echo e(old('road_map',$road_map->road_map)); ?></textarea>
+                            <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map<?php echo e($loop->index + 1); ?>" rows="10" ><?php echo e(old('road_map',$road_map->road_map)); ?></textarea> -->
+                            <textarea id="road_map" type="textarea" class="form-control" name="road_map<?php echo e($loop->index + 1); ?>" rows="10" ><?php echo e($road_map->road_map ? $road_map->road_map : ''); ?></textarea>
                             </div>
                         </div>
-                    <script>CKEDITOR.replace( 'road_map<?php echo e($loop->index + 1); ?>' );</script>
-                    <div class="after-road-section-<?php echo e($loop->index + 1); ?>"></div>
+                        <script>
+
+                            $('#road_map[name=road_map<?php echo e($loop->index + 1); ?>]').summernote({
+                                tabsize: 2,
+                                minHeight: 250
+                            });
+                        // CKEDITOR.replace( 'road_map<?php echo e($loop->index + 1); ?>' );
+                        </script>
+                    </div>
                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                          
                          <div class="form-group row mb-0">
@@ -432,12 +476,12 @@
                         <div class="form-group row mt-4 insert-res-point">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 受付締切日時</label>
                         </div>
-                        <div class="form-group row res-section1 mt-4">
-                            <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
-    
-                        </div>
+                      
                         <div class="form-group row ml-5 res-section2">
-                            <div class="col-md-1 ml-5">
+                            <div class="col-md-2">
+                                <label class="col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
+                            </div>
+                            <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="res_end_day" value="<?php echo e(old('res_end_day',$plans->res_end_day)); ?>">
                             </div>
                             <div class="col-md-2">
@@ -476,11 +520,13 @@
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">時まで受付する</label>
                         </div>
-                        <div class="form-group row mt-4">
-                            <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">【リクエスト】</label>
-                        </div>
+                       
                         <div class="form-group row ml-5 req-section">
-                            <div class="col-md-1 ml-5">
+
+                            <div class="col-md-2">
+                                <label class="col-form-label text-md-right" style="padding: 0 0 3px 0;">【リクエスト】</label>
+                            </div>
+                            <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="req_before_day" value="<?php echo e(old('req_before_day',$plans->req_before_day)); ?>">
                             </div>
                             <div class="col-md-2">
@@ -522,7 +568,7 @@
                         <hr />
 
 
-                       <!--  <div class="form-group row mt-4">
+                        <!-- <div class="form-group row mt-4">
                             <label class="col-md-2 col-form-label text-md-right">1予約あたり最小人数	</label>
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="min_number" value="<?php echo e(old('min_number',$plans->min_number)); ?>">
@@ -879,12 +925,15 @@
                                 <textarea id="cancel" type="textarea" class="form-control" name="cancel" rows="4" placeholder="※最大1000文字まで"><?php echo e(old('cancel',$plans->cancel)); ?></textarea>
                             </div>
                         </div>
-<script>
+                        <script>
 
-    
+                                $('#cancel').summernote({
+                                    tabsize: 2,
+                                    minHeight: 250
+                                });
 
-CKEDITOR.replace( 'cancel' );
-</script>
+                        // CKEDITOR.replace( 'cancel' );
+                        </script>
 
 
                         <div class="form-group row mt-5 bg-dark">
@@ -1100,11 +1149,19 @@ CKEDITOR.replace( 'cancel' );
 
 <?php $__env->startSection('css'); ?>
 <link type="text/css" rel="stylesheet" href="<?php echo e(config('app.url')); ?><?php echo e(asset('css/colorbox.css')); ?>" >
+<!-- <link type="text/css" rel="stylesheet" href="<?php echo e(asset('css/colorbox.css')); ?>" > -->
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('js'); ?>
 <script>
-
+function PdfDelete() {
+    let pdf_val = document.querySelector("#file_path11");
+    let pdf_link = document.querySelector("#file_path11_link");
+    pdf_val.value = '';
+    pdf_val.setAttribute('type', 'file');
+    pdf_link.remove();
+    document.querySelector(".delete_file").remove();
+}
 // イベント
 $('select[name="repetition_flag"]').change(function() {
     var val = $('select[name="repetition_flag"]').val();
@@ -1873,6 +1930,8 @@ $('div[name="add-road"]').click(function(e) {
         $(".added-road-number-" + val).text(val + 1);
         $("div.road-section-").attr('class', 'mt-5 road-section-' + (val + 1));
         $(".add-road-section-" + val).attr('name', 'add-road-section-' + val);
+        $(".schedule").attr('class', 'schedule' + val);
+        $(".schedule" + val).text($(".schedule" + val).text() + '(' + (val + 1) + ')');
         $('div[name="delete-road-' + val + '"]').hide();
         $('div[name="delete-road-"]').attr('name', 'delete-road-' + (val + 1));
         $('[name=road_map]').attr('name', 'road_map' + (val + 1));
@@ -1953,9 +2012,12 @@ $('div[name="add-road"]').click(function(e) {
                 $('.week-price-section-6').hide();
             }
         });
+        $('#road_map[name=road_map'+(val + 1) +']').summernote({
+            tabsize: 2,
+            minHeight: 250
+        });
 
-
-        CKEDITOR.replace( 'road_map' + (val + 1) );
+        // CKEDITOR.replace( 'road_map' + (val + 1) );
     });
     $(".after-road-section-" + val).after('<div class="after-road-section-' + (val + 1) + '"></div>');
 });
@@ -1991,6 +2053,7 @@ $('div[name="delete-road-6"]').click(function() {
     var val = Number($('input[name="add-road"]').val());
     $('input[name="add-road"]').val(5);
 });
+
 
 </script>
 
