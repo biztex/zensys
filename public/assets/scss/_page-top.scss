@@ -1,0 +1,331 @@
+@charset "utf-8";
+
+/* トップページのスタイル*/
+
+.page-header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9;
+    height: 80px;
+    color: $color-menu;
+	font-size: $font-size-menu;
+	@media only screen and (max-width: 768px) {
+		height: 12.8vw;
+	}
+	background: $color-white;
+    box-shadow: 0 0 4px 1px rgba(0,0,0,0.1);
+
+    &.header-sticky {
+	    position: fixed;
+	    
+		opacity: 0.95;
+	}
+
+	a:not(.contact-link) {
+	    color: inherit;
+		font-size: inherit;
+		font-weight: 700;
+	}
+}
+
+.logo {
+    width: 220px;
+	@media (max-width: 768px) {
+		width: 43vw;
+		height: 8.53vw;
+		@include display-flex;
+		@include align-items(stretch);
+	}
+}
+
+.header-inner {
+    @include flex-center-v;
+    @include justify-content-space-between;
+    padding-left: 16px;
+
+	> * {
+		@include transition-none;
+	}
+
+	@media only screen and (max-width: 768px) {
+		padding-left: 4.2vw;
+
+		.nav-opened & {
+			width: 100vw;
+			height: 100vh;
+			position: relative;
+
+			&:before {
+				content: '';
+				position: absolute;
+				display: block;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+				background-color: #000;
+				opacity: 0.6;
+				z-index: 1;
+				display: none;
+			}
+
+			.logo {
+				position: absolute;
+				top: 2.13vw;
+			}
+
+			.nav-open {
+				position: absolute;
+				left: 87.2vw;
+				top: 0;
+				z-index: 2;
+				background-color: #104C8F;
+
+				i, i:before, i:after {
+					color: white;
+				}
+			}
+		}
+	}
+}
+
+.page-footer {
+	background-color: #EFEFEF;
+	border-top: 1px solid #CCC;
+	color: #333;
+
+	.wrapper {
+		max-width: 1000px;
+		margin-left: auto;
+		margin-right: auto;
+		@include display-flex;
+		@include flex-wrap-wrap;
+		padding-top: 50px;
+
+		@media (max-width: 768px) {
+			padding-top: 13.33vw;
+		}
+	}
+
+	.footer-top {
+		flex: 50%;
+		position: relative;
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			width: 1px;
+			height: 100%;
+			background-color: #CCCCCC;
+		}
+		.container {
+			max-width: 600px;
+			margin-right: auto;
+			margin-left: auto;
+
+			@media only screen and (max-width: 1300px) {
+				padding-left: 50px;
+				padding-right: 50px;
+			}
+
+			@media only screen and (max-width: 768px) {
+				@include flex-direction-column;
+				padding-left: 9vw;
+				padding-right: 9vw;
+			}
+
+			.logo {
+				flex: 100%;
+				@media only screen and (max-width: 768px) {
+					width: 64vw;
+					height: 12.8vw;
+				}
+
+				img {
+					@media only screen and (max-width: 768px) {
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+
+			.company-info {
+				flex: 100%;
+				@media only screen and (max-width: 768px) {
+					width: 100%;
+					padding-left: unset;
+					padding-top: 4.2vw;
+				}
+				.company-name {
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin-top: 1em;
+                    margin-bottom: 4px;
+                    @media only screen and (max-width: 768px) {
+                    	font-size: 5.33vw;
+                    	margin-bottom: 1.86vw;
+                    }
+				}
+
+				.post, .address, .open, .tel-mail {
+                    font-size: 14px;
+                    font-weight: 500;
+                    margin-bottom: 5px;
+                    @media only screen and (max-width: 768px) {
+                    	font-size: 3.73vw;
+                    	margin-bottom: 1.2vw;
+                    	line-height: 1.32;
+                    }
+				}
+
+				.post, .open {
+					display: inline-block;
+					@media only screen and (max-width: 768px) {
+						display: block;
+					}
+				}
+
+				.address, .tel-mail {
+					display: inline;
+					margin-left: 1em;
+					@media only screen and (max-width: 768px) {
+						display: block;
+						margin-left: unset;
+					}
+				}
+
+				.social-link {
+					margin-top: 1.5em;
+					font-size: 16px;
+					display: flex;
+					@media only screen and (max-width: 768px) {
+						font-size: 4.2vw;
+						text-align: center;
+						margin-top: 5vw;
+						margin-bottom: 8vw;
+					}
+					div {
+						width: 84px;
+						height: 24px;
+
+						@media (max-width: 768px) {
+							width: 22.4vw;
+							height: 6.6vw;
+						}
+					}
+
+					div + div {
+						margin-left: 11px;
+					}
+
+					a {
+						width: 100%;
+                        font-size: 12px;
+                        text-align: center;
+                        font-weight: bold;
+                        color: white;
+                        display:block;
+                        line-height: 24px;
+                        @include transition-all;
+
+						&:hover {
+							opacity: 0.6;
+						}
+                    
+                        @media only screen and (max-width: 768px) {
+                        	font-size: 3.2vw;
+                        	line-height: 6.6vw;
+                        }
+
+                        & + a {
+                        	margin-left: 1em;
+                        }
+					}
+
+					.facebook {
+						a {
+							background: #1877F2;
+							border-radius: 0.26vw;
+						}
+					}
+					.twritter {
+						a {
+							background: #1B9DF0;
+							border-radius: 0.26vw;
+						}
+					}
+					.instagram {
+						a {
+							border-radius: 0.26vw;
+							background: linear-gradient(to right, #C00B99, #FDB51B);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.footer-middle {
+		flex: 50%;
+		padding-top: 40px;
+		@media only screen and (max-width: 768px) {
+			display: none;
+		}
+	    .menu-list {
+	    	list-style: none;	    	
+	    	font-size: 14px;
+	    	max-width: 380px;
+	    	margin-left: auto;
+	    	@include display-flex;
+	    	@include flex-wrap-wrap;
+
+	    	.menu {
+                flex: 50%;
+                line-height: 2;
+                
+				& + .menu {
+				}
+
+	    		a {
+                    font-size: 14px;
+                    font-weight: 500;
+                    @include transition-all;
+                    display: block;
+                    padding-left: 1.5em;
+                    background: left center url(../img/right-arrow.svg) no-repeat;
+                    background-size: 1em;
+
+                    &:hover {
+                    	opacity: 0.6;
+                    }
+	    		}
+	    	}
+	    }
+	}
+
+	.footer-bottom {
+		text-align: center;
+		margin-top: 64px;
+		flex: 100%;
+
+		@media (max-width: 768px) {
+            margin-top: 10vw;
+		}
+
+		.copyright {
+			font-size: 10px;
+			font-weight: 500;
+			padding-top: 1.8em;
+			padding-bottom: 1.8em;
+			border-top: 1px solid #ccc;
+
+			@media only screen and (max-width: 768px) {
+				font-size: 2.66vw;
+			}
+		}
+	}
+}

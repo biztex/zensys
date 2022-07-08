@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.page-header,
+.page-footer,
+.page-wrapper .section,
+.page-wrapper .section.section--detail .listItem > *,
+.page-wrapper .section.section--detail .calendarHd,
+.page-wrapper .section.section--detail .listItem .listItemCont > *,
+.page-wrapper .section.section--detail .listItem .listItemCont .printBtn {
+  display: none;
+}
+
+.page-wrapper .section.section--detail,
+.page-wrapper .section.section--detail .listItem .listItemCont,
+.page-wrapper .section.section--detail .listItem .listItemCont .printArea {
+  display: block;
+}
+
+.page-wrapper .section.section--detail,
+.page-wrapper .section.section--detail .listItem,
+.page-wrapper .section.section--detail .listItemCont,
+.page-wrapper .section.section--detail .listItemCont .detailItem {
+  background: #fff;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+

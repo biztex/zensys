@@ -1,0 +1,190 @@
+.page-wrapper--company .section.section--company .section__content .details .item {
+    height: auto;
+}
+
+.page-wrapper--company .details .item .item__name {
+    color: white;
+    font-size: 16px;
+    padding-left: 40px;
+}
+
+.page-wrapper--company .details .item .item__value {
+    font-weight: 500;
+    color: #333333;
+    font-size: 16px;
+    padding: 30px 30px 30px 40px;
+    flex-wrap: wrap;
+}
+
+.mb1 {
+    margin-bottom: 1em;
+}
+
+.section.section--company .section__content .about .info .link-panel .link {
+    font-size: 21px
+}
+
+
+
+@media screen and (max-width: 767px) {
+    .page-wrapper--company .details .item .item__name {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .page-wrapper--company .details .item .item__value {
+        padding: 20px 30px 20px 40px;
+    }
+}
+
+
+.section.section--company .section__content .building-img.building-img--company .img {
+    object-fit: cover;
+}
+
+.Catch {
+    position: absolute;
+    top: 19%;
+    left: 49.5%;
+    transform: translate(-50%, -50%);
+    /* width: 80%; */
+    width: 500px;
+    height: auto;
+    max-width: 1000px;
+}
+
+/* @media screen and (min-width: 767px) and (max-width: 1050px){
+    .Catch{
+        top: 20%;
+    }
+} */
+
+@media screen and (min-width: 1600px) {
+    .Catch {
+        top: 20%;
+    }
+}
+
+/* 画像を暗くするオーバーレイ */
+.section.section--top-banner::before {
+    content: '';
+    /* ↓暗いオーバーレイを半透明で配置 */
+    background-color: rgba(0, 0, 0, 0.1);
+    /* ↓全体を覆うように配置 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+@media screen and (max-width: 1000px) {
+    .Catch {
+        /* width: 85%; */
+        width: 80%;
+        max-width: 400px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .Catch {
+        top: 20%;
+    }
+}
+
+.page-footer .footer-top .container img {
+    max-width: 200px;
+    height: auto;
+}
+
+/* .sp_br {
+    display: none;
+} */
+@media screen and (max-width: 767px) {
+    /* .sp_br {
+        display: block;
+    } */
+    /* .sp_txt_center {
+        display: block;
+        text-align: center;
+    } */
+}
+
+/* フォント */
+.section__title h2 {
+    font-family: "游ゴシック", YuGothic, "Yu Gothic", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, sans-serif !important;
+}
+
+@media screen and (max-width: 768px) {
+    .section.section--company .section__content .about .info {
+        height: 140vw;
+    }
+}
+
+.company-name br {
+    display: none;
+}
+
+.company-name span {
+    font-size: 24px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .company-name br {
+        display: block;
+    }
+
+    .company-name span {
+        font-size: 4.5vw;
+    }
+
+    .section.section--company .section__content .building-img.building-img__entry {
+        background: center url(../img/building2_sp.jpg) no-repeat;
+        background-size: cover;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+    .page-footer .footer-top .tel-mail a {
+        margin-left: -1em;
+    }
+}
+
+/* フッター社名 */
+.syamei_footer {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.page-footer .footer-top .container .syamei_footer_logo img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .page-footer .footer-top .container .logo {
+        width: auto;
+        height: auto;
+    }
+
+    .page-footer .footer-top .container .syamei_footer_logo img {
+        margin-bottom: 0px;
+    }
+}
+
+/* 会社概要 */
+.adjust_line_height p{
+    line-height: 1.5;
+}
+
+/* フッターライン */
+.page-footer .footer-top .container .company-info .social-link .line {
+        background: #00B900;
+        border-radius: 0.26vw;
+}
