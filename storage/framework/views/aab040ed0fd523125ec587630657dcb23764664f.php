@@ -569,9 +569,16 @@
                         </div>
                         <hr />
 
+                        <div class="form-group row res-limit-section">
+                            <label class="col-md-2 col-form-label text-md-center" >在庫</label>
+                            <div class="col-md-1">
+                                <input id="name" type="text" class="form-control" name="res_limit_number" value="<?php echo e(old('res_limit_number',$plans->res_limit_number)); ?>">
+                            </div>
+                            
+                        </div>
 
                         <div class="form-group row mt-4">
-                            <label class="col-md-2 col-form-label text-md-right">1予約あたり最小人数	</label>
+                            <label class="col-md-2 col-form-label text-md-right">1予約あたり最小人数</label>
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="min_number" value="<?php echo e(old('min_number',$plans->min_number)); ?>">
                             </div>

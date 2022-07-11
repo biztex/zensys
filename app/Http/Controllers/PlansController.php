@@ -83,7 +83,7 @@ class PlansController extends Controller
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
-            // 'res_limit_number' => ['required', 'numeric'],
+            'res_limit_number' => ['required', 'numeric'],
             'min_number' => ['required', 'numeric'],
             'max_number' => ['required', 'numeric'],
             //'payment_method' => ['required', 'numeric'],
@@ -467,7 +467,7 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        // $plans->res_limit_number = $request->res_limit_number;
+        $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
@@ -902,7 +902,7 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        // $plans->res_limit_number = $request->res_limit_number;
+        $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
@@ -1360,7 +1360,7 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        // $plans->res_limit_number = $request->res_limit_number;
+        $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
@@ -1686,7 +1686,7 @@ class PlansController extends Controller
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
-            // 'res_limit_number' => ['required', 'numeric'],
+            'res_limit_number' => ['required', 'numeric'],
             'min_number' => ['required', 'numeric'],
             'max_number' => ['required', 'numeric'],
             //'payment_method' => ['required', 'numeric'],
@@ -2198,7 +2198,7 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        // $plans->res_limit_number = $request->res_limit_number;
+        $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
