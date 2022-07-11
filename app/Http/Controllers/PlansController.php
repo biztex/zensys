@@ -2399,6 +2399,14 @@ class PlansController extends Controller
             $price->holiday = $relation2->holiday;
             $price->save();
         }
+
+        $old_road_map = RoadMap::where('plan_id', $id)->get();
+        foreach($old_road_map as $road_map) {
+            $road_map->plan_id = $last_insert_id;
+            $new_road_map = $road_map->replicate();
+            $new_road_map->save();
+        }
+
         // リレーションテーブル複製3
         $relations3 = $oldrow->stocks;
         foreach ($relations3 as $relation3) {

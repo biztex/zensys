@@ -313,9 +313,13 @@
                         </div> -->
                          <!-- <div class="after-road-section-1"></div> -->
                         <hr />
+                        <?php echo e(dump($plans->road_maps)); ?>
+
                                                  <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
+
+                      
                           <?php $__currentLoopData = $plans-> road_maps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $road_map): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                          <div class="after-road-section-<?php echo e($loop->index + 1); ?>">
