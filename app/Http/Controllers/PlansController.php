@@ -84,8 +84,8 @@ class PlansController extends Controller
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
             // 'res_limit_number' => ['required', 'numeric'],
-            // 'min_number' => ['required', 'numeric'],
-            // 'max_number' => ['required', 'numeric'],
+            'min_number' => ['required', 'numeric'],
+            'max_number' => ['required', 'numeric'],
             //'payment_method' => ['required', 'numeric'],
             'etc_card_name' => ['nullable', 'string', 'max:50'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
@@ -468,8 +468,8 @@ class PlansController extends Controller
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         // $plans->res_limit_number = $request->res_limit_number;
-        // $plans->min_number = $request->min_number;
-        // $plans->max_number = $request->max_number;
+        $plans->min_number = $request->min_number;
+        $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
@@ -903,8 +903,8 @@ class PlansController extends Controller
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         // $plans->res_limit_number = $request->res_limit_number;
-        // $plans->min_number = $request->min_number;
-        // $plans->max_number = $request->max_number;
+        $plans->min_number = $request->min_number;
+        $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
@@ -1361,8 +1361,8 @@ class PlansController extends Controller
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         // $plans->res_limit_number = $request->res_limit_number;
-        // $plans->min_number = $request->min_number;
-        // $plans->max_number = $request->max_number;
+        $plans->min_number = $request->min_number;
+        $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
@@ -1687,8 +1687,8 @@ class PlansController extends Controller
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
             // 'res_limit_number' => ['required', 'numeric'],
-            // 'min_number' => ['required', 'numeric'],
-            // 'max_number' => ['required', 'numeric'],
+            'min_number' => ['required', 'numeric'],
+            'max_number' => ['required', 'numeric'],
             //'payment_method' => ['required', 'numeric'],
             'etc_card_name' => ['nullable', 'string', 'max:50'],
             // 'payment_comment' => ['nullable', 'string', 'max:200'],
@@ -2199,8 +2199,8 @@ class PlansController extends Controller
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         // $plans->res_limit_number = $request->res_limit_number;
-        // $plans->min_number = $request->min_number;
-        // $plans->max_number = $request->max_number;
+        $plans->min_number = $request->min_number;
+        $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;

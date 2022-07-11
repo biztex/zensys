@@ -486,7 +486,7 @@
                         </div>
                         <hr />
 
-<!--                         <div class="form-group row mt-4">
+                        <div class="form-group row mt-4">
                             <label class="col-md-2 col-form-label text-md-right">1予約あたり最小人数	</label>
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="min_number" value="{{ old('min_number') }}">
@@ -499,7 +499,7 @@
                                 <input id="name" type="text" class="form-control" name="max_number" value="{{ old('max_number') }}">
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">人</label>
-                        </div> -->
+                        </div>
                         <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 支払方法設定</span></label>
                         </div>
