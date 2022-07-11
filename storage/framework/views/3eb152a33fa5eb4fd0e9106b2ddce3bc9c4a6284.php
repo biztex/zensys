@@ -322,7 +322,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"> 行程表</label>
                             <div class="col-md-6">
-                                <textarea id="road_map" class="form-control"  name="road_map1" rows="10" ></textarea>
+                                <textarea id="road_map" class="form-control"  name="road_map1" rows="10" ><?php echo old('road_map1'); ?></textarea>
                             <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map1" id="road_map" rows="10" ><?php echo e(old('road_map1')); ?></textarea>-->
                             </div> 
                         </div>
@@ -1102,7 +1102,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> キャンセル規定</label>
                             <div class="col-md-8">
-                                <textarea id="cancel" type="textarea" class="form-control" name="cancel" rows="4" placeholder="※最大1000文字まで"><?php echo e(old('cancel')); ?></textarea>
+                                <textarea id="cancel" type="textarea" class="form-control" name="cancel" rows="4" placeholder="※最大1000文字まで"><?php echo old('cancel'); ?></textarea>
                             </div>
                         </div>
                         <div class="form-group row mt-5 bg-dark">

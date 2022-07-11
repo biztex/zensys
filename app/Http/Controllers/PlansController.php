@@ -1113,7 +1113,7 @@ class PlansController extends Controller
             $roadMap->save();
         }
         if ($pc == 0) {
-            $price = new RoadMap();
+            $roadMap = new RoadMap();
             $roadMap->plan_id = $id;
             $roadMap->road_map = '';
             $roadMap->road_map_title = '';
