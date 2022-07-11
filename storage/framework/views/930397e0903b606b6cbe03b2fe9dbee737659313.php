@@ -11,10 +11,12 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
+        <!-- <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>"> -->
+        <link rel="stylesheet" href="<?php echo e(config('app.url')); ?><?php echo e(mix('css/app.css')); ?>">
 
         <!-- Scripts -->
-        <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
+        <!-- <script src="<?php echo e(asset('js/app.js')); ?>" defer></script> -->.
+        <script src="<?php echo e(config('app.url')); ?><?php echo e(mix('js/app.js')); ?>" defer></script>
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
