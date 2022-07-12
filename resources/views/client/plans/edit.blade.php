@@ -1594,7 +1594,7 @@ $('div[name="add-price"]').click(function(e) {
     $(".after-price-section-" + (val)).load('{{config('app.url')}}/html/plan-price.php', function() {
         var priceTypes = @json($price_types);
         $.each(priceTypes,(i,val) => {
-          $('select').append($('<option>').html(val.name).val(val.number));
+          $('select[name="price_type"]').append($('<option>').html(val.name).val(val.number));
         });
         if ($('input[name="is_discount"]:checked').val() == 1) {
 	    $('.discount-price').show();   
