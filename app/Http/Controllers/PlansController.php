@@ -2356,6 +2356,7 @@ class PlansController extends Controller
             ->with('message', '変更が完了しました');
     }
 
+    // 複製処理
     public function replicate($id)
     {
         $oldrow = Plan::find($id);

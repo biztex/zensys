@@ -377,9 +377,16 @@ class StocksController extends Controller
         $date = new Carbon($dateStr);
         $days = $date->daysInMonth; // 月に何日あるか取得
         $daysParWeek = $date::DAYS_PER_WEEK; // 1週の日数を取得(デフォルトは 7 が設定されている)
+
         $dayOfWeek = $date->startOfMonth()->dayOfWeek; // 1日の曜日(int)を取得
+
+
         $last_week =  (int) ceil(($days - ($daysParWeek - $dayOfWeek)) / $daysParWeek) + 1; // 最終日が何週目か計算
-        $date->subDay($date->dayOfWeek-1); // 1日より前の日で埋める
+
+
+        $date->subDay($date->dayOfWeek); // 1日より前の日で埋める
+
+
         $count = 0;
         if ($last_week == 5) {
             $count = 35; //5週目で終わりの月は35マス分を埋めて終わり
