@@ -152,7 +152,7 @@ class StocksController extends Controller
                     $new_row->plan_id = $plan->id;
                     $new_row->is_active = $request->is_active[$i];
                     $new_row->rank = $request->rank[$i];
-                    $stock->res_type = $plan->res_type;
+                    // $stock->res_type = $plan->res_type;
                     $stock->price_type_id = $request->price_type_id;
                     //$new_row->res_type = $request->res_type[$i];
                     $new_row->limit_number = $request->limit_number[$i];
