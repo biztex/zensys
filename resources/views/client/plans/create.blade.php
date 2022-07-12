@@ -1096,7 +1096,8 @@
                                 <textarea id="name" type="textarea" class="form-control" name="wear" rows="4" placeholder="※最大1000文字まで">{{ old('wear') }}</textarea>
                             </div>
                         </div> -->
-                                                <div class="form-group row mt-5 bg-dark">
+                        
+                        <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> キャンセル規定</span></label>
                         </div>
                         <div class="form-group row">
@@ -1681,7 +1682,7 @@ $('div[name="add-price"]').click(function(e) {
     $(".after-price-section-" + (val)).load('{{config('app.url')}}html/plan-price.php', function() {
         var priceTypes = @json($price_types);
         $.each(priceTypes,(i,val) => {
-          $('select').append($('<option>').html(val.name).val(val.number));
+          $('select[name="price_type"]').append($('<option>').html(val.name).val(val.number));
         });
         if ($('input[name="is_discount"]:checked').val() == 1) {
 	    $('.discount-price').show();   

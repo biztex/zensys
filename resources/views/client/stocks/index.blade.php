@@ -63,7 +63,7 @@
                               <option value="{{ $priceType->number }}" @if($priceType->number==$default_priceType->number) selected  @endif>{{ $priceType->name }}</option>
                               @endforeach
                             </select>
-                        </div>->
+                        </div>
                         
                     </div>
                 </div>
