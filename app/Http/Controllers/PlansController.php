@@ -696,9 +696,9 @@ class PlansController extends Controller
                         $stock->res_date = $start_day;
                         $stock->is_active = 1;
                         $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
+                        // $stock->limit_number = $plans->res_limit_number
+                        //     ? $plans->res_limit_number
+                        //     : '0';
                         $stock->save();
                     }
                     //die($request->price_type1."p1c=2=====".$pc);
@@ -724,9 +724,9 @@ class PlansController extends Controller
                         $stock->res_date = $start_day;
                         $stock->is_active = 1;
                         $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
+                        // $stock->limit_number = $plans->res_limit_number
+                        //     ? $plans->res_limit_number
+                        //     : '0';
                         $stock->save();
                     }
                     //die("pc=2=====".$pc);
@@ -1154,9 +1154,9 @@ class PlansController extends Controller
                         $stock->res_date = $start_day;
                         $stock->is_active = 1;
                         $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
+                        // $stock->limit_number = $plans->res_limit_number
+                        //     ? $plans->res_limit_number
+                        //     : '0';
                         $stock->save();
                     }
                 }
@@ -1181,9 +1181,9 @@ class PlansController extends Controller
                         $stock->res_date = $start_day;
                         $stock->is_active = 1;
                         $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
+                        // $stock->limit_number = $plans->res_limit_number
+                        //     ? $plans->res_limit_number
+                        //     : '0';
                         $stock->save();
                     }
                 }
@@ -1587,9 +1587,9 @@ class PlansController extends Controller
                         $stock->res_date = $start_day;
                         $stock->is_active = 1;
                         $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
+                        // $stock->limit_number = $plans->res_limit_number
+                        //     ? $plans->res_limit_number
+                        //     : '0';
                         $stock->save();
                     }
                 }
@@ -1614,9 +1614,9 @@ class PlansController extends Controller
                         $stock->res_date = $start_day;
                         $stock->is_active = 1;
                         $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
+                        // $stock->limit_number = $plans->res_limit_number
+                        //     ? $plans->res_limit_number
+                        //     : '0';
                         $stock->save();
                     }
                 }
@@ -2283,10 +2283,14 @@ class PlansController extends Controller
 
         $plans->save();
         // stocks
+        
+        $old_stocks_data = Stock::where('plan_id', $id)->get();
         Stock::where('plan_id', $id)->delete(); //既存の販売在庫をすべて削除
+
         $start_day = new Carbon($plans->start_day);
         $end_day = new Carbon($plans->end_day);
         $diff_days = $start_day->diffInDays($end_day);
+
         $loop_count = $diff_days + 1;
         if ($plans->repetition_flag == 0) {
             for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
@@ -2301,14 +2305,12 @@ class PlansController extends Controller
                 ) {
                     $pc = 0;
                     for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            $request->{'price_type' . $ii} ||
-                            $request->{'price_monday' . $ii}
-                        ) {
+                        if (($request->{'price_type' . $ii} == '0' || $request->{'price_type' . $ii}) || $request->{'price_monday' . $ii} ) {
                             $pc++;
                         }
                     }
                     for ($ii = 1; $ii <= $pc; $ii++) {
+                        
                         $price_type_id = $request->{'price_type' . $ii};
                         $stock = new Stock();
                         $stock->plan_id = $plans->id;
@@ -2320,6 +2322,16 @@ class PlansController extends Controller
                             ? $plans->res_limit_number
                             : '0';
                         $stock->save();
+
+                    }
+
+                    foreach ($old_stocks_data as $key => $value) {
+                        Stock::where('res_date', $value->res_date)
+                            ->where('price_type_id', $value->price_type_id)
+                            ->update([
+                                'limit_number'  => $value->limit_number,
+                                'rank'          => $value->rank
+                            ]);
                     }
                 }
             }
@@ -2343,9 +2355,9 @@ class PlansController extends Controller
                         $stock->res_date = $start_day;
                         $stock->is_active = 1;
                         $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
+                        // $stock->limit_number = $plans->res_limit_number
+                        //     ? $plans->res_limit_number
+                        //     : '0';
                         $stock->save();
                     }
                 }
