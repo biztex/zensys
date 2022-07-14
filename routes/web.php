@@ -356,6 +356,10 @@ foreach (config('fortify.users') as $user) {
                         'stocks/update2/{id}',
                         '\App\Http\Controllers\StocksController@update2'
                     );
+                    Route::put(
+                        'stocks/update3/{id}',
+                        '\App\Http\Controllers\StocksController@update3'
+                    );
                     // reservations
                     Route::get(
                         'reservations/json/{id?}',

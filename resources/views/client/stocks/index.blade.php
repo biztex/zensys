@@ -7,10 +7,20 @@
 
 @section('content')
 <script>
+   
     function goSubmit(num){
+
+        let value = [];
+        $('.day').each(function(){
+            value.push($(this).val());
+        });
+
+        $("#week").val(value);
+
         $("#form1").prop('action','{{config('app.url')}}client/stocks/update'+num+'/{{ $default_plan->id }}')
         $("#form1").submit();
     }
+
 </script>
 <div class="row mb-2">
   <div class="col-sm-6 mt-3">
@@ -169,18 +179,21 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
+                    <label for="limit_num" class="col-md-2">在庫 
+                    <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num" value=""></label>
                     <input type="button" value="更新する" onclick="goSubmit(2)">
                     <br> <br>
                     曜日一括変更　
-                    <input type="checkbox">日　
-                    <input type="checkbox">月 　
-                    <input type="checkbox">火 　
-                    <input type="checkbox">水 　
-                    <input type="checkbox">木 　
-                    <input type="checkbox">金 　
-                    <input type="checkbox">土 　
+                    <input type="checkbox" class="day" name="day[]" value="0" id="sunday">日
+                    <input type="checkbox" class="day" name="day[]" value="0" id="monday">月
+                    <input type="checkbox" class="day" name="day[]" value="0" id="tuseday">火
+                    <input type="checkbox" class="day" name="day[]" value="0" id="wednesday">水
+                    <input type="checkbox" class="day" name="day[]" value="0" id="thursday">木
+                    <input type="checkbox" class="day" name="day[]" value="0" id="friday">金
+                    <input type="checkbox" class="day" name="day[]" value="0" id="saturday">土
+                    <input type="hidden" id="week" name="week" value="">
                     を
-                    <select>
+                    <select  name="rank2">
                     <option value="">ランク</option>
                     <option value="A" >A</option>
                     <option value="B" >B</option>
@@ -195,6 +208,8 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
+                    <label for="limit_num2" class="col-md-2">在庫 
+                    <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num2" value=""></label>
                     <input type="button" value="更新する" onclick="goSubmit(3)"></b>
                     <div class="row">
                         <div class="col-md-1 h4"><a id="prev-month" href=""><i class="fas fa-fw fa-arrow-left"></i></a></div>
@@ -468,6 +483,14 @@ $(document).ready(function(){
         let price_type_id = $('#submit_select2').val();
         window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId+ '/' + price_type_id;
     });
+
+    $("input.day").on('change', function(){
+        if($(this).val() == '1') {
+            $(this).val(0);
+        } else {
+            $(this).val(1);
+        }
+    })
 });
 
 </script>
