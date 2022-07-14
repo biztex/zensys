@@ -179,7 +179,7 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-                    <label for="limit_num" class="col-md-2">在庫 
+                    <label for="limit_num" class="col-md-2  d-inline">在庫 
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num" value=""></label>
                     <input type="button" value="更新する" onclick="goSubmit(2)">
                     <br> <br>
@@ -208,7 +208,7 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-                    <label for="limit_num2" class="col-md-2">在庫 
+                    <label for="limit_num2" class="col-md-2  d-inline">在庫 
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num2" value=""></label>
                     <input type="button" value="更新する" onclick="goSubmit(3)"></b>
                     <div class="row">
