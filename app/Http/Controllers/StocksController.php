@@ -112,54 +112,27 @@ class StocksController extends Controller
         }
         $stocks = $plan->stocks;
         foreach ($request->days as $i => $day) {
-            if ($request->limit_number[$i] == $plan->res_limit_number ){
 
-              
-                foreach ($stocks as $stock) {
-                    
-                   if ($day == $stock->res_date) {
-                       $stock = Stock::find($stock->id);
-                       $stock->is_active = $request->is_active[$i];
-                       $stock->rank = $request->rank[$i];
-                       
-                       //$stock->res_type = $request->res_type[$i];
-                       $stock->limit_number = $request->limit_number[$i];
-                       //$stock->price = $request->price[$i];
-
-                       $stock->save(); 
-                       break 1;
-                   }
+            foreach ($stocks as $stock) {
+                if ($day == $stock->res_date && $request->price_type_id == $stock->price_type_id) {
+                    Stock::where('id', $stock->id)->update([
+                        'is_active'     => $request->is_active[$i],
+                        'rank'          => $request->rank[$i],
+                        'limit_number'  => $request->limit_number[$i]
+                    ]);
                 }
             }
-        }
-        foreach ($request->days as $i => $day) {
-                foreach ($stocks as $stock) {
-                   if ($day == $stock->res_date) {
-                       $stock = Stock::find($stock->id);
-                       $stock->is_active = $request->is_active[$i];
-                       $stock->rank = $request->rank[$i];
-                       //$stock->res_type = $request->res_type[$i];
-                       $stock->limit_number = $request->limit_number[$i];
-                       $stock->price_type_id = $request->price_type_id;
-                       //$stock->price = $request->price[$i];
-                       $stock->save(); 
-                    } 
-                }
-                $stock_result = Stock::where('res_date', $day)->where('plan_id', $plan->id)->first();
-                if (!$stock_result){
-                    $new_row = new Stock();
-                    $new_row->res_date = $day;
-                    $new_row->plan_id = $plan->id;
-                    $new_row->is_active = $request->is_active[$i];
-                    $new_row->rank = $request->rank[$i];
-                    // $stock->res_type = $plan->res_type;
-                    $stock->price_type_id = $request->price_type_id;
-                    //$new_row->res_type = $request->res_type[$i];
-                    $new_row->limit_number = $request->limit_number[$i];
-                    //$new_row->price = $request->price[$i];
-                    $new_row->save(); 
-                }
-            
+            $stock_result = Stock::where('res_date', $day)->where('plan_id', $plan->id)->get();
+            if (count($stock_result) == 0){
+                $new_stock = new Stock();
+                $new_stock->plan_id = $plan->id;
+                $new_stock->price_type_id = $request->price_type_id;
+                $new_stock->res_date = $day;
+                $new_stock->is_active = $request->is_active[$i];
+                $new_stock->rank = $request->rank[$i];
+                $new_stock->limit_number = $request->limit_number[$i];
+                $new_stock->save();
+            }
         }
         //値段
         $priceTypes = PriceType::whereIn('number', 
