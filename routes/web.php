@@ -353,12 +353,20 @@ foreach (config('fortify.users') as $user) {
                         '\App\Http\Controllers\StocksController@update'
                     );
                     Route::put(
-                        'stocks/update2/{id}',
-                        '\App\Http\Controllers\StocksController@update2'
+                        'stocks/updateRank/{id}',
+                        '\App\Http\Controllers\StocksController@updateRank'
                     );
                     Route::put(
-                        'stocks/update3/{id}',
-                        '\App\Http\Controllers\StocksController@update3'
+                        'stocks/updateRank_day/{id}',
+                        '\App\Http\Controllers\StocksController@updateRank_day'
+                    );
+                    Route::put(
+                        'stocks/updateStock/{id}',
+                        '\App\Http\Controllers\StocksController@updateStock'
+                    );
+                    Route::put(
+                        'stocks/updateStock_day/{id}',
+                        '\App\Http\Controllers\StocksController@updateStock_day'
                     );
                     // reservations
                     Route::get(
