@@ -180,7 +180,7 @@ class StocksController extends Controller
         Stock::where('plan_id',$id)
             ->whereDate('res_date','>=', $start_date)
             ->whereDate('res_date','<=', $end_date)
-            ->where('price_type_id',$request->price_type_id)
+            // ->where('price_type_id',$request->price_type_id)
             ->update([
                 'rank'=>$request->rank1,
             ]);
@@ -199,7 +199,7 @@ class StocksController extends Controller
         Stock::where('plan_id',$id)
             ->whereDate('res_date','>=', $start_date)
             ->whereDate('res_date','<=', $end_date)
-            ->where('price_type_id',$request->price_type_id)
+            // ->where('price_type_id',$request->price_type_id)
             ->update([
                 'limit_number' => $request->limit_num
             ]);
@@ -238,7 +238,7 @@ class StocksController extends Controller
                     $start_date = explode(' ', $dates[$p-1])[0];
                     $data = Stock::where('plan_id',$id)
                             ->whereDate('res_date', $start_date)
-                            ->where('price_type_id',$request->price_type_id)
+                            // ->where('price_type_id',$request->price_type_id)
                             ->update([
                                 'rank' => $request->rank2,
                             ]);
@@ -278,11 +278,11 @@ class StocksController extends Controller
         for($p = 1 ; $p < count($dates) + 1; $p++){
             foreach ($indexs as $index) {
                 # code...
-                if($p % 7 == $index){
+                if($p % 7 == $index || $p % 7 == 0){
                     $start_date = explode(' ', $dates[$p-1])[0];
                     $data = Stock::where('plan_id',$id)
                             ->whereDate('res_date', $start_date)
-                            ->where('price_type_id',$request->price_type_id)
+                            // ->where('price_type_id',$request->price_type_id)
                             ->update([
                                 'limit_number' => $request->limit_num2
                             ]);
