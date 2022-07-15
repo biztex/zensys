@@ -1285,6 +1285,8 @@ class PlansController extends Controller
         // データ保存
         $plans = Plan::find($id);
         $plans->group_id = $request->group_id;
+        $plans->code = $request->code;
+
         //$plans->genre_id = $request->genre_id ? $request->genre_id : '1';
         $plans->kind = $request->kind;
 
@@ -2142,6 +2144,8 @@ class PlansController extends Controller
         }
 
         $plans->group_id = $request->group_id;
+        $plans->code = $request->code;
+
         //$plans->genre_id = $request->genre_name; //name=>id
         $plans->kind = $request->kind;
 
