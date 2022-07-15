@@ -822,7 +822,7 @@ class PlansController extends Controller
                 ${'fileName' . $i} = '';
             }
         }
-        // データ保存
+        // データ保存$loop
         $plans = new Plan();
         $plans->code = $request->code;
         $plans->group_id = $request->group_id;

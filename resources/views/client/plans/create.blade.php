@@ -259,7 +259,7 @@
 
                         <hr />
   
-                                                 <div class="form-group row mt-5 bg-dark">
+                        <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
                         <div class="form-group row">
@@ -1823,6 +1823,7 @@ $('div[name="add-road"]').click(function(e) {
         $(this).hide();
     }
     $(this).children('input[name="add-road"]').val(val + 1);
+    console.log(val);
 
     $(".after-road-section-" + (val)).load('{{config('app.url')}}html/plan-road.php', function() {
 

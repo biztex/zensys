@@ -318,7 +318,7 @@
                       
                           @foreach ($plans-> road_maps as $road_map)
 
-                         <div class="after-road-section-{{ $loop->index + 1 }}">
+                         <div class="after-road-section-{{ $loop->index  }}">
 
                          
                                                     <div class="form-group row">
@@ -405,6 +405,9 @@
                         </script>
                     </div>
                          @endforeach
+                         <div class="after-road-section-{{ count($plans-> road_maps)  }}"></div>
+
+
                          
                          <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -1934,7 +1937,7 @@ $('div[name="add-road"]').click(function(e) {
         $(this).hide();
     }
     $(this).children('input[name="add-road"]').val(val + 1);
-
+    console.log(val);
     $(".after-road-section-" + (val)).load('{{config('app.url')}}html/plan-road.php', function() {
 
         if ($('input[name="is_discount"]:checked').val() == 1) {
