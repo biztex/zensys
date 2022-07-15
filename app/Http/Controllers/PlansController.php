@@ -824,6 +824,7 @@ class PlansController extends Controller
         }
         // データ保存
         $plans = new Plan();
+        $plans->code = $request->code;
         $plans->group_id = $request->group_id;
         // $plans->genre_id = $request->genre_id ? $request->genre_id : '1';
         $plans->kind = $request->kind;
