@@ -271,8 +271,8 @@ class StocksController extends Controller
 
         }
 
-        $year = date('Y');
-        $month = date('m');
+        $year = $request->year;
+        $month = $request->month;
     
         $dates = $this->getCalendarDates($year, $month);
 
