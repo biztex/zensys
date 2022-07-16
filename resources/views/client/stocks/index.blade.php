@@ -230,8 +230,8 @@
                     <div class="row">
                         <div class="col-md-1 h4"><a id="prev-month" href=""><i class="fas fa-fw fa-arrow-left"></i></a></div>
                         <div class="col-md-10 center h4 font-weight-bold text-center"><span id="disp-year">{{ $year }}</span> <small class="font-weight-bold">年</small>　<span id="disp-month">{{ $month }}</span> <small class="font-weight-bold">月</small></div>
-                        <input type="hidden" id="year">
-                        <input type="hidden" id="month">
+                        <input type="hidden" id="year" name="year">
+                        <input type="hidden" id="month" name="month">
                         <div class="col-md-1 h4 text-right"><a href="" id="next-month"><i class="fas fa-fw fa-arrow-right"></i></a></div>
                     </div>
                     <table class="table table-bordered">
