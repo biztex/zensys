@@ -43,23 +43,35 @@
                         <div class="listSide">
                             <p class="listSideHd">カテゴリ</p>
                             <ul class="listSideUl">
-                                <li><a href="#">すべて</a></li>
-                                <li><a href="#">国内旅行（募集ツアー）</a></li>
-                                <li><a href="#">海外旅行</a></li>
-                                <li><a href="#">GO ON ながの　</a></li>
-                                <li><a href="#">FDA自由旅</a></li>
-                                <li><a href="#">国内宿泊プラン</a></li>
-                                <li><a href="#">新潟高速バス宿泊パック</a></li>
-                                <li><a href="#">長野パルセイロ応援ツアー</a></li>
+                                <li><a href="/list.php?kind=all">すべて</a></li>
+                                <li><a href="/list.php?kind=0">国内旅行（募集ツアー）</a></li>
+                                <li><a href="/list.php?kind=1">海外旅行</a></li>
+                                <li><a href="/list.php?kind=2">GO ON ながの　</a></li>
+                                <li><a href="/list.php?kind=3">FDA自由旅</a></li>
+                                <li><a href="/list.php?kind=4">国内宿泊プラン</a></li>
+                                <li><a href="/list.php?kind=5">新潟高速バス宿泊パック</a></li>
+                                <li><a href="/list.php?kind=6">長野パルセイロ応援ツアー</a></li>
                             </ul>
                         </div>
+
+                     
                         <div class="listMain">
 
                         <?php
-        $url = "http://153.127.31.62/zenryo/public/api/plans/json/0?id=155";
-        // $url = "http://localhost:8000/api/plans/json/0?id=155";
-        $json = file_get_contents($url);
-        $plans = json_decode($json,true);
+                     $actual_link = "$_SERVER[REQUEST_URI]";
+
+                     $params = '';
+                     if(!isset($_GET['kind'])){
+                        $params = 'all';
+                     }
+                     else{
+                        $params = $_GET['kind'];
+                     }
+
+                    $url = "http://153.127.31.62/zenryo/public/api/plans/json/" . $params;
+                    // $url = "http://localhost:8000/api/plans/json/0?id=155";
+                    $json = file_get_contents($url);
+                    $plans = json_decode($json,true);
 
         for ($i = 0 ; $i < count($plans) ; $i++) {
             $plan = $plans[$i];

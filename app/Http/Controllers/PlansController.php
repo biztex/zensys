@@ -2513,7 +2513,14 @@ class PlansController extends Controller
     public function apiJson($kind = null)
     {
         try {
-            if ($kind >= 0) {
+            if($kind == 'all'){
+                $result = Plan::select()
+                ->orderBy('sort')
+                ->where('is_listed', 1)
+                ->where('name', '!=', 'コピー用')
+                ->get();
+            }
+            elseif ($kind >= 0) {
                 $result = Plan::select()
                     ->orderBy('sort')
                     ->where('kind', $kind)
