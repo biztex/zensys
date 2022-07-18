@@ -2516,19 +2516,21 @@ class PlansController extends Controller
             if($kind == 'all'){
                 $result = DB::table('plans')
                 ->select()
-                // ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
+                ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
                 ->orderBy('sort')
                 ->where('is_listed', 1)
                 ->where('name', '!=', 'コピー用')
                 ->get();
             }
             elseif ($kind >= 0) {
-                $result = Plan::select()
-                    ->orderBy('sort')
-                    ->where('kind', $kind)
-                    ->where('is_listed', 1)
-                    ->where('name', '!=', 'コピー用')
-                    ->get();
+                $result = DB::table('plans')
+                ->select()
+                ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
+                ->orderBy('sort')
+                ->where('kind', $kind)
+                ->where('is_listed', 1)
+                ->where('name', '!=', 'コピー用')
+                ->get();
             }
         } catch (\Exception $e) {
             $result = [
