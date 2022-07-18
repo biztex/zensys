@@ -69,12 +69,12 @@
                      }
 
                     $url = "http://153.127.31.62/zenryo/public/api/plans/json/" . $params;
-                    // $url = "http://localhost:8000/api/plans/json/0?id=155";
                     $json = file_get_contents($url);
                     $plans = json_decode($json,true);
 
         for ($i = 0 ; $i < count($plans) ; $i++) {
             $plan = $plans[$i];
+            var_dump($plan);
           ?>
 
                             <div class="listItem">

@@ -2514,7 +2514,9 @@ class PlansController extends Controller
     {
         try {
             if($kind == 'all'){
-                $result = Plan::select()
+                $result = DB::table('plans')
+                ->select('*')
+                ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
                 ->orderBy('sort')
                 ->where('is_listed', 1)
                 ->where('name', '!=', 'コピー用')
@@ -2537,6 +2539,7 @@ class PlansController extends Controller
             ];
             return $this->resConversionJson($result, $e->getCode());
         }
+        dd($result);
         return $this->resConversionJson($result);
     }
     // JSON返却 API 個別プラン情報
