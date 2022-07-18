@@ -43,14 +43,14 @@
                         <div class="listSide">
                             <p class="listSideHd">カテゴリ</p>
                             <ul class="listSideUl">
-                                <li><a href="/list.php?kind=all">すべて</a></li>
-                                <li><a href="/list.php?kind=0">国内旅行（募集ツアー）</a></li>
-                                <li><a href="/list.php?kind=1">海外旅行</a></li>
-                                <li><a href="/list.php?kind=2">GO ON ながの　</a></li>
-                                <li><a href="/list.php?kind=3">FDA自由旅</a></li>
-                                <li><a href="/list.php?kind=4">国内宿泊プラン</a></li>
-                                <li><a href="/list.php?kind=5">新潟高速バス宿泊パック</a></li>
-                                <li><a href="/list.php?kind=6">長野パルセイロ応援ツアー</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=all">すべて</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=0">国内旅行（募集ツアー）</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=1">海外旅行</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=2">GO ON ながの　</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=3">FDA自由旅</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=4">国内宿泊プラン</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=5">新潟高速バス宿泊パック</a></li>
+                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=6">長野パルセイロ応援ツアー</a></li>
                             </ul>
                         </div>
 
