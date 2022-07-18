@@ -48,6 +48,8 @@ $url =  "http://153.127.31.62/zenryo/public/api/company/json";
 $company_array = file_get_contents($url);
 $companies = json_decode($company_array, true);
 
+$company = $companies[0];
+
 
 $priceType = $prices[0]['type'];
 $price_type_name=$prices[0]['name'];
@@ -1033,15 +1035,15 @@ $stocks_next = json_decode($json_stocks_next,true);
                                 <table class="reserveTable">
                                     <tr>
                                         <th>旅行企画・実施会社</th>
-                                        <td><?=$companies["name"]?></td>
+                                        <td><?=$company["name"]?></td>
                                     </tr>
                                     <tr>
                                         <th>旅行業登録番号</th>
-                                        <td><?=$companies["xnumber"]?></td>
+                                        <td><?=$company["company_number"]?></td>
                                     </tr>
                                     <tr>
                                         <th>住所</th>
-                                        <td><?=$companies["address"]?></td>
+                                        <td><?=$company["address"]?></td>
                                     </tr>
                                 </table>
                             </div>
