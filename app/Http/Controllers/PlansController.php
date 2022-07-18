@@ -2539,7 +2539,6 @@ class PlansController extends Controller
             ];
             return $this->resConversionJson($result, $e->getCode());
         }
-        dd($result);
         return $this->resConversionJson($result);
     }
     // JSON返却 API 個別プラン情報
