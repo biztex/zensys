@@ -6,6 +6,24 @@ $url = "http://153.127.31.62/zenryo/public/api/plan/json/" . $plan_id;
 $array = file_get_contents($url);
 $plan = json_decode($array,true);
 $plan = $plan[0];
+
+
+$min_value = $plan["prices"][0]['a_1'];
+$max_value = $plan["prices"][0]['a_1']; 
+for($k=0; $k<count($plan["prices"]); $k++){
+    $price_t = $plan["prices"][$k];
+
+    $alphas = ['b_1','c_1','d_1','e_1','f_1','g_1','h_1','i_1','j_1','k_1'];
+    for($j=0; $j<count($alphas) ; $j++ ){
+        if($max_value < $price_t[$alphas[$j]]){
+            $max_value = $price_t[$alphas[$j]]; 
+        }
+        else if($min_value > $price_t[$alphas[$j]] && $price_t[$alphas[$j]] != null){
+            $min_value = $price_t[$alphas[$j]];
+        }
+    }
+}
+
 $plan_json = json_encode($array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 $plan_json = str_replace('¥u0022', '¥¥¥"', $plan_json);
 $plan_json = str_replace('"', '', $plan_json);
@@ -170,7 +188,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         </dl>
                                         <?php } ?>
                                     </div>
-                                    <p class="priceP">旅行代金（お一人様<span>¥15,000〜¥30,000</span></p>
+                                    <p class="priceP">旅行代金（お一人様<span>¥<?=number_format($min_value) ?>〜¥<?=number_format($max_value) ?></span></p>
                                     <p class="btnP"><a href="#calendar_area" class="scroll btnLink01">旅行代金カレンダーを見る</a></p>
                                 </div>
                             </div>
@@ -513,9 +531,11 @@ $stocks_next = json_decode($json_stocks_next,true);
                 	    	echo '<tr>';
                 	    }
                 	    $count = 0;
+
                 	    foreach ($stocks["stocks"] as $stock) {
-                             $day_price=$price;
-                             if($stock["price"]){
+                   
+                            $day_price=$stock["price"];
+                            if($stock["price"]){
                                 $day_price=$stock["price"];
                                 if(is_array($day_price)){
                                
@@ -527,10 +547,10 @@ $stocks_next = json_decode($json_stocks_next,true);
                                     $day_price = $str;
                                 }
                                }
-                	    	if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
+                            if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
                 	    		if ($stock["res_type"] == 0 && $stock["res_date"] >= date("Y-m-d")) {
-                	    		echo '<td><p class="dayP">' . $d . '</p>';
-                                
+                	    		    echo '<td><p class="dayP">' . $d . '</p>';
+
                                     if ($stock["limit_number"] > 0) {
                                         
                                         foreach ($prices as  $price) {
@@ -558,7 +578,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                 	    		    } else {
                 	    		    //	echo '-';
                 	    		    }
-					    $count++;
+					                $count++;
                 	    		} else if ($stock["res_type"] == 1 && $stock["res_date"] >= date("Y-m-d")) {
                                     echo '<td><p class="dayP">' . $d . '</p>';
                                     echo '<p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>';
@@ -587,7 +607,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                 	    		    } else {
                 	    		    //	echo '-';
                 	    		    }
-					    $count++;
+					                $count++;
                 	    		} else if ($stock["res_type"] == 2 && $stock["res_date"] >= date("Y-m-d")) {
                                     echo '<td><p class="dayP">' . $d . '</p>';
                                     foreach ($prices as  $price) {
@@ -609,7 +629,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         }
                                     }
                                       //      echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-					    $count++;
+                                    $count++;
                 	    		} else {
                                     foreach ($prices as  $price) {
                                         foreach ($tmp_arr as  $al) {
@@ -630,7 +650,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         }
                                     }
                    	                //    echo '<td style="background-color: #777">' . $d . '<br />-';
-					    $count++;
+					                $count++;
 					           }
     
                              //if($stock[price]){
@@ -1141,6 +1161,7 @@ $(function() {
 // カレンダー送り設定
 $(function() {
 	$('.prev-month').click(function () {
+    
         let year = "<?= $current_y ?>",
             month = "<?= $current_m ?>",
             planId = '<?= $plan_id ?>';
@@ -1148,7 +1169,7 @@ $(function() {
         date.setMonth(date.getMonth() - 2); // ここで1ヶ月前をセット
         let prevMonthYear = date.getFullYear();
         let prevMonth = date.getMonth() + 1;
-        location.href = 'http://153.127.31.62/zenryo/public/detail.php/?page_id=2622&year=' + prevMonthYear + '&month=' + prevMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = 'http://localhost:8000/detail.php/?page_id=2622&year=' + prevMonthYear + '&month=' + prevMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
     $('.next-month').click(function () {
         let year = "<?= $current_y ?>",
@@ -1158,7 +1179,7 @@ $(function() {
         date.setMonth(date.getMonth() + 1); // ここで1ヶ月後をセット
         let nextMonthYear = date.getFullYear();
         let nextMonth = date.getMonth();
-        location.href = 'http://153.127.31.62/zenryo/public/detail.php/?page_id=2622&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = 'http://localhost:8000/detail.php/?page_id=2622&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
 });
 

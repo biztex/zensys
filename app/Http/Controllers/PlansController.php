@@ -2553,8 +2553,6 @@ class PlansController extends Controller
                     ->where('id', $id)
                     ->where('name', '!=', 'コピー用')
                     //->where('is_listed', 1)
-
-                    
                     ->with('prices.price_types')
                     ->with('activities')
                     ->get();
