@@ -49,7 +49,6 @@ $company_array = file_get_contents($url);
 $companies = json_decode($company_array, true);
 
 
-
 $priceType = $prices[0]['type'];
 $price_type_name=$prices[0]['name'];
 if ($_GET["year"] && $_GET["month"]) {
@@ -1034,15 +1033,15 @@ $stocks_next = json_decode($json_stocks_next,true);
                                 <table class="reserveTable">
                                     <tr>
                                         <th>旅行企画・実施会社</th>
-                                        <td><?=$companies["company_name"]?></td>
+                                        <td><?=$companies["name"]?></td>
                                     </tr>
                                     <tr>
                                         <th>旅行業登録番号</th>
-                                        <td><?=$companies["company_number"]?></td>
+                                        <td><?=$companies["xnumber"]?></td>
                                     </tr>
                                     <tr>
                                         <th>住所</th>
-                                        <td><?=$companies["company_address"]?></td>
+                                        <td><?=$companies["address"]?></td>
                                     </tr>
                                 </table>
                             </div>
