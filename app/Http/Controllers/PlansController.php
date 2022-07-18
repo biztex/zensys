@@ -2514,22 +2514,22 @@ class PlansController extends Controller
     {
         try {
             if($kind == 'all'){
-                $result = DB::table('plans')
-                ->select()
-                ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
+                $result = Plan::select()
                 ->orderBy('sort')
                 ->where('is_listed', 1)
                 ->where('name', '!=', 'コピー用')
+                ->with('prices.price_types')
+                ->with('activities')
                 ->get();
             }
-            elseif ($kind >= 0) {
-                $result = DB::table('plans')
-                ->select()
-                ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
+            if ($kind >= 0) {
+                $result = Plan::select()
                 ->orderBy('sort')
                 ->where('kind', $kind)
                 ->where('is_listed', 1)
                 ->where('name', '!=', 'コピー用')
+                ->with('prices.price_types')
+                ->with('activities')
                 ->get();
             }
         } catch (\Exception $e) {
@@ -2553,6 +2553,8 @@ class PlansController extends Controller
                     ->where('id', $id)
                     ->where('name', '!=', 'コピー用')
                     //->where('is_listed', 1)
+
+                    
                     ->with('prices.price_types')
                     ->with('activities')
                     ->get();

@@ -9,7 +9,6 @@ $plan = $plan[0];
 $plan_json = json_encode($array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 $plan_json = str_replace('¥u0022', '¥¥¥"', $plan_json);
 $plan_json = str_replace('"', '', $plan_json);
-
 $url = "http://153.127.31.62/zenryo/public/api/roadMap/json/" . $plan_id;
 $array = file_get_contents($url);
 $roadmaps = json_decode($array,true);
@@ -22,6 +21,7 @@ $roadmap_json = str_replace('"', '', $roadmap_json);
 $url = "http://153.127.31.62/zenryo/public/api/price/json/" . $plan_id;
 $array = file_get_contents($url);
 $prices = json_decode($array,true);
+
 $priceType = $prices[0]['type'];
 $price_type_name=$prices[0]['name'];
 if ($_GET["year"] && $_GET["month"]) {
@@ -479,7 +479,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <thead>
                                             <tr>
                                                 <td colspan="7"><?php
-                    	foreach ($stocks_next[dates] as $date_next) {
+                    	foreach ($stocks_next['dates'] as $date_next) {
                   		    $current_date = new DateTime(substr($date_next, 0, 10));
                   		    $y = (int)$current_date->format('Y');
                   		    $m = $current_date->format('m');
@@ -504,7 +504,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <?php
                 	$week = ['日', '月', '火', '水', '木', '金', '土'];
                     $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
-                	foreach ($stocks_next[dates] as $date) {
+                	foreach ($stocks_next['dates'] as $date) {
                 		$current_date = new DateTime(substr($date, 0, 10));
 				//$current_date = $current_date->modify("-1 months");
                 		$w = (int)$current_date->format('w');
@@ -513,10 +513,10 @@ $stocks_next = json_decode($json_stocks_next,true);
                 	    	echo '<tr>';
                 	    }
                 	    $count = 0;
-                	    foreach ($stocks[stocks] as $stock) {
+                	    foreach ($stocks["stocks"] as $stock) {
                              $day_price=$price;
-                             if($stock[price]){
-                                $day_price=$stock[price];
+                             if($stock["price"]){
+                                $day_price=$stock["price"];
                                 if(is_array($day_price)){
                                
                                     $str="";
@@ -527,17 +527,17 @@ $stocks_next = json_decode($json_stocks_next,true);
                                     $day_price = $str;
                                 }
                                }
-                	    	if ($current_date->format('Y-m-d') == $stock[res_date] && $stock[is_active] == 1) {
-                	    		if ($stock[res_type] == 0 && $stock[res_date] >= date("Y-m-d")) {
+                	    	if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
+                	    		if ($stock["res_type"] == 0 && $stock["res_date"] >= date("Y-m-d")) {
                 	    		echo '<td><p class="dayP">' . $d . '</p>';
                                 
-                                    if ($stock[limit_number] > 0) {
+                                    if ($stock["limit_number"] > 0) {
                                         
                                         foreach ($prices as  $price) {
                                             foreach ($tmp_arr as  $al) {
                                                 if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                                     echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                    echo '<p class="datePrice">'.$al.'<br>残数：'.$stock[limit_number] .'';
+                                                    echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
 
                                                     if($price[strtolower($al)."_1"]){
                                                         echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
@@ -553,21 +553,21 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         }
                                         
                 	    		    //	echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>○</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-                	    		    } else if ($stock[limit_number] == 0) {
+                	    		    } else if ($stock["limit_number"] == 0) {
                 	    		    //	echo '×';
                 	    		    } else {
                 	    		    //	echo '-';
                 	    		    }
 					    $count++;
-                	    		} else if ($stock[res_type] == 1 && $stock[res_date] >= date("Y-m-d")) {
+                	    		} else if ($stock["res_type"] == 1 && $stock["res_date"] >= date("Y-m-d")) {
                                     echo '<td><p class="dayP">' . $d . '</p>';
                                     echo '<p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>';
-                	    		    if ($stock[limit_number] > 0) {
+                	    		    if ($stock["limit_number"] > 0) {
                                         foreach ($prices as  $price) {
                                             foreach ($tmp_arr as  $al) {
                                                 if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                                     echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
-                                                    echo '<p class="datePrice">'.$al.'<br>残数：'.$stock[limit_number] .'';
+                                                    echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
 
                                                     if($price[strtolower($al)."_1"]){
                                                         echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
@@ -582,19 +582,19 @@ $stocks_next = json_decode($json_stocks_next,true);
 
                                             }
                                         }
-                	    		    } else if ($stock[limit_number] == 0) {
+                	    		    } else if ($stock["limit_number"] == 0) {
                 	    		    //	echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
                 	    		    } else {
                 	    		    //	echo '-';
                 	    		    }
 					    $count++;
-                	    		} else if ($stock[res_type] == 2 && $stock[res_date] >= date("Y-m-d")) {
+                	    		} else if ($stock["res_type"] == 2 && $stock["res_date"] >= date("Y-m-d")) {
                                     echo '<td><p class="dayP">' . $d . '</p>';
                                     foreach ($prices as  $price) {
                                         foreach ($tmp_arr as  $al) {
                                             if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                              //   echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
-                                                echo '<p class="datePrice">'.$al.'<br>残数：'.$stock[limit_number] .'';
+                                                echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
 
                                                 if($price[strtolower($al)."_1"]){
                                                     echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
@@ -615,7 +615,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         foreach ($tmp_arr as  $al) {
                                             if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                              //   echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
-                                                echo '<p class="datePrice">'.$al.'<br>残数：'.$stock[limit_number] .'';
+                                                echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
 
                                                 if($price[strtolower($al)."_1"]){
                                                     echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
@@ -931,22 +931,22 @@ $stocks_next = json_decode($json_stocks_next,true);
                                 <table class="reserveTable">
                                     <tr>
                                         <th>お支払方法</th>
-                                        <td><?php if ($plan[spot] == 1) {
+                                        <td><?php if ($plan["spot"] == 1) {
                       echo '現地払い<br />';
                   }
-		  if ($plan[prepay] == 1) {
+		  if ($plan["prepay"] == 1) {
                       echo '事前払い<br />';
                   }
-		  if ($plan[cvs] == 1) {
+		  if ($plan["cvs"] == 1) {
                       echo '事前コンビニ決済<br />';
                   }
-		  if ($plan[card] == 1) {
+		  if ($plan["card"] == 1) {
                       echo '事前クレジットカード決済<br/ >';
                   } ?></td>
                                     </tr>
                                     <tr>
                                         <th>お支払方法の補足、詳細</th>
-                                        <td><?=$plan[payment_comment]?></td>
+                                        <td><?=$plan["payment_comment"]?></td>
                                     </tr>
                                 </table>
                             </div>
@@ -1002,15 +1002,15 @@ $stocks_next = json_decode($json_stocks_next,true);
                                 <table class="reserveTable">
                                     <tr>
                                         <th>旅行企画・実施会社</th>
-                                        <td><?=$plan[company_name]?></td>
+                                        <td><?=$plan["company_name"]?></td>
                                     </tr>
                                     <tr>
                                         <th>旅行業登録番号</th>
-                                        <td><?=$plan[company_number]?></td>
+                                        <td><?=$plan["company_number"]?></td>
                                     </tr>
                                     <tr>
                                         <th>住所</th>
-                                        <td><?=$plan[company_address]?></td>
+                                        <td><?=$plan["company_address"]?></td>
                                     </tr>
                                 </table>
                             </div>

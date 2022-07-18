@@ -87,8 +87,9 @@
                                 $min_value = $plan[$alphas[$j]];
                             }
                         }
-                      
+                        
                     ?>
+
 
                             <div class="listItem">
                                 <p class="listItemHd"><?=htmlspecialchars($plan["name"])?></p>
@@ -125,7 +126,7 @@
                                                 </dl>
                                             </div>
                                             <p class="priceP">旅行代金（お一人様<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
-                                            <p class="btnP"><a href="http://153.127.31.62/zenryo/public/detail.php?plan_id=<?=htmlspecialchars($plan["id"])?>" class="btnLink01">プラン詳細をみる</a></p>
+                                            <p class="btnP"><a href="http://localhost:8000/detail.php?plan_id=<?=htmlspecialchars($plan["plan_id"])?>" class="btnLink01">プラン詳細をみる</a></p>
                                         </div>
                                     </div>
                                 </div>
