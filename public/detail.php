@@ -8,6 +8,8 @@ $plan = json_decode($array,true);
 $plan = $plan[0];
 
 
+
+
 $min_value = $plan["prices"][0]['a_1'];
 $max_value = $plan["prices"][0]['a_1']; 
 for($k=0; $k<count($plan["prices"]); $k++){
@@ -36,9 +38,17 @@ $roadmap_json = str_replace('¥u0022', '¥¥¥"', $roadmap_json);
 $roadmap_json = str_replace('"', '', $roadmap_json);
 
 
+
 $url = "http://153.127.31.62/zenryo/public/api/price/json/" . $plan_id;
 $array = file_get_contents($url);
 $prices = json_decode($array,true);
+
+
+$url =  "http://153.127.31.62/zenryo/public/api/company/json";
+$company_array = file_get_contents($url);
+$companies = json_decode($company_array, true);
+
+
 
 $priceType = $prices[0]['type'];
 $price_type_name=$prices[0]['name'];
@@ -1024,15 +1034,15 @@ $stocks_next = json_decode($json_stocks_next,true);
                                 <table class="reserveTable">
                                     <tr>
                                         <th>旅行企画・実施会社</th>
-                                        <td><?=$plan["company_name"]?></td>
+                                        <td><?=$companies["company_name"]?></td>
                                     </tr>
                                     <tr>
                                         <th>旅行業登録番号</th>
-                                        <td><?=$plan["company_number"]?></td>
+                                        <td><?=$companies["company_number"]?></td>
                                     </tr>
                                     <tr>
                                         <th>住所</th>
-                                        <td><?=$plan["company_address"]?></td>
+                                        <td><?=$companies["company_address"]?></td>
                                     </tr>
                                 </table>
                             </div>

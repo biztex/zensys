@@ -59,6 +59,10 @@ Route::get(
     '\App\Http\Controllers\PriceController@json'
 );
 Route::get(
+    'api/company/json',
+    '\App\Http\Controllers\CompaniesController@json'
+);
+Route::get(
     'api/stocks/json/{year?}/{month?}/{plan?}/{price_type_id?}',
     '\App\Http\Controllers\StocksController@indexJson'
 );
