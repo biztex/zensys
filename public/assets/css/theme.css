@@ -4825,7 +4825,7 @@ ul {
 .section--detail p,
 .section_calendar p {
     line-height: 1.5;
-    letter-spacing: 1;
+    letter-spacing: 0;
 }
 
 .detailItem {
