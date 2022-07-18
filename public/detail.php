@@ -224,7 +224,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                 </div>
             </div>
         </section>
-        <section class="section section_calendar">
+        <section class="section section_calendar" id="anchor-calendar">
             <div class="inner">
                 <div class="section__content">
                     <div class="dateArea">
