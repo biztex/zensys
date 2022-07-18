@@ -1016,7 +1016,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                             <div class="detailItem">
                                 <p class="detailItemHd">ご旅行条件書</p>
                                 <div class="reserveTxt">
-                                    <p>お申込みの際には、必ず<b><a href="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][url_path]?>" target="_blank"> ご旅行条件書</a></b>をお読みください。</p>
+                                    <p>お申込みの際には、必ず<b><a href="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path11"]?>" target="_blank"> ご旅行条件書</a></b>をお読みください。</p>
                                 </div>
                             </div>
                             <div class="detailItem">
