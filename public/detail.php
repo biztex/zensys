@@ -496,17 +496,19 @@ $stocks_next = json_decode($json_stocks_next,true);
                                     <table class="dateTable">
                                         <thead>
                                             <tr>
-                                                <td colspan="7"><?php
-                    	foreach ($stocks_next['dates'] as $date_next) {
-                  		    $current_date = new DateTime(substr($date_next, 0, 10));
-                  		    $y = (int)$current_date->format('Y');
-                  		    $m = $current_date->format('m');
-                  		    $d = $current_date->format('j');
-                  	        if ($d == 15) {
-                  	            echo $y . '年' . $m . '月';
-                  	        }
-                        }
-                    	?></td>
+                                                <td colspan="7">
+                                                    <?php
+                                                        foreach ($stocks_next['dates'] as $date_next) {
+                                                            $current_date = new DateTime(substr($date_next, 0, 10));
+                                                            $y = (int)$current_date->format('Y');
+                                                            $m = $current_date->format('m');
+                                                            $d = $current_date->format('j');
+                                                            if ($d == 15) {
+                                                                echo $y . '年' . $m . '月';
+                                                            }
+                                                        }
+                    	                            ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>日</td>
@@ -520,161 +522,161 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         </thead>
                                         <tbody>
                                         <?php
-                	$week = ['日', '月', '火', '水', '木', '金', '土'];
-                    $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
-                	foreach ($stocks_next['dates'] as $date) {
-                		$current_date = new DateTime(substr($date, 0, 10));
-				//$current_date = $current_date->modify("-1 months");
-                		$w = (int)$current_date->format('w');
-                		$d = $current_date->format('j');
-                	    if ($w == 0) {
-                	    	echo '<tr>';
-                	    }
-                	    $count = 0;
-
-                	    foreach ($stocks["stocks"] as $stock) {
-                   
-                            $day_price=$stock["price"];
-                            if($stock["price"]){
-                                $day_price=$stock["price"];
-                                if(is_array($day_price)){
-                               
-                                    $str="";
-                                    foreach ($day_price as $key => $value) {
-                                        $str=$str.$key.":".$value."----";
-                                    }
-                                    //die($str);
-                                    $day_price = $str;
-                                }
-                               }
-                            if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
-                	    		if ($stock["res_type"] == 0 && $stock["res_date"] >= date("Y-m-d")) {
-                	    		    echo '<td><p class="dayP">' . $d . '</p>';
-
-                                    if ($stock["limit_number"] > 0) {
-                                        
-                                        foreach ($prices as  $price) {
-                                            foreach ($tmp_arr as  $al) {
-                                                if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                                    echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                    echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
-
-                                                    if($price[strtolower($al)."_1"]){
-                                                        echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
-                                                    }
-                                                    if($price[strtolower($al)."_2"]){
-                                                        echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
-                                                    }
-                                                    echo '</p>';
-                                                    echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                	                        $week = ['日', '月', '火', '水', '木', '金', '土'];
+                                            $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
+                                            foreach ($stocks_next['dates'] as $date) {
+                                                $current_date = new DateTime(substr($date, 0, 10));
+                                                //$current_date = $current_date->modify("-1 months");
+                                                $w = (int)$current_date->format('w');
+                                                $d = $current_date->format('j');
+                                                if ($w == 0) {
+                                                    echo '<tr>';
                                                 }
+                                                $count = 0;
 
-                                            }
-                                        }
+                                                foreach ($stocks["stocks"] as $stock) {
                                         
-                	    		    //	echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>○</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-                	    		    } else if ($stock["limit_number"] == 0) {
-                	    		    //	echo '×';
-                	    		    } else {
-                	    		    //	echo '-';
-                	    		    }
-					                $count++;
-                	    		} else if ($stock["res_type"] == 1 && $stock["res_date"] >= date("Y-m-d")) {
-                                    echo '<td><p class="dayP">' . $d . '</p>';
-                                    echo '<p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>';
-                	    		    if ($stock["limit_number"] > 0) {
-                                        foreach ($prices as  $price) {
-                                            foreach ($tmp_arr as  $al) {
-                                                if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                                    echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
-                                                    echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
-
-                                                    if($price[strtolower($al)."_1"]){
-                                                        echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
-                                                    }
-                                                    if($price[strtolower($al)."_2"]){
-                                                        echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
-                                                    }
-                                                    echo '</p>';
+                                                    $day_price=$stock["price"];
+                                                    if($stock["price"]){
+                                                        $day_price=$stock["price"];
+                                                        if(is_array($day_price)){
                                                     
-                                                    echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-                                                }
+                                                            $str="";
+                                                            foreach ($day_price as $key => $value) {
+                                                                $str=$str.$key.":".$value."----";
+                                                            }
+                                                            //die($str);
+                                                            $day_price = $str;
+                                                        }
+                                                    }
+                                                    if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
+                                                        if ($stock["res_type"] == 0 && $stock["res_date"] >= date("Y-m-d")) {
+                                                            echo '<td><p class="dayP">' . $d . '</p>';
 
+                                                            if ($stock["limit_number"] > 0) {
+                                                                
+                                                                foreach ($prices as  $price) {
+                                                                    foreach ($tmp_arr as  $al) {
+                                                                        if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
+                                                                            echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                            echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
+
+                                                                            if($price[strtolower($al)."_1"]){
+                                                                                echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
+                                                                            }
+                                                                            if($price[strtolower($al)."_2"]){
+                                                                                echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
+                                                                            }
+                                                                            echo '</p>';
+                                                                            echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                                
+                                                            //	echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>○</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                            } else if ($stock["limit_number"] == 0) {
+                                                            //	echo '×';
+                                                            } else {
+                                                            //	echo '-';
+                                                            }
+                                                            $count++;
+                                                        } else if ($stock["res_type"] == 1 && $stock["res_date"] >= date("Y-m-d")) {
+                                                            echo '<td><p class="dayP">' . $d . '</p>';
+                                                            echo '<p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>';
+                                                            if ($stock["limit_number"] > 0) {
+                                                                foreach ($prices as  $price) {
+                                                                    foreach ($tmp_arr as  $al) {
+                                                                        if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
+                                                                            echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
+                                                                            echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
+
+                                                                            if($price[strtolower($al)."_1"]){
+                                                                                echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
+                                                                            }
+                                                                            if($price[strtolower($al)."_2"]){
+                                                                                echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
+                                                                            }
+                                                                            echo '</p>';
+                                                                            
+                                                                            echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                            } else if ($stock["limit_number"] == 0) {
+                                                            //	echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                            } else {
+                                                            //	echo '-';
+                                                            }
+                                                            $count++;
+                                                        } else if ($stock["res_type"] == 2 && $stock["res_date"] >= date("Y-m-d")) {
+                                                            echo '<td><p class="dayP">' . $d . '</p>';
+                                                            foreach ($prices as  $price) {
+                                                                foreach ($tmp_arr as  $al) {
+                                                                    if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
+                                                                    //   echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
+                                                                        echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
+
+                                                                        if($price[strtolower($al)."_1"]){
+                                                                            echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
+                                                                        }
+                                                                        if($price[strtolower($al)."_2"]){
+                                                                            echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
+                                                                        }
+                                                                        echo '</p>';
+                                                                    //  echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                                    }
+
+                                                                }
+                                                            }
+                                                            //      echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                            $count++;
+                                                        } else {
+                                                            foreach ($prices as  $price) {
+                                                                foreach ($tmp_arr as  $al) {
+                                                                    if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
+                                                                    //   echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
+                                                                        echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
+
+                                                                        if($price[strtolower($al)."_1"]){
+                                                                            echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
+                                                                        }
+                                                                        if($price[strtolower($al)."_2"]){
+                                                                            echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
+                                                                        }
+                                                                        echo '</p>';
+                                                                    //  echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                                    }
+
+                                                                }
+                                                            }
+                                                            //    echo '<td style="background-color: #777">' . $d . '<br />-';
+                                                            $count++;
+                                                    }
+                            
+                                                    //if($stock[price]){
+
+                                                    //  $day_price_arr=$stock[price];
+                                                    //     foreach($day_price_arr as $name => $price){
+                            
+                                                    //             echo "<span class='price_detail1'>". $name.":".number_format($price).'円</span>';
+                                                    //     }
+
+                                                    //    }else{
+                                                    //           echo "<span class='price_detail2'>". $price_type_name.":".number_format($day_price).'円</span>';
+                                                    //    }
+                                                        echo '</td>';
+                                                    }
+                                                }
+                                                if ($count == 0) {
+                                                    echo '<td style="background-color: #777">' . $d . '<br />-</td>';
+                                                }
+                                                if ($w == 6) {
+                                                    echo '</tr>';
+                                                }
                                             }
-                                        }
-                	    		    } else if ($stock["limit_number"] == 0) {
-                	    		    //	echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-                	    		    } else {
-                	    		    //	echo '-';
-                	    		    }
-					                $count++;
-                	    		} else if ($stock["res_type"] == 2 && $stock["res_date"] >= date("Y-m-d")) {
-                                    echo '<td><p class="dayP">' . $d . '</p>';
-                                    foreach ($prices as  $price) {
-                                        foreach ($tmp_arr as  $al) {
-                                            if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                             //   echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
-                                                echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
-
-                                                if($price[strtolower($al)."_1"]){
-                                                    echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
-                                                }
-                                                if($price[strtolower($al)."_2"]){
-                                                    echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
-                                                }
-                                                echo '</p>';
-                                              //  echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-                                            }
-
-                                        }
-                                    }
-                                      //      echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-                                    $count++;
-                	    		} else {
-                                    foreach ($prices as  $price) {
-                                        foreach ($tmp_arr as  $al) {
-                                            if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                             //   echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
-                                                echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
-
-                                                if($price[strtolower($al)."_1"]){
-                                                    echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
-                                                }
-                                                if($price[strtolower($al)."_2"]){
-                                                    echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
-                                                }
-                                                echo '</p>';
-                                              //  echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
-                                            }
-
-                                        }
-                                    }
-                   	                //    echo '<td style="background-color: #777">' . $d . '<br />-';
-					                $count++;
-					           }
-    
-                             //if($stock[price]){
-
-                              //  $day_price_arr=$stock[price];
-                            //     foreach($day_price_arr as $name => $price){
-    
-                            //             echo "<span class='price_detail1'>". $name.":".number_format($price).'円</span>';
-                            //     }
-
-                            //    }else{
-                            //           echo "<span class='price_detail2'>". $price_type_name.":".number_format($day_price).'円</span>';
-                            //    }
-                	    		echo '</td>';
-                	        }
-                	    }
-                	    if ($count == 0) {
-                   	        echo '<td style="background-color: #777">' . $d . '<br />-</td>';
-                	    }
-                        if ($w == 6) {
-                	    	echo '</tr>';
-                	    }
-                    }
-                    ?>
+                                        ?>
 
 
                                         </tbody>
