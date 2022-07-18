@@ -56,7 +56,8 @@
                         <div class="listMain">
 
                         <?php
-        $url = "http://153.127.31.62/zenryo/public/api/plans/json/0";
+        $url = "http://153.127.31.62/zenryo/public/api/plans/json/0?id=155";
+        // $url = "http://localhost:8000/api/plans/json/0?id=155";
         $json = file_get_contents($url);
         $plans = json_decode($json,true);
 

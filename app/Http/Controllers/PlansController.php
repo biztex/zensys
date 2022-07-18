@@ -570,7 +570,7 @@ class PlansController extends Controller
         // prices 何フォームあるかをカウントする
         $pc = 0;
         for ($i = 1; $i <= 6; $i++) {
-            if ($request->{'price_type' . $i}) {
+            if (isset($request->{'price_type' . $i})) {
                 $pc++;
             }
         }
