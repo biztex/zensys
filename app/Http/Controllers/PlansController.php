@@ -2522,7 +2522,7 @@ class PlansController extends Controller
                 ->with('activities')
                 ->get();
             }
-            if ($kind >= 0) {
+            else if ($kind >= 0) {
                 $result = Plan::select()
                 ->orderBy('sort')
                 ->where('kind', $kind)
