@@ -2515,8 +2515,8 @@ class PlansController extends Controller
         try {
             if($kind == 'all'){
                 $result = DB::table('plans')
-                ->select('*')
-                ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
+                ->select()
+                // ->leftJoin('prices', 'prices.plan_id', '=', 'plans.id')
                 ->orderBy('sort')
                 ->where('is_listed', 1)
                 ->where('name', '!=', 'コピー用')
