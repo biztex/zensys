@@ -1179,7 +1179,7 @@ $(function() {
         date.setMonth(date.getMonth() + 1); // ここで1ヶ月後をセット
         let nextMonthYear = date.getFullYear();
         let nextMonth = date.getMonth();
-        location.href = 'http://153.127.31.62/zenryo/public/?page_id=2622&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = 'http://153.127.31.62/zenryo/public/detail.php/?page_id=2622&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
 });
 
