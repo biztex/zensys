@@ -72,10 +72,23 @@
                     $json = file_get_contents($url);
                     $plans = json_decode($json,true);
 
-        for ($i = 0 ; $i < count($plans) ; $i++) {
-            $plan = $plans[$i];
-            var_dump($plan);
-          ?>
+                    $j = 0;
+
+                    for ($i = 0 ; $i < count($plans) ; $i++) {
+                        $plan = $plans[$i];
+                        $min_value = $plan['a_1'];
+                        $max_value  = $plan['a_1']; 
+                        $alphas = ['b_1','c_1','d_1','e_1','f_1','g_1','h_1','i_1','j_1','k_1'];
+                        for($j=0; $j<count($alphas) ; $j++ ){
+                            if($max_value < $plan[$alphas[$j]]){
+                                $max_value = $plan[$alphas[$j]]; 
+                            }
+                            else if($min_value > $plan[$alphas[$j]] && $plan[$alphas[$j]] != null){
+                                $min_value = $plan[$alphas[$j]];
+                            }
+                        }
+                      
+                    ?>
 
                             <div class="listItem">
                                 <p class="listItemHd"><?=htmlspecialchars($plan["name"])?></p>
@@ -111,7 +124,7 @@
                                                     <dd><?=htmlspecialchars($plan["deadline"])?></dd>
                                                 </dl>
                                             </div>
-                                            <p class="priceP">旅行代金（お一人様<span>¥15,000〜¥30,000</span></p>
+                                            <p class="priceP">旅行代金（お一人様<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
                                             <p class="btnP"><a href="http://153.127.31.62/zenryo/public/detail.php?plan_id=<?=htmlspecialchars($plan["id"])?>" class="btnLink01">プラン詳細をみる</a></p>
                                         </div>
                                     </div>
