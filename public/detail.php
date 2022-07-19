@@ -576,7 +576,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                                 echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
                                                                             }
                                                                             if($price[strtolower($al)."_2"]){
-                                                                                echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
+                                                                                echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
                                                                             }
                                                                             echo '</p>';
                                                                             echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
