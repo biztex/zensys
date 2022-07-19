@@ -565,18 +565,18 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                             echo '<td><p class="dayP">' . $d . '</p>';
 
                                                             if ($stock["limit_number"] > 0) {
-                                                                
                                                                 foreach ($prices as  $price) {
+
                                                                     foreach ($tmp_arr as  $al) {
                                                                         if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                                                             echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                                            echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
+                                                                            echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
 
                                                                             if($price[strtolower($al)."_1"]){
                                                                                 echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
                                                                             }
                                                                             if($price[strtolower($al)."_2"]){
-                                                                                echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
+                                                                                echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
                                                                             }
                                                                             echo '</p>';
                                                                             echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
