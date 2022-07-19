@@ -16,6 +16,7 @@
 
     <!-- javascript -->
     <script src="http://153.127.31.62/zenryo/public/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@
             </div>
         </div>
     </header>
-    
+
     <main class="page-wrapper">
         <section class="section section--reserve section--with-top-margin">
             <div class="inner">
@@ -81,13 +82,13 @@
                                 <h4 class="reserveItemHd">予約数</h4>
                                 <table class="reserveTable">
                                     <tr>
-                                        <th 
+                                        <th
                                         @if($stock_price_types){
                                         rowspan="{{count($stock_price_types)}}"
                                         @else
                                         rowspan="{{count($stock_price_types)}}"
                                         @endif
-                                        
+
                                         >料金</th>
 @php
 if($stock_price_types){
@@ -95,8 +96,8 @@ if($stock_price_types){
         echo ' <tr><td><div class="numberP">';
 
 
-        
-            echo $stock_price_type->price_types->name . " / " . number_format($stock_price_type['price']) . " 円"; 
+
+            echo $stock_price_type->price_types->name . " / " . number_format($stock_price_type['price']) . " 円";
 
 
         if ($i == 0) {
@@ -112,13 +113,13 @@ if($stock_price_types){
 
 
         if($stock['price']){
-            echo $price->price_types->name . " / " . number_format($stock['price']) . " 円"; 
+            echo $price->price_types->name . " / " . number_format($stock['price']) . " 円";
         }else{
             if ($price->week_flag == 0) {
-               echo $price->price_types->name . " / " . number_format($price->price) . " 円"; 
+               echo $price->price_types->name . " / " . number_format($price->price) . " 円";
             }
             if ($price->week_flag == 1) {
-               echo $price->price_types->name . " / " . number_format($price->{$weekday}) . " 円"; 
+               echo $price->price_types->name . " / " . number_format($price->{$weekday}) . " 円";
             }
 
         }
@@ -130,20 +131,20 @@ if($stock_price_types){
         }
         echo '</div></td></tr>';
     }
-   
+
 }
 
 
 
 @endphp
-                                    
+
                                 </table>
                             </div>
                             <div class="reserveItem">
-                                <h4 class="reserveItemHd">申し込み者情報</h4>
+                                <h4 class="reserveItemHd">申込者情報</h4>
                                 <table class="reserveTable">
                                     <tr class="nameTr">
-                                        <th>申し込み者氏名</th>
+                                        <th>申込者氏名(漢字)<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="halfP">
                                                 <span>姓</span>
@@ -156,7 +157,7 @@ if($stock_price_types){
                                         </td>
                                     </tr>
                                     <tr class="nameTr">
-                                        <th>申し込み者氏名カナ</th>
+                                        <th>申込者氏名(カナ)<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="halfP">
                                                 <span>セイ</span>
@@ -168,8 +169,8 @@ if($stock_price_types){
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <th>性別</th>
+                                    <tr>
+                                        <th>性別<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="radioBox">
                                                 <label>
@@ -182,27 +183,36 @@ if($stock_price_types){
                                                 </label>
                                             </div>
                                         </td>
-                                    </tr> -->
+                                    </tr>
                                     <tr>
-                                        <th>メールアドレス</th>
+                                        <th>生年月日<span class="requiredRed">※</span></th>
+                                        <td>
+                                            <div class="dateP">
+                                            <select name="birth_year">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>メールアドレス<span class="requiredRed">※</span></th>
                                         <td>
                                             <input class="midIpt" type="email" name="email" class="width-half" value="{{ old('email') }}" required>
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <th>メールアドレス確認</th>
+                                    <tr>
+                                        <th>メールアドレス確認<span class="requiredRed">※</span></th>
                                         <td>
                                             <input class="" type="text" name="">
                                         </td>
-                                    </tr> -->
-                                    <tr class="zipTr">
-                                        <th class="topTh">住所</th>
+                                    </tr>
+                                    <tr class="zipTr h-adr">
+                                        <th class="topTh">住所<span class="requiredRed">※</span></th>
                                         <td>
+                                            <span class="p-country-name" style="display:none;">Japan</span>
                                             <div class="zipP01">
                                                 <span>〒</span>
-                                                <input class="midIpt" type="text" name="postalcode" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" required>
+                                                <input class="midIpt p-postal-code" type="text" name="postalcode" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" required>
                                             </div>
-                                            <select  id="contact_address_pref" name="prefecture" required class="p-region-id midIpt">
+                                            <select  id="contact_address_pref" name="prefecture" required class="p-region midIpt">
                                             <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
                                     <option value="青森県" @if(old('prefecture')=='青森県') selected @endif>青森県</option>
                                     <option value="岩手県" @if(old('prefecture')=='岩手県') selected @endif>岩手県</option>
@@ -252,31 +262,23 @@ if($stock_price_types){
                                     <option value="沖縄県" @if(old('prefecture')=='沖縄県') selected @endif>沖縄県</option>
                                             </select>
                                             <div class="zipP02">
-                                                <p>以降住所</p>
-                                                <input class="" type="text" name="address" class="width-half" value="{{ old('address') }}" required>
+                                                <p>市区郡町村</p>
+                                                <input type="text" name="address" class="width-half p-locality p-street-address" value="{{ old('address') }}" required>
                                             </div>
-                                            <!-- <div class="zipP02">
+                                            <div class="zipP02">
                                                 <p>番地、アパート、マンション名等</p>
-                                                <input class="" type="text" name="">
-                                            </div> -->
+                                                <input class="width-half p-extended-address" type="text" name="" required>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>電話番号</th>
+                                        <th>電話番号<span class="requiredRed">※</span></th>
                                         <td>
                                             <input class="" type="text" name="tel" pattern="\d{2,4}-?\d{2,4}-\d{3,4}" value="{{ old('tel') }}" required placeholder="ハイフンありで入力">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>生年月日</th>
-                                        <td>
-                                            <div class="dateP">
-                                            <select name="birth_year">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</sele
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>緊急連絡先</th>
+                                        <th>緊急連絡先<span class="requiredRed">※</span></th>
                                         <td>
                                             <input class="" type="text" name="tel2" pattern="\d{2,4}-\d{2,4}-\d{3,4}" value="{{ old('tel2') }}" required placeholder="ハイフンありで入力">
                                         </td>
@@ -294,14 +296,27 @@ if($stock_price_types){
                                 }
 
                             </script>
-                            <div class="reserveItem">
+                            <div class="reserveItem helperMarginTop">
                                 <h4 class="reserveItemHd">旅行参加者情報</h4>
-                                <p class="reflectsP"><a href="#reserveList" class="grayBtn" onclick="copyJoint()">申込者情報を反映する</a></p>
+                                <p class="reflectsP"><a href="#reserveList" class="grayBtn helperTextOver" onclick="copyJoint()">申込者と参加者が同一の場合<br>こちらをクリック</a></p>
                                 <a name="reserveList"></a>
                                 <div class="reserveList" id="reserveList">
                                     <table class="reserveTable">
                                         <tr class="nameTr">
-                                            <th>申し込み者氏名カナ</th>
+                                            <th>参加者(代表者)氏名(漢字)<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <div class="halfP">
+                                                    <span>姓</span>
+                                                    <input class="midIpt" type="text" name="">
+                                                </div>
+                                                <div class="halfP">
+                                                    <span>名</span>
+                                                    <input class="midIpt" type="text" name="">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="nameTr">
+                                            <th>参加者(代表者)氏名(カナ)<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="halfP">
                                                     <span>セイ</span>
@@ -314,7 +329,7 @@ if($stock_price_types){
                                             </td>
                                         </tr>
                                         <tr class="ageTr">
-                                            <th>年齢</th>
+                                            <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="ageP">
                                                     <input class="midIpt" type="text" name="join_age[]">
@@ -323,7 +338,173 @@ if($stock_price_types){
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>性別</th>
+                                        <th>生年月日<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <div class="dateP">
+                                                <select name="birth_year_representative">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>性別<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <div class="radioBox">
+                                                    <select name="join_sex[]">
+                                                        <option value="1">
+                                                        男性
+                                                    <option value="2">
+                                                        女性
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="h-adr">
+                                            <th class="topTh">住所<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <span class="p-country-name" style="display:none;">Japan</span>
+                                                <div class="zipP01">
+                                                    <span>〒</span>
+                                                    <input class="midIpt p-postal-code" type="text" name="postalcode_representative" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" required>
+                                                </div>
+                                                <select  id="contact_address_pref" name="prefecture_representative" required class="p-region midIpt">
+                                                <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
+                                        <option value="青森県" @if(old('prefecture')=='青森県') selected @endif>青森県</option>
+                                        <option value="岩手県" @if(old('prefecture')=='岩手県') selected @endif>岩手県</option>
+                                        <option value="宮城県" @if(old('prefecture')=='宮城県') selected @endif>宮城県</option>
+                                        <option value="秋田県" @if(old('prefecture')=='秋田県') selected @endif>秋田県</option>
+                                        <option value="山形県" @if(old('prefecture')=='山形県') selected @endif>山形県</option>
+                                        <option value="福島県" @if(old('prefecture')=='福島県') selected @endif>福島県</option>
+                                        <option value="茨城県" @if(old('prefecture')=='茨城県') selected @endif>茨城県</option>
+                                        <option value="栃木県" @if(old('prefecture')=='栃木県') selected @endif>栃木県</option>
+                                        <option value="群馬県" @if(old('prefecture')=='群馬県') selected @endif>群馬県</option>
+                                        <option value="埼玉県" @if(old('prefecture')=='埼玉県') selected @endif>埼玉県</option>
+                                        <option value="千葉県" @if(old('prefecture')=='千葉県') selected @endif>千葉県</option>
+                                        <option value="東京都" @if(old('prefecture')=='東京都') selected @endif>東京都</option>
+                                        <option value="神奈川県" @if(old('prefecture')=='神奈川県') selected @endif>神奈川県</option>
+                                        <option value="新潟県" @if(old('prefecture')=='新潟県') selected @endif>新潟県</option>
+                                        <option value="富山県" @if(old('prefecture')=='富山県') selected @endif>富山県</option>
+                                        <option value="石川県" @if(old('prefecture')=='石川県') selected @endif>石川県</option>
+                                        <option value="福井県" @if(old('prefecture')=='福井県') selected @endif>福井県</option>
+                                        <option value="山梨県" @if(old('prefecture')=='山梨県') selected @endif>山梨県</option>
+                                        <option value="長野県" @if(old('prefecture')=='長野県') selected @endif>長野県</option>
+                                        <option value="岐阜県" @if(old('prefecture')=='岐阜県') selected @endif>岐阜県</option>
+                                        <option value="静岡県" @if(old('prefecture')=='静岡県') selected @endif>静岡県</option>
+                                        <option value="愛知県" @if(old('prefecture')=='愛知県') selected @endif>愛知県</option>
+                                        <option value="三重県" @if(old('prefecture')=='三重県') selected @endif>三重県</option>
+                                        <option value="滋賀県" @if(old('prefecture')=='滋賀県') selected @endif>滋賀県</option>
+                                        <option value="京都府" @if(old('prefecture')=='京都府') selected @endif>京都府</option>
+                                        <option value="大阪府" @if(old('prefecture')=='大阪府') selected @endif>大阪府</option>
+                                        <option value="兵庫県" @if(old('prefecture')=='兵庫県') selected @endif>兵庫県</option>
+                                        <option value="奈良県" @if(old('prefecture')=='奈良県') selected @endif>奈良県</option>
+                                        <option value="和歌山県" @if(old('prefecture')=='和歌山県') selected @endif>和歌山県</option>
+                                        <option value="鳥取県" @if(old('prefecture')=='鳥取県') selected @endif>鳥取県</option>
+                                        <option value="島根県" @if(old('prefecture')=='島根県') selected @endif>島根県</option>
+                                        <option value="岡山県" @if(old('prefecture')=='岡山県') selected @endif>岡山県</option>
+                                        <option value="広島県" @if(old('prefecture')=='広島県') selected @endif>広島県</option>
+                                        <option value="山口県" @if(old('prefecture')=='山口県') selected @endif>山口県</option>
+                                        <option value="徳島県" @if(old('prefecture')=='徳島県') selected @endif>徳島県</option>
+                                        <option value="香川県" @if(old('prefecture')=='香川県') selected @endif>香川県</option>
+                                        <option value="愛媛県" @if(old('prefecture')=='愛媛県') selected @endif>愛媛県</option>
+                                        <option value="高知県" @if(old('prefecture')=='高知県') selected @endif>高知県</option>
+                                        <option value="福岡県" @if(old('prefecture')=='福岡県') selected @endif>福岡県</option>
+                                        <option value="佐賀県" @if(old('prefecture')=='佐賀県') selected @endif>佐賀県</option>
+                                        <option value="長崎県" @if(old('prefecture')=='長崎県') selected @endif>長崎県</option>
+                                        <option value="熊本県" @if(old('prefecture')=='熊本県') selected @endif>熊本県</option>
+                                        <option value="大分県" @if(old('prefecture')=='大分県') selected @endif>大分県</option>
+                                        <option value="宮崎県" @if(old('prefecture')=='宮崎県') selected @endif>宮崎県</option>
+                                        <option value="鹿児島県" @if(old('prefecture')=='鹿児島県') selected @endif>鹿児島県</option>
+                                        <option value="沖縄県" @if(old('prefecture')=='沖縄県') selected @endif>沖縄県</option>
+                                                </select>
+                                                <div class="zipP02">
+                                                    <p>市区郡町村</p>
+                                                    <input type="text" name="address_representative" class="width-half p-locality p-street-address" value="{{ old('address') }}" required>
+                                                </div>
+                                                <div class="zipP02">
+                                                    <p>番地、アパート、マンション名等</p>
+                                                    <input class="width-half p-extended-address" type="text" name="" required>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>電話番号<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <input class="" type="text" name="tel_representative" pattern="\d{2,4}-?\d{2,4}-\d{3,4}" value="{{ old('tel') }}" required placeholder="ハイフンありで入力">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>乗車地</th>
+                                            <td>
+                                                {{-- <input class="" type="text" name="join_from[]"> --}}
+                                                <select name="" required class="helperWidthMedium">
+                                                    <option value="乗車地1">乗車地1</option>
+                                                    <option value="乗車地2">乗車地2</option>
+                                                    <option value="乗車地3">乗車地3</option>
+                                                    <option value="乗車地4">乗車地4</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>降車地</th>
+                                            <td>
+                                                {{-- <input class="" type="text" name="join_to[]"> --}}
+                                                <select name="" required class="helperWidthMedium">
+                                                    <option value="降車地1">降車地1</option>
+                                                    <option value="降車地2">降車地2</option>
+                                                    <option value="降車地3">降車地3</option>
+                                                    <option value="降車地4">降車地4</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <p class="reserveDelete">X</p>
+                                </div>
+
+                                <div class="reserveList helperNone" id="reserveList">
+                                    <table class="reserveTable">
+                                        <tr class="nameTr">
+                                            <th>同行者氏名(漢字)<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <div class="halfP">
+                                                    <span>姓</span>
+                                                    <input class="midIpt" type="text" name="">
+                                                </div>
+                                                <div class="halfP">
+                                                    <span>名</span>
+                                                    <input class="midIpt" type="text" name="">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="nameTr">
+                                            <th>同行者氏名(カナ)<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <div class="halfP">
+                                                    <span>セイ</span>
+                                                    <input class="midIpt" type="text" name="join_kana1[]">
+                                                </div>
+                                                <div class="halfP">
+                                                    <span>メイ</span>
+                                                    <input class="midIpt" type="text" name="join_kana2[]">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="ageTr">
+                                            <th>年齢<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <div class="ageP">
+                                                    <input class="midIpt" type="text" name="join_age[]">
+                                                    <span>才</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        <th>生年月日<span class="requiredRed">※</span></th>
+                                            <td>
+                                                <div class="dateP">
+                                                <select name="birth_year_representative">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>性別<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="radioBox">
                                                     <select name="join_sex[]">
@@ -337,19 +518,31 @@ if($stock_price_types){
                                         <tr>
                                             <th>乗車地</th>
                                             <td>
-                                                <input class="" type="text" name="join_from[]">
+                                                {{-- <input class="" type="text" name="join_from[]"> --}}
+                                                <select name="" required class="helperWidthMedium">
+                                                    <option value="乗車地1">乗車地1</option>
+                                                    <option value="乗車地2">乗車地2</option>
+                                                    <option value="乗車地3">乗車地3</option>
+                                                    <option value="乗車地4">乗車地4</option>
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>降車地</th>
                                             <td>
-                                                <input class="" type="text" name="join_to[]">
+                                                {{-- <input class="" type="text" name="join_to[]"> --}}
+                                                <select name="" required class="helperWidthMedium">
+                                                    <option value="降車地1">降車地1</option>
+                                                    <option value="降車地2">降車地2</option>
+                                                    <option value="降車地3">降車地3</option>
+                                                    <option value="降車地4">降車地4</option>
+                                                </select>
                                             </td>
                                         </tr>
                                     </table>
                                     <p class="reserveDelete">X</p>
                                 </div>
-                                <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">参加者情報を追加</a></p>
+                                <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">同行者情報を追加</a></p>
                             </div>
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">料金決済</h4>
@@ -429,7 +622,7 @@ if($stock_price_types){
                                 <div class="reserveTxt">
                                     <p>{! $plan->cancel !}</p>
                                 </div>
-                                
+
                             </div>
                             <div class="reserveAgree">
                               <label for="agree01" class="checkBox01">
@@ -449,7 +642,7 @@ if($stock_price_types){
                 </div>
             </div>
         </section>
-        
+
     </main>
 
     <footer class="page-footer">
@@ -481,7 +674,7 @@ if($stock_price_types){
                 </div>
             </div>
             <div class="footer-middle">
-                <div class="menu-list"> 
+                <div class="menu-list">
                     <span class="menu"><a href="/">トップ</a></span>
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>
@@ -500,6 +693,3 @@ if($stock_price_types){
     <script src="http://153.127.31.62/zenryo/public/assets/js/theme.js"></script>
 </body>
 </html>
-
-
-
