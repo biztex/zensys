@@ -59,7 +59,7 @@ if ($_GET["year"] && $_GET["month"]) {
     $current_m = $current_date->format('m');
     $next_m_date = $current_date->modify('first day of next month')->modify('last day of');
 } else {
-    $current_date = new DateTime();
+    $current_date = new DateTime(substr($plan["start_day"],0,7));
     $current_y = $current_date->format('Y');
     $current_m = $current_date->format('m');
     $next_m_date = $current_date->modify('first day of next month')->modify('last day of');
@@ -312,7 +312,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                             <tr>
                                                 <td colspan="7">
                                                     <?php
-                                                        foreach ($stocks_next['dates'] as $date_next) {
+                                                        foreach ($stocks['dates'] as $date_next) {
                                                             $current_date = new DateTime(substr($date_next, 0, 10));
                                                             $y = (int)$current_date->format('Y');
                                                             $m = $current_date->format('m');
@@ -338,9 +338,9 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <?php
                 	                        $week = ['日', '月', '火', '水', '木', '金', '土'];
                                             $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
-                                            foreach ($stocks_next['dates'] as $date) {
+                                            foreach ($stocks['dates'] as $date) {
                                                 $current_date = new DateTime(substr($date, 0, 10));
-                                                // $current_date = $current_date->modify("-1 months");
+                                                $current_date = $current_date->modify("+1 days");
                                                 $w = (int)$current_date->format('w');
                                                 $d = $current_date->format('j');
                                                 if ($w == 0) {
@@ -371,7 +371,7 @@ $stocks_next = json_decode($json_stocks_next,true);
 
                                                                     foreach ($tmp_arr as  $al) {
                                                                         if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                                                            echo '<a class="selected-date ' . $price['type'] . ' " style="cursor:pointer;" data-price='.$price_type_name.':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                            echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                             echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
 
                                                                             if($price[strtolower($al)."_1"]){
@@ -446,20 +446,23 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                             //      echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
                                                             $count++;
                                                         } else {
+                                                            echo '<td class="calendar_table"><p class="dayP">' . $d . '</p>';
+
                                                             foreach ($prices as  $price) {
+
                                                                 foreach ($tmp_arr as  $al) {
                                                                     if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                                                    //   echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
-                                                                        echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
+                                                                        echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                        echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
 
                                                                         if($price[strtolower($al)."_1"]){
                                                                             echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
                                                                         }
                                                                         if($price[strtolower($al)."_2"]){
-                                                                            echo '<br><font>(¥'.number_format($price[strtolower($al)."_1"]).")</font>";
+                                                                            echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
                                                                         }
                                                                         echo '</p>';
-                                                                    //  echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                                        echo '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">';
                                                                     }
 
                                                                 }
@@ -736,7 +739,6 @@ $(function() {
 $(function() {
 	$('.selected-date').click(function () {
         var price = $(this).data('price');
-        alert("aaaaaa");
 		// 事前リセット
 		$('.meeting-time').text('');
 		$('.activity-time').text('');
@@ -803,14 +805,24 @@ $(function() {
     });
 });
 
-var price_type_id = $('#submit_select2').val();
+var price_type_id = $('#submit_select2').val() ;
+
 if(price_type_id){
-    $('.'+price_type_id).each()
+    $('.selected-date:not(.'+price_type_id+')').each(function(){
+        $(this).css("display", "none");
+    });
 }
 
 $("#submit_select2").change(function(){
-    let price_type_id = $('#submit_select2').val();
-    if()
+    let price_type_id = $(this).val();
+    $('.selected-date.'+price_type_id).each(function(){
+        $(this).css("display", "block");
+    });
+    
+    $('.selected-date:not(.'+price_type_id+')').each(function(){
+        $(this).css("display", "none");
+    });
+    
 });
 
 // 予約ボタンクリック時

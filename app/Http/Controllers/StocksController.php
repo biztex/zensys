@@ -73,7 +73,6 @@ class StocksController extends Controller
         // print_r( $stocks);die();
         $tmp_priceType = PriceType::where('number', $price_type_id)->first();   
         $price = Price::where('plan_id', $plan_id)->where('type', $tmp_priceType->number)->first();
-
         return view('client.stocks.index', compact('dates', 'year', 'month', 'plans', 'default_plan', 'stocks', 'priceTypes', 'default_priceType', 'price'));
     }
     // 作成画面 
@@ -414,6 +413,7 @@ class StocksController extends Controller
             $month = date('m');
         }
         $dates = $this->getCalendarDates($year, $month);
+
         if (!$plan_id) {
             $plan = Plan::where('company_id', $company_id)
             ->orderBy('sort')
@@ -442,9 +442,12 @@ class StocksController extends Controller
             $stock->price=$arr;
         }
 
+    
+
         $array_data = [];
         $array_data['dates'] = $dates;
         $array_data['stocks'] = $stocks;
+
         return $array_data;
     }
     // カレンダー表示
@@ -461,7 +464,7 @@ class StocksController extends Controller
         $last_week =  (int) ceil(($days - ($daysParWeek - $dayOfWeek)) / $daysParWeek) + 1; // 最終日が何週目か計算
 
 
-        $date->subDay($date->dayOfWeek); // 1日より前の日で埋める
+        $date->subDay($dayOfWeek); // 1日より前の日で埋める
 
 
         $count = 0;

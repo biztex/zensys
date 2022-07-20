@@ -85,86 +85,86 @@
                     </div>
                 </div>
                 <div class="card-body">
-                <table>
-                                        <tr>
-                                            <th  style="width:50px"></th>
-                                            <th style="text-align: center;">大人</th>
-                                            <th style="text-align: center;">子供</th>
-                                            <th style="text-align: center;">幼児</th>
-                                        </tr>
-                                        <tr>
-                                            <th>A</th>
-                                            <td>{{ $price->a_1 }}</td>
-                                            <td>{{ $price->a_2 }}</td>
-                                            <td>{{ $price->a_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>B</th>
-                                            <td>{{ $price->b_1 }}</td>
-                                            <td>{{ $price->b_2 }}</td>
-                                            <td>{{ $price->b_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>C</th>
-                                            <td>{{ $price->c_1 }}</td>
-                                            <td>{{ $price->c_2 }}</td>
-                                            <td>{{ $price->c_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>D</th>
-                                            <td>{{ $price->d_1 }}</td>
-                                            <td>{{ $price->d_2 }}</td>
-                                            <td>{{ $price->d_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>E</th>
-                                            <td>{{ $price->e_1 }}</td>
-                                            <td>{{ $price->e_2 }}</td>
-                                            <td>{{ $price->e_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>F</th>
-                                            <td>{{ $price->f_1 }}</td>
-                                            <td>{{ $price->f_2 }}</td>
-                                            <td>{{ $price->f_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>G</th>
-                                            <td>{{ $price->g_1 }}</td>
-                                            <td>{{ $price->g_2 }}</td>
-                                            <td>{{ $price->g_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>H</th>
-                                            <td>{{ $price->h_1 }}</td>
-                                            <td>{{ $price->h_2 }}</td>
-                                            <td>{{ $price->h_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>I</th>
-                                            <td>{{ $price->i_1 }}</td>
-                                            <td>{{ $price->i_2 }}</td>
-                                            <td>{{ $price->i_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>J</th>
-                                            <td>{{ $price->j_1 }}</td>
-                                            <td>{{ $price->j_2 }}</td>
-                                            <td>{{ $price->j_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>K</th>
-                                            <td>{{ $price->k_1 }}</td>
-                                            <td>{{ $price->k_2 }}</td>
-                                            <td>{{ $price->k_3 }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>L</th>
-                                            <td>{{ $price->l_1 }}</td>
-                                            <td>{{ $price->l_2 }}</td>
-                                            <td>{{ $price->l_3 }}</td>
-                                        </tr>
-                                    </table>
+                    <table>
+                        <tr>
+                            <th  style="width:50px"></th>
+                            <th style="text-align: center;">大人</th>
+                            <th style="text-align: center;">子供</th>
+                            <th style="text-align: center;">幼児</th>
+                        </tr>
+                        <tr>
+                            <th>A</th>
+                            <td>{{ $price->a_1 }}</td>
+                            <td>{{ $price->a_2 }}</td>
+                            <td>{{ $price->a_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>B</th>
+                            <td>{{ $price->b_1 }}</td>
+                            <td>{{ $price->b_2 }}</td>
+                            <td>{{ $price->b_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>C</th>
+                            <td>{{ $price->c_1 }}</td>
+                            <td>{{ $price->c_2 }}</td>
+                            <td>{{ $price->c_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>D</th>
+                            <td>{{ $price->d_1 }}</td>
+                            <td>{{ $price->d_2 }}</td>
+                            <td>{{ $price->d_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>E</th>
+                            <td>{{ $price->e_1 }}</td>
+                            <td>{{ $price->e_2 }}</td>
+                            <td>{{ $price->e_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>F</th>
+                            <td>{{ $price->f_1 }}</td>
+                            <td>{{ $price->f_2 }}</td>
+                            <td>{{ $price->f_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>G</th>
+                            <td>{{ $price->g_1 }}</td>
+                            <td>{{ $price->g_2 }}</td>
+                            <td>{{ $price->g_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>H</th>
+                            <td>{{ $price->h_1 }}</td>
+                            <td>{{ $price->h_2 }}</td>
+                            <td>{{ $price->h_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>I</th>
+                            <td>{{ $price->i_1 }}</td>
+                            <td>{{ $price->i_2 }}</td>
+                            <td>{{ $price->i_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>J</th>
+                            <td>{{ $price->j_1 }}</td>
+                            <td>{{ $price->j_2 }}</td>
+                            <td>{{ $price->j_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>K</th>
+                            <td>{{ $price->k_1 }}</td>
+                            <td>{{ $price->k_2 }}</td>
+                            <td>{{ $price->k_3 }}</td>
+                        </tr>
+                        <tr>
+                            <th>L</th>
+                            <td>{{ $price->l_1 }}</td>
+                            <td>{{ $price->l_2 }}</td>
+                            <td>{{ $price->l_3 }}</td>
+                        </tr>
+                    </table>
 
                 </div>
 
@@ -244,6 +244,8 @@
                       </thead>
                       <tbody>
                         @foreach ($dates as $date)
+
+
                         @if ($date->dayOfWeek == 0)
                         <tr>
                         @endif
