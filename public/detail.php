@@ -223,10 +223,56 @@ $stocks_next = json_decode($json_stocks_next,true);
                             </div>
                             <div class="detailItem printArea">
                                 <p class="detailItemHd">行程表 <a href="javascript:;" onclick="window.print();" class="printBtn">印刷する</a></p>
-
-                                <?php foreach ($roadmaps as $key => $value) {
-                                    echo $value["road_map"];
-                                } ?>
+                                <table class="detailTable">
+                                    <colgroup class="pc">
+                                        <col width="11.2%">
+                                        <col width="50%">
+                                        <col width="14.5%">
+                                        <col width="22.4%">
+                                    </colgroup>
+                                    <tbody><tr>
+                                        <th>日程</th>
+                                        <th>予定</th>
+                                        <th>食事</th>
+                                        <th>宿泊</th>
+                                    </tr>
+                                    <?php foreach ($roadmaps as $key => $value) {
+                                          
+                                        ?>
+                                         
+                                    <tr>
+                                        <td><?php echo $value["road_map_title"]; ?></td>
+                                        <td><?php echo $value["road_map"]; ?></td>
+                                        <td>朝：<?php 
+                                                if($value["road_eat1"] == 1){
+                                                    echo "あり";
+                                                }
+                                                else{
+                                                    echo "なし";
+                                                } ?>
+                                            <br>
+                                            昼：<?php 
+                                                if($value["road_eat2"] == 1){
+                                                    echo "あり";
+                                                }
+                                                else{
+                                                    echo "なし";
+                                                } ?>
+                                            <br>
+                                            夕：<?php 
+                                                if($value["road_eat3"] == 1){
+                                                    echo "あり";
+                                                }
+                                                else{
+                                                    echo "なし";
+                                                } ?></td>
+                                        <td><?php echo  $value["road_map_build"]; ?></td>
+                                    </tr>
+                                    <?php  
+                                        }
+                                        ?>
+                                </tbody></table>
+                               
                                
                             </div>
                         </div>
