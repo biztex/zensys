@@ -184,7 +184,7 @@ class ReservationsController extends Controller
         if ($request->is_request == 0 && $stock_after_minus < 0) {
             throw ValidationException::withMessages([
                 'stock_is_out' =>
-                '現在予約在庫がありません。お手数ですが実施会社までお問い合わせください',
+                    '現在予約在庫がありません。お手数ですが実施会社までお問い合わせください',
             ]);
         }
         // 参加可能人数をチェック
@@ -814,7 +814,7 @@ class ReservationsController extends Controller
         if ($request->is_request == 0 && $stock_after_minus < 0) {
             throw ValidationException::withMessages([
                 'stock_is_out' =>
-                '現在予約在庫がありません。お手数ですが実施会社までお問い合わせください',
+                    '現在予約在庫がありません。お手数ですが実施会社までお問い合わせください',
             ]);
         }
         // 参加可能人数をチェック
@@ -971,7 +971,7 @@ class ReservationsController extends Controller
         if ($reservation->status != 'リクエスト予約') {
             throw ValidationException::withMessages([
                 'status_error' =>
-                '予約ステータスをリクエスト予約に変更後、再度送信をお試しください',
+                    '予約ステータスをリクエスト予約に変更後、再度送信をお試しください',
             ]);
         }
         $reservation->status = $request->status;
@@ -1230,7 +1230,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cvsemail'],
                 [
                     'url_cvs' =>
-                    'https://blue-tourism-hokkaido.website/pay?prm=' .
+                        'https://blue-tourism-hokkaido.website/pay?prm=' .
                         encrypt($param_cvs),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1262,7 +1262,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cardemail'],
                 [
                     'url_card' =>
-                    'https://blue-tourism-hokkaido.website/pay?prm=' .
+                        'https://blue-tourism-hokkaido.website/pay?prm=' .
                         encrypt($param_card),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1961,7 +1961,7 @@ class ReservationsController extends Controller
             if ($stock) {
                 if ($reservation->plan->res_limit_flag == 0) {
                     // 予約人数をカウント
-                    $count_member = 0;
+                    $count_member = 0; 
                     for ($i = 0; $i <= 20 ; $i++) {
                         $count = $reservation->{'type'. $i . '_number'};
                         if ($count > 0) {
@@ -2080,7 +2080,7 @@ class ReservationsController extends Controller
             if ($stock) {
                 if ($reservation->plan->res_limit_flag == 0) {
                     // 予約人数をカウント
-                    $count_member = 0;
+                    $count_member = 0; 
                     for ($i = 0; $i <= 20 ; $i++) {
                         $count = $reservation->{'type'. $i . '_number'};
                         if ($count > 0) {
@@ -2266,17 +2266,4 @@ class ReservationsController extends Controller
 */
         return $mstatus;
     }
-
-
-
-
-    // 確認用、確認後削除
-    // ここから
-    public function confirmViewOnly()
-    {
-        return view(
-            'user.reservations.confirm'
-        );
-    }
-    // ここまで
 }

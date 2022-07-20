@@ -59,6 +59,10 @@ Route::get(
     '\App\Http\Controllers\PriceController@json'
 );
 Route::get(
+    'api/company/json',
+    '\App\Http\Controllers\CompaniesController@json'
+);
+Route::get(
     'api/stocks/json/{year?}/{month?}/{plan?}/{price_type_id?}',
     '\App\Http\Controllers\StocksController@indexJson'
 );
@@ -66,13 +70,6 @@ Route::get(
     'reservations/create',
     '\App\Http\Controllers\ReservationsController@createForUser'
 );
-// 確認用、確認後削除
-// ここから
-Route::get(
-    'reservations/confirm',
-    '\App\Http\Controllers\ReservationsController@confirmViewOnly'
-);
-// ここまで
 Route::post(
     'reservations/store',
     '\App\Http\Controllers\ReservationsController@storeForUser'
@@ -360,8 +357,20 @@ foreach (config('fortify.users') as $user) {
                         '\App\Http\Controllers\StocksController@update'
                     );
                     Route::put(
-                        'stocks/update2/{id}',
-                        '\App\Http\Controllers\StocksController@update2'
+                        'stocks/updateRank/{id}',
+                        '\App\Http\Controllers\StocksController@updateRank'
+                    );
+                    Route::put(
+                        'stocks/updateRank_day/{id}',
+                        '\App\Http\Controllers\StocksController@updateRank_day'
+                    );
+                    Route::put(
+                        'stocks/updateStock/{id}',
+                        '\App\Http\Controllers\StocksController@updateStock'
+                    );
+                    Route::put(
+                        'stocks/updateStock_day/{id}',
+                        '\App\Http\Controllers\StocksController@updateStock_day'
                     );
                     // reservations
                     Route::get(
