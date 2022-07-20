@@ -4575,6 +4575,17 @@ ul {
     line-height: 1.5;
 }
 
+.emptyCategory {
+    font-size: 3em;
+    font-family: "Noto Sans JP";
+    text-transform: capitalize;
+    text-align: center;
+    height: 481.45px;
+    align-items: center;
+    display: flex;
+    JUSTIFY-CONTENT: CENTER;
+}
+
 .listContent {
     display: flex;
     justify-content: space-between;

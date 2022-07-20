@@ -74,70 +74,83 @@
 
                     $j = 0;
 
-                    for ($i = 0 ; $i < count($plans) ; $i++) {
-                        $plan = $plans[$i];
-                        $min_value = $plan["prices"][0]['a_1'];
-                        $max_value = $plan["prices"][0]['a_1']; 
-                        for($k=0; $k<count($plan["prices"]); $k++){
-                            $price_t = $plan["prices"][$k];
-                    
-                            $alphas = ['b_1','c_1','d_1','e_1','f_1','g_1','h_1','i_1','j_1','k_1'];
-                            for($j=0; $j<count($alphas) ; $j++ ){
-                                if($max_value < $price_t[$alphas[$j]]){
-                                    $max_value = $price_t[$alphas[$j]]; 
-                                }
-                                else if($min_value > $price_t[$alphas[$j]] && $price_t[$alphas[$j]] != null){
-                                    $min_value = $price_t[$alphas[$j]];
-                                }
-                            }
-
-                        }
-                       
+                    if(count($plans) > 0){
+                        for ($i = 0 ; $i < count($plans) ; $i++) {
+                            $plan = $plans[$i];
+                            $min_value = $plan["prices"][0]['a_1'];
+                            $max_value = $plan["prices"][0]['a_1']; 
+                            for($k=0; $k<count($plan["prices"]); $k++){
+                                $price_t = $plan["prices"][$k];
                         
-                    ?>
-
-
-                            <div class="listItem">
-                                <p class="listItemHd"><?=htmlspecialchars($plan["name"])?></p>
-                                <div class="listItemCont">
-                                    <p class="listItemTxt"><?=nl2br(htmlspecialchars($plan["catchphrase"]))?></p>
-                                    <div class="listItemInfo">
-                                        <div class="leftP"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
-                                        <div class="rightP">
-                                            <div class="messageP">
-                                                <dl>
-                                                    <dt>目的地</dt>
-                                                    <dd><?=htmlspecialchars($plan["destination"])?>
-                                                </dd>
-                                                </dl>
-                                                <dl>
-                                                    <dt>旅行日程</dt>
-                                                    <dd><?=htmlspecialchars($plan["schedule"])?></dd>
-                                                </dl>
-                                                <dl>
-                                                    <dt>出発日</dt>
-                                                    <dd><?=htmlspecialchars($plan["start_day"])?>～<?=htmlspecialchars($plan["end_day"])?></dd>
-                                                </dl>
-                                                <dl>
-                                                    <dt>お食事</dt>
-                                                    <dd><?=htmlspecialchars($plan["eat"])?></dd>
-                                                </dl>
-                                                <dl>
-                                                    <dt>添乗員</dt>
-                                                    <dd><?php if($plan["conductor_selected"]){echo '有';}else{echo '無';} ?></dd>
-                                                </dl>
-                                                <dl>
-                                                    <dt>受付締切日時</dt>
-                                                    <dd><?=htmlspecialchars($plan["deadline"])?></dd>
-                                                </dl>
+                                    $alphas = ['b_1','c_1','d_1','e_1','f_1','g_1','h_1','i_1','j_1','k_1'];
+                                    for($j=0; $j<count($alphas) ; $j++ ){
+                                        if($max_value < $price_t[$alphas[$j]]){
+                                            $max_value = $price_t[$alphas[$j]]; 
+                                        }
+                                        else if($min_value > $price_t[$alphas[$j]] && $price_t[$alphas[$j]] != null){
+                                            $min_value = $price_t[$alphas[$j]];
+                                        }
+                                    }
+    
+                                }
+                            
+                                
+                            ?>
+    
+    
+                                <div class="listItem">
+                                    <p class="listItemHd"><?=htmlspecialchars($plan["name"])?></p>
+                                    <div class="listItemCont">
+                                        <p class="listItemTxt"><?=nl2br(htmlspecialchars($plan["catchphrase"]))?></p>
+                                        <div class="listItemInfo">
+                                            <div class="leftP"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
+                                            <div class="rightP">
+                                                <div class="messageP">
+                                                    <dl>
+                                                        <dt>目的地</dt>
+                                                        <dd><?=htmlspecialchars($plan["destination"])?>
+                                                    </dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>旅行日程</dt>
+                                                        <dd><?=htmlspecialchars($plan["schedule"])?></dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>出発日</dt>
+                                                        <dd><?=htmlspecialchars($plan["start_day"])?>～<?=htmlspecialchars($plan["end_day"])?></dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>お食事</dt>
+                                                        <dd><?=htmlspecialchars($plan["eat"])?></dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>添乗員</dt>
+                                                        <dd><?php if($plan["conductor_selected"]){echo '有';}else{echo '無';} ?></dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>受付締切日時</dt>
+                                                        <dd><?=htmlspecialchars($plan["deadline"])?></dd>
+                                                    </dl>
+                                                </div>
+                                                <p class="priceP">旅行代金（お一人様<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
+                                                <p class="btnP"><a href="http://153.127.31.62/zenryo/public/detail.php?plan_id=<?=htmlspecialchars($plan["id"])?>" class="btnLink01">プラン詳細をみる</a></p>
                                             </div>
-                                            <p class="priceP">旅行代金（お一人様<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
-                                            <p class="btnP"><a href="http://153.127.31.62/zenryo/public/detail.php?plan_id=<?=htmlspecialchars($plan["id"])?>" class="btnLink01">プラン詳細をみる</a></p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <?php       } ?>
+                                <?php      
+                            }
+                            
+                        }
+                        
+                    else{
+                        ?>
+                        <p class="emptyCategory">coming soon</p>
+                        <?php
+                    }?>
+                   
+
+                   
                
                             </div>
                         </div>
