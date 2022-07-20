@@ -287,7 +287,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                     <div class="dateArea">
                         <div class="timeSelect">
                             <span>料金区分選択</span>
-                            <select>
+                            <select name="price_type_id" id="submit_select2">
                                 <?php foreach ($prices  as $key => $value) { ?>
                                     <option value="<?=$value['type'] ?>"><?=$value['name'] ?></option>
                                 <?php } ?>
@@ -301,249 +301,6 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <a href="javascript:;" class="prevM disabled">◀︎ 前月</a>
                                         <a href="javascript:;" class="nextM">翌月 ▶︎</a>
                                     </div>
-                                    <table class="dateTable">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="7">2022年6月</td>
-                                            </tr>
-                                            <tr>
-                                                <td>日</td>
-                                                <td>月</td>
-                                                <td>火</td>
-                                                <td>水</td>
-                                                <td>木</td>
-                                                <td>金</td>
-                                                <td>土</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">３</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">４</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">５</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">６</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">７</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">８</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">９</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１０</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１１</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１２</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１３</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１４</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１５</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１６</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１７</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１８</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１９</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２０</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２１</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２２</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２３</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２４</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２５</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２６</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２７</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２８</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２９</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">３０</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td class="noTd"></td>
-                                                <td class="noTd"></td>
-                                                <td class="noTd"></td>
-                                                <td class="noTd"></td>
-                                                <td class="noTd"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                                 <div class="dateItems is_active">
                                     <div class="dateHd">
@@ -583,14 +340,13 @@ $stocks_next = json_decode($json_stocks_next,true);
                                             $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
                                             foreach ($stocks_next['dates'] as $date) {
                                                 $current_date = new DateTime(substr($date, 0, 10));
-                                                //$current_date = $current_date->modify("-1 months");
+                                                // $current_date = $current_date->modify("-1 months");
                                                 $w = (int)$current_date->format('w');
                                                 $d = $current_date->format('j');
                                                 if ($w == 0) {
                                                     echo '<tr>';
                                                 }
                                                 $count = 0;
-
                                                 foreach ($stocks["stocks"] as $stock) {
                                         
                                                     $day_price=$stock["price"];
@@ -615,7 +371,7 @@ $stocks_next = json_decode($json_stocks_next,true);
 
                                                                     foreach ($tmp_arr as  $al) {
                                                                         if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                                                            echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                            echo '<a class="selected-date ' . $price['type'] . ' " style="cursor:pointer;" data-price='.$price_type_name.':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                             echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
 
                                                                             if($price[strtolower($al)."_1"]){
@@ -625,7 +381,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                                 echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
                                                                             }
                                                                             echo '</p>';
-                                                                            echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                                            echo '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">';
                                                                         }
 
                                                                     }
@@ -711,18 +467,6 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                             //    echo '<td style="background-color: #777">' . $d . '<br />-';
                                                             $count++;
                                                     }
-                            
-                                                    //if($stock[price]){
-
-                                                    //  $day_price_arr=$stock[price];
-                                                    //     foreach($day_price_arr as $name => $price){
-                            
-                                                    //             echo "<span class='price_detail1'>". $name.":".number_format($price).'円</span>';
-                                                    //     }
-
-                                                    //    }else{
-                                                    //           echo "<span class='price_detail2'>". $price_type_name.":".number_format($day_price).'円</span>';
-                                                    //    }
                                                         echo '</td>';
                                                     }
                                                 }
@@ -739,261 +483,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="dateItems">
-                                    <div class="dateHd">
-                                        <a href="javascript:;" class="prevM">◀︎ 前月</a>
-                                        <a href="javascript:;" class="nextM disabled">翌月 ▶︎</a>
-                                    </div>
-                                    <table class="dateTable">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="7"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>日</td>
-                                                <td>月</td>
-                                                <td>火</td>
-                                                <td>水</td>
-                                                <td>木</td>
-                                                <td>金</td>
-                                                <td>土</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">３</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">４</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">５</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">６</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">７</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">８</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">９</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１０</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１１</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１２</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１３</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１４</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１５</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１６</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１７</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１８</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">１９</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２０</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２１</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２２</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２３</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２４</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２５</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２６</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２７</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２８</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">２９</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">３０</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a href="#">
-                                                        <p class="dayP">３１</p>
-                                                        <p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>
-                                                        <p class="reserveP">○</p>
-                                                    </a>
-                                                </td>
-                                                <td class="noTd"></td>
-                                                <td class="noTd"></td>
-                                                <td class="noTd"></td>
-                                                <td class="noTd"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                              
                             </div>
                             <p class="dateType">
                                 空き状況： ○ 予約可 / △残り僅か / × 空きなし / □ リクエスト可 / － 受付対象外
@@ -1312,6 +802,17 @@ $(function() {
         return false;
     });
 });
+
+var price_type_id = $('#submit_select2').val();
+if(price_type_id){
+    $('.'+price_type_id).each()
+}
+
+$("#submit_select2").change(function(){
+    let price_type_id = $('#submit_select2').val();
+    if()
+});
+
 // 予約ボタンクリック時
 $('.reserve-button').click(function () {
     var planId = '<?= $plan_id ?>',
