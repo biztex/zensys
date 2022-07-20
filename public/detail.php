@@ -213,10 +213,10 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <th>催行期間</th>
                                         <td><?=nl2br(htmlspecialchars($plan["start_day"])) . '　～　' .  nl2br(htmlspecialchars($plan["end_day"])) ?></td>
                                     </tr>
-                                    <?php if($plan["transportation"]){ ?>
+                                    <?php if($plan["included_item"]){ ?>
                                     <tr>
                                         <th>料金に含まれるもの</th>
-                                        <td><?=nl2br(htmlspecialchars($plan["transportation"])) ?></td>
+                                        <td><?=nl2br(htmlspecialchars($plan["included_item"])) ?></td>
                                     </tr>
                                     <?php } ?>
                                 </table>
