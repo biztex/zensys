@@ -367,13 +367,13 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                             echo '<td><p class="dayP">' . $d . '</p>';
 
                                                             if ($stock["limit_number"] > 0) {
-                                                                foreach ($prices as  $price) {
-                                                                    echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'</p>';
+                                                                echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
 
+                                                                foreach ($prices as  $price) {
                                                                     foreach ($tmp_arr as  $al) {
                                                                         if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                                                             echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                                            echo '<p class="datePrice">';
+                                                                            echo '<p class="datePrice">'
 
                                                                             if($price[strtolower($al)."_1"]){
                                                                                 echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
@@ -448,14 +448,14 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                             $count++;
                                                         } else {
                                                             echo '<td class="calendar_table"><p class="dayP">' . $d . '</p>';
+                                                  
+                                                            echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
 
                                                             foreach ($prices as  $price) {
-                                                                     echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'</p>';
-
                                                                 foreach ($tmp_arr as  $al) {
                                                                     if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                                                         echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                                        echo '<p class="datePrice">';
+                                                                        echo '<p class="datePrice">'
 
                                                                         if($price[strtolower($al)."_1"]){
                                                                             echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
