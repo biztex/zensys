@@ -373,7 +373,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                     foreach ($tmp_arr as  $al) {
                                                                         if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                                                             echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                                            echo '<p class="datePrice">'
+                                                                            echo '<p class="datePrice">';
 
                                                                             if($price[strtolower($al)."_1"]){
                                                                                 echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
@@ -455,7 +455,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                 foreach ($tmp_arr as  $al) {
                                                                     if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
                                                                         echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                                        echo '<p class="datePrice">'
+                                                                        echo '<p class="datePrice">';
 
                                                                         if($price[strtolower($al)."_1"]){
                                                                             echo '<br>¥'.number_format($price[strtolower($al)."_1"]);
