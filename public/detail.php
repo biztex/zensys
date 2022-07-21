@@ -563,12 +563,18 @@ $stocks_next = json_decode($json_stocks_next,true);
                                 </table>
                                 <?php } ?>
                             </div>
+                            <?php
+                                if($plan["file_path11"] != null){
+                                    ?>
+                                
                             <div class="detailItem">
                                 <p class="detailItemHd">ご旅行条件書</p>
                                 <div class="reserveTxt">
                                     <p>お申込みの際には、必ず<b><a href="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path11"]?>" target="_blank"> ご旅行条件書</a></b>をお読みください。</p>
                                 </div>
                             </div>
+
+                            <?php }?>
                             <div class="detailItem">
                                 <p class="detailItemHd">旅行企画</p>
                                 <table class="reserveTable">
