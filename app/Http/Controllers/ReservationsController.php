@@ -64,7 +64,7 @@ class ReservationsController extends Controller
     // 作成画面 for user
     public function createForUser(Request $request)
     {
-        $data = $request->only(['plan_id', 'date']);
+        $data = $request->only(['plan_id', 'date','price_type_id']);
         $date = $data['date'];
         $dt = new Carbon($date);
         $week_map = [
@@ -96,42 +96,25 @@ class ReservationsController extends Controller
             ->where('plan_id', $data['plan_id'])
             ->where('res_date', date('Y-m-d', strtotime($data['date'])))
             ->first();
-        $companies = Company::all();
+        
+
+        $companies =  Company::all();
+
+        $priceType = PriceType::select()
+            ->where('number' ,$data['price_type_id'])
+            ->first();
 
 
 
-        $priceTypes = PriceType::whereIn('number', function ($query) use (
-            $data
-        ) {
-            $query
-                ->select('type')
-                ->from('prices')
-                ->where('plan_id', $data['plan_id']);
-        })->get();
-
-        $arr = [];
-        foreach ($priceTypes as $key2 => $priceType) {
-            $stock_price_type = StockPriceType::where(
-                'price_type_number',
-                $priceType->number
-            )
-                ->where('res_date', $stock->res_date)
+        $stock_price_types = Price::select()
                 ->where('plan_id', $data['plan_id'])
-                ->first();
-            if ($stock_price_type) {
-                $arr[] = $stock_price_type;
-            }
-        }
+                ->where('type',$priceType)
+                ->get();
 
-        $stock_price_types = $arr;
-        // echo '<pre>';
-        // print_r( $stock_price_types);
-        // die();
-        dd($stock_price_types);
-
+        
         return view(
             'user.reservations.create',
-            compact('plan','companies', 'date', 'weekday', 'stock', 'stock_price_types')
+            compact('plan','companies', 'date', 'weekday', 'stock','priceType', 'stock_price_types')
         );
     }
     // 作成処理

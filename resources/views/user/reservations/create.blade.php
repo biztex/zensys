@@ -80,30 +80,31 @@
                                 <h4 class="reserveItemHd">予約数</h4>
                                 <table class="reserveTable">
                                     <tr>
-                                        <th
-                                        @if($stock_price_types){
-                                        rowspan="{{count($stock_price_types)}}"
-                                        @else
-                                        rowspan="{{count($stock_price_types)}}"
-                                        @endif
-
-                                        >料金</th>
+                                        <th rowspan="0">料金</th></tr>
 @php
 if($stock_price_types){
     foreach ($stock_price_types as $i => $stock_price_type) {
-        echo ' <tr><td><div class="numberP">';
-
-
-
-            echo $stock_price_type->price_types->name . " / " . number_format($stock_price_type['price']) . " 円";
-
-
-        if ($i == 0) {
-            echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
-        } else {
-            echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
+        if($stock_price_type['type'] == $priceType['number']){
+            echo ' <tr><td><div class="numberP">';
+            
+            echo $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_1']) . "(" . number_format($stock_price_type[strtolower($stock['rank']) . '_2']) . ")" ." 円";
+            if ($i == 0) {
+                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
+            } else {
+                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
+            }
+            echo '</div></td></tr>';
         }
-        echo '</div></td></tr>';
+        else{
+            echo ' <tr><td><div class="numberP">';
+            echo 'ない';
+            if ($i == 0) {
+                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
+            } else {
+                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
+            }
+            echo '</div></td></tr>';
+        }
     }
 }else{
     foreach ($plan->prices as $i => $price) {

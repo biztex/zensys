@@ -848,13 +848,14 @@ $('.reserve-button').click(function () {
     var planId = '<?= $plan_id ?>',
         date = $('input[name="res-date"]').val(),
         resType = $('input[name="res-type"]').val();
+        price_type_id = $('select[name="price_type_id"]').val();
     if (resType == '○') {
         resType = 0;
     } else {
         resType = 1;
     }
 	// open( "http://153.127.31.62/zenryo/public/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType, "_blank" ) ;
-	open( "http://localhost:8000/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType, "_blank" ) ;
+	open( "http://localhost:8000/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id ,+  "_blank" ) ;
 });
 
 </script>
