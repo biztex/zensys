@@ -304,9 +304,9 @@ if($stock_price_types){
                                     var selectedVal = $('input[name=radio_sex]:checked').val();
                                     $("select[name='join_sex[]']").first().val(selectedVal);
                                     
-                                    $("input[name='birth_year_representative']").first().val($("input[name='birth_year']").val());
-                                    $("input[name='birth_month_representative']").first().val($("input[name='birth_month']").val());
-                                    $("input[name='birth_day_representative']").first().val($("input[name='birth_day']").val());
+                                    $("select[name='birth_year_representative']").first().val($("select[name='birth_year']").val());
+                                    $("select[name='birth_month_representative']").first().val($("select[name='birth_month']").val());
+                                    $("select[name='birth_day_representative']").first().val($("select[name='birth_day']").val());
                                     $("input[name='postalcode_representative']").first().val($("input[name='postalcode']").val());
                                     $("input[name='prefecture_representative']").first().val($("input[name='prefecture']").val());
                                     $("input[name='address_representative']").first().val($("input[name='address']").val());
