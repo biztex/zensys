@@ -4035,6 +4035,7 @@ textarea:focus {
 }
 
 .reserveTable input[type=text],
+.reserveTable input[type=email],
 .reserveTable select {
     width: 400px;
     max-width: 100%;
