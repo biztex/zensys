@@ -296,7 +296,7 @@ if($stock_price_types){
                                 }
                                 function copyJoint() {
                                     $("input[name='add_lastname']").first().val($("#name_last").val())
-                                    $("input[name='add_fistname']").first().val($("#name_first").val())
+                                    $("input[name='add_firstname']").first().val($("#name_first").val())
                              
                                     $("input[name='join_kana1[]']").first().val($("#kana_last").val())
                                     $("input[name='join_kana2[]']").first().val($("#kana_first").val())
