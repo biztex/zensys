@@ -96,7 +96,6 @@ class ReservationsController extends Controller
             ->where('plan_id', $data['plan_id'])
             ->where('res_date', date('Y-m-d', strtotime($data['date'])))
             ->first();
-        
 
         $companies =  Company::all();
 

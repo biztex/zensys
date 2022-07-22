@@ -83,15 +83,16 @@
                                         <th rowspan="0">料金</th></tr>
 @php
 if($stock_price_types){
+
     foreach ($stock_price_types as $i => $stock_price_type) {
         if($stock_price_type['type'] == $priceType['number']){
             echo ' <tr><td><div class="numberP">';
             
             echo $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_1']) . "(" . number_format($stock_price_type[strtolower($stock['rank']) . '_2']) . ")" ." 円";
             if ($i == 0) {
-                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
+                echo '<p><input type="text" name="type' . $stock_price_type['type']. $stock['limit_number'] . '_number" class="number" min="0" max="999" value="'.$stock->limit_number.'"> 人</p>';
             } else {
-                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
+                echo '<p><input type="text" name="type' . $stock_price_type['type'] . '_number" class="number" min="0" max="999" value="0"> 人</p>';
             }
             echo '</div></td></tr>';
         }
