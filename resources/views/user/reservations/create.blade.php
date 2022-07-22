@@ -627,23 +627,31 @@ if($stock_price_types){
                                     </tr> -->
                                 </table>
                             </div>
+                            @if($plan->caution_content)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">注意事項・その他</h4>
                                 <div class="reserveTxt">
                                     <p>{{ $plan->caution_content }}</p>
                                 </div>
                             </div>
+                            @endif
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">キャンセル規定</h4>
                                 <div class="reserveTxt">
-                                    <p>{! $plan->cancel !}</p>
+                                    <p>{!! $plan->cancel !!}</p>
                                 </div>
 
                             </div>
                             <div class="reserveAgree">
                               <label for="agree01" class="checkBox01">
                                 <input type="checkbox" name="agree" id="agree01">
-                                <p><b>「旅行条件書」「注意事項」「個人情報の取扱に関する基本方針」を確認しました</b></p>
+                                <p><b>@if($plan->notice)
+                                    <a href="{{$plan->notice}}" target="_blank">「旅行条件書」</a>
+                                    @elseif($plan->file_path11)
+                                    <a href="{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
+                                    @endif
+                                    「注意事項」
+                                    <a href="{{$companies[0]->url2}}" target="_blank">「個人情報の取扱に関する基本方針」</a>を確認しました</b></p>
                               </label>
                               <p>上記をチェックし、下記ボタンよりお申し込みください。</p>
                             </div>
