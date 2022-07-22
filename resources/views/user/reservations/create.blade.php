@@ -594,39 +594,37 @@ if($stock_price_types){
                                 <table class="reserveTable">
                                     <tr>
                                         <th>実施会社</th>
-                                        <td>{{ $plan->company_name }}</td>
+                                        <td>{{ $companies[0]->name }}</td>
                                     </tr>
                                     <tr>
                                         <th>プラン</th>
                                         <td>{{ $plan->name }}</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <th>集合日時/集合場所</th>
                                         <td>@if ($plan->meeting_point_flag == 1 && $plan->meeting_point_name)<strong class="meeting-point-placeholder"></strong><br />{{ $plan->meeting_point_name }}
-〒{{ $plan->meeting_point_postalcode }}
-{{ $plan->meeting_point_prefecture }}{{ $plan->meeting_point_address }}
+                                        〒{{ $plan->meeting_point_postalcode }}
+                                        {{ $plan->meeting_point_prefecture }}{{ $plan->meeting_point_address }}
 
-アクセス：{{ $plan->meeting_point_access }}
-@elseif ($plan->meeting_point_flag == 2)
-@else
-{{ $plan->place_name }}
-〒{{ $plan->place_postalcode }}
-{{ $plan->place_prefecture }}{{ $plan->place_address }}
+                                        アクセス：{{ $plan->meeting_point_access }}
+                                        @elseif ($plan->meeting_point_flag == 2)
+                                        @else
+                                        {{ $plan->place_name }}
+                                        〒{{ $plan->place_postalcode }}
+                                        {{ $plan->place_prefecture }}{{ $plan->place_address }}
 
-アクセス：{{ $plan->place_access }}
-@endif</td>
-                                    </tr>
+                                        アクセス：{{ $plan->place_access }}
+                                        @endif</td>
+                                    </tr> -->
                                     <tr>
                                         <th>目的地</th>
-                                        <td><strong class="place-placeholder"></strong><br />{{ $plan->place_name }}
-〒{{ $plan->place_postalcode }}{{ $plan->place_prefecture }}{{ $plan->place_address }}
-
-アクセス：{{ $plan->place_access }}</td>
+                                        <td>{{ $plan->destination }}
+                                        </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <th>キャンセル締切</th>
                                         <td>{{ $plan->cancel_date }}</td>
-                                    </tr>
+                                    </tr> -->
                                 </table>
                             </div>
                             <div class="reserveItem">
