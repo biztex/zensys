@@ -90,9 +90,9 @@ if($stock_price_types){
             
             echo $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_1']) . "(" . number_format($stock_price_type[strtolower($stock['rank']) . '_2']) . ")" ." 円";
             if ($i == 0) {
-                echo '<p><input type="text" name="type' . $stock_price_type['type']. $stock['limit_number'] . '_number" class="number" min="0" max="999" value="'.$stock->limit_number.'"> 人</p>';
+                echo '<p><input type="text" name="type' . $stock_price_type['type']. $stock['limit_number'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="'.$stock->limit_number.'"> 人</p>';
             } else {
-                echo '<p><input type="text" name="type' . $stock_price_type['type'] . '_number" class="number" min="0" max="999" value="0"> 人</p>';
+                echo '<p><input type="text" name="type' . $stock_price_type['type'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="0"> 人</p>';
             }
             echo '</div></td></tr>';
         }
@@ -148,11 +148,11 @@ if($stock_price_types){
                                         <td>
                                             <div class="halfP">
                                                 <span>姓</span>
-                                                <input class="midIpt" type="text"name="name_last" value="{{ old('name_last') }}" required>
+                                                <input class="midIpt" id="name_last" type="text"name="name_last" value="{{ old('name_last') }}" required>
                                             </div>
                                             <div class="halfP">
                                                 <span>名</span>
-                                                <input class="midIpt" type="text" name="name_first" value="{{ old('name_first') }}" required>
+                                                <input class="midIpt" id="name_first" type="text" name="name_first" value="{{ old('name_first') }}" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -174,11 +174,11 @@ if($stock_price_types){
                                         <td>
                                             <div class="radioBox">
                                                 <label>
-                                                    <input type="radio" name="radio_sex">
+                                                    <input type="radio" value="0" name="radio_sex" checked>
                                                     男性
                                                 </label>
                                                 <label>
-                                                    <input type="radio" name="radio_sex">
+                                                    <input type="radio" value="1" name="radio_sex">
                                                     女性
                                                 </label>
                                             </div>
@@ -267,7 +267,7 @@ if($stock_price_types){
                                             </div>
                                             <div class="zipP02">
                                                 <p>番地、アパート、マンション名等</p>
-                                                <input class="width-half p-extended-address" type="text" name="" required>
+                                                <input class="width-half p-extended-address" type="text" name="extended" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -286,12 +286,33 @@ if($stock_price_types){
                                 </table>
                             </div>
                             <script>
+                                var value = 0;
+                                $('input[type=radio][name=radio_sex]').click(function() {
+                                   value=$(this).val
+                                });
+                                console.log(value);
                                 function addJoin() {
                                    // $(".reserveItem").append($("#reserveList").html())
                                 }
                                 function copyJoint() {
+                                    $("input[name='add_lastname']").first().val($("#name_last").val())
+                                    $("input[name='add_fistname']").first().val($("#name_first").val())
+                             
                                     $("input[name='join_kana1[]']").first().val($("#kana_last").val())
                                     $("input[name='join_kana2[]']").first().val($("#kana_first").val())
+
+                                    var selectedVal = $('input[name=radio_sex]:checked').val();
+                                    $("select[name='join_sex[]']").first().val(selectedVal);
+                                    
+                                    $("input[name='birth_year_representative']").first().val($("input[name='birth_year']").val());
+                                    $("input[name='birth_month_representative']").first().val($("input[name='birth_month']").val());
+                                    $("input[name='birth_day_representative']").first().val($("input[name='birth_day']").val());
+                                    $("input[name='postalcode_representative']").first().val($("input[name='postalcode']").val());
+                                    $("input[name='prefecture_representative']").first().val($("input[name='prefecture']").val());
+                                    $("input[name='address_representative']").first().val($("input[name='address']").val());
+                                    $("input[name='extended_representative']").first().val($("input[name='extended']").val());
+                                    $("input[name='tel_representative']").first().val($("input[name='tel']").val());
+
                                    // $(".reserveItem").append($("#reserveList"),html())
                                 }
 
@@ -307,11 +328,11 @@ if($stock_price_types){
                                             <td>
                                                 <div class="halfP">
                                                     <span>姓</span>
-                                                    <input class="midIpt" type="text" name="">
+                                                    <input class="midIpt" type="text" name="add_lastname">
                                                 </div>
                                                 <div class="halfP">
                                                     <span>名</span>
-                                                    <input class="midIpt" type="text" name="">
+                                                    <input class="midIpt" type="text" name="add_firstname">
                                                 </div>
                                             </td>
                                         </tr>
@@ -350,9 +371,9 @@ if($stock_price_types){
                                             <td>
                                                 <div class="radioBox">
                                                     <select name="join_sex[]">
-                                                        <option value="1">
+                                                        <option value="0">
                                                         男性
-                                                    <option value="2">
+                                                    <option value="1">
                                                         女性
                                                 </div>
                                             </td>
@@ -420,7 +441,7 @@ if($stock_price_types){
                                                 </div>
                                                 <div class="zipP02">
                                                     <p>番地、アパート、マンション名等</p>
-                                                    <input class="width-half p-extended-address" type="text" name="" required>
+                                                    <input class="width-half p-extended-address" type="text" name="extended_representative" required>
                                                 </div>
                                             </td>
                                         </tr>
@@ -435,10 +456,10 @@ if($stock_price_types){
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
                                                 <select name="" required class="helperWidthMedium">
-                                                    <option value="乗車地1">乗車地1</option>
-                                                    <option value="乗車地2">乗車地2</option>
-                                                    <option value="乗車地3">乗車地3</option>
-                                                    <option value="乗車地4">乗車地4</option>
+                                                    @foreach($pieces as $piece)
+                                                        <option value="{{$piece}}">{{$piece}}</option>
+                                                    @endforeach
+                                                 
                                                 </select>
                                             </td>
                                         </tr>
@@ -447,10 +468,9 @@ if($stock_price_types){
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
                                                 <select name="" required class="helperWidthMedium">
-                                                    <option value="降車地1">降車地1</option>
-                                                    <option value="降車地2">降車地2</option>
-                                                    <option value="降車地3">降車地3</option>
-                                                    <option value="降車地4">降車地4</option>
+                                                    @foreach($drops as $drop)
+                                                        <option value="{{$drop}}">{{$drop}}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                         </tr>
@@ -520,10 +540,9 @@ if($stock_price_types){
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
                                                 <select name="" required class="helperWidthMedium">
-                                                    <option value="乗車地1">乗車地1</option>
-                                                    <option value="乗車地2">乗車地2</option>
-                                                    <option value="乗車地3">乗車地3</option>
-                                                    <option value="乗車地4">乗車地4</option>
+                                                    @foreach($pieces as $piece)
+                                                        <option value="{{$piece}}">{{$piece}}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                         </tr>
@@ -532,10 +551,9 @@ if($stock_price_types){
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
                                                 <select name="" required class="helperWidthMedium">
-                                                    <option value="降車地1">降車地1</option>
-                                                    <option value="降車地2">降車地2</option>
-                                                    <option value="降車地3">降車地3</option>
-                                                    <option value="降車地4">降車地4</option>
+                                                    @foreach($drops as $drop)
+                                                        <option value="{{$drop}}">{{$drop}}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                         </tr>

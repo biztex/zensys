@@ -91,6 +91,9 @@ class ReservationsController extends Controller
             ->with('prices')
             ->first();
 
+        $pieces = explode(',',$plan->boarding);
+        $drops = explode(',',$plan->drop);
+
         /////////
         $stock = Stock::select()
             ->where('plan_id', $data['plan_id'])
@@ -113,7 +116,7 @@ class ReservationsController extends Controller
         
         return view(
             'user.reservations.create',
-            compact('plan','companies', 'date', 'weekday', 'stock','priceType', 'stock_price_types')
+            compact('plan','pieces','drops' ,'companies', 'date', 'weekday', 'stock','priceType', 'stock_price_types')
         );
     }
     // 作成処理
