@@ -38,6 +38,7 @@ use tgMdk\dto\CvsCancelResponseDto;
 use tgMdk\TGMDK_Config;
 use tgMdk\TGMDK_Logger;
 use tgMdk\TGMDK_Transaction;
+use App\Models\Company;
 
 class ReservationsController extends Controller
 {
@@ -95,6 +96,9 @@ class ReservationsController extends Controller
             ->where('plan_id', $data['plan_id'])
             ->where('res_date', date('Y-m-d', strtotime($data['date'])))
             ->first();
+        $companies = Company::all();
+
+
 
         $priceTypes = PriceType::whereIn('number', function ($query) use (
             $data
@@ -123,10 +127,11 @@ class ReservationsController extends Controller
         // echo '<pre>';
         // print_r( $stock_price_types);
         // die();
+        dd($stock_price_types);
 
         return view(
             'user.reservations.create',
-            compact('plan', 'date', 'weekday', 'stock', 'stock_price_types')
+            compact('plan','companies', 'date', 'weekday', 'stock', 'stock_price_types')
         );
     }
     // 作成処理

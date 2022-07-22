@@ -853,7 +853,8 @@ $('.reserve-button').click(function () {
     } else {
         resType = 1;
     }
-	open( "http://153.127.31.62/zenryo/public/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType, "_blank" ) ;
+	// open( "http://153.127.31.62/zenryo/public/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType, "_blank" ) ;
+	open( "http://localhost:8000/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType, "_blank" ) ;
 });
 
 </script>

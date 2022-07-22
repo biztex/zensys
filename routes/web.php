@@ -104,7 +104,7 @@ Route::post('push/mpi', 'PushController@mpi');
 /**
  * 非認証ページ
  */
-//Route::get('user/reservations/create', '\App\Http\Controllers\ReservationsController@createForUser');
+// Route::get('user/reservations/create', '\App\Http\Controllers\ReservationsController@createForUser');
 /**
  * ルーティング（管理者・クライアント・ユーザー）
  */

@@ -71,9 +71,7 @@
                                         <p class="nameP"><?= htmlspecialchars(
                                             $plan['name']
                                         ) ?></p>
-                                        <p class="txtP"><span>実施会社：</span><?= $plan[
-                                            'company_name'
-                                        ] ?></p>
+                                        <p class="txtP"><span>実施会社：</span><?= $companies[0]['name'] ?></p>
                                         <p class="txtP"><span>出発日：</span>{{ date('Y年m月d日', strtotime($date)) }}</p>
                                     </dd>
                                 </dl>
