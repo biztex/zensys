@@ -646,7 +646,7 @@ if($stock_price_types){
                               <label for="agree01" class="checkBox01">
                                 <input type="checkbox" name="agree" id="agree01">
                                 <p><b>@if($plan->notice)
-                                    <a href="{{$plan->notice}}" target="_blank">「旅行条件書」</a>
+                                    <a href="http://153.127.31.62/zenryo/public/uploads/{{$plan->notice}}" target="_blank">「旅行条件書」</a>
                                     @elseif($plan->file_path11)
                                     <a href="{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
                                     @endif
