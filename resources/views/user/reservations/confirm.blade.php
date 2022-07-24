@@ -389,7 +389,7 @@
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">キャンセル規定</h4>
                                 <div class="reserveTxt">
-                                    <p>{! $plan->cancel !}</p>
+                                    <p>{!! $plan->cancel !!}</p>
                                 </div>
 
                             </div>
