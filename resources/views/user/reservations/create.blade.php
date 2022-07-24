@@ -648,7 +648,7 @@ if($stock_price_types){
                                 <p><b>@if($plan->notice)
                                     <a href="http://153.127.31.62/zenryo/public/uploads/{{$plan->notice}}" target="_blank">「旅行条件書」</a>
                                     @elseif($plan->file_path11)
-                                    <a href="{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
+                                    <a href="http://153.127.31.62/zenryo/public/uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
                                     @endif
                                     「注意事項」
                                     <a href="{{$companies[0]->url2}}" target="_blank">「個人情報の取扱に関する基本方針」</a>を確認しました</b></p>
