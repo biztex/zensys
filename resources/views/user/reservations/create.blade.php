@@ -83,18 +83,23 @@
                                         <th rowspan="0">料金</th></tr>
 @php
 if($stock_price_types){
-
+    $arr = ['大人　','子供　','幼児　'] ;
     foreach ($stock_price_types as $i => $stock_price_type) {
         if($stock_price_type['type'] == $priceType['number']){
-            echo ' <tr><td><div class="numberP">';
+            echo '<tr><td>';
+                
+            for($i = 1; $i < 4; $i++){
+                echo '<div class="numberP">';
             
-            echo $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_1']) . "(" . number_format($stock_price_type[strtolower($stock['rank']) . '_2']) . ")" ." 円";
-            if ($i == 0) {
-                echo '<p><input type="text" name="type' . $stock_price_type['type']. $stock['limit_number'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="'.$stock->limit_number.'"> 人</p>';
-            } else {
-                echo '<p><input type="text" name="type' . $stock_price_type['type'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="0"> 人</p>';
+                echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
+                if ($i == 1) {
+                    echo '<p><input type="text" name="type' . $stock_price_type['type']. $stock['limit_number'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="'.$stock->limit_number.'"> 人</p>';
+                } else {
+                    echo '<p><input type="text" name="type' . $stock_price_type['type'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="0"> 人</p>';
+                }
+                echo '</div>';
             }
-            echo '</div></td></tr>';
+            echo '</td></tr>';
         }
         else{
             echo ' <tr><td><div class="numberP">';
