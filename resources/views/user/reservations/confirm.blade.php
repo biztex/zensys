@@ -62,15 +62,13 @@
                         <div class="reserveItem">
                                 <h4 class="reserveItemHd">予約プラン名</h4>
                                 <dl class="reserveDl01">
-                                    {{-- <dt><img src="{{config('app.url')}}uploads/{{ $plan->file_path1 }}" /></dt> --}}
+                                    <dt><img src="{{config('app.url')}}uploads/{{ $plan->file_path1 }}" /></dt> 
                                     <dd>
-                                        {{-- <p class="nameP"><?//= htmlspecialchars(
-                                            //$plan['name']
-                                        //) ?></p>
-                                        <p class="txtP"><span>実施会社：</span><?//= /$plan[
-                                            //'company_name'
-                                        //] ?></p>
-                                        <p class="txtP"><span>出発日：</span>{{ date('Y年m月d日', strtotime($date)) }}</p> --}}
+                                        <p class="nameP"><?= htmlspecialchars(
+                                            $plan['name']
+                                        ) ?></p>
+                                        <p class="txtP"><span>実施会社：</span><?= $companies[0]['name'] ?></p>
+                                        <p class="txtP"><span>出発日：</span>{{ date('Y年m月d日', strtotime($date)) }}</p>
                                     </dd>
                                 </dl>
                             </div>

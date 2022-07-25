@@ -92,10 +92,11 @@ if($stock_price_types){
                 echo '<div class="numberP">';
             
                 echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
+                echo '<input type="hidden" name="price_table[]" value="'. $arr[$i-1] . $priceType['name'] . '/' . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) .' 円' .'">';
                 if ($i == 1) {
                     echo '<p><input type="text" name="type' . $stock_price_type['type']. $stock['limit_number'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="'.$stock->limit_number.'"> 人</p>';
                 } else {
-                    echo '<p><input type="text" name="type' . $stock_price_type['type'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="0"> 人</p>';
+                    echo '<p><input type="text" name="type' . $i . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="0"> 人</p>';
                 }
                 echo '</div>';
             }

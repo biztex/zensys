@@ -771,12 +771,16 @@ class ReservationsController extends Controller
             'is_request' => ['nullable'],
         ];
         $plan = Plan::find($request->plan_id);
-        if ($plan->answer_flag == 1) {
-            $a_rules = [
-                'answer' => ['required', 'string', 'max:500'],
-            ];
-            $rules = array_merge($rules, $a_rules);
-        }
+        // if ($plan->answer_flag == 1) {
+        //     $a_rules = [
+        //         'answer' => ['required', 'string', 'max:500'],
+        //     ];
+        //     $rules = array_merge($rules, $a_rules);
+        // }
+
+
+        $companies = Company::all();
+
 
         $count_member = 0;
         // for ($i = 0; $i <= 20; $i++) {
@@ -874,6 +878,7 @@ class ReservationsController extends Controller
             'user.reservations.confirm',
             compact(
                 'plan',
+                'companies',
                 'date',
                 'weekday',
                 'stock',

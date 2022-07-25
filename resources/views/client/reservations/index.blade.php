@@ -6,6 +6,8 @@
 @stop
 
 @section('content')
+<script src="{{asset('js/gridjs.umd.js')}}"></script>
+<link rel="stylesheet" href="{{asset('css/mermaid.min.css') }}">
 <div class="row mb-2">
   <div class="col-sm-6 mt-3">
     <p>予約管理</p>
