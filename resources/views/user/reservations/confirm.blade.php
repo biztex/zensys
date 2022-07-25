@@ -77,58 +77,26 @@
                                 <table class="reserveTable">
                                     <tr>
                                     <th
-                                        {{-- @if($stock_price_types){
-                                        rowspan="{{count($stock_price_types)}}"
-                                        @else
-                                        rowspan="{{count($stock_price_types)}}"
-                                        @endif --}}
-
+                                        rowspan="0"
                                         >料金</th>
                                         @php
-/*if($stock_price_types){
-    foreach ($stock_price_types as $i => $stock_price_type) {
-        echo ' <tr><td><div class="numberP">';
+                                        if($prices){
+                                            echo '<tr><td>';
 
-
-
-            echo $stock_price_type->price_types->name . " / " . number_format($stock_price_type['price']) . " 円";
-
-
-        if ($i == 0) {
-            echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
-        } else {
-            echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
-        }
-        echo '</div></td></tr>';
-    }
-}else{
-    foreach ($plan->prices as $i => $price) {
-        echo ' <tr><td><div class="numberP">';
-
-
-        if($stock['price']){
-            echo $price->price_types->name . " / " . number_format($stock['price']) . " 円";
-        }else{
-            if ($price->week_flag == 0) {
-               echo $price->price_types->name . " / " . number_format($price->price) . " 円";
-            }
-            if ($price->week_flag == 1) {
-               echo $price->price_types->name . " / " . number_format($price->{$weekday}) . " 円";
-            }
-
-        }
-
-        if ($i == 0) {
-            echo '<p>2 人</p>';
-        } else {
-            echo '<p>2 人</p>';
-        }
-        echo '</div></td></tr>';
-    }
-
-}
-*/
-@endphp
+                                            for ($i=0; $i<count($prices); $i++ ){
+                                                        
+                                                echo '<div class="numberP">';
+                                            
+                                                echo $prices[$i];
+                                                echo '<input type="hidden" name="price_table[]" value="'.$prices[$i].'">';
+                                                echo '<p>'. $types[$i] .'人</p>';
+                                                echo '<input type="hidden" name="type'. $i .'" class="number" value="' .$types[$i] .'">';
+                                                
+                                                echo '</div>';
+                                            }
+                                            echo '</td></tr>';
+                                        }
+                                        @endphp
                                 </table>
                             </div>
                             <div class="reserveItem">
@@ -137,67 +105,57 @@
                                     <tr class="nameTr">
                                         <th>申込者氏名(漢字)</th>
                                         <td>
-                                           {{-- {{$request->name_last}} {{$request->name_first}} --}}
-                                           サンプル
+                                           {{$info['name_last']}} {{$info['name_first']}}
                                         </td>
                                     </tr>
                                     <tr class="nameTr">
                                         <th>申込者氏名(カナ)</th>
                                         <td>
-                                        {{-- {{$request->kana_last}} {{$request->kana_first}} --}}
-                                        サンプル
+                                            {{$info['kana_last']}} {{$info['kana_first']}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>性別</th>
                                         <td>
+                                            @if($info['radio_sex'] == 0)
                                             男性
+                                            @else
+                                            女性
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>生年月日</th>
                                         <td>
                                             <div class="dateP">
-                                            {{-- {{$request->birth_year}}年{{$request->birth_month}}月{{$request->birth_day}}日 --}}
-                                            2022年1月1日
+                                                {{$info['birth_year']}}年{{ $info['birth_month']}}月{{ $info['birth_day']}}日
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>メールアドレス</th>
                                         <td>
-                                        {{-- {{$request->email}} --}}
-                                        sample@sample.com
+                                            {{$info['email']}}
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <th>メールアドレス確認</th>
-                                        <td>
-                                            sample@exapmle.com
-                                        </td>
-                                    </tr> -->
                                     <tr class="zipTr">
                                         <th class="topTh">住所</th>
                                         <td>
-                                            {{-- <p>〒{{$request->postalcode}}</p>
-                                            <p>{{$request->prefecture}} 市区{{$request->address}}</p> --}}
-                                            <!-- <p>番地、アパート、マンション名等</p> -->
-                                            <p>〒0001111</p>
-                                            <p>愛媛県 市区郡町村サンプル</p>
+                                            <p>〒{{$info['postalcode']}}</p>
+                                            <p>{{$info['prefecture']}} 市区{{$info['address']}}</p>
+                                            <p>{{$info['extended']}}</p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>電話番号</th>
                                         <td>
-                                        {{-- {{$request->tel}} --}}
-                                        00011112222
+                                            {{$info['tel']}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>緊急連絡先</th>
                                         <td>
-                                        {{-- {{$request->tel2}} --}}
-                                        00011112222
+                                             {{$info['tel2']}}
                                         </td>
                                     </tr>
                                 </table>
@@ -245,56 +203,61 @@
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(漢字)</th>
                                             <td>
-                                                サンプル
+                                                {{$info['add_lastname'][0]}} {{$info['add_firstname'][0]}} 
                                             </td>
                                         </tr>
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(カナ)</th>
                                             <td>
-                                                サンプル
+                                                {{$info['join_kana1'][0]}} {{$info['join_kana2'][0]}}
                                             </td>
                                         </tr>
                                         <tr class="ageTr">
                                             <th>年齢</th>
                                             <td>
-                                            40
+                                                {{$info['join_age'][0]}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>生年月日</th>
                                             <td>
-                                                サンプル
+                                                {{$info['birth_year_representative']}}年{{ $info['birth_month_representative']}}月{{ $info['birth_day_representative']}}日
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>性別</th>
                                             <td>
+                                                @if($info['join_sex'][0] == 0)
                                                 男性
+                                                @else
+                                                女性
+                                                @endif
                                             </td>
                                         </tr>
                                         <tr class="zipTr">
                                             <th class="topTh">住所</th>
                                             <td>
-                                                <p>〒0001111</p>
-                                                <p>愛媛県 市区郡町村サンプル</p>
+                                                <p>〒{{$info['postalcode_representative']}}</p>
+                                                <p>{{$info['prefecture_representative']}}</p>
+                                                <p>{{$info['address_representative']}} {{$info['extended_representative']}}</p>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>電話番号</th>
                                             <td>
-                                            00011112222
+                                                {{$info['tel_representative']}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>乗車地</th>
                                             <td>
-                                            乗車地1
+                                                {{ $info['boarding'][0]}}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>降車地</th>
                                             <td>
-                                            1
+                                                {{ $info['drop'][0]}}
                                             </td>
                                         </tr>
                                     </table>
@@ -305,21 +268,18 @@
                                 <table class="reserveTable">
                                     <tr>
                                         <th>お支払方法</th>
-                                        {{-- <td>
-                                        @if($request->payment_method==0)
-                                        現地払い
-                                        @elseif($request->payment_method==1)
-                                        事前払い
-
-                                        @elseif($request->payment_method==2)
-                                        事前コンビニ決済
-                                        @elseif($request->payment_method==3)
-                                        事前クレジットカード決済
-                                         @endif
-                                        </td> --}}
-                                        <td>
-                                        現地払い
-                                        </td>
+                                         <td>
+                                            @if($info['payment_method']==0)
+                                            現地払い
+                                            @elseif($info['payment_method']==1)
+                                            事前払い
+                                            @elseif($info['payment_method']==2)
+                                            コンビニ決済
+                                            @elseif($info['payment_method']==3)
+                                            クレジットカード決済
+                                            @endif
+                                        </td> 
+                                    
                                     </tr>
                                 </table>
                             </div>
@@ -328,13 +288,11 @@
                                 <table class="reserveTable">
                                     <tr>
                                         <th>実施会社</th>
-                                        {{-- <td>{{ $plan->company_name }}</td> --}}
-                                        <td>サンプル会社</td>
+                                        <td>{{ $companies[0]->name }}</td> 
                                     </tr>
                                     <tr>
                                         <th>プラン</th>
-                                        {{-- <td>{{ $plan->name }}</td> --}}
-                                        <td>サンプルプラン</td>
+                                        <td>{{ $plan->name }}</td>
                                     </tr>
                                     <tr>
                                         <th>集合日時/集合場所</th>
@@ -353,10 +311,7 @@
 @endif</td> --}}
 
 <td>
-〒1112222
-愛媛県 松山市
-
-アクセス：サンプル</td>
+{{ date('Y年m月d日', strtotime($date)) }} / 
                                     </tr>
                                     <tr>
                                         <th>目的地</th>
@@ -365,25 +320,22 @@
 
 アクセス：{{ $plan->place_access }}</td> --}}
 
-<td><strong class="place-placeholder"></strong><br />サンプルプラン
-〒9991111北海道サンプル
-
-アクセス：サンプルアクセス</td>
+<td><strong class="place-placeholder">{{ $plan->destination }}</td>
                                     </tr>
                                     <tr>
                                         <th>キャンセル締切</th>
-                                        {{-- <td>{{ $plan->cancel_date }}</td> --}}
-                                        <td>サンプル</td>
+                                        <td>{{ $plan->deadline }}</td>
                                     </tr>
                                 </table>
                             </div>
+                            @if($plan->caution_content != null)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">注意事項・その他</h4>
                                 <div class="reserveTxt">
-                                    {{-- <p>{{ $plan->caution_content }}</p> --}}
-                                    <p>サンプル</p>
+                                    <p>{{ $plan->caution_content }}</p> 
                                 </div>
                             </div>
+                            @endif
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">キャンセル規定</h4>
                                 <div class="reserveTxt">

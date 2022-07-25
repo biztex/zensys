@@ -94,9 +94,9 @@ if($stock_price_types){
                 echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
                 echo '<input type="hidden" name="price_table[]" value="'. $arr[$i-1] . $priceType['name'] . '/' . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) .' 円' .'">';
                 if ($i == 1) {
-                    echo '<p><input type="text" name="type' . $stock_price_type['type']. $stock['limit_number'] . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="'.$stock->limit_number.'"> 人</p>';
+                    echo '<p><input type="text" name="type_number[]" class="number" min="0" max="'.$stock->limit_number.'" value="'.$stock->limit_number.'"> 人</p>';
                 } else {
-                    echo '<p><input type="text" name="type' . $i . '_number" class="number" min="0" max="'.$stock->limit_number.'" value="0"> 人</p>';
+                    echo '<p><input type="text" name="type_number[]" class="number" min="0" max="'.$stock->limit_number.'" value="0"> 人</p>';
                 }
                 echo '</div>';
             }
@@ -301,8 +301,8 @@ if($stock_price_types){
                                    // $(".reserveItem").append($("#reserveList").html())
                                 }
                                 function copyJoint() {
-                                    $("input[name='add_lastname']").first().val($("#name_last").val())
-                                    $("input[name='add_firstname']").first().val($("#name_first").val())
+                                    $("input[name='add_lastname[]']").first().val($("#name_last").val())
+                                    $("input[name='add_firstname[]']").first().val($("#name_first").val())
                              
                                     $("input[name='join_kana1[]']").first().val($("#kana_last").val())
                                     $("input[name='join_kana2[]']").first().val($("#kana_first").val())
@@ -334,17 +334,17 @@ if($stock_price_types){
                                             <td>
                                                 <div class="halfP">
                                                     <span>姓</span>
-                                                    <input class="midIpt" type="text" name="add_lastname">
+                                                    <input class="midIpt" type="text" name="add_lastname[]">
                                                 </div>
                                                 <div class="halfP">
                                                     <span>名</span>
-                                                    <input class="midIpt" type="text" name="add_firstname">
+                                                    <input class="midIpt" type="text" name="add_firstname[]">
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(カナ)<span class="requiredRed">※</span></th>
-                                            <td>
+                                            <td>乗車地
                                                 <div class="halfP">
                                                     <span>セイ</span>
                                                     <input class="midIpt" type="text" name="join_kana1[]">
@@ -461,7 +461,7 @@ if($stock_price_types){
                                             <th>乗車地</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
-                                                <select name="" required class="helperWidthMedium">
+                                                <select name="boarding[]" required class="helperWidthMedium">
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}">{{$piece}}</option>
                                                     @endforeach
@@ -473,7 +473,7 @@ if($stock_price_types){
                                             <th>降車地</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
-                                                <select name="" required class="helperWidthMedium">
+                                                <select name="drop[]" required class="helperWidthMedium">
                                                     @foreach($drops as $drop)
                                                         <option value="{{$drop}}">{{$drop}}</option>
                                                     @endforeach
@@ -491,11 +491,11 @@ if($stock_price_types){
                                             <td>
                                                 <div class="halfP">
                                                     <span>姓</span>
-                                                    <input class="midIpt" type="text" name="">
+                                                    <input class="midIpt" type="text" name="add_lastname[]">
                                                 </div>
                                                 <div class="halfP">
                                                     <span>名</span>
-                                                    <input class="midIpt" type="text" name="">
+                                                    <input class="midIpt" type="text" name="add_firstname[]">
                                                 </div>
                                             </td>
                                         </tr>
@@ -545,7 +545,7 @@ if($stock_price_types){
                                             <th>乗車地</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
-                                                <select name="" required class="helperWidthMedium">
+                                                <select name="boarding[]" required class="helperWidthMedium">
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}">{{$piece}}</option>
                                                     @endforeach
@@ -556,7 +556,7 @@ if($stock_price_types){
                                             <th>降車地</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
-                                                <select name="" required class="helperWidthMedium">
+                                                <select name="drop[]" required class="helperWidthMedium">
                                                     @foreach($drops as $drop)
                                                         <option value="{{$drop}}">{{$drop}}</option>
                                                     @endforeach

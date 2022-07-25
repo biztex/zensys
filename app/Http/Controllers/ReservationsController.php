@@ -246,6 +246,7 @@ class ReservationsController extends Controller
             $user->is_member = $request->is_member;
             $user->save();
         }
+
         //}
         // 予約番号作成
         $count = Reservation::whereDate('created_at', Carbon::today())->count();
@@ -261,27 +262,27 @@ class ReservationsController extends Controller
         $reservation->activity_date = $request->selected_activity;
         $reservation->fixed_datetime = $request->date;
         $reservation->answer = $request->answer;
-        $reservation->type0_number = $request->type0_number;
-        $reservation->type1_number = $request->type1_number;
-        $reservation->type2_number = $request->type2_number;
-        $reservation->type3_number = $request->type3_number;
-        $reservation->type4_number = $request->type4_number;
-        $reservation->type5_number = $request->type5_number;
-        $reservation->type6_number = $request->type6_number;
-        $reservation->type7_number = $request->type7_number;
-        $reservation->type8_number = $request->type8_number;
-        $reservation->type9_number = $request->type9_number;
-        $reservation->type10_number = $request->type10_number;
-        $reservation->type11_number = $request->type11_number;
-        $reservation->type12_number = $request->type12_number;
-        $reservation->type13_number = $request->type13_number;
-        $reservation->type14_number = $request->type14_number;
-        $reservation->type15_number = $request->type15_number;
-        $reservation->type16_number = $request->type16_number;
-        $reservation->type17_number = $request->type17_number;
-        $reservation->type18_number = $request->type18_number;
-        $reservation->type19_number = $request->type19_number;
-        $reservation->type20_number = $request->type20_number;
+        $reservation->type0_number = $request->type0;
+        $reservation->type1_number = $request->type1;
+        $reservation->type2_number = $request->type2;
+        $reservation->type3_number = $request->type3;
+        $reservation->type4_number = $request->type4;
+        $reservation->type5_number = $request->type5;
+        $reservation->type6_number = $request->type6;
+        $reservation->type7_number = $request->type7;
+        $reservation->type8_number = $request->type8;
+        $reservation->type9_number = $request->type9;
+        $reservation->type10_number = $request->type10;
+        $reservation->type11_number = $request->type11;
+        $reservation->type12_number = $request->type12;
+        $reservation->type13_number = $request->type13;
+        $reservation->type14_number = $request->type14;
+        $reservation->type15_number = $request->type15;
+        $reservation->type16_number = $request->type16;
+        $reservation->type17_number = $request->type17;
+        $reservation->type18_number = $request->type18;
+        $reservation->type19_number = $request->type19;
+        $reservation->type20_number = $request->type20;
         $reservation->payment_method = $request->payment_method;
         if ($request->is_request == 0) {
             $reservation->status = '未決済';
@@ -782,6 +783,7 @@ class ReservationsController extends Controller
         $companies = Company::all();
 
 
+
         $count_member = 0;
         // for ($i = 0; $i <= 20; $i++) {
         //     $p_rules = [];
@@ -874,11 +876,64 @@ class ReservationsController extends Controller
         }
 
         $stock_price_types = $arr;
+
+
+        // 料金
+        $prices = $request->price_table ;
+        // $types = [];
+        // foreach ($request->type_number as $type) {
+        //     # code...
+        //     $types = $type;
+        // }
+
+        $types = $request->type_number ;
+
+        // 
+
+        $info = [];
+        $info['name_last']                  = $request->name_last;
+        $info['name_first']                 = $request->name_first;
+        $info['kana_last']                  = $request->kana_last;
+        $info['kana_first']                 = $request->kana_first;
+        $info['radio_sex']                  = $request->radio_sex;
+        $info['birth_year']                 = $request->birth_year;
+        $info['birth_month']                = $request->birth_month;
+        $info['birth_day']                  = $request->birth_day;
+        $info['email']                      = $request->email;
+        $info['postalcode']                 = $request->postalcode;
+        $info['prefecture']                 = $request->prefecture;
+        $info['address']                    = $request->address;
+        $info['extended']                   = $request->extended;
+        $info['tel']                        = $request->tel;
+        $info['tel2']                       = $request->tel2;
+        $info['add_lastname']               = $request->add_lastname;
+        $info['add_firstname']              = $request->add_firstname;
+        $info['join_kana1']                 = $request->join_kana1;
+        $info['join_kana2']                 = $request->join_kana2;
+        $info['join_age']                   = $request->join_age;
+        $info['join_sex']                   = $request->join_sex;
+        $info['birth_year_representative']  = $request->birth_year_representative;
+        $info['birth_month_representative'] = $request->birth_month_representative;
+        $info['birth_day_representative']   = $request->birth_day_representative;
+        $info['postalcode_representative']  = $request->postalcode_representative;
+        $info['prefecture_representative']  = $request->prefecture_representative;
+        $info['address_representative']     = $request->address_representative;
+        $info['extended_representative']    = $request->extended_representative;
+        $info['tel_representative']         = $request->tel_representative;
+        $info['payment_method']             = $request->payment_method;
+        $info['address_representative']     = $request->address_representative;
+        $info['boarding']                   = $request->boarding;
+        $info['drop']                       = $request->drop;
+        $info['payment_method']             = $request->payment_method;
+
         return view(
             'user.reservations.confirm',
             compact(
                 'plan',
                 'companies',
+                'info',
+                'prices',
+                'types',
                 'date',
                 'weekday',
                 'stock',
