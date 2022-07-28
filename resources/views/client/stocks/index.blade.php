@@ -7,7 +7,7 @@
 
 @section('content')
 <script>
-   
+
     function goSubmit(name){
 
 
@@ -19,10 +19,10 @@
 
             $("#week").val(value);
         } catch (error) {
-            
+
         }
 
-      
+
 
         $("#form1").prop('action','{{config('app.url')}}client/stocks/update'+name+'/{{ $default_plan->id }}')
         $("#form1").submit();
@@ -81,16 +81,16 @@
                               @endforeach
                             </select>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="card-body">
-                    <table>
+                    <table class="table table-bordered">
                         <tr>
-                            <th  style="width:50px"></th>
-                            <th style="text-align: center;">大人</th>
-                            <th style="text-align: center;">子供</th>
-                            <th style="text-align: center;">幼児</th>
+                            <th class="bg-light" style="width:50px"></th>
+                            <th class="bg-light text-center">大人</th>
+                            <th class="bg-light text-center">子供</th>
+                            <th class="bg-light text-center">幼児</th>
                         </tr>
                         <tr>
                             <th>A</th>
@@ -186,11 +186,11 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-                    
+
                     <input type="button" value="更新する" onclick="goSubmit('Rank')">
                     <br> <br>
 
-                    <label for="limit_num" class="col-md-2 offset-md-5 d-inline">在庫 
+                    <label for="limit_num" class="col-md-2 d-inline pl-0">在庫
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num" value=""></label>
                     <input type="button" value="更新する" onclick="goSubmit('Stock')">
                     <br> <br>
@@ -219,15 +219,15 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-                    
+
                     <input type="button" value="更新する" onclick="goSubmit('Rank_day')"></b>
                     <br><br>
-                    <label for="limit_num2" class="col-md-2 offset-md-5 d-inline">在庫 
+                    <label for="limit_num2" class="col-md-2 d-inline pl-0">在庫
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num2" value=""></label>
                     <input type="button" value="更新する" onclick="goSubmit('Stock_day')"></b>
 
                     </b>
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="col-md-1 h4"><a id="prev-month" href=""><i class="fas fa-fw fa-arrow-left"></i></a></div>
                         <div class="col-md-10 center h4 font-weight-bold text-center"><span id="disp-year">{{ $year }}</span> <small class="font-weight-bold">年</small>　<span id="disp-month">{{ $month }}</span> <small class="font-weight-bold">月</small></div>
                         <input type="hidden" id="year" name="year">
@@ -258,8 +258,8 @@
                             <p class="h5" style="margin:0">{{ $date->day }}</p>
                             <hr style="margin:7px 0 7px 0" />
                             <p style="margin:0 0 5px 0"><small>
-  
-                            @foreach ($stocks as $stock) 
+
+                            @foreach ($stocks as $stock)
                                 @if (substr($date, 0 ,10) == $stock->res_date)
                                 <select name="rank[]">
                                 <option value="">ランク</option>
@@ -284,7 +284,7 @@
                                 <select name="rank[]">
                                 <option value="">ランク</option>
                                 <option value="A">A</option>
-                                <option value="B">B</option> 
+                                <option value="B">B</option>
                                 <option value="C">C</option>
                                 <option value="D">D</option>
                                 <option value="E">E</option>
@@ -297,12 +297,12 @@
                                 <option value="L">L</option>
                                 </select>
                            @endif
-                            
+
                             @else
                             <select name="rank[]">
                                 <option value="">ランク</option>
                                 <option value="A">A</option>
-                                <option value="B">B</option> 
+                                <option value="B">B</option>
                                 <option value="C">C</option>
                                 <option value="D">D</option>
                                 <option value="E">E</option>
@@ -317,7 +317,7 @@
 
                            @endisset
                             </p>
-                            <p style="margin:0 0 5px 0"><small>在庫
+                            <p style="margin:0 0 5px 0"><small>在庫<br>
                             @foreach ($stocks as $stock)
                               @isset($stock)
                               @if (substr($date, 0 ,10) == $stock->res_date)
@@ -359,7 +359,7 @@
                             @if (substr($date, 0 ,10) != $stock->res_date)
                                     @foreach ($priceTypes as $priceType)
                                     @php
-                                        $tmp = \App\Models\StockPriceType::where('plan_id', $default_plan->id)->where('res_date', substr($date, 0 ,10))->where('price_type_number', $priceType->number)->first(); 
+                                        $tmp = \App\Models\StockPriceType::where('plan_id', $default_plan->id)->where('res_date', substr($date, 0 ,10))->where('price_type_number', $priceType->number)->first();
                                         $price = '';
                                         if($tmp){
                                             $price =$tmp->price;
@@ -367,7 +367,7 @@
                                     @endphp
                                     <b style="font-size:6px">{{$priceType->name}}</b><br><input class="text-right" style="width: 50px" name="price_{{ substr($date, 0 ,10) }}_{{$priceType->number}}" value="{{ $price }}" type="text" /><br>
                                     @endforeach
-                              
+
                             @endif
                             @else
                               @foreach ($priceTypes as $priceType)
@@ -513,4 +513,3 @@ $(document).ready(function(){
 
 </script>
 @stop
-

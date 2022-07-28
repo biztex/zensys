@@ -87,10 +87,10 @@ if($stock_price_types){
     foreach ($stock_price_types as $i => $stock_price_type) {
         if($stock_price_type['type'] == $priceType['number']){
             echo '<tr><td>';
-                
+
             for($i = 1; $i < 4; $i++){
                 echo '<div class="numberP">';
-            
+
                 echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
                 echo '<input type="hidden" name="price_table[]" value="'. $arr[$i-1] . $priceType['name'] . '/' . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) .' 円' .'">';
                 echo '<p><input type="text" name="type_number[]" class="number" min="0" max="'.$stock->limit_number.'" value="1"> 人</p>';
@@ -197,7 +197,7 @@ if($stock_price_types){
                                     <tr>
                                         <th>メールアドレス<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input class="midIpt" type="email" name="email" class="width-half" value="{{ old('email') }}" required>
+                                            <input type="text" name="email" class="width-half" value="{{ old('email') }}" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -299,13 +299,13 @@ if($stock_price_types){
                                 function copyJoint() {
                                     $("input[name='add_lastname[]']").first().val($("#name_last").val())
                                     $("input[name='add_firstname[]']").first().val($("#name_first").val())
-                             
+
                                     $("input[name='join_kana1[]']").first().val($("#kana_last").val())
                                     $("input[name='join_kana2[]']").first().val($("#kana_first").val())
 
                                     var selectedVal = $('input[name=radio_sex]:checked').val();
                                     $("select[name='join_sex[]']").first().val(selectedVal);
-                                    
+
                                     $("select[name='birth_year_representative']").first().val($("select[name='birth_year']").val());
                                     $("select[name='birth_month_representative']").first().val($("select[name='birth_month']").val());
                                     $("select[name='birth_day_representative']").first().val($("select[name='birth_day']").val());
@@ -461,7 +461,7 @@ if($stock_price_types){
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}">{{$piece}}</option>
                                                     @endforeach
-                                                 
+
                                                 </select>
                                             </td>
                                         </tr>
@@ -628,6 +628,13 @@ if($stock_price_types){
                                         <td>{{ $plan->cancel_date }}</td>
                                     </tr> -->
                                 </table>
+                            </div>
+                            <div class="reserveItem">
+                                <h4 class="reserveItemHd">予約者への質問</h4>
+                                <div class="reserveTxt">
+                                    <p>テキストテキストがここに入ります。</p>
+                                    <textarea name="" class="reserveTextarea"></textarea>
+                                </div>
                             </div>
                             @if($plan->caution_content)
                             <div class="reserveItem">

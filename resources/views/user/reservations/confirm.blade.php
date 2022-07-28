@@ -62,7 +62,7 @@
                         <div class="reserveItem">
                                 <h4 class="reserveItemHd">予約プラン名</h4>
                                 <dl class="reserveDl01">
-                                    <dt><img src="{{config('app.url')}}uploads/{{ $plan->file_path1 }}" /></dt> 
+                                    <dt><img src="{{config('app.url')}}uploads/{{ $plan->file_path1 }}" /></dt>
                                     <dd>
                                         <p class="nameP"><?= htmlspecialchars(
                                             $plan['name']
@@ -84,14 +84,14 @@
                                             echo '<tr><td>';
 
                                             for ($i=0; $i<count($prices); $i++ ){
-                                                        
+
                                                 echo '<div class="numberP">';
-                                            
+
                                                 echo $prices[$i];
                                                 echo '<input type="hidden" name="price_table[]" value="'.$prices[$i].'">';
                                                 echo '<p>'. $types[$i] .'人</p>';
                                                 echo '<input type="hidden" name="type'. $i .'" class="number" value="' .$types[$i] .'">';
-                                                
+
                                                 echo '</div>';
                                             }
                                             echo '</td></tr>';
@@ -203,7 +203,7 @@
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(漢字)</th>
                                             <td>
-                                                {{$info['add_lastname'][0]}} {{$info['add_firstname'][0]}} 
+                                                {{$info['add_lastname'][0]}} {{$info['add_firstname'][0]}}
                                             </td>
                                         </tr>
                                         <tr class="nameTr">
@@ -278,8 +278,8 @@
                                             @elseif($info['payment_method']==3)
                                             クレジットカード決済
                                             @endif
-                                        </td> 
-                                    
+                                        </td>
+
                                     </tr>
                                 </table>
                             </div>
@@ -288,7 +288,7 @@
                                 <table class="reserveTable">
                                     <tr>
                                         <th>実施会社</th>
-                                        <td>{{ $companies[0]->name }}</td> 
+                                        <td>{{ $companies[0]->name }}</td>
                                     </tr>
                                     <tr>
                                         <th>プラン</th>
@@ -311,7 +311,7 @@
 @endif</td> --}}
 
 <td>
-{{ date('Y年m月d日', strtotime($date)) }} / 
+{{ date('Y年m月d日', strtotime($date)) }} /
                                     </tr>
                                     <tr>
                                         <th>目的地</th>
@@ -328,11 +328,18 @@
                                     </tr>
                                 </table>
                             </div>
+                            <div class="reserveItem">
+                                <h4 class="reserveItemHd">予約者への質問</h4>
+                                <div class="reserveTxt">
+                                    <p>テキストテキストがここに入ります。</p>
+                                    <p>テキストエリアに入力した内容がここに表示されます。</p>
+                                </div>
+                            </div>
                             @if($plan->caution_content != null)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">注意事項・その他</h4>
                                 <div class="reserveTxt">
-                                    <p>{{ $plan->caution_content }}</p> 
+                                    <p>{{ $plan->caution_content }}</p>
                                 </div>
                             </div>
                             @endif
