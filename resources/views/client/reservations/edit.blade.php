@@ -158,7 +158,7 @@
                             {{ $arr[$i] .  $priceName->name }}
                         </td>
 
-                        {{dd(strtolower($tmp_arr[$reservations->price_type].'_'.$i))}}
+                        {{dd(strtolower($tmp_arr[$reservations->price_type].'_'. ((int)$i + 1)))}}
                         <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)]) }} 円</td>
                         <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)] }}">
                        
