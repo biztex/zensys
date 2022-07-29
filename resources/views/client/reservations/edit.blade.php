@@ -158,9 +158,8 @@
                             {{ $arr[$i] .  $priceName->name }}
                         </td>
 
-                        {{dd(strtolower($tmp_arr[$reservations->price_type].'_'. ((int)$i + 1)))}}
-                        <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)]) }} 円</td>
-                        <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)] }}">
+                        <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$reservations->price_type].'_'. ((int)$i + 1))]) }} 円</td>
+                        <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$reservations->price_type].'_'. ((int)$i + 1))] }}">
                        
                         <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type{{$i}}_number" value="@php echo $reservations->{'type' . $i . '_number'};@endphp"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
                         <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="@php echo $reservations->{'type' . $i . '_number'};@endphp">
@@ -170,7 +169,7 @@
                       
                         $type_number = $reservations->{'type' . $i . '_number'};
                        
-                        $result = $type_number * $prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)];
+                        $result = $type_number * $prices[0][strtolower($tmp_arr[$reservations->price_type].'_'. ((int)$i + 1))];
                      
                         echo number_format($result) . ' 円';
                         @endphp
