@@ -148,37 +148,35 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($reservations->plan->prices as $price)
+                    @php
+                        $arr = ['大人　','子供　','幼児　'] ;
+                        $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
+                    @endphp
+                    @for ($i=0; $i<count($arr); $i++)
                     <tr>
-<td>
-{{ $price->price_types->name }}
-</td>
+                        <td>
+                            {{ $arr[$i] .  $priceName->name }}
+                        </td>
 
-@if ($price->week_flag == 0)
-<td style="text-align: right;">{{ number_format($price->price) }} 円</td>
-<input type="hidden" id="price{{$loop->index + 1}}" value="{{ $price->price }}">
-@else
-<td style="text-align: right;">{{ number_format($price->{$weekday}) }} 円</td>
-<input type="hidden" id="price{{$loop->index + 1}}" value="{{ $price->{$weekday} }}">
-@endif
-<td style="text-align: right; padding-left: 50px;"><div class="row"><input id="per-number{{ ($loop->index + 1) }}" class="number-input" name="type{{$price->type}}_number" value="@php $i = $price->type;echo $reservations->{'type' . $i . '_number'};@endphp"> <span style="line-height: 1.8;" class="col-md-1"> 名</span></div></td>
-<input type="hidden" class="col-md-6 text-right" value="@php $i = $price->type;echo $reservations->{'type' . $i . '_number'};@endphp">
+                        <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)]) }} 円</td>
+                        <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)] }}">
+                       
+                        <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type{{$i}}_number" value="@php echo $reservations->{'type' . $i . '_number'};@endphp"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
+                        <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="@php echo $reservations->{'type' . $i . '_number'};@endphp">
 
-<td id="per-text-price{{ ($loop->index + 1) }}" style="text-align: right;">
-@php
-$i = $price->type;
-$type_number = $reservations->{'type' . $i . '_number'};
-if ($price->week_flag == 0) {
-    $result = ($type_number * $price->price);
-} else {
-    $result = $type_number * $price->{$weekday};
-}
-echo $result . ' 円';
-@endphp
-</td>
-<input type="hidden" id="per-price{{ ($loop->index + 1) }}" value="{{ $result }}">
+                        <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">
+                        @php
+                      
+                        $type_number = $reservations->{'type' . $i . '_number'};
+                       
+                        $result = $type_number * $prices[0][strtolower($tmp_arr[$reservations->price_type].'_'.$i+1)];
+                     
+                        echo number_format($result) . ' 円';
+                        @endphp
+                        </td>
+                        <input type="hidden" id="per-price{{ ($i + 1) }}" value="{{ $result }}">
                     </tr>
-                    @endforeach
+                    @endfor
 
                     <tr>
                       <td colspan="2" class="bg-light font-weight-bold">人数・金額合計</td>

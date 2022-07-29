@@ -249,6 +249,9 @@ class ReservationsController extends Controller
 
         //}
         // 予約番号作成
+        $price_name = PriceType::select()
+                        ->where('number' , $request->price_type)->first();
+       
         $count = Reservation::whereDate('created_at', Carbon::today())->count();
         $date = date('Ymd');
         $zeropadding = sprintf('%05d', $count);
@@ -262,6 +265,8 @@ class ReservationsController extends Controller
         $reservation->activity_date = $request->selected_activity;
         $reservation->fixed_datetime = $request->date;
         $reservation->answer = $request->answer;
+        $reservation->price_type = $request->price_type;
+
         $reservation->type0_number = $request->type0;
         $reservation->type1_number = $request->type1;
         $reservation->type2_number = $request->type2;
@@ -772,17 +777,12 @@ class ReservationsController extends Controller
             'is_request' => ['nullable'],
         ];
         $plan = Plan::find($request->plan_id);
-        // if ($plan->answer_flag == 1) {
-        //     $a_rules = [
-        //         'answer' => ['required', 'string', 'max:500'],
-        //     ];
-        //     $rules = array_merge($rules, $a_rules);
-        // }
-
-
-        $companies = Company::all();
-
-
+        if ($plan->answer_flag == 1) {
+            $a_rules = [
+                'answer' => ['required', 'string', 'max:500'],
+            ];
+            $rules = array_merge($rules, $a_rules);
+        }
 
         $count_member = 0;
         // for ($i = 0; $i <= 20; $i++) {
@@ -833,7 +833,10 @@ class ReservationsController extends Controller
         //             '名までです',
         //     ]);
         // }
+
         $this->validate($request, $rules);
+        
+        $companies = Company::all();
         $date = $request->date;
         $dt = new Carbon($date);
         $week_map = [
@@ -925,6 +928,8 @@ class ReservationsController extends Controller
         $info['boarding']                   = $request->boarding;
         $info['drop']                       = $request->drop;
         $info['payment_method']             = $request->payment_method;
+        $info['answer']                     = $request->answer;
+        $info['price_type']                 = $request->price_type;
 
         return view(
             'user.reservations.confirm',
@@ -958,6 +963,17 @@ class ReservationsController extends Controller
             ->get();
         $genres = Genre::all();
         $dt = new Carbon($reservations->fixed_datetime);
+        $prices = Price::select()
+                    ->where('plan_id' , $reservations->plan_id)
+                    ->where('type' , $reservations->price_type)
+                    ->get();
+        $priceName = PriceType::select()
+                    ->where('number' , $reservations->price_type)
+                    ->first();
+
+                   
+
+
         $week_map = [
             0 => 'sunday',
             1 => 'monday',
@@ -978,7 +994,7 @@ class ReservationsController extends Controller
         }
         return view(
             'client.reservations.edit',
-            compact('reservations', 'categories', 'genres', 'weekday')
+            compact('reservations', 'categories', 'genres', 'weekday','prices','priceName')
         );
     }
 
@@ -1222,17 +1238,27 @@ class ReservationsController extends Controller
                         'Y年m月d日',
                         strtotime($reservation->fixed_datetime)
                     ),
-                    'activity' => $reservation->activity_date,
-                    'name_last' => $reservation->user->name_last,
-                    'name_first' => $reservation->user->name_first,
-                    'email' => $reservation->user->email,
-                    'tel' => $reservation->user->tel,
-                    'tel2' => $reservation->user->tel2,
-                    'reservation' => $reservation,
-                    'amount' => $amount,
-                    'weekday' => $weekday,
-                    'bank' => $bank,
-                    'payment' => '現地払い',
+                    'activity'      => $reservation->activity_date,
+                    'name_last'     => $reservation->user->name_last,
+                    'kana_last'     => $reservation->user->kana_last,
+                    'name_first'    => $reservation->user->name_first,
+                    'kana_first'    => $reservation->user->kana_first,
+                    'postalcode'    => $reservation->user->postalcode,
+                    'prefecture'    => $reservation->user->prefecture,
+                    'address'       => $reservation->user->address,
+                    'birth_year'    => $reservation->user->birth_year,
+                    'birth_month'   => $reservation->user->birth_month,
+                    'birth_day'     => $reservation->user->birth_day,
+
+
+                    'email'         => $reservation->user->email,
+                    'tel'           => $reservation->user->tel,
+                    'tel2'          => $reservation->user->tel2,
+                    'reservation'   => $reservation,
+                    'amount'        => $amount,
+                    'weekday'       => $weekday,
+                    'bank'          => $bank,
+                    'payment'       => '現地払い',
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
@@ -1254,17 +1280,25 @@ class ReservationsController extends Controller
                         'Y年m月d日',
                         strtotime($reservation->fixed_datetime)
                     ),
-                    'activity' => $reservation->activity_date,
-                    'name_last' => $reservation->user->name_last,
-                    'name_first' => $reservation->user->name_first,
-                    'email' => $reservation->user->email,
-                    'tel' => $reservation->user->tel,
-                    'tel2' => $reservation->user->tel2,
-                    'reservation' => $reservation,
-                    'amount' => $amount,
-                    'weekday' => $weekday,
-                    'bank' => $bank,
-                    'payment' => '事前払い',
+                    'activity'      => $reservation->activity_date,
+                    'name_last'     => $reservation->user->name_last,
+                    'kana_last'     => $reservation->user->kana_last,
+                    'name_first'    => $reservation->user->name_first,
+                    'kana_first'    => $reservation->user->kana_first,
+                    'postalcode'    => $reservation->user->postalcode,
+                    'prefecture'    => $reservation->user->prefecture,
+                    'address'       => $reservation->user->address,
+                    'email'         => $reservation->user->email,
+                    'tel'           => $reservation->user->tel,
+                    'tel2'          => $reservation->user->tel2,
+                    'birth_year'    => $reservation->user->birth_year,
+                    'birth_month'   => $reservation->user->birth_month,
+                    'birth_day'     => $reservation->user->birth_day,
+                    'reservation'   => $reservation,
+                    'amount'        => $amount,
+                    'weekday'       => $weekday,
+                    'bank'          => $bank,
+                    'payment'       => '事前払い',
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {

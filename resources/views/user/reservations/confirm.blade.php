@@ -95,8 +95,13 @@
                                                 echo '</div>';
                                             }
                                             echo '</td></tr>';
+
                                         }
+
+                                        echo '<input type="hidden" name="price_type" class="number" value=" '.$info['price_type'].'">';
+
                                         @endphp
+                                        
                                 </table>
                             </div>
                             <div class="reserveItem">
@@ -328,13 +333,15 @@
                                     </tr>
                                 </table>
                             </div>
+                            @if($plan->question_flag != 0)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">予約者への質問</h4>
                                 <div class="reserveTxt">
-                                    <p>テキストテキストがここに入ります。</p>
-                                    <p>テキストエリアに入力した内容がここに表示されます。</p>
+                                    <p>{{$plan->question_content}}</p>
+                                    <p>{{$info['answer']}}</p>
                                 </div>
                             </div>
+                            @endif
                             @if($plan->caution_content != null)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">注意事項・その他</h4>

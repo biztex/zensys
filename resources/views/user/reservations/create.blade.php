@@ -81,64 +81,66 @@
                                 <table class="reserveTable">
                                     <tr>
                                         <th rowspan="0">料金</th></tr>
-@php
-if($stock_price_types){
-    $arr = ['大人　','子供　','幼児　'] ;
-    foreach ($stock_price_types as $i => $stock_price_type) {
-        if($stock_price_type['type'] == $priceType['number']){
-            echo '<tr><td>';
+                                    @php
+                                    if($stock_price_types){
+                                        $arr = ['大人　','子供　','幼児　'] ;
+                                        foreach ($stock_price_types as $i => $stock_price_type) {
+                                            if($stock_price_type['type'] == $priceType['number']){
+                                                echo '<tr><td>';
 
-            for($i = 1; $i < 4; $i++){
-                echo '<div class="numberP">';
+                                                for($i = 1; $i < 4; $i++){
+                                                    echo '<div class="numberP">';
 
-                echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
-                echo '<input type="hidden" name="price_table[]" value="'. $arr[$i-1] . $priceType['name'] . '/' . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) .' 円' .'">';
-                echo '<p><input type="text" name="type_number[]" class="number" min="0" max="'.$stock->limit_number.'" value="1"> 人</p>';
-                echo '</div>';
-            }
-            echo '</td></tr>';
-        }
-        else{
-            echo ' <tr><td><div class="numberP">';
-            echo 'ない';
-            if ($i == 0) {
-                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
-            } else {
-                echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
-            }
-            echo '</div></td></tr>';
-        }
-    }
-}else{
-    foreach ($plan->prices as $i => $price) {
-        echo ' <tr><td><div class="numberP">';
+                                                    echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
+                                                    echo '<input type="hidden" name="price_table[]" value="'. $arr[$i-1] . $priceType['name'] . '/' . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) .' 円' .'">';
+                                                    echo '<p><input type="text" name="type_number[]" class="number" min="0" max="'.$stock->limit_number.'" value="1"> 人</p>';
+                                                    echo '</div>';
+                                                }
+                                                echo '</td></tr>';
+                                            }
+                                            else{
+                                                echo ' <tr><td><div class="numberP">';
+                                                echo 'ない';
+                                                if ($i == 0) {
+                                                    echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
+                                                } else {
+                                                    echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
+                                                }
+                                                echo '</div></td></tr>';
+                                            }
+                                        }
+                                        echo '<input type="hidden" name="price_type" value="'. $priceType['number'] .'">';
 
-
-        if($stock['price']){
-            echo $price->price_types->name . " / " . number_format($stock['price']) . " 円";
-        }else{
-            if ($price->week_flag == 0) {
-               echo $price->price_types->name . " / " . number_format($price->price) . " 円";
-            }
-            if ($price->week_flag == 1) {
-               echo $price->price_types->name . " / " . number_format($price->{$weekday}) . " 円";
-            }
-
-        }
-
-        if ($i == 0) {
-            echo '<p><input type="text" name="type' . $price->type . '_number" class="number" min="0" max="999" value="1"> 人</p>';
-        } else {
-            echo '<p><input type="text" name="type' . $price->type . '_number" class="number" min="0" max="999" value="0"> 人</p>';
-        }
-        echo '</div></td></tr>';
-    }
-
-}
+                                    }else{
+                                        foreach ($plan->prices as $i => $price) {
+                                            echo ' <tr><td><div class="numberP">';
 
 
+                                            if($stock['price']){
+                                                echo $price->price_types->name . " / " . number_format($stock['price']) . " 円";
+                                            }else{
+                                                if ($price->week_flag == 0) {
+                                                echo $price->price_types->name . " / " . number_format($price->price) . " 円";
+                                                }
+                                                if ($price->week_flag == 1) {
+                                                echo $price->price_types->name . " / " . number_format($price->{$weekday}) . " 円";
+                                                }
 
-@endphp
+                                            }
+
+                                            if ($i == 0) {
+                                                echo '<p><input type="text" name="type' . $price->type . '_number" class="number" min="0" max="999" value="1"> 人</p>';
+                                            } else {
+                                                echo '<p><input type="text" name="type' . $price->type . '_number" class="number" min="0" max="999" value="0"> 人</p>';
+                                            }
+                                            echo '</div></td></tr>';
+                                        }
+
+                                    }
+
+
+
+                                    @endphp
 
                                 </table>
                             </div>
@@ -629,13 +631,16 @@ if($stock_price_types){
                                     </tr> -->
                                 </table>
                             </div>
+
+                            @if($plan->question_flag != 0)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">予約者への質問</h4>
                                 <div class="reserveTxt">
-                                    <p>テキストテキストがここに入ります。</p>
-                                    <textarea name="" class="reserveTextarea"></textarea>
+                                    <p>@if($plan->answer_flag == 1)<span class="requiredRed">※</span>@endif {{$plan->question_content}}</p>
+                                    <textarea name="answer" class="reserveTextarea" @if($plan->answer_flag == 1) required @endif></textarea>
                                 </div>
                             </div>
+                            @endif
                             @if($plan->caution_content)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">注意事項・その他</h4>
@@ -665,8 +670,8 @@ if($stock_price_types){
                               <p>上記をチェックし、下記ボタンよりお申し込みください。</p>
                             </div>
                             <input type="hidden" name="plan_id" value="{{ request('plan_id')  }}">
-        <input type="hidden" name="date" value="{{ request('date')  }}">
-        <input type="hidden" name="is_request" value="{{ request('is_request')  }}">
+                            <input type="hidden" name="date" value="{{ request('date')  }}">
+                            <input type="hidden" name="is_request" value="{{ request('is_request')  }}">
                             <ul class="reserveButton">
                                 <li><button class="btnLink01">確認画面へ進む</button></li>
                             </ul>
