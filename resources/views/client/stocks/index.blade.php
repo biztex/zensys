@@ -5,8 +5,47 @@
 @section('content_header')
 @stop
 
+
+@section('js')
+<script type="text/javascript" src="{{asset('js/default.js')}}"></script>
+<script>
+      $('#year').val($('#disp-year').text());
+    $('#month').val($('#disp-month').text());
+    var planId = $('#submit_select').val();
+    var price_type_id = $('#submit_select2').val();
+    if ($('#month').val() == '12') {
+        $('#prev-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) -1 ) + '/' + planId+ '/' + price_type_id);
+        $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + (parseInt($('#year').val()) + 1) + '/' + '1' + '/' + planId+ '/' + price_type_id);
+    } else if ($('#month').val() == '1'){
+        $('#prev-month').attr('href', '{{config('app.url')}}client/stocks/' + (parseInt($('#year').val()) - 1) + '/' + '12' + '/' + planId+ '/' + price_type_id);
+        $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) +1 ) + '/' + planId+ '/' + price_type_id);
+    } else {
+        $('#prev-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) -1 ) + '/' + planId+ '/' + price_type_id);
+        $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) +1 ) + '/' + planId+ '/' + price_type_id);
+    }
+    // プランセレクトしたらPOST
+    $("#submit_select").change(function(){
+        let planId = $('#submit_select').val();
+        window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId;
+    });
+    // プランセレクトしたらPOST
+    $("#submit_select2").change(function(){
+        let price_type_id = $('#submit_select2').val();
+        window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId+ '/' + price_type_id;
+    });
+
+    $("input.day").on('change', function(){
+        if($(this).val() == '1') {
+            $(this).val(0);
+        } else {
+            $(this).val(1);
+        }
+    })
+</script>
+@stop
 @section('content')
 <script>
+   
 
     function goSubmit(name){
 
@@ -473,43 +512,3 @@
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
 @stop
 
-@section('js')
-<script type="text/javascript" src="{{asset('js/default.js')}}"></script>
-<script>
-$(document).ready(function(){
-    $('#year').val($('#disp-year').text());
-    $('#month').val($('#disp-month').text());
-    var planId = $('#submit_select').val();
-    var price_type_id = $('#submit_select2').val();
-    if ($('#month').val() == '12') {
-        $('#prev-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) -1 ) + '/' + planId+ '/' + price_type_id);
-        $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + (parseInt($('#year').val()) + 1) + '/' + '1' + '/' + planId+ '/' + price_type_id);
-    } else if ($('#month').val() == '1'){
-        $('#prev-month').attr('href', '{{config('app.url')}}client/stocks/' + (parseInt($('#year').val()) - 1) + '/' + '12' + '/' + planId+ '/' + price_type_id);
-        $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) +1 ) + '/' + planId+ '/' + price_type_id);
-    } else {
-        $('#prev-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) -1 ) + '/' + planId+ '/' + price_type_id);
-        $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) +1 ) + '/' + planId+ '/' + price_type_id);
-    }
-    // プランセレクトしたらPOST
-    $("#submit_select").change(function(){
-        let planId = $('#submit_select').val();
-        window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId;
-    });
-    // プランセレクトしたらPOST
-    $("#submit_select2").change(function(){
-        let price_type_id = $('#submit_select2').val();
-        window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId+ '/' + price_type_id;
-    });
-
-    $("input.day").on('change', function(){
-        if($(this).val() == '1') {
-            $(this).val(0);
-        } else {
-            $(this).val(1);
-        }
-    })
-});
-
-</script>
-@stop
