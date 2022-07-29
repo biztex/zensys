@@ -110,7 +110,7 @@ class ReservationsController extends Controller
 
         $stock_price_types = Price::select()
                 ->where('plan_id', $data['plan_id'])
-                ->where('type',$priceType)
+                ->where('type',$data['price_type_id'])
                 ->get();
 
         

@@ -98,16 +98,7 @@
                                                 }
                                                 echo '</td></tr>';
                                             }
-                                            else{
-                                                echo ' <tr><td><div class="numberP">';
-                                                echo 'ない';
-                                                if ($i == 0) {
-                                                    echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="1"> 人</p>';
-                                                } else {
-                                                    echo '<p><input type="text" name="type' . $stock_price_type->price_type_number . '_number" class="number" min="0" max="999" value="0"> 人</p>';
-                                                }
-                                                echo '</div></td></tr>';
-                                            }
+                                       
                                         }
                                         echo '<input type="hidden" name="price_type" value="'. $priceType['number'] .'">';
 
