@@ -494,7 +494,7 @@ $(document).ready(function(){
     // プランセレクトしたらPOST
     $("#submit_select").change(function(){
         let planId = $('#submit_select').val();
-        window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId+ '/' + price_type_id;
+        window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId;
     });
     // プランセレクトしたらPOST
     $("#submit_select2").change(function(){
