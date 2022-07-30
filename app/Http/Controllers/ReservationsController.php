@@ -1059,6 +1059,14 @@ class ReservationsController extends Controller
                     '予約ステータスをリクエスト予約に変更後、再度送信をお試しください',
             ]);
         }
+
+        $prices = Price::select()
+        ->where('plan_id' , $reservation->plan_id)
+        ->where('type' , $reservation->price_type)
+        ->get();
+        $priceName = PriceType::select()
+                    ->where('number' , $reservation->price_type)
+                    ->first();
         $reservation->status = $request->status;
         $reservation->type0_number = $request->type0_number;
         $reservation->type1_number = $request->type1_number;
@@ -1278,6 +1286,8 @@ class ReservationsController extends Controller
                     'weekday'       => $weekday,
                     'bank'          => $bank,
                     'payment'       => '現地払い',
+                    'prices'        => $prices,
+                    'priceName'     => $priceName
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
@@ -1318,6 +1328,8 @@ class ReservationsController extends Controller
                     'weekday'       => $weekday,
                     'bank'          => $bank,
                     'payment'       => '事前払い',
+                    'prices'        => $prices,
+                    'priceName'     => $priceName
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
@@ -1350,6 +1362,8 @@ class ReservationsController extends Controller
                     'reservation' => $reservation,
                     'amount' => $amount,
                     'weekday' => $weekday,
+                    'prices'        => $prices,
+                    'priceName'     => $priceName
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
@@ -1382,6 +1396,8 @@ class ReservationsController extends Controller
                     'reservation' => $reservation,
                     'amount' => $amount,
                     'weekday' => $weekday,
+                    'prices'        => $prices,
+                    'priceName'     => $priceName
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {

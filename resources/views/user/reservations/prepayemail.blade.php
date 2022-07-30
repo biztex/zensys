@@ -34,14 +34,14 @@
 予約人数
 ----------------------------------------------------
 @php
-  foreach($reservation->plan->prices as $i => $price) {
-      if ($price->week_flag == 0) {
-        echo $price->price_types->name . " / " . number_format($price->price) . " 円 × " . $reservation->{'type'.$price->price_types->number.'_number'} . ' = ' . number_format($price->price * $reservation->{'type'.$price->price_types->number.'_number'}) . ' 円' . "\n";
-      }
-      if ($price->week_flag == 1) {
-        echo $price->price_types->name . " / " . number_format($price->{$weekday}) . " 円 × " . $reservation->{'type'.$price->price_types->number.'_number'} . ' = ' . number_format($price->{$weekday} * $reservation->{'type'.$price->price_types->number.'_number'}) . ' 円' . "\n";
-      }
+  $amount = 0;
+  $arr = ['大人　','子供　','幼児　'] ;
+  $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
+  for ($i=0; $i<count($arr); $i++){
+    echo $arr[$i] . $priceName->name . " / " . $prices[0][strtolower($tmp_arr[$reservation->price_type]."_". ((int)$i + 1))]  . " 円 × " . $reservation->{'type' . $i . '_number'} . "=" . number_format((int)$prices[0][strtolower($tmp_arr[$reservation->price_type]."_". ((int)$i + 1))]  * (int)$reservation->{'type' . $i . '_number'}) . " 円" . "\n";
+    $amount += (int)$prices[0][strtolower($tmp_arr[$reservation->price_type]."_". ((int)$i + 1))]  * (int)$reservation->{'type' . $i . '_number'} ; 
   }
+
 @endphp
 
 決済金額合計：{{ number_format($amount) }}円
