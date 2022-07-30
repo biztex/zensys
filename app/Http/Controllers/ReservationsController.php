@@ -506,7 +506,9 @@ class ReservationsController extends Controller
                     'postalcode'    => $request->postalcode,
                     'prefecture'    => $request->prefecture,
                     'address'       => $request->address,
-                    'birth_day'      => $request->birth_day,
+                    'birth_day'     => $request->birth_day,
+                    'birth_year'    => $request->birth_year,
+                    'birth_month'   => $request->birth_month,
                     'prices'        => $prices,
                     'priceName'     => $priceName
                 ],
@@ -539,6 +541,8 @@ class ReservationsController extends Controller
                     'prefecture'    => $request->prefecture,
                     'address'       => $request->address,
                     'birth_day'     => $request->birth_day,
+                    'birth_year'    => $request->birth_year,
+                    'birth_month'   => $request->birth_month,
                     'prices'        => $prices,
                     'priceName'     => $priceName
                 ],
