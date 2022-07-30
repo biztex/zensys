@@ -292,11 +292,11 @@ class ReservationsController extends Controller
 
 
         $prices = Price::select()
-                    ->where('plan_id' , $reservations->plan_id)
-                    ->where('type' , $reservations->price_type)
+                    ->where('plan_id' , $request->plan_id)
+                    ->where('type' , $request->price_type)
                     ->get();
         $priceName = PriceType::select()
-                        ->where('number' , $reservations->price_type)
+                        ->where('number' , $request->price_type)
                         ->first();
         if ($request->is_request == 0) {
             $reservation->status = '未決済';
