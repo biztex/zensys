@@ -506,6 +506,7 @@ class ReservationsController extends Controller
                     'postalcode'    => $request->postalcode,
                     'prefecture'    => $request->prefecture,
                     'address'       => $request->address,
+                    'brithday'      => $request->birth_day,
                     'prices'        => $prices,
                     'priceName'     => $priceName
                 ],
