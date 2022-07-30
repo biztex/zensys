@@ -513,10 +513,10 @@ $stocks_next = json_decode($json_stocks_next,true);
                       echo '事前払い<br />';
                   }
 		  if ($plan["cvs"] == 1) {
-                      echo '事前コンビニ決済<br />';
+                      echo 'コンビニ決済<br />';
                   }
 		  if ($plan["card"] == 1) {
-                      echo '事前クレジットカード決済<br/ >';
+                      echo 'クレジットカード決済<br/ >';
                   } ?></td>
                                     </tr>
                                     <tr>
@@ -527,7 +527,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                             </div>
 
                             <div class="reserve-box" style="display:none;">
-                            <input type="hidden" name="res-date"><input type="hidden" name="res-type">
+                            <input type="hidden" name="res-date"><input type="hidden" name="res-type" value="{{$plan->res_type}}">
                             <table class="detailTable">
                                 <colgroup class="pc">
                                     <col width="auto">
@@ -771,7 +771,6 @@ $(function() {
             dayOfWeekStr = [ "日", "月", "火", "水", "木", "金", "土" ][date.getDay()];
 		$('.res-date').text(year + '年' + month + '月' + day + '日（' + dayOfWeekStr + '）');
         $('input[name="res-date"]').val(year + '-' + month + '-' + day);
-        $('input[name="res-type"]').val($(this).text());
 		// 集合時間代入、体験時間代入
 		var plans = '<?= $plan_json ?>';
 		    plans = JSON.parse(plans),
@@ -848,12 +847,10 @@ $('.reserve-button').click(function () {
     var planId = '<?= $plan_id ?>',
         date = $('input[name="res-date"]').val(),
         resType = $('input[name="res-type"]').val();
+        if(resType == 2){
+            resType = 1;
+        }
         price_type_id = $('select[name="price_type_id"]').val();
-    if (resType == '○') {
-        resType = 0;
-    } else {
-        resType = 1;
-    }
 	// open( "http://localhost:8000/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id ,+  "_blank" ) ;
 	open( "http://153.127.31.62/zenryo/public/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id ,+  "_blank" ) ;
 });
