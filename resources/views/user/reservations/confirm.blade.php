@@ -226,7 +226,7 @@
                                         <tr>
                                             <th>生年月日</th>
                                             <td>
-                                                {{$info['birth_year_representative']}}年{{ $info['birth_month_representative']}}月{{ $info['birth_day_representative']}}日
+                                                {{$info['birth_year_representative'][0]}}年{{ $info['birth_month_representative'][0]}}月{{ $info['birth_day_representative'][0]}}日
                                             </td>
                                         </tr>
                                         <tr>
@@ -266,8 +266,63 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    @for($i=1 ; $i<count($info['add_lastname']); $i++)
+                                    <table class="reserveTable" style="margin-top:20px;">
+                                         <tr class="nameTr">
+                                            <th>同行者氏名(漢字)</th>
+                                            <td>
+                                                {{$info['add_lastname'][$i]}} {{$info['add_firstname'][$i]}}
+                                            </td>
+                                        </tr> 
+                                       <tr class="nameTr">
+                                            <th>同行者氏名(カナ)</th>
+                                            <td>
+                                                {{$info['join_kana1'][$i]}} {{$info['join_kana2'][$i]}}
+                                            </td>
+                                        </tr>
+                                        <tr class="ageTr">
+                                            <th>年齢</th>
+                                            <td>
+                                                {{$info['join_age'][$i]}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>生年月日</th>
+                                            <td>
+                                                {{$info['birth_year_representative'][$i]}}年{{ $info['birth_month_representative'][$i]}}月{{ $info['birth_day_representative'][$i]}}日
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>性別</th>
+                                            <td>
+                                                @if($info['join_sex'][$i] == 0)
+                                                男性
+                                                @else
+                                                女性
+                                                @endif
+                                            </td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <th>乗車地</th>
+                                            <td>
+                                                {{ $info['boarding'][$i]}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>降車地</th>
+                                            <td>
+                                                {{ $info['drop'][$i]}}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    @endfor
                                 </div>
                             </div>
+                           
+
+                                 
+                               
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">料金決済</h4>
                                 <table class="reserveTable">

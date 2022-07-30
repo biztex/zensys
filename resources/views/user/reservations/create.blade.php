@@ -285,10 +285,7 @@
                                 $('input[type=radio][name=radio_sex]').click(function() {
                                    value=$(this).val
                                 });
-                                console.log(value);
-                                function addJoin() {
-                                   // $(".reserveItem").append($("#reserveList").html())
-                                }
+                               
                                 function copyJoint() {
                                     $("input[name='add_lastname[]']").first().val($("#name_last").val())
                                     $("input[name='add_firstname[]']").first().val($("#name_first").val())
@@ -299,9 +296,9 @@
                                     var selectedVal = $('input[name=radio_sex]:checked').val();
                                     $("select[name='join_sex[]']").first().val(selectedVal);
 
-                                    $("select[name='birth_year_representative']").first().val($("select[name='birth_year']").val());
-                                    $("select[name='birth_month_representative']").first().val($("select[name='birth_month']").val());
-                                    $("select[name='birth_day_representative']").first().val($("select[name='birth_day']").val());
+                                    $("select[name='birth_year_representative[]']").first().val($("select[name='birth_year']").val());
+                                    $("select[name='birth_month_representative[]']").first().val($("select[name='birth_month']").val());
+                                    $("select[name='birth_day_representative[]']").first().val($("select[name='birth_day']").val());
                                     $("input[name='postalcode_representative']").first().val($("input[name='postalcode']").val());
                                     $("input[name='prefecture_representative']").first().val($("input[name='prefecture']").val());
                                     $("input[name='address_representative']").first().val($("input[name='address']").val());
@@ -357,7 +354,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                <select name="birth_year_representative">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year_representative[]">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
                                             </td>
                                         </tr>
@@ -514,7 +511,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                <select name="birth_year_representative">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year_representative[]">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
                                             </td>
                                         </tr>
@@ -523,9 +520,9 @@
                                             <td>
                                                 <div class="radioBox">
                                                     <select name="join_sex[]">
-                                                        <option value="1">
+                                                        <option value="0">
                                                         男性
-                                                    <option value="2">
+                                                    <option value="1">
                                                         女性
                                                 </div>
                                             </td>

@@ -908,6 +908,7 @@ class ReservationsController extends Controller
 
         // 
 
+
         $info = [];
         $info['name_last']                  = $request->name_last;
         $info['name_first']                 = $request->name_first;
