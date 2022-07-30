@@ -745,6 +745,8 @@ class ReservationsController extends Controller
                     'prefecture' => $request->prefecture,
                     'address' => $request->address,
                     'birth_day' => $request->birth_day,
+                    'birth_year' => $request->birth_year,
+                    'birth_month' => $request->birth_month,
                     'reservation' => $reservation,
                     'weekday' => $weekday,
                     'amount' => $amount,
