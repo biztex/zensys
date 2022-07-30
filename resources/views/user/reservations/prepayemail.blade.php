@@ -15,7 +15,7 @@
 メールアドレス ：　{{ $email }}
 住所 ：　{{ $postalcode }}　{{ $prefecture }}{{ $address }}
 電話番号　　：　{{ $tel }}
-生年月日　　：　{{ $reservation->birth_day }}
+生年月日　　：　{{ $birth_day }}
 当日緊急連絡先　　：　{{ $tel2 }}
 予約日　　：　{{ $date }}
 予約時間　：　{{ $activity }}
