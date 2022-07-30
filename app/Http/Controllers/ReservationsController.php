@@ -298,6 +298,7 @@ class ReservationsController extends Controller
         $priceName = PriceType::select()
                         ->where('number' , $request->price_type)
                         ->first();
+        dd($priceName);
         if ($request->is_request == 0) {
             $reservation->status = '未決済';
         } else {
@@ -617,6 +618,8 @@ class ReservationsController extends Controller
                         'amount' => $amount,
                         'weekday' => $weekday,
                         'bank' => $bank,
+                        'prices'        => $prices,
+                    'priceName'     => $priceName
                     ],
                     function ($message) use ($reservation) {
                         if ($reservation->user->email) {
@@ -688,6 +691,8 @@ class ReservationsController extends Controller
                         'haraikomiUrl' => null,
                         'weekday' => $weekday,
                         'amount' => $amount,
+                        'prices'        => $prices,
+                    'priceName'     => $priceName
                     ],
                     function ($message) use ($reservation) {
                         if ($reservation->user->email) {
@@ -754,6 +759,8 @@ class ReservationsController extends Controller
                     'reservation' => $reservation,
                     'weekday' => $weekday,
                     'amount' => $amount,
+                    'prices'        => $prices,
+                    'priceName'     => $priceName
                 ],
                 function ($message) use ($request) {
                     if ($request->email) {
