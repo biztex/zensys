@@ -289,6 +289,15 @@ class ReservationsController extends Controller
         $reservation->type19_number = $request->type19;
         $reservation->type20_number = $request->type20;
         $reservation->payment_method = $request->payment_method;
+
+
+        $prices = Price::select()
+                    ->where('plan_id' , $reservations->plan_id)
+                    ->where('type' , $reservations->price_type)
+                    ->get();
+        $priceName = PriceType::select()
+                        ->where('number' , $reservations->price_type)
+                        ->first();
         if ($request->is_request == 0) {
             $reservation->status = '未決済';
         } else {
@@ -483,23 +492,25 @@ class ReservationsController extends Controller
             Mail::send(
                 ['text' => 'user.reservations.clientemail'],
                 [
-                    'number' => $reservation->order_id,
-                    'plan' => $plan->name,
-                    'date' => date('Y年m月d日', strtotime($request->date)),
-                    'activity' => $request->selected_activity,
-                    'name_last' => $request->name_last,
-                    'name_first' => $request->name_first,
-                    'email' => $request->email,
-                    'tel' => $request->tel,
-                    'tel2' => $request->tel2,
-                    'kana_last' => $request->kana_last,
-                    'kana_first' => $request->kana_first,
-                    'postalcode' => $request->postalcode,
-                    'prefecture' => $request->prefecture,
-                    'address' => $request->address,
-                    'birth_year' => $request->birth_year,
-                    'birth_month' => $request->birth_month,
-                    'birth_day' => $request->birth_day,
+                    'number'        => $reservation->order_id,
+                    'plan'          => $plan->name,
+                    'date'          => date('Y年m月d日', strtotime($request->date)),
+                    'activity'      => $request->selected_activity,
+                    'name_last'     => $request->name_last,
+                    'name_first'    => $request->name_first,
+                    'email'         => $request->email,
+                    'tel'           => $request->tel,
+                    'tel2'          => $request->tel2,
+                    'kana_last'     => $request->kana_last,
+                    'kana_first'    => $request->kana_first,
+                    'postalcode'    => $request->postalcode,
+                    'prefecture'    => $request->prefecture,
+                    'address'       => $request->address,
+                    'birth_year'    => $request->birth_year,
+                    'birth_month'   => $request->birth_month,
+                    'birth_day'     => $request->birth_day,
+                    'prices'        => $prices,
+                    'priceName'     => $priceName
                 ],
                 function ($message) use ($request) {
                     if ($request->email) {
@@ -515,23 +526,25 @@ class ReservationsController extends Controller
             Mail::send(
                 ['text' => 'user.reservations.clientemail'],
                 [
-                    'number' => $reservation->order_id,
-                    'plan' => $plan->name,
-                    'date' => date('Y年m月d日', strtotime($request->date)),
-                    'activity' => $request->selected_activity,
-                    'name_last' => $request->name_last,
-                    'name_first' => $request->name_first,
-                    'email' => $request->email,
-                    'tel' => $request->tel,
-                    'tel2' => $request->tel2,
-                    'kana_last' => $request->kana_last,
-                    'kana_first' => $request->kana_first,
-                    'postalcode' => $request->postalcode,
-                    'prefecture' => $request->prefecture,
-                    'address' => $request->address,
-                    'birth_year' => $request->birth_year,
-                    'birth_month' => $request->birth_month,
-                    'birth_day' => $request->birth_day,
+                    'number'        => $reservation->order_id,
+                    'plan'          => $plan->name,
+                    'date'          => date('Y年m月d日', strtotime($request->date)),
+                    'activity'      => $request->selected_activity,
+                    'name_last'     => $request->name_last,
+                    'name_first'    => $request->name_first,
+                    'email'         => $request->email,
+                    'tel'           => $request->tel,
+                    'tel2'          => $request->tel2,
+                    'kana_last'     => $request->kana_last,
+                    'kana_first'    => $request->kana_first,
+                    'postalcode'    => $request->postalcode,
+                    'prefecture'    => $request->prefecture,
+                    'address'       => $request->address,
+                    'birth_year'    => $request->birth_year,
+                    'birth_month'   => $request->birth_month,
+                    'birth_day'     => $request->birth_day,
+                    'prices'        => $prices,
+                    'priceName'     => $priceName
                 ],
                 function ($message) use ($request) {
                     if ($request->email) {
