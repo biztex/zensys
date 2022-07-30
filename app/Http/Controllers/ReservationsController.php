@@ -506,7 +506,7 @@ class ReservationsController extends Controller
                     'postalcode'    => $request->postalcode,
                     'prefecture'    => $request->prefecture,
                     'address'       => $request->address,
-                    'brithday'      => $request->birth_day,
+                    'birth_day'      => $request->birth_day,
                     'prices'        => $prices,
                     'priceName'     => $priceName
                 ],
@@ -538,6 +538,7 @@ class ReservationsController extends Controller
                     'postalcode'    => $request->postalcode,
                     'prefecture'    => $request->prefecture,
                     'address'       => $request->address,
+                    'birth_day'     => $request->birth_day,
                     'prices'        => $prices,
                     'priceName'     => $priceName
                 ],
@@ -611,7 +612,7 @@ class ReservationsController extends Controller
                         'weekday' => $weekday,
                         'bank' => $bank,
                         'prices'        => $prices,
-                    'priceName'     => $priceName
+                        'priceName'     => $priceName
                     ],
                     function ($message) use ($reservation) {
                         if ($reservation->user->email) {
