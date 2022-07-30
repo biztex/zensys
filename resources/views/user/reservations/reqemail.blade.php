@@ -22,11 +22,12 @@
 予約人数
 ----------------------------------------------------
 @php
+  $amount = 0;
   $arr = ['大人　','子供　','幼児　'] ;
   $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
   for ($i=0; $i<count($arr); $i++){
-    echo $arr[$i] . $priceName->name . ' / ' . $prices[0][strtolower($tmp_arr[$reservation->price_type].'_'. ((int)$i + 1))] . ' 円 × ' . $reservation->{'type' . $i . '_number'} . '=' .  number_format($prices[0][strtolower($tmp_arr[$reservation->price_type].'_'. ((int)$i + 1))]) * $reservation->{'type' . $i . '_number'} ) . ' 円' . '\n';
-    $amount +=  $prices[0][strtolower($tmp_arr[$reservation->price_type].'_'. ((int)$i + 1))];
+    echo $arr[$i] . $priceName->name . ' / ' . $prices[0][strtolower($tmp_arr[$reservation->price_type].'_'. ((int)$i + 1))] . ' 円 × ' . $reservation->{'type' . $i . '_number'} . '=' .  number_format($prices[0][strtolower($tmp_arr[$reservation->price_type].'_'. ((int)$i + 1))]) * $reservation->{'type' . $i . '_number'} ) . ' 円' . '\n' ;
+    $amount += (int)$prices[0][strtolower($tmp_arr[$reservation->price_type].'_'. ((int)$i + 1))];
   }
 
 @endphp
