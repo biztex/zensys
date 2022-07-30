@@ -527,7 +527,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                             </div>
 
                             <div class="reserve-box" style="display:none;">
-                            <input type="hidden" name="res-date"><input type="hidden" name="res-type" value="<?php echo $plan->res_type ;?>">
+                            <input type="hidden" name="res-date"><input type="hidden" name="res-type" value="<?=$plan["res_type"]?>">
                             <table class="detailTable">
                                 <colgroup class="pc">
                                     <col width="auto">
