@@ -168,7 +168,7 @@ class StocksController extends Controller
 
 
     // 更新処理
-    public function updateRank(Request $request, $id)
+    public function updatePeriod(Request $request, $id)
     {
 
 
@@ -176,38 +176,29 @@ class StocksController extends Controller
         $plan = Plan::find($id);
         $start_date = $request->start_date;
         $end_date = $request->end_date;
-        Stock::where('plan_id',$id)
-            ->whereDate('res_date','>=', $start_date)
-            ->whereDate('res_date','<=', $end_date)
-            // ->where('price_type_id',$request->price_type_id)
-            ->update([
-                'rank'=>$request->rank1,
-            ]);
-
-
+        if($request->rank1 != null){
+            Stock::where('plan_id',$id)
+                ->whereDate('res_date','>=', $start_date)
+                ->whereDate('res_date','<=', $end_date)
+                // ->where('price_type_id',$request->price_type_id)
+                ->update([
+                    'rank'=>$request->rank1,
+                ]);
+        }
+        if($request->limit_num != null){
+            Stock::where('plan_id',$id)
+                ->whereDate('res_date','>=', $start_date)
+                ->whereDate('res_date','<=', $end_date)
+                // ->where('price_type_id',$request->price_type_id)
+                ->update([
+                    'limit_number' => $request->limit_num
+                ]);
+        }
         return redirect()->back()->with('message', '変更が完了しました');
     }
-    public function updateStock(Request $request, $id)
-    {
-
-
-        
-        $plan = Plan::find($id);
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
-        Stock::where('plan_id',$id)
-            ->whereDate('res_date','>=', $start_date)
-            ->whereDate('res_date','<=', $end_date)
-            // ->where('price_type_id',$request->price_type_id)
-            ->update([
-                'limit_number' => $request->limit_num
-            ]);
-
-
-        return redirect()->back()->with('message', '変更が完了しました');
-    }
+    
     // 更新処理
-    public function updateRank_day(Request $request, $id)
+    public function updateWeek(Request $request, $id)
     {
         $plan = Plan::find($id);
 
@@ -237,12 +228,23 @@ class StocksController extends Controller
                 # code...
                 if($p % 7 == $index || $p % 7 == 0){
                     $start_date = explode(' ', $dates[$p-1])[0];
-                    $data = Stock::where('plan_id',$id)
-                            ->whereDate('res_date', $start_date)
-                            // ->where('price_type_id',$request->price_type_id)
-                            ->update([
-                                'rank' => $request->rank2,
-                            ]);
+                    if($request->rank2 != null){
+                        Stock::where('plan_id',$id)
+                        ->whereDate('res_date', $start_date)
+                        // ->where('price_type_id',$request->price_type_id)
+                        ->update([
+                            'rank' => $request->rank2,
+                        ]);
+                    }
+                    if($request->limit_num2 != null){
+                        Stock::where('plan_id',$id)
+                        ->whereDate('res_date', $start_date)
+                        // ->where('price_type_id',$request->price_type_id)
+                        ->update([
+                            'limit_number' => $request->limit_num2
+                        ]);
+                    }
+                    
                 }
 
 
@@ -252,51 +254,7 @@ class StocksController extends Controller
 
         return redirect()->back()->with('message', '変更が完了しました');
     }
-    // 更新処理
-    public function updateStock_day(Request $request, $id)
-    {
-        $plan = Plan::find($id);
-
-        $week_data = $request->week;
-        $explode_data = explode(',', $week_data);
-        $i = 0;
-        $indexs = [];
-        $j = 0;
-        foreach ($explode_data as $explo) {
-            $i++;
-            if($explo == '1'){
-                $indexs[$j++] = $i;
-            }
-
-        }
-
-        $year = $request->year;
-        $month = $request->month;
-    
-        $dates = $this->getCalendarDates($year, $month);
-
-        $start_date = [];
-        for($p = 1 ; $p < count($dates) + 1; $p++){
-            foreach ($indexs as $index) {
-                # code...
-                if($p % 7 == $index || $p % 7 == 0){
-                    $start_date = explode(' ', $dates[$p-1])[0];
-                    $data = Stock::where('plan_id',$id)
-                            ->whereDate('res_date', $start_date)
-                            // ->where('price_type_id',$request->price_type_id)
-                            ->update([
-                                'limit_number' => $request->limit_num2
-                            ]);
-                }
-
-
-            }
-            
-        }
-
-        return redirect()->back()->with('message', '変更が完了しました');
-    }
-
+  
 
     // 複製処理
     public function replicate($id)

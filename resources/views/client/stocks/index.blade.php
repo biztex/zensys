@@ -47,7 +47,7 @@
 <script>
    
 
-    function goSubmit(name){
+    function goSubmit(num){
 
 
         try {
@@ -63,7 +63,7 @@
 
 
 
-        $("#form1").prop('action','{{config('app.url')}}client/stocks/update'+name+'/{{ $default_plan->id }}')
+        $("#form1").prop('action','{{config('app.url')}}client/stocks/update'+num+'/{{ $default_plan->id }}')
         $("#form1").submit();
     }
 
@@ -208,7 +208,7 @@
                 </div>
 
                 <div class="card-body">
-                <b>期間一括変更　<input type="date" name="start_date">～<input type="date" name="end_date">
+                <b>期間一括変更　<input type="date" name="start_date" required>～<input type="date" name="end_date" required>
                     を
                     <select name="rank1">
                     <option value="">ランク</option>
@@ -225,23 +225,22 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-
-                    <input type="button" value="更新する" onclick="goSubmit('Rank')">
-                    <br> <br>
-
-                    <label for="limit_num" class="col-md-2 d-inline pl-0">在庫
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num" value=""></label>
-                    <input type="button" value="更新する" onclick="goSubmit('Stock')">
+                    <input type="button" value="更新する" onclick="goSubmit(1)">
+                   
+
+                   
+                   
                     <br> <br>
                     曜日一括変更　
-                    <input type="checkbox" class="day ml-1" name="day[]" value="0" id="sunday">日
-                    <input type="checkbox" class="day ml-1" name="day[]" value="0" id="monday">月
-                    <input type="checkbox" class="day ml-1" name="day[]" value="0" id="tuseday">火
-                    <input type="checkbox" class="day ml-1" name="day[]" value="0" id="wednesday">水
-                    <input type="checkbox" class="day ml-1" name="day[]" value="0" id="thursday">木
-                    <input type="checkbox" class="day ml-1" name="day[]" value="0" id="friday">金
-                    <input type="checkbox" class="day ml-1" name="day[]" value="0" id="saturday">土
-                    <input type="hidden" id="week" name="week" value="">
+                    <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="sunday">日</label>
+                    <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="monday">月</label>
+                    <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="tuseday">火</label>
+                    <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="wednesday">水</label>
+                    <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="thursday">木</label>
+                    <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="friday">金</label>
+                    <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="saturday">土</label>
+                   <input type="hidden" id="week" name="week" value="">
                     を
                     <select  name="rank2">
                     <option value="">ランク</option>
@@ -258,14 +257,9 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-
-                    <input type="button" value="更新する" onclick="goSubmit('Rank_day')"></b>
-                    <br><br>
-                    <label for="limit_num2" class="col-md-2 d-inline pl-0">在庫
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num2" value=""></label>
-                    <input type="button" value="更新する" onclick="goSubmit('Stock_day')"></b>
-
-                    </b>
+                    <input type="button" value="更新する" onclick="goSubmit(2)">
+                    <br><br>
                     <div class="row mt-4">
                         <div class="col-md-1 h4"><a id="prev-month" href=""><i class="fas fa-fw fa-arrow-left"></i></a></div>
                         <div class="col-md-10 center h4 font-weight-bold text-center"><span id="disp-year">{{ $year }}</span> <small class="font-weight-bold">年</small>　<span id="disp-month">{{ $month }}</span> <small class="font-weight-bold">月</small></div>
