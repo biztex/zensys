@@ -284,15 +284,40 @@ class ReservationsController extends Controller
         $reservation->add_drop = $request->drop[0];
        
        
-        $reservation->companion_name_first = $request->add_firstname[1];
-        $reservation->companion_name_last = $request->add_lastname[1];
-        $reservation->companion_kana_first = $request->join_kana1[1];
-        $reservation->companion_kana_last = $request->join_kana2[1];
-        $reservation->companion_age = $request->join_age[1];
-        $reservation->companion_gender = $request->join_sex[1];
-        $reservation->companion_birth = $request->birth_year_representative[1] .'-'.  $request->birth_month_representative[1].'-' . $request->birth_day_representative[1];
-        $reservation->companion_boarding = $request->boarding[1];
-        $reservation->companion_drop = $request->drop[1];
+        $temp_companion_name_first = [];
+        $temp_companion_name_last = [];
+        $temp_companion_kana_first = [];
+        $temp_companion_kana_last = [];
+        $temp_companion_age = [];
+        $temp_companion_gender = [];
+        $temp_companion_birth = [];
+        $temp_companion_boarding = [];
+        $temp_companion_drop = [];
+
+        for($i=1; $i<count($request->add_firstname); $i++){
+            $temp_companion_name_first[$i-1]    = $request->add_firstname[$i];
+            $temp_companion_name_last[$i-1]     = $request->add_lastname[$i];
+            $temp_companion_kana_first[$i-1]    = $request->join_kana1[$i];
+            $temp_companion_kana_last[$i-1]     = $request->join_kana2[$i];
+            $temp_companion_age[$i-1]           = $request->join_age[$i];
+            $temp_companion_gender[$i-1]        = $request->join_sex[$i];
+            $temp_companion_birth[$i-1]         = $request->birth_year_representative[$i] .'-'.  $request->birth_month_representative[$i].'-' . $request->birth_day_representative[$i];
+            $temp_companion_boarding[$i-1]      = $request->boarding[$i];
+            $temp_companion_drop[$i-1]          = $request->drop[$i];
+        }
+
+        
+
+        $reservation->companion_name_first  = json_encode($temp_companion_name_first);
+        $reservation->companion_name_last   = json_encode($temp_companion_name_last);
+        $reservation->companion_kana_first  = json_encode($temp_companion_kana_first);
+        $reservation->companion_kana_last   = json_encode($temp_companion_kana_last);
+        $reservation->companion_age         = json_encode($temp_companion_age);
+        $reservation->companion_gender      = json_encode($temp_companion_gender);
+        $reservation->companion_birth       = json_encode($temp_companion_birth);
+        $reservation->companion_boarding    = json_encode($temp_companion_boarding);
+        $reservation->companion_drop        = json_encode($temp_companion_drop);
+      
 
 
         $reservation->type0_number = $request->type0;
