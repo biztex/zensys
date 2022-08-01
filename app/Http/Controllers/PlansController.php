@@ -62,10 +62,10 @@ class PlansController extends Controller
             'description' => ['required', 'string', 'max:1200'],
             'start_day' => ['required', 'date'],
             'end_day' => ['required', 'date', 'after_or_equal:start_day'],
-            'repetition_flag' => ['required'],
-            'repetition_day' => ['nullable', 'numeric'],
-            'holiday_selected' => ['required'],
-            'holiday_nonselected' => ['required'],
+            // 'repetition_flag' => ['required'],
+            // 'repetition_day' => ['nullable', 'numeric'],
+            // 'holiday_selected' => ['required'],
+            // 'holiday_nonselected' => ['required'],
             'is_autoextend' => ['nullable'],
             'time_hour' => ['nullable', 'numeric'],
             'time_minute' => ['nullable', 'numeric'],
@@ -439,18 +439,18 @@ class PlansController extends Controller
         $plans->description = $request->description;
         $plans->start_day = $request->start_day;
         $plans->end_day = $request->end_day;
-        $plans->repetition_flag = $request->repetition_flag;
-        $plans->repetition_day = $request->repetition_day;
-        $plans->monday = $request->monday;
-        $plans->tuesday = $request->tuesday;
-        $plans->wednesday = $request->wednesday;
-        $plans->thursday = $request->thursday;
-        $plans->friday = $request->friday;
-        $plans->saturday = $request->saturday;
-        $plans->sunday = $request->sunday;
-        $plans->holiday_selected = $request->holiday_selected;
-        $plans->holiday_nonselected = $request->holiday_nonselected;
-        $plans->is_autoextend = $request->is_autoextend;
+        // $plans->repetition_flag = $request->repetition_flag;
+        // $plans->repetition_day = $request->repetition_day;
+        // $plans->monday = $request->monday;
+        // $plans->tuesday = $request->tuesday;
+        // $plans->wednesday = $request->wednesday;
+        // $plans->thursday = $request->thursday;
+        // $plans->friday = $request->friday;
+        // $plans->saturday = $request->saturday;
+        // $plans->sunday = $request->sunday;
+        // $plans->holiday_selected = $request->holiday_selected;
+        // $plans->holiday_nonselected = $request->holiday_nonselected;
+        // $plans->is_autoextend = $request->is_autoextend;
         $plans->time_hour = $request->time_hour;
         $plans->time_minute = $request->time_minute;
         $plans->age_from = $request->age_from;
@@ -668,71 +668,95 @@ class PlansController extends Controller
         $end_day = new Carbon($plans->end_day);
         $diff_days = $start_day->diffInDays($end_day);
         $loop_count = $diff_days + 1;
-        if ($plans->repetition_flag == 0) {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+            $pc = 0;
+            for ($ii = 1; $ii <= 6; $ii++) {
                 if (
-                    ($plans->monday == 1 && $start_day->isMonday()) ||
-                    ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-                    ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-                    ($plans->thursday == 1 && $start_day->isThursday()) ||
-                    ($plans->friday == 1 && $start_day->isFriday()) ||
-                    ($plans->saturday == 1 && $start_day->isSaturday()) ||
-                    ($plans->sunday == 1 && $start_day->isSunday())
+                    isset($request->{'price_type' . $ii}) ||
+                    $request->{'price_monday' . $ii}
                 ) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            isset($request->{'price_type' . $ii}) ||
-                            $request->{'price_monday' . $ii}
-                        ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        // $stock->limit_number = $plans->res_limit_number
-                        //     ? $plans->res_limit_number
-                        //     : '0';
-                        $stock->save();
-                    }
-                    //die($request->price_type1."p1c=2=====".$pc);
+                    $pc++;
                 }
             }
-        } else {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-                if ($plans->repetition_day == $start_day->day) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            isset($request->{'"price_type' . $ii}) ||
-                            $request->{'price_monday' . $ii}
-                        ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        // $stock->limit_number = $plans->res_limit_number
-                        //     ? $plans->res_limit_number
-                        //     : '0';
-                        $stock->save();
-                    }
-                    //die("pc=2=====".$pc);
-                }
+            for ($ii = 1; $ii <= $pc; $ii++) {
+                $price_type_id = $request->{'price_type' . $ii};
+                $stock = new Stock();
+                $stock->plan_id = $plans->id;
+                $stock->price_type_id = $price_type_id;
+                $stock->res_date = $start_day;
+                $stock->is_active = 1;
+                $stock->res_type = $plans->res_type;
+                // $stock->limit_number = $plans->res_limit_number
+                //     ? $plans->res_limit_number
+                //     : '0';
+                $stock->save();
             }
         }
+        // if ($plans->repetition_flag == 0) {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if (
+        //             ($plans->monday == 1 && $start_day->isMonday()) ||
+        //             ($plans->tuesday == 1 && $start_day->isTuesday()) ||
+        //             ($plans->wednesday == 1 && $start_day->isWednesday()) ||
+        //             ($plans->thursday == 1 && $start_day->isThursday()) ||
+        //             ($plans->friday == 1 && $start_day->isFriday()) ||
+        //             ($plans->saturday == 1 && $start_day->isSaturday()) ||
+        //             ($plans->sunday == 1 && $start_day->isSunday())
+        //         ) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (
+        //                     isset($request->{'price_type' . $ii}) ||
+        //                     $request->{'price_monday' . $ii}
+        //                 ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 // $stock->limit_number = $plans->res_limit_number
+        //                 //     ? $plans->res_limit_number
+        //                 //     : '0';
+        //                 $stock->save();
+        //             }
+        //             //die($request->price_type1."p1c=2=====".$pc);
+        //         }
+        //     }
+        // } else {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if ($plans->repetition_day == $start_day->day) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (
+        //                     isset($request->{'"price_type' . $ii}) ||
+        //                     $request->{'price_monday' . $ii}
+        //                 ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 // $stock->limit_number = $plans->res_limit_number
+        //                 //     ? $plans->res_limit_number
+        //                 //     : '0';
+        //                 $stock->save();
+        //             }
+        //             //die("pc=2=====".$pc);
+        //         }
+        //     }
+        // }
         return redirect('/client/plans')->with('message', '追加が完了しました');
     }
 
@@ -867,17 +891,17 @@ class PlansController extends Controller
         $plans->end_day = $request->end_day
             ? $request->end_day
             : new DateTime('now');
-        $plans->repetition_flag = $request->repetition_flag;
-        $plans->repetition_day = $request->repetition_day;
-        $plans->monday = $request->monday;
-        $plans->tuesday = $request->tuesday;
-        $plans->wednesday = $request->wednesday;
-        $plans->thursday = $request->thursday;
-        $plans->friday = $request->friday;
-        $plans->saturday = $request->saturday;
-        $plans->sunday = $request->sunday;
-        $plans->holiday_selected = $request->holiday_selected;
-        $plans->holiday_nonselected = $request->holiday_nonselected;
+        // $plans->repetition_flag = $request->repetition_flag;
+        // $plans->repetition_day = $request->repetition_day;
+        // $plans->monday = $request->monday;
+        // $plans->tuesday = $request->tuesday;
+        // $plans->wednesday = $request->wednesday;
+        // $plans->thursday = $request->thursday;
+        // $plans->friday = $request->friday;
+        // $plans->saturday = $request->saturday;
+        // $plans->sunday = $request->sunday;
+        // $plans->holiday_selected = $request->holiday_selected;
+        // $plans->holiday_nonselected = $request->holiday_nonselected;
         $plans->is_autoextend = $request->is_autoextend;
         $plans->time_hour = $request->time_hour ? $request->time_hour : '0';
         $plans->time_minute = $request->time_minute
@@ -1127,69 +1151,103 @@ class PlansController extends Controller
         $end_day = new Carbon($plans->end_day);
         $diff_days = $start_day->diffInDays($end_day);
         $loop_count = $diff_days + 1;
-        if ($plans->repetition_flag == 0) {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-                if (
-                    ($plans->monday == 1 && $start_day->isMonday()) ||
-                    ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-                    ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-                    ($plans->thursday == 1 && $start_day->isThursday()) ||
-                    ($plans->friday == 1 && $start_day->isFriday()) ||
-                    ($plans->saturday == 1 && $start_day->isSaturday()) ||
-                    ($plans->sunday == 1 && $start_day->isSunday())
-                ) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            $request->{'price_type' . $ii} ||
-                            $request->{'price_monday' . $ii}
-                        ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        // $stock->limit_number = $plans->res_limit_number
-                        //     ? $plans->res_limit_number
-                        //     : '0';
-                        $stock->save();
+        for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+            if (
+                ($plans->monday == 1 && $start_day->isMonday()) ||
+                ($plans->tuesday == 1 && $start_day->isTuesday()) ||
+                ($plans->wednesday == 1 && $start_day->isWednesday()) ||
+                ($plans->thursday == 1 && $start_day->isThursday()) ||
+                ($plans->friday == 1 && $start_day->isFriday()) ||
+                ($plans->saturday == 1 && $start_day->isSaturday()) ||
+                ($plans->sunday == 1 && $start_day->isSunday())
+            ) {
+                $pc = 0;
+                for ($ii = 1; $ii <= 6; $ii++) {
+                    if (
+                        $request->{'price_type' . $ii} ||
+                        $request->{'price_monday' . $ii}
+                    ) {
+                        $pc++;
                     }
                 }
-            }
-        } else {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-                if ($plans->repetition_day == $start_day->day) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            $request->{'price_type' . $ii} ||
-                            $request->{'price_monday' . $ii}
-                        ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        // $stock->limit_number = $plans->res_limit_number
-                        //     ? $plans->res_limit_number
-                        //     : '0';
-                        $stock->save();
-                    }
+                for ($ii = 1; $ii <= $pc; $ii++) {
+                    $price_type_id = $request->{'price_type' . $ii};
+                    $stock = new Stock();
+                    $stock->plan_id = $plans->id;
+                    $stock->price_type_id = $price_type_id;
+                    $stock->res_date = $start_day;
+                    $stock->is_active = 1;
+                    $stock->res_type = $plans->res_type;
+                    // $stock->limit_number = $plans->res_limit_number
+                    //     ? $plans->res_limit_number
+                    //     : '0';
+                    $stock->save();
                 }
             }
         }
+        // if ($plans->repetition_flag == 0) {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if (
+        //             ($plans->monday == 1 && $start_day->isMonday()) ||
+        //             ($plans->tuesday == 1 && $start_day->isTuesday()) ||
+        //             ($plans->wednesday == 1 && $start_day->isWednesday()) ||
+        //             ($plans->thursday == 1 && $start_day->isThursday()) ||
+        //             ($plans->friday == 1 && $start_day->isFriday()) ||
+        //             ($plans->saturday == 1 && $start_day->isSaturday()) ||
+        //             ($plans->sunday == 1 && $start_day->isSunday())
+        //         ) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (
+        //                     $request->{'price_type' . $ii} ||
+        //                     $request->{'price_monday' . $ii}
+        //                 ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 // $stock->limit_number = $plans->res_limit_number
+        //                 //     ? $plans->res_limit_number
+        //                 //     : '0';
+        //                 $stock->save();
+        //             }
+        //         }
+        //     }
+        // } else {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if ($plans->repetition_day == $start_day->day) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (
+        //                     $request->{'price_type' . $ii} ||
+        //                     $request->{'price_monday' . $ii}
+        //                 ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 // $stock->limit_number = $plans->res_limit_number
+        //                 //     ? $plans->res_limit_number
+        //                 //     : '0';
+        //                 $stock->save();
+        //             }
+        //         }
+        //     }
+        // }
         return redirect('/client/plans/edit/' . $plans->id)->with(
             'message',
             '一時保存が完了しました'
@@ -1309,17 +1367,17 @@ class PlansController extends Controller
         $plans->end_day = $request->end_day
             ? $request->end_day
             : new DateTime('now');
-        $plans->repetition_flag = $request->repetition_flag;
-        $plans->repetition_day = $request->repetition_day;
-        $plans->monday = $request->monday;
-        $plans->tuesday = $request->tuesday;
-        $plans->wednesday = $request->wednesday;
-        $plans->thursday = $request->thursday;
-        $plans->friday = $request->friday;
-        $plans->saturday = $request->saturday;
-        $plans->sunday = $request->sunday;
-        $plans->holiday_selected = $request->holiday_selected;
-        $plans->holiday_nonselected = $request->holiday_nonselected;
+        // $plans->repetition_flag = $request->repetition_flag;
+        // $plans->repetition_day = $request->repetition_day;
+        // $plans->monday = $request->monday;
+        // $plans->tuesday = $request->tuesday;
+        // $plans->wednesday = $request->wednesday;
+        // $plans->thursday = $request->thursday;
+        // $plans->friday = $request->friday;
+        // $plans->saturday = $request->saturday;
+        // $plans->sunday = $request->sunday;
+        // $plans->holiday_selected = $request->holiday_selected;
+        // $plans->holiday_nonselected = $request->holiday_nonselected;
 
         $plans->destination = $request->destination;
         $plans->eat = $request->eat;
@@ -1562,69 +1620,103 @@ class PlansController extends Controller
         $end_day = new Carbon($plans->end_day);
         $diff_days = $start_day->diffInDays($end_day);
         $loop_count = $diff_days + 1;
-        if ($plans->repetition_flag == 0) {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-                if (
-                    ($plans->monday == 1 && $start_day->isMonday()) ||
-                    ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-                    ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-                    ($plans->thursday == 1 && $start_day->isThursday()) ||
-                    ($plans->friday == 1 && $start_day->isFriday()) ||
-                    ($plans->saturday == 1 && $start_day->isSaturday()) ||
-                    ($plans->sunday == 1 && $start_day->isSunday())
-                ) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            $request->{'price_type' . $ii} ||
-                            $request->{'price_monday' . $ii}
-                        ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        // $stock->limit_number = $plans->res_limit_number
-                        //     ? $plans->res_limit_number
-                        //     : '0';
-                        $stock->save();
+        for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+            if (
+                ($plans->monday == 1 && $start_day->isMonday()) ||
+                ($plans->tuesday == 1 && $start_day->isTuesday()) ||
+                ($plans->wednesday == 1 && $start_day->isWednesday()) ||
+                ($plans->thursday == 1 && $start_day->isThursday()) ||
+                ($plans->friday == 1 && $start_day->isFriday()) ||
+                ($plans->saturday == 1 && $start_day->isSaturday()) ||
+                ($plans->sunday == 1 && $start_day->isSunday())
+            ) {
+                $pc = 0;
+                for ($ii = 1; $ii <= 6; $ii++) {
+                    if (
+                        $request->{'price_type' . $ii} ||
+                        $request->{'price_monday' . $ii}
+                    ) {
+                        $pc++;
                     }
                 }
-            }
-        } else {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-                if ($plans->repetition_day == $start_day->day) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            $request->{'price_type' . $ii} ||
-                            $request->{'price_monday' . $ii}
-                        ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        // $stock->limit_number = $plans->res_limit_number
-                        //     ? $plans->res_limit_number
-                        //     : '0';
-                        $stock->save();
-                    }
+                for ($ii = 1; $ii <= $pc; $ii++) {
+                    $price_type_id = $request->{'price_type' . $ii};
+                    $stock = new Stock();
+                    $stock->plan_id = $plans->id;
+                    $stock->price_type_id = $price_type_id;
+                    $stock->res_date = $start_day;
+                    $stock->is_active = 1;
+                    $stock->res_type = $plans->res_type;
+                    // $stock->limit_number = $plans->res_limit_number
+                    //     ? $plans->res_limit_number
+                    //     : '0';
+                    $stock->save();
                 }
             }
         }
+        // if ($plans->repetition_flag == 0) {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if (
+        //             ($plans->monday == 1 && $start_day->isMonday()) ||
+        //             ($plans->tuesday == 1 && $start_day->isTuesday()) ||
+        //             ($plans->wednesday == 1 && $start_day->isWednesday()) ||
+        //             ($plans->thursday == 1 && $start_day->isThursday()) ||
+        //             ($plans->friday == 1 && $start_day->isFriday()) ||
+        //             ($plans->saturday == 1 && $start_day->isSaturday()) ||
+        //             ($plans->sunday == 1 && $start_day->isSunday())
+        //         ) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (
+        //                     $request->{'price_type' . $ii} ||
+        //                     $request->{'price_monday' . $ii}
+        //                 ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 // $stock->limit_number = $plans->res_limit_number
+        //                 //     ? $plans->res_limit_number
+        //                 //     : '0';
+        //                 $stock->save();
+        //             }
+        //         }
+        //     }
+        // } else {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if ($plans->repetition_day == $start_day->day) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (
+        //                     $request->{'price_type' . $ii} ||
+        //                     $request->{'price_monday' . $ii}
+        //                 ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 // $stock->limit_number = $plans->res_limit_number
+        //                 //     ? $plans->res_limit_number
+        //                 //     : '0';
+        //                 $stock->save();
+        //             }
+        //         }
+        //     }
+        // }
         return redirect('/client/plans/edit/' . $plans->id)->with(
             'message',
             '一時保存が完了しました'
@@ -1668,10 +1760,10 @@ class PlansController extends Controller
             'description' => ['required', 'string', 'max:1200'],
             'start_day' => ['required', 'date'],
             'end_day' => ['required', 'date', 'after_or_equal:start_day'],
-            'repetition_flag' => ['required'],
-            'repetition_day' => ['nullable', 'numeric'],
-            'holiday_selected' => ['required'],
-            'holiday_nonselected' => ['required'],
+            // 'repetition_flag' => ['required'],
+            // 'repetition_day' => ['nullable', 'numeric'],
+            // 'holiday_selected' => ['required'],
+            // 'holiday_nonselected' => ['required'],
             'is_autoextend' => ['nullable'],
             'time_hour' => ['nullable', 'numeric'],
             'time_minute' => ['nullable', 'numeric'],
@@ -2175,17 +2267,17 @@ class PlansController extends Controller
         $plans->description = $request->description;
         $plans->start_day = $request->start_day;
         $plans->end_day = $request->end_day;
-        $plans->repetition_flag = $request->repetition_flag;
-        $plans->repetition_day = $request->repetition_day;
-        $plans->monday = $request->monday;
-        $plans->tuesday = $request->tuesday;
-        $plans->wednesday = $request->wednesday;
-        $plans->thursday = $request->thursday;
-        $plans->friday = $request->friday;
-        $plans->saturday = $request->saturday;
-        $plans->sunday = $request->sunday;
-        $plans->holiday_selected = $request->holiday_selected;
-        $plans->holiday_nonselected = $request->holiday_nonselected;
+        // $plans->repetition_flag = $request->repetition_flag;
+        // $plans->repetition_day = $request->repetition_day;
+        // $plans->monday = $request->monday;
+        // $plans->tuesday = $request->tuesday;
+        // $plans->wednesday = $request->wednesday;
+        // $plans->thursday = $request->thursday;
+        // $plans->friday = $request->friday;
+        // $plans->saturday = $request->saturday;
+        // $plans->sunday = $request->sunday;
+        // $plans->holiday_selected = $request->holiday_selected;
+        // $plans->holiday_nonselected = $request->holiday_nonselected;
         $plans->is_autoextend = $request->is_autoextend;
         $plans->time_hour = $request->time_hour;
         $plans->time_minute = $request->time_minute;
@@ -2297,77 +2389,109 @@ class PlansController extends Controller
         $diff_days = $start_day->diffInDays($end_day);
 
         $loop_count = $diff_days + 1;
-        if ($plans->repetition_flag == 0) {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-                if (
-                    ($plans->monday == 1 && $start_day->isMonday()) ||
-                    ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-                    ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-                    ($plans->thursday == 1 && $start_day->isThursday()) ||
-                    ($plans->friday == 1 && $start_day->isFriday()) ||
-                    ($plans->saturday == 1 && $start_day->isSaturday()) ||
-                    ($plans->sunday == 1 && $start_day->isSunday())
-                ) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (($request->{'price_type' . $ii} == '0' || $request->{'price_type' . $ii}) || $request->{'price_monday' . $ii} ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        $stock->limit_number = $plans->res_limit_number
-                            ? $plans->res_limit_number
-                            : '0';
-                        $stock->save();
-
-                    }
-
-                    foreach ($old_stocks_data as $key => $value) {
-                        Stock::where('res_date', $value->res_date)
-                            ->where('price_type_id', $value->price_type_id)
-                            ->update([
-                                'limit_number'  => $value->limit_number,
-                                'rank'          => $value->rank
-                            ]);
-                    }
+        for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+            $pc = 0;
+            for ($ii = 1; $ii <= 6; $ii++) {
+                if (($request->{'price_type' . $ii} == '0' || $request->{'price_type' . $ii}) || $request->{'price_monday' . $ii} ) {
+                    $pc++;
                 }
             }
-        } else {
-            for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-                if ($plans->repetition_day == $start_day->day) {
-                    $pc = 0;
-                    for ($ii = 1; $ii <= 6; $ii++) {
-                        if (
-                            $request->{'price_type' . $ii} ||
-                            $request->{'price_monday' . $ii}
-                        ) {
-                            $pc++;
-                        }
-                    }
-                    for ($ii = 1; $ii <= $pc; $ii++) {
-                        $price_type_id = $request->{'price_type' . $ii};
-                        $stock = new Stock();
-                        $stock->plan_id = $plans->id;
-                        $stock->price_type_id = $price_type_id;
-                        $stock->res_date = $start_day;
-                        $stock->is_active = 1;
-                        $stock->res_type = $plans->res_type;
-                        // $stock->limit_number = $plans->res_limit_number
-                        //     ? $plans->res_limit_number
-                        //     : '0';
-                        $stock->save();
-                    }
-                }
+            for ($ii = 1; $ii <= $pc; $ii++) {
+                
+                $price_type_id = $request->{'price_type' . $ii};
+                $stock = new Stock();
+                $stock->plan_id = $plans->id;
+                $stock->price_type_id = $price_type_id;
+                $stock->res_date = $start_day;
+                $stock->is_active = 1;
+                $stock->res_type = $plans->res_type;
+                $stock->limit_number = $plans->res_limit_number
+                    ? $plans->res_limit_number
+                    : '0';
+                $stock->save();
+
+            }
+
+            foreach ($old_stocks_data as $key => $value) {
+                Stock::where('res_date', $value->res_date)
+                    ->where('price_type_id', $value->price_type_id)
+                    ->update([
+                        'limit_number'  => $value->limit_number,
+                        'rank'          => $value->rank
+                    ]);
             }
         }
+        // if ($plans->repetition_flag == 0) {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if (
+        //             ($plans->monday == 1 && $start_day->isMonday()) ||
+        //             ($plans->tuesday == 1 && $start_day->isTuesday()) ||
+        //             ($plans->wednesday == 1 && $start_day->isWednesday()) ||
+        //             ($plans->thursday == 1 && $start_day->isThursday()) ||
+        //             ($plans->friday == 1 && $start_day->isFriday()) ||
+        //             ($plans->saturday == 1 && $start_day->isSaturday()) ||
+        //             ($plans->sunday == 1 && $start_day->isSunday())
+        //         ) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (($request->{'price_type' . $ii} == '0' || $request->{'price_type' . $ii}) || $request->{'price_monday' . $ii} ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+                        
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 $stock->limit_number = $plans->res_limit_number
+        //                     ? $plans->res_limit_number
+        //                     : '0';
+        //                 $stock->save();
+
+        //             }
+
+        //             foreach ($old_stocks_data as $key => $value) {
+        //                 Stock::where('res_date', $value->res_date)
+        //                     ->where('price_type_id', $value->price_type_id)
+        //                     ->update([
+        //                         'limit_number'  => $value->limit_number,
+        //                         'rank'          => $value->rank
+        //                     ]);
+        //             }
+        //         }
+        //     }
+        // } else {
+        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+        //         if ($plans->repetition_day == $start_day->day) {
+        //             $pc = 0;
+        //             for ($ii = 1; $ii <= 6; $ii++) {
+        //                 if (
+        //                     $request->{'price_type' . $ii} ||
+        //                     $request->{'price_monday' . $ii}
+        //                 ) {
+        //                     $pc++;
+        //                 }
+        //             }
+        //             for ($ii = 1; $ii <= $pc; $ii++) {
+        //                 $price_type_id = $request->{'price_type' . $ii};
+        //                 $stock = new Stock();
+        //                 $stock->plan_id = $plans->id;
+        //                 $stock->price_type_id = $price_type_id;
+        //                 $stock->res_date = $start_day;
+        //                 $stock->is_active = 1;
+        //                 $stock->res_type = $plans->res_type;
+        //                 // $stock->limit_number = $plans->res_limit_number
+        //                 //     ? $plans->res_limit_number
+        //                 //     : '0';
+        //                 $stock->save();
+        //             }
+        //         }
+        //     }
+        // }
         return redirect()
             ->back()
             ->with('message', '変更が完了しました');

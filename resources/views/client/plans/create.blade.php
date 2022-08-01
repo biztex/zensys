@@ -94,6 +94,7 @@
                                 <input id="name" type="date" class="form-control" name="end_day" value="{{ old('end_day') }}">
                             </div>
                         </div>
+                        <!--
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">繰り返し設定</label>
                             <div class="col-md-2">
@@ -152,6 +153,8 @@
                               <input class="ml-5" type="radio" name="holiday_nonselected" value="0" @if(old('holiday_nonselected')=='0') checked @endif> <span> 開催しない</span>
                             </label>
                         </div>
+
+                        -->
 <!--                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">自動延長設定</label>
                             <label class="radio-inline">
