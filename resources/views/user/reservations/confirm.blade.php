@@ -52,7 +52,7 @@
                         @foreach($_POST as $key =>$value)
                             @if(is_array($value))
                                 @foreach($value as $key2 =>$value2)
-                                <input type="hidden" name="{{$key2}}"  value="{{$value2}}">
+                                <input type="hidden" name="{{$key}}[]"  value="{{$value2}}">
                                 @endforeach
                             @else
                             <input type="hidden" name="{{$key}}"  value="{{$value}}">
@@ -174,6 +174,7 @@
                                             <th>申し込み者氏名カナ</th>
                                             <td>
                                                 {{$join_kana1}} {{$request->join_kana2[$key]}}
+
                                             </td>
                                         </tr>
                                         <tr class="ageTr">
@@ -209,24 +210,34 @@
                                             <th>参加者(代表者)氏名(漢字)</th>
                                             <td>
                                                 {{$info['add_lastname'][0]}} {{$info['add_firstname'][0]}}
+                                                <!-- <input class="midIpt" type="hidden" name="add_lastname[]" value="{{$info['add_lastname'][0]}}"> -->
+                                               <!-- <input class="midIpt" type="hidden" name="add_firstname[]"  value="{{$info['add_firstname'][0]}}"> -->
+                                          
                                             </td>
                                         </tr>
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(カナ)</th>
                                             <td>
                                                 {{$info['join_kana1'][0]}} {{$info['join_kana2'][0]}}
+                                                <!-- <input class="midIpt" type="hidden" name="join_kana1[]" value="{{$info['join_kana1'][0]}}"> -->
+                                                <!-- <input class="midIpt" type="hidden" name="join_kana2[]" value="{{$info['join_kana2'][0]}}"> -->
                                             </td>
                                         </tr>
                                         <tr class="ageTr">
                                             <th>年齢</th>
                                             <td>
                                                 {{$info['join_age'][0]}}
+                                                <!-- <input class="midIpt" type="hidden" name="join_age[]" value="{{$info['join_age'][0]}}"> -->
+
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>生年月日</th>
                                             <td>
                                                 {{$info['birth_year_representative'][0]}}年{{ $info['birth_month_representative'][0]}}月{{ $info['birth_day_representative'][0]}}日
+                                                <!-- <input type="hidden" name="birth_year_representative[]" value="{{$info['birth_year_representative'][0]}}"> -->
+                                                <!-- <input type="hidden" name="birth_month_representative[]" value="{{$info['birth_month_representative'][0]}}"> -->
+                                                <!-- <input type="hidden" name="birth_day_representative[]" value="{{$info['birth_day_representative'][0]}}"> -->
                                             </td>
                                         </tr>
                                         <tr>
@@ -237,6 +248,7 @@
                                                 @else
                                                 女性
                                                 @endif
+                                                <!-- <input type="hidden" name="join_sex[]" value="{{$info['join_sex'][0]}}"> -->
                                             </td>
                                         </tr>
                                         <tr class="zipTr">
@@ -245,6 +257,7 @@
                                                 <p>〒{{$info['postalcode_representative']}}</p>
                                                 <p>{{$info['prefecture_representative']}}</p>
                                                 <p>{{$info['address_representative']}} {{$info['extended_representative']}}</p>
+                                               
                                             </td>
                                         </tr>
                                         <tr>

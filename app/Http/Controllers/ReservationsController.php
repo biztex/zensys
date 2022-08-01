@@ -140,6 +140,7 @@ class ReservationsController extends Controller
             'is_member' => ['nullable'],
             'is_request' => ['nullable'],
         ];
+
         $plan = Plan::find($request->plan_id);
         if ($plan->answer_flag == 1) {
             $a_rules = [
@@ -266,6 +267,33 @@ class ReservationsController extends Controller
         $reservation->fixed_datetime = $request->date;
         $reservation->answer = $request->answer;
         $reservation->price_type = $request->price_type;
+
+
+        $reservation->add_name_first = $request->add_firstname[0];
+        $reservation->add_name_last = $request->add_lastname[0];
+        $reservation->add_kana_first = $request->join_kana2[0];
+        $reservation->add_kana_last = $request->join_kana1[0];
+        $reservation->add_age = $request->join_age[0];
+        $reservation->add_birth = $request->birth_year_representative[0] .'-'.  $request->birth_month_representative[0].'-' . $request->birth_day_representative[0];
+        $reservation->add_postalcode = $request->postalcode_representative;
+        $reservation->add_prefecture = $request->prefecture_representative;
+        $reservation->add_address = $request->address_representative;
+        $reservation->add_telephone = $request->tel_representative;
+        $reservation->add_building =    $request->extended_representative;
+        $reservation->add_boarding = $request->boarding[0];
+        $reservation->add_drop = $request->drop[0];
+       
+       
+        $reservation->companion_name_first = $request->add_firstname[1];
+        $reservation->companion_name_last = $request->add_lastname[1];
+        $reservation->companion_kana_first = $request->join_kana1[1];
+        $reservation->companion_kana_last = $request->join_kana2[1];
+        $reservation->companion_age = $request->join_age[1];
+        $reservation->companion_gender = $request->join_sex[1];
+        $reservation->companion_birth = $request->birth_year_representative[1] .'-'.  $request->birth_month_representative[1].'-' . $request->birth_day_representative[1];
+        $reservation->companion_boarding = $request->boarding[1];
+        $reservation->companion_drop = $request->drop[1];
+
 
         $reservation->type0_number = $request->type0;
         $reservation->type1_number = $request->type1;
@@ -987,7 +1015,14 @@ class ReservationsController extends Controller
                     ->where('number' , $reservations->price_type)
                     ->first();
 
-                   
+        $plan = Plan::select()
+                ->where('id', $reservations->plan_id)
+                ->with('activities')
+                ->with('prices')
+                ->first();
+        
+        $pieces = explode(',',$plan->boarding);
+        $drops = explode(',',$plan->drop);
 
 
         $week_map = [
@@ -1010,7 +1045,7 @@ class ReservationsController extends Controller
         }
         return view(
             'client.reservations.edit',
-            compact('reservations', 'categories', 'genres', 'weekday','prices','priceName')
+            compact('reservations','pieces','drops' ,'categories', 'genres', 'weekday','prices','priceName')
         );
     }
 
@@ -1464,6 +1499,33 @@ class ReservationsController extends Controller
         }
         $reservation->status = $request->status;
         $reservation->payment_method = $request->payment_method;
+
+        $reservation->add_name_first = $request->add_name_first;
+        $reservation->add_name_last = $request->add_name_last;
+        $reservation->add_kana_first = $request->add_kana_first;
+        $reservation->add_kana_last = $request->add_kana_last;
+        $reservation->add_age = $request->add_age;
+        $reservation->add_birth = $request->add_birth;
+        $reservation->add_postalcode = $request->add_postalcode;
+        $reservation->add_prefecture = $request->add_prefecture;
+        $reservation->add_address = $request->add_address;
+        $reservation->add_telephone = $request->add_telephone;
+        $reservation->add_building = $request->add_building;
+        $reservation->add_boarding = $request->add_boarding;
+        $reservation->add_drop = $request->add_drop;
+       
+       
+        $reservation->companion_name_first = $request->companion_name_first;
+        $reservation->companion_name_last = $request->companion_name_last;
+        $reservation->companion_kana_first = $request->companion_kana_first;
+        $reservation->companion_kana_last = $request->companion_kana_last;
+        $reservation->companion_age = $request->companion_age;
+        $reservation->companion_gender = $request->companion_gender;
+        $reservation->companion_birth = $request->companion_birth;
+        $reservation->companion_boarding = $request->companion_boarding;
+        $reservation->companion_drop = $request->companion_drop;
+
+
         $reservation->type0_number = $request->type0_number;
         $reservation->type1_number = $request->type1_number;
         $reservation->type2_number = $request->type2_number;

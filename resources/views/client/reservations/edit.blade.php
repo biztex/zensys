@@ -138,13 +138,13 @@
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('姓') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                                <input id="" type="text" class="form-control" name="add_name_last" value="{{ old('add_name_last',$reservations->add_name_last) }}" required>
                             </div>
                         </div>
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('名') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                                <input id="" type="text" class="form-control" name="add_name_first"  value="{{ old('add_name_last',$reservations->add_name_first) }}" required>
                             </div>
                         </div>
                     </div>
@@ -153,120 +153,125 @@
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('セイ') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                                <input id="" type="text" class="form-control" name="add_kana_last" value="{{ old('add_kana_last',$reservations->add_kana_last) }}" required>
                             </div>
                         </div>
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイ') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                                <input id="" type="text" class="form-control" name="add_kana_first" value="{{ old('add_kana_first',$reservations->add_kana_first) }}" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('年齢') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="text" class="form-control" name="" value="" >
+                            <input id="" type="text" class="form-control" name="add_age" value="{{ old('add_age',$reservations->add_age) }}" required >
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('生年月日') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="date" class="form-control" name="" value="">
+                            <input id="" type="date" class="form-control" name="add_birth" value="{{ old('add_birth',$reservations->add_birth) }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('郵便番号') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="text" class="form-control" name="postal_code" value="" onKeyUp="AjaxZip3.zip2addr(this,'','prefecture','address');">
+                            <input id="" type="text" class="form-control" name="add_postalcode" value="{{ old('add_postalcode',$reservations->add_postalcode) }}" onKeyUp="AjaxZip3.zip2addr(this,'','prefecture','address');" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 都道府県</label>
                         <div class="col-md-3">
-                            <select class="form-control" name="prefecture">
+                            <select class="form-control" name="add_prefecture"> 
                                 <option value="">選択してください</option>
-                                {{-- <option value="北海道" @if(old('prefecture',$users->prefecture)=='北海道') selected @endif>北海道</option>
-                                <option value="青森県" @if(old('prefecture',$users->prefecture)=='青森県') selected @endif>青森県</option>
-                                <option value="岩手県" @if(old('prefecture',$users->prefecture)=='岩手県') selected @endif>岩手県</option>
-                                <option value="宮城県" @if(old('prefecture',$users->prefecture)=='宮城県') selected @endif>宮城県</option>
-                                <option value="秋田県" @if(old('prefecture',$users->prefecture)=='秋田県') selected @endif>秋田県</option>
-                                <option value="山形県" @if(old('prefecture',$users->prefecture)=='山形県') selected @endif>山形県</option>
-                                <option value="福島県" @if(old('prefecture',$users->prefecture)=='福島県') selected @endif>福島県</option>
-                                <option value="茨城県" @if(old('prefecture',$users->prefecture)=='茨城県') selected @endif>茨城県</option>
-                                <option value="栃木県" @if(old('prefecture',$users->prefecture)=='栃木県') selected @endif>栃木県</option>
-                                <option value="群馬県" @if(old('prefecture',$users->prefecture)=='群馬県') selected @endif>群馬県</option>
-                                <option value="埼玉県" @if(old('prefecture',$users->prefecture)=='埼玉県') selected @endif>埼玉県</option>
-                                <option value="千葉県" @if(old('prefecture',$users->prefecture)=='千葉県') selected @endif>千葉県</option>
-                                <option value="東京都" @if(old('prefecture',$users->prefecture)=='東京都') selected @endif>東京都</option>
-                                <option value="神奈川県" @if(old('prefecture',$users->prefecture)=='神奈川県') selected @endif>神奈川県</option>
-                                <option value="新潟県" @if(old('prefecture',$users->prefecture)=='新潟県') selected @endif>新潟県</option>
-                                <option value="富山県" @if(old('prefecture',$users->prefecture)=='富山県') selected @endif>富山県</option>
-                                <option value="石川県" @if(old('prefecture',$users->prefecture)=='石川県') selected @endif>石川県</option>
-                                <option value="福井県" @if(old('prefecture',$users->prefecture)=='福井県') selected @endif>福井県</option>
-                                <option value="山梨県" @if(old('prefecture',$users->prefecture)=='山梨県') selected @endif>山梨県</option>
-                                <option value="長野県" @if(old('prefecture',$users->prefecture)=='長野県') selected @endif>長野県</option>
-                                <option value="岐阜県" @if(old('prefecture',$users->prefecture)=='岐阜県') selected @endif>岐阜県</option>
-                                <option value="静岡県" @if(old('prefecture',$users->prefecture)=='静岡県') selected @endif>静岡県</option>
-                                <option value="愛知県" @if(old('prefecture',$users->prefecture)=='愛知県') selected @endif>愛知県</option>
-                                <option value="三重県" @if(old('prefecture',$users->prefecture)=='三重県') selected @endif>三重県</option>
-                                <option value="滋賀県" @if(old('prefecture',$users->prefecture)=='滋賀県') selected @endif>滋賀県</option>
-                                <option value="京都府" @if(old('prefecture',$users->prefecture)=='京都府') selected @endif>京都府</option>
-                                <option value="大阪府" @if(old('prefecture',$users->prefecture)=='大阪府') selected @endif>大阪府</option>
-                                <option value="兵庫県" @if(old('prefecture',$users->prefecture)=='兵庫県') selected @endif>兵庫県</option>
-                                <option value="奈良県" @if(old('prefecture',$users->prefecture)=='奈良県') selected @endif>奈良県</option>
-                                <option value="和歌山県" @if(old('prefecture',$users->prefecture)=='和歌山県') selected @endif>和歌山県</option>
-                                <option value="鳥取県" @if(old('prefecture',$users->prefecture)=='鳥取県') selected @endif>鳥取県</option>
-                                <option value="島根県" @if(old('prefecture',$users->prefecture)=='島根県') selected @endif>島根県</option>
-                                <option value="岡山県" @if(old('prefecture',$users->prefecture)=='岡山県') selected @endif>岡山県</option>
-                                <option value="広島県" @if(old('prefecture',$users->prefecture)=='広島県') selected @endif>広島県</option>
-                                <option value="山口県" @if(old('prefecture',$users->prefecture)=='山口県') selected @endif>山口県</option>
-                                <option value="徳島県" @if(old('prefecture',$users->prefecture)=='徳島県') selected @endif>徳島県</option>
-                                <option value="香川県" @if(old('prefecture',$users->prefecture)=='香川県') selected @endif>香川県</option>
-                                <option value="愛媛県" @if(old('prefecture',$users->prefecture)=='愛媛県') selected @endif>愛媛県</option>
-                                <option value="高知県" @if(old('prefecture',$users->prefecture)=='高知県') selected @endif>高知県</option>
-                                <option value="福岡県" @if(old('prefecture',$users->prefecture)=='福岡県') selected @endif>福岡県</option>
-                                <option value="佐賀県" @if(old('prefecture',$users->prefecture)=='佐賀県') selected @endif>佐賀県</option>
-                                <option value="長崎県" @if(old('prefecture',$users->prefecture)=='長崎県') selected @endif>長崎県</option>
-                                <option value="熊本県" @if(old('prefecture',$users->prefecture)=='熊本県') selected @endif>熊本県</option>
-                                <option value="大分県" @if(old('prefecture',$users->prefecture)=='大分県') selected @endif>大分県</option>
-                                <option value="宮崎県" @if(old('prefecture',$users->prefecture)=='宮崎県') selected @endif>宮崎県</option>
-                                <option value="鹿児島県" @if(old('prefecture',$users->prefecture)=='鹿児島県') selected @endif>鹿児島県</option>
-                                <option value="沖縄県" @if(old('prefecture',$users->prefecture)=='沖縄県') selected @endif>沖縄県</option> --}}
+                                 <option value="北海道" @if(old('add_prefecture',$reservations->add_prefecture)=='北海道') selected @endif>北海道</option>
+                                <option value="青森県" @if(old('add_prefecture',$reservations->add_prefecture)=='青森県') selected @endif>青森県</option>
+                                <option value="岩手県" @if(old('add_prefecture',$reservations->add_prefecture)=='岩手県') selected @endif>岩手県</option>
+                                <option value="宮城県" @if(old('add_prefecture',$reservations->add_prefecture)=='宮城県') selected @endif>宮城県</option>
+                                <option value="秋田県" @if(old('add_prefecture',$reservations->add_prefecture)=='秋田県') selected @endif>秋田県</option>
+                                <option value="山形県" @if(old('add_prefecture',$reservations->add_prefecture)=='山形県') selected @endif>山形県</option>
+                                <option value="福島県" @if(old('add_prefecture',$reservations->add_prefecture)=='福島県') selected @endif>福島県</option>
+                                <option value="茨城県" @if(old('add_prefecture',$reservations->add_prefecture)=='茨城県') selected @endif>茨城県</option>
+                                <option value="栃木県" @if(old('add_prefecture',$reservations->add_prefecture)=='栃木県') selected @endif>栃木県</option>
+                                <option value="群馬県" @if(old('add_prefecture',$reservations->add_prefecture)=='群馬県') selected @endif>群馬県</option>
+                                <option value="埼玉県" @if(old('add_prefecture',$reservations->add_prefecture)=='埼玉県') selected @endif>埼玉県</option>
+                                <option value="千葉県" @if(old('add_prefecture',$reservations->add_prefecture)=='千葉県') selected @endif>千葉県</option>
+                                <option value="東京都" @if(old('add_prefecture',$reservations->add_prefecture)=='東京都') selected @endif>東京都</option>
+                                <option value="神奈川県" @if(old('add_prefecture',$reservations->add_prefecture)=='神奈川県') selected @endif>神奈川県</option>
+                                <option value="新潟県" @if(old('add_prefecture',$reservations->add_prefecture)=='新潟県') selected @endif>新潟県</option>
+                                <option value="富山県" @if(old('add_prefecture',$reservations->add_prefecture)=='富山県') selected @endif>富山県</option>
+                                <option value="石川県" @if(old('add_prefecture',$reservations->add_prefecture)=='石川県') selected @endif>石川県</option>
+                                <option value="福井県" @if(old('add_prefecture',$reservations->add_prefecture)=='福井県') selected @endif>福井県</option>
+                                <option value="山梨県" @if(old('add_prefecture',$reservations->add_prefecture)=='山梨県') selected @endif>山梨県</option>
+                                <option value="長野県" @if(old('add_prefecture',$reservations->add_prefecture)=='長野県') selected @endif>長野県</option>
+                                <option value="岐阜県" @if(old('add_prefecture',$reservations->add_prefecture)=='岐阜県') selected @endif>岐阜県</option>
+                                <option value="静岡県" @if(old('add_prefecture',$reservations->add_prefecture)=='静岡県') selected @endif>静岡県</option>
+                                <option value="愛知県" @if(old('add_prefecture',$reservations->add_prefecture)=='愛知県') selected @endif>愛知県</option>
+                                <option value="三重県" @if(old('add_prefecture',$reservations->add_prefecture)=='三重県') selected @endif>三重県</option>
+                                <option value="滋賀県" @if(old('add_prefecture',$reservations->add_prefecture)=='滋賀県') selected @endif>滋賀県</option>
+                                <option value="京都府" @if(old('add_prefecture',$reservations->add_prefecture)=='京都府') selected @endif>京都府</option>
+                                <option value="大阪府" @if(old('add_prefecture',$reservations->add_prefecture)=='大阪府') selected @endif>大阪府</option>
+                                <option value="兵庫県" @if(old('add_prefecture',$reservations->add_prefecture)=='兵庫県') selected @endif>兵庫県</option>
+                                <option value="奈良県" @if(old('add_prefecture',$reservations->add_prefecture)=='奈良県') selected @endif>奈良県</option>
+                                <option value="和歌山県" @if(old('add_prefecture',$reservations->add_prefecture)=='和歌山県') selected @endif>和歌山県</option>
+                                <option value="鳥取県" @if(old('add_prefecture',$reservations->add_prefecture)=='鳥取県') selected @endif>鳥取県</option>
+                                <option value="島根県" @if(old('add_prefecture',$reservations->add_prefecture)=='島根県') selected @endif>島根県</option>
+                                <option value="岡山県" @if(old('add_prefecture',$reservations->add_prefecture)=='岡山県') selected @endif>岡山県</option>
+                                <option value="広島県" @if(old('add_prefecture',$reservations->add_prefecture)=='広島県') selected @endif>広島県</option>
+                                <option value="山口県" @if(old('add_prefecture',$reservations->add_prefecture)=='山口県') selected @endif>山口県</option>
+                                <option value="徳島県" @if(old('add_prefecture',$reservations->add_prefecture)=='徳島県') selected @endif>徳島県</option>
+                                <option value="香川県" @if(old('add_prefecture',$reservations->add_prefecture)=='香川県') selected @endif>香川県</option>
+                                <option value="愛媛県" @if(old('add_prefecture',$reservations->add_prefecture)=='愛媛県') selected @endif>愛媛県</option>
+                                <option value="高知県" @if(old('add_prefecture',$reservations->add_prefecture)=='高知県') selected @endif>高知県</option>
+                                <option value="福岡県" @if(old('add_prefecture',$reservations->add_prefecture)=='福岡県') selected @endif>福岡県</option>
+                                <option value="佐賀県" @if(old('add_prefecture',$reservations->add_prefecture)=='佐賀県') selected @endif>佐賀県</option>
+                                <option value="長崎県" @if(old('add_prefecture',$reservations->add_prefecture)=='長崎県') selected @endif>長崎県</option>
+                                <option value="熊本県" @if(old('add_prefecture',$reservations->add_prefecture)=='熊本県') selected @endif>熊本県</option>
+                                <option value="大分県" @if(old('add_prefecture',$reservations->add_prefecture)=='大分県') selected @endif>大分県</option>
+                                <option value="宮崎県" @if(old('add_prefecture',$reservations->add_prefecture)=='宮崎県') selected @endif>宮崎県</option>
+                                <option value="鹿児島県" @if(old('add_prefecture',$reservations->add_prefecture)=='鹿児島県') selected @endif>鹿児島県</option>
+                                <option value="沖縄県" @if(old('add_prefecture',$reservations->add_prefecture)=='沖縄県') selected @endif>沖縄県</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('住所') }}</label>
                         <div class="col-md-6">
-                            <input id="" type="text" class="form-control" name="address" value="">
+                            <input id="" type="text" class="form-control" name="add_address" value="{{ old('add_address',$reservations->add_address) }}" required> 
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"> {{ __('マンション・ビル名') }}</label>
                         <div class="col-md-6">
-                            <input id="" type="text" class="form-control" name="" value="">
+                            <input id="" type="text" class="form-control" name="add_building" value="{{ old('add_building',$reservations->add_building) }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('電話番号') }}</label>
                         <div class="col-md-6">
-                            <input id="" type="text" class="form-control" name="" value="">
+                            <input id="" type="text" class="form-control" name="add_telephone" value="{{ old('add_telephone',$reservations->add_telephone) }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
                         <div class="col-md-3">
-                            <select name="" id="" class="form-control">
-                                <option value="乗車地">乗車地</option>
-                            </select>
+                        <select name="add_boarding" id="" class="form-control">
+                            @foreach($pieces as $piece)
+                                <option value="{{$piece}}" @if(old('add_boarding',$reservations->add_boarding)== $piece) selected @endif>{{$piece}}</option>
+                            @endforeach
+                        </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                         <div class="col-md-3">
-                            <select name="" id="" class="form-control">
-                                <option value="降車地">降車地</option>
+        
+                            <select name="add_drop" id="" class="form-control">
+                                @foreach($drops as $drop)
+                                    <option value="{{$drop}}" @if(old('add_drop',$reservations->add_drop)== $drop) selected @endif>{{$drop}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -276,13 +281,13 @@
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('姓') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                                <input id="" type="text" class="form-control" name="companion_name_last" value="{{ old('companion_name_last',$reservations->companion_name_last) }}" required> 
                             </div>
                         </div>
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('名') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                                 <input id="" type="text" class="form-control" name="companion_name_first" value="{{ old('companion_name_first',$reservations->companion_name_first) }}" required>
                             </div>
                         </div>
                     </div>
@@ -291,50 +296,54 @@
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('セイ') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                                <input id="" type="text" class="form-control" name="companion_kana_last" value="{{ old('companion_kana_last',$reservations->companion_kana_last) }}" required >
                             </div>
                         </div>
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイ') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="" value="">
+                            <input id="" type="text" class="form-control" name="companion_kana_first" value="{{ old('companion_kana_first',$reservations->companion_kana_first) }}" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('年齢') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="text" class="form-control" name="" value="" >
+                            <input id="" type="text" class="form-control" name="companion_age" value="{{ old('companion_age',$reservations->companion_age) }}"  required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('生年月日') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="date" class="form-control" name="" value="">
+                            <input id="" type="date" class="form-control" name="companion_birth" value="{{ old('companion_birth',$reservations->companion_birth) }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('性別') }}</label>
                         <div class="col-md-3">
-                            <select name="" id="" class="form-control">
-                                <option value="男">男</option>
-                                <option value="女">女</option>
+                            <select name="companion_gender" id="" class="form-control">
+                                <option value="0"  @if(old('companion_gender',$reservations->companion_gender)=='0') selected @endif>男</option>
+                                <option value="1" @if(old('companion_gender',$reservations->companion_gender)=='1') selected @endif>女</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
                         <div class="col-md-3">
-                            <select name="" id="" class="form-control">
-                                <option value="乗車地">乗車地</option>
-                            </select>
+                            <select name="companion_boarding" id="" class="form-control">
+                                @foreach($pieces as $piece)
+                                    <option value="{{$piece}}" @if(old('companion_boarding',$reservations->companion_boarding)== $piece) selected @endif>{{$piece}}</option>
+                                @endforeach
+                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                         <div class="col-md-3">
-                            <select name="" id="" class="form-control">
-                                <option value="降車地">降車地</option>
+                             <select name="companion_drop" id="" class="form-control">
+                                @foreach($drops as $drop)
+                                    <option value="{{$drop}}" @if(old('companion_drop',$reservations->companion_drop)== $drop) selected @endif>{{$drop}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -456,9 +465,9 @@ $('.update-price').click(function() {
 });
 
 // 送信ボタン切り分け
-$('.submit').click(function() {
-  $(this).parents('form').attr('action', $(this).data('action'));
-  $(this).parents('form').submit();
+$('.submit').click(function(event) {
+    $(this).parents('form').attr('action', $(this).data('action'));
+    $(this).click();
 });
 $('.submit-send').click(function() {
   var checked = confirm("【確認】送信してよろしいですか？");
