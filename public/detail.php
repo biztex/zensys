@@ -448,7 +448,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                         }
 
                                                                     }
-                                                                
+                                                                }
                                                           
                                                             $count++;
                                                         } else {
