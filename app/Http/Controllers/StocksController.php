@@ -27,14 +27,9 @@ class StocksController extends Controller
         ->orderBy('sort', 'asc')
         ->where('sort', '!=', '')
         ->get();
-        if (!$year) {
-            $year = date('Y');
-        }
-        if (!$month) {
-            $month = date('m');
-        }
+
+       
         
-        $dates = $this->getCalendarDates($year, $month);
         if (!$plan_id) {
             $plan = Plan::where('company_id', $company_id)
             ->orderBy('sort')
@@ -43,6 +38,21 @@ class StocksController extends Controller
             $plan_id = $plan->id;
         }
         $default_plan = Plan::where('id', $plan_id)->first();
+
+
+         if (!$year) {
+            //  $year = date('Y');
+            $year = date('Y' , strtotime($default_plan->start_day));
+
+         }
+         if (!$month) {
+            //  $month = date('m');
+             $month = date('m' , strtotime($default_plan->start_day));
+
+         }
+
+        $dates = $this->getCalendarDates($year, $month);
+
         $priceTypes=PriceType::whereIn('number', 
                function ($query) use($plan_id)
                {

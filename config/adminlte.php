@@ -268,7 +268,7 @@ return [
         ],
         [
             'text' => '販売管理',
-            'url'  => '/client/stocks/' . date('Y') . '/' . date('m'),
+            'url'  => '/client/stocks/',
             'icon' => 'fas fa-fw fa-calendar-plus',
         ],
         [

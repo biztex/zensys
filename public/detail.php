@@ -312,6 +312,8 @@ $stocks_next = json_decode($json_stocks_next,true);
                                             <tr>
                                                 <td colspan="7">
                                                     <?php
+                                                    var_dump($stocks['dates']);
+                                                    exit;
                                                         foreach ($stocks['dates'] as $date_next) {
                                                             $current_date = new DateTime(substr($date_next, 0, 10));
                                                             $y = (int)$current_date->format('Y');
