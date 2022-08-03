@@ -9,9 +9,10 @@
 @section('js')
 <script type="text/javascript" src="{{asset('js/default.js')}}"></script>
 <script>
-      $('#year').val($('#disp-year').text());
-    $('#month').val($('#disp-month').text());
+  
     var planId = $('#submit_select').val();
+    $('#year').val($('#disp-year').text());
+    $('#month').val($('#disp-month').text());
     var price_type_id = $('#submit_select2').val();
     if ($('#month').val() == '12') {
         $('#prev-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) -1 ) + '/' + planId+ '/' + price_type_id);
@@ -24,9 +25,12 @@
         $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) +1 ) + '/' + planId+ '/' + price_type_id);
     }
     // プランセレクトしたらPOST
+    
     $("#submit_select").change(function(){
         let planId = $('#submit_select').val();
-        window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId;
+        let year = $('input#' + planId + '_year').attr('name');
+        let month = $('input#'+ planId+'_month').attr('name');
+        window.location.href = '{{config('app.url')}}client/stocks/' + year + '/' + month + '/' + planId;
     });
     // プランセレクトしたらPOST
     $("#submit_select2").change(function(){
@@ -107,6 +111,11 @@
                               @endforeach
                             </select>
                         </div>
+
+                        @foreach ($plans as $plan)
+                              <input id="{{ $plan->id }}_year" name="{{ date('Y' , strtotime($plan->start_day))}}" type="hidden"></input>
+                              <input id="{{ $plan->id }}_month" name="{{ date('m' , strtotime($plan->start_day))}}" type="hidden"></input>
+                              @endforeach
                         <div class="col-md-2 mt-2">
                             <small><a href="{{config('app.url')}}client/plans/edit/{{ $default_plan->id }}" target=_blank >(プランを別ページで開く)</a></small>
                         </div>
