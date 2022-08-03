@@ -282,12 +282,31 @@
                         @if ($date->dayOfWeek == 0)
                         <tr>
                         @endif
+
+                        @php
+                            $option_count = 0;
+                            foreach ($stocks as $stock) {
+                                if(isset($stock)) {
+                                    if (substr($date, 0 ,10) == $stock->res_date) {
+                                        if ($stock->is_active == '1') {
+                                             $option_count++;
+                                        } else if ($stock->is_active == '0') {
+                                             $option_count++;
+                                        }
+                                    }
+                                }
+                            }
+                          
+                        @endphp
+                          @if ($option_count != 0)
+
                           <input type="hidden" id="day" name="days[]" value="{{ substr($date, 0 ,10) }}">
                           <td
                             @if ($date->month != date('m'))
                             class=""
                             @endif
                           >
+                         
                             <p class="h5" style="margin:0">{{ $date->day }}</p>
                             <hr style="margin:7px 0 7px 0" />
                             <p style="margin:0 0 5px 0"><small>
@@ -480,6 +499,9 @@
                             @endphp
                             </select> -->
                           </td>
+                          @else
+                            <td style="background-color: #777; height:200px"></td>
+                        @endif
                         @if ($date->dayOfWeek == 6)
                         </tr>
                         @endif
