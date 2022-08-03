@@ -509,7 +509,122 @@
                             </select> -->
                           </td>
                           @else
-                            <td style="background-color: #777; height:200px"></td>
+                          <td
+                            @if ($date->month != date('m'))
+                            class=""
+                            @endif
+                          >
+                         
+                            <p class="h5" style="margin:0">{{ $date->day }}</p>
+                            <hr style="margin:7px 0 7px 0" />
+                            <p style="margin:0 0 5px 0"><small>
+
+                            @foreach ($stocks as $stock)
+                                @if (substr($date, 0 ,10) == $stock->res_date)
+                                <select name="rank[]" disabled>
+                                <option value="">ランク</option>
+                                <option value="A" @if($stock->rank=="A") selected @endif>A</option>
+                                <option value="B" @if($stock->rank=="B") selected @endif>B</option>
+                                <option value="C" @if($stock->rank=="C") selected @endif>C</option>
+                                <option value="D" @if($stock->rank=="D") selected @endif>D</option>
+                                <option value="E" @if($stock->rank=="E") selected @endif>E</option>
+                                <option value="F" @if($stock->rank=="F") selected @endif>F</option>
+                                <option value="G" @if($stock->rank=="G") selected @endif>G</option>
+                                <option value="H" @if($stock->rank=="H") selected @endif>H</option>
+                                <option value="I" @if($stock->rank=="I") selected @endif>I</option>
+                                <option value="J" @if($stock->rank=="J") selected @endif>J</option>
+                                <option value="K" @if($stock->rank=="K") selected @endif>K</option>
+                                <option value="L" @if($stock->rank=="L") selected @endif>L</option>
+                                </select>
+                                @break
+                                @endif
+                            @endforeach
+                            @isset($stock)
+                            @if (substr($date, 0 ,10) != $stock->res_date)
+                                <select name="rank[]" disabled>
+                                <option value="">ランク</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                </select>
+                           @endif
+
+                            @else
+                            <select name="rank[]" disabled>
+                                <option value="">ランク</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+                                <option value="H">H</option>
+                                <option value="I">I</option>
+                                <option value="J">J</option>
+                                <option value="K">K</option>
+                                <option value="L">L</option>
+                                </select>
+
+                           @endisset
+                            </p>
+                            <p style="margin:0 0 5px 0"><small>在庫<br>
+                            @foreach ($stocks as $stock)
+                              @isset($stock)
+                              @if (substr($date, 0 ,10) == $stock->res_date)
+                                <input class="text-right" style="width: 50px" name="limit_number[]" value="{{ $stock->limit_number }}" type="text" disabled/>
+                                @break
+                              @endif
+                              @endisset
+                            @endforeach
+                            @isset($stock)
+                            @if (substr($date, 0 ,10) != $stock->res_date)
+                              <input class="text-right" style="width: 50px" name="limit_number[]" value="{{ $default_plan->res_limit_number }}" type="text" disabled/>
+                            @endif
+                            @else
+                              <input class="text-right" style="width: 50px" name="limit_number[]" value="{{ $default_plan->res_limit_number }}" type="text" disabled/>
+                            @endisset
+                              /{{ $default_plan->res_limit_number }}
+                            @if($default_plan->res_limit_flag == 0) 人 @else 件 @endif
+                            </small></p>
+
+
+
+                            <small>販売ステータス</small>
+                            <select class="form-control" name="is_active[]" disabled>
+                            @php
+                            $option_count = 0;
+                            foreach ($stocks as $stock) {
+                                if(isset($stock)) {
+                                    if (substr($date, 0 ,10) == $stock->res_date) {
+                                        if ($stock->is_active == '1') {
+                                             echo'<option value="1" selected>販売</option>';
+                                             echo'<option value="0">売止</option>';
+                                             $option_count++;
+                                        } else if ($stock->is_active == '0') {
+                                             echo'<option value="1">販売</option>';
+                                             echo'<option value="0" selected>売止</option>';
+                                             $option_count++;
+                                        }
+                                    }
+                                }
+                            }
+                            if ($option_count == 0) {
+                                echo'<option value="1">販売</option>';
+                                echo'<option value="0" selected>売止</option>';
+                            }
+                            @endphp
+                            </select>
+                          </td>
                         @endif
                         @if ($date->dayOfWeek == 6)
                         </tr>
