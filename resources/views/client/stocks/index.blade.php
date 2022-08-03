@@ -310,11 +310,7 @@
                           @if ($option_count != 0)
 
                           <input type="hidden" id="day" name="days[]" value="{{ substr($date, 0 ,10) }}">
-                          <td
-                            @if ($date->month != date('m'))
-                            class=""
-                            @endif
-                          >
+                          <td style="background-color: #c0c0c0">
                          
                             <p class="h5" style="margin:0">{{ $date->day }}</p>
                             <hr style="margin:7px 0 7px 0" />
