@@ -217,7 +217,7 @@
                 </div>
 
                 <div class="card-body">
-                <b>期間一括変更　<input type="date" name="start_date" required>～<input type="date" name="end_date" required>
+                <b>期間一括変更　<input type="date" name="start_date">～<input type="date" name="end_date" >
                     を
                     <select name="rank1">
                     <option value="">ランク</option>
