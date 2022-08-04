@@ -114,6 +114,7 @@ class StocksController extends Controller
 
         $plan = Plan::find($id);
 
+
         foreach($request->limit_number as $ln) {
             if ($ln > $plan->res_limit_number) {
                 throw ValidationException::withMessages(['limit_number' => '上限値を超えた在庫数は設定できません']);

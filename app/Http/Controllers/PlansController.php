@@ -467,7 +467,7 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        $plans->res_limit_number = $request->res_limit_number;
+        $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
@@ -2295,7 +2295,7 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        $plans->res_limit_number = $request->res_limit_number;
+        $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
