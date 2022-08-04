@@ -4272,13 +4272,16 @@ ul {
     font-size: 13px;
     margin-bottom: 35px;
 }
+
 .requiredRed {
     color: red;
 }
+
 .helperTextOver {
     text-align: center;
     height: 56px;
 }
+
 .reserveTextarea {
     width: 100%;
     height: 88px;

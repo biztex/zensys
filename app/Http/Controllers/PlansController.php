@@ -764,6 +764,7 @@ class PlansController extends Controller
     public function storeTmp(Request $request)
     {
         ini_set('memory_limit', '256M');
+
         // 画像トリミング処理（forのループ分）
         $image_count = 0;
         for ($i = 1; $i <= 11; $i++) {
@@ -1259,6 +1260,7 @@ class PlansController extends Controller
     {
         ini_set('memory_limit', '256M');
         // 画像トリミング処理（forのループ分）
+
         $image_count = 0;
         for ($i = 1; $i <= 11; $i++) {
             if ($i == 11 && $request->file('file_path11')) {

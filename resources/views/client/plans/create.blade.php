@@ -75,13 +75,15 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> キャッチコピー</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control" name="catchphrase" rows="5" placeholder="※最大100文字まで">{{ old('catchphrase') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control catchphrase" name="catchphrase" rows="5" placeholder="※最大100文字まで" maxlength="100">{{ old('catchphrase') }}</textarea>
+                                <span id="char_count" class="d-block text-lg-right">100/100</span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> プラン説明文</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control" name="description" rows="15" placeholder="※最大1200文字まで">{{ old('description') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control plan_text" name="description" rows="15" placeholder="※最大1200文字まで" maxlength="1200">{{ old('description') }}</textarea>
+                                <span id="plan_char_count" class="d-block text-lg-right">1200/1200</span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -2149,6 +2151,43 @@ $('#road_map').summernote({
       });
 // CKEDITOR.replace( 'road_map1' );
 // CKEDITOR.replace( 'cancel' );
+
+
+let textArea = document.querySelector(".catchphrase");
+let planArea = document.querySelector(".plan_text");
+let characterCounter = document.getElementById("char_count");
+let plan_characterCounter = document.getElementById("plan_char_count");
+const maxNumOfChars = 100;
+const plan_maxNumOfChars = 1200;
+
+const countCharacters = () => {
+    let numOfEnteredChars = textArea.value.length;
+    let counter = maxNumOfChars - numOfEnteredChars;
+    characterCounter.textContent = counter + "/100";
+    if (counter < 0) {
+        characterCounter.style.color = "red";
+    } else if (counter < 20) {
+        characterCounter.style.color = "orange";
+    } else {
+        characterCounter.style.color = "black";
+    }
+};
+const plancountCharacters = () => {
+    let numOfEnteredChars = planArea.value.length;
+    let counter = plan_maxNumOfChars - numOfEnteredChars;
+    plan_characterCounter.textContent = counter + "/1200";
+    if (counter < 0) {
+        plan_characterCounter.style.color = "red";
+    } else if (counter < 20) {
+        plan_characterCounter.style.color = "orange";
+    } else {
+        plan_characterCounter.style.color = "black";
+    }
+};
+
+textArea.addEventListener("input", countCharacters);
+planArea.addEventListener("input", plancountCharacters);
+
 </script>
 
 @stop
