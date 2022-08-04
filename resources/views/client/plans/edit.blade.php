@@ -88,7 +88,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> キャッチコピー</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control catchphrase" name="catchphrase" rows="5" placeholder="※最大100文字まで">{{ old('catchphrase',$plans->catchphrase) }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control catchphrase" name="catchphrase" rows="5" placeholder="※最大100文字まで" maxlength="100">{{ old('catchphrase',$plans->catchphrase) }}</textarea>
                                 <span id="char_count" class="d-block text-lg-right">100/100</span>
 
                             </div>
@@ -96,7 +96,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> プラン説明文</label>
                             <div class="col-md-8">
-                                <textarea id="name" type="textarea" class="form-control plan_text" name="description" rows="15" placeholder="※最大1200文字まで">{{ old('description',$plans->description) }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control plan_text" name="description" rows="15" placeholder="※最大1200文字まで" maxlength="1200">{{ old('description',$plans->description) }}</textarea>
                                 <span id="plan_char_count" class="d-block text-lg-right">1200/1200</span>
                             </div>
                         </div>
