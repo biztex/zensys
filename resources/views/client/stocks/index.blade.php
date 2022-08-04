@@ -38,6 +38,14 @@
         window.location.href = '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + $('#month').val() + '/' + planId+ '/' + price_type_id;
     });
 
+    $(".calendar_rank").each(function(){
+        $(this).css('background-color', $(this).find('option:selected').data('color'))
+
+        $(this).change(function(){
+            $(this).css('background-color', $(this).find('option:selected').data('color'))
+        });
+    })
+
     $("input.day").on('change', function(){
         if($(this).val() == '1') {
             $(this).val(0);
@@ -322,20 +330,20 @@
 
                             @foreach ($stocks as $stock)
                                 @if (substr($date, 0 ,10) == $stock->res_date)
-                                <select name="rank[]">
+                                <select name="rank[]" class="calendar_rank">
                                 <option value="">ランク</option>
-                                <option value="A" @if($stock->rank=="A") selected @endif>A</option>
-                                <option value="B" @if($stock->rank=="B") selected @endif>B</option>
-                                <option value="C" @if($stock->rank=="C") selected @endif>C</option>
-                                <option value="D" @if($stock->rank=="D") selected @endif>D</option>
-                                <option value="E" @if($stock->rank=="E") selected @endif>E</option>
-                                <option value="F" @if($stock->rank=="F") selected @endif>F</option>
-                                <option value="G" @if($stock->rank=="G") selected @endif>G</option>
-                                <option value="H" @if($stock->rank=="H") selected @endif>H</option>
-                                <option value="I" @if($stock->rank=="I") selected @endif>I</option>
-                                <option value="J" @if($stock->rank=="J") selected @endif>J</option>
-                                <option value="K" @if($stock->rank=="K") selected @endif>K</option>
-                                <option value="L" @if($stock->rank=="L") selected @endif>L</option>
+                                <option data-color="#ffeaea" value="A" @if($stock->rank=="A") selected @endif  style="background-color: #ffeaea">A</option>
+                                <option data-color="#ffeaf4" value="B" @if($stock->rank=="B") selected @endif  style="background-color: #ffeaf4">B</option>
+                                <option data-color="#ffeaff" value="C" @if($stock->rank=="C") selected @endif  style="background-color: #ffeaff">C</option>
+                                <option data-color="#f4eaff" value="D" @if($stock->rank=="D") selected @endif  style="background-color: #f4eaff">D</option>
+                                <option data-color="#eaeaff" value="E" @if($stock->rank=="E") selected @endif  style="background-color: #eaeaff">E</option>
+                                <option data-color="#eaf4ff" value="F" @if($stock->rank=="F") selected @endif  style="background-color: #eaf4ff">F</option>
+                                <option data-color="#eaffff" value="G" @if($stock->rank=="G") selected @endif  style="background-color: #eaffff">G</option>
+                                <option data-color="#eafff4" value="H" @if($stock->rank=="H") selected @endif  style="background-color: #eafff4">H</option>
+                                <option data-color="#eaffea" value="I" @if($stock->rank=="I") selected @endif  style="background-color: #eaffea">I</option>
+                                <option data-color="#f4ffea" value="J" @if($stock->rank=="J") selected @endif  style="background-color: #f4ffea">J</option>
+                                <option data-color="#ffffea" value="K" @if($stock->rank=="K") selected @endif  style="background-color: #ffffea">K</option>
+                                <option data-color="#fff4ea" value="L" @if($stock->rank=="L") selected @endif  style="background-color: #fff4ea">L</option>
                                 </select>
                                 @break
                                 @endif
