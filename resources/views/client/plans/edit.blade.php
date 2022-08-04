@@ -1206,9 +1206,9 @@ if (counter < 0) {
     characterCounter.style.color = "black";
 }
 
-let numOfEnteredChars = planArea.value.length;
-let counter = plan_maxNumOfChars - numOfEnteredChars;
-plan_characterCounter.textContent = counter + "/1200";
+let plan_numOfEnteredChars = planArea.value.length;
+let plan_counter = plan_maxNumOfChars - plan_numOfEnteredChars;
+plan_characterCounter.textContent = plan_counter + "/1200";
 if (counter < 0) {
     plan_characterCounter.style.color = "red";
 } else if (counter < 20) {
