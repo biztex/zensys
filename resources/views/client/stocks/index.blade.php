@@ -242,7 +242,7 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-                    <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num" value=""></label>
+                    <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num" value="" @if($default_plan->res_type == 2) disabled @endif></label>
                     <input type="button" value="更新する" onclick="goSubmit(1)">
                    
 
@@ -274,7 +274,7 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
-                    <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num2" value=""></label>
+                    <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num2" value="" @if($default_plan->res_type == 2) disabled @endif></label>
                     <input type="button" value="更新する" onclick="goSubmit(2)">
                     <br><br>
                     <div class="row mt-4">
@@ -386,6 +386,7 @@
 
                            @endisset
                             </p>
+                            @if($default_plan->res_type != 2)
                             <p style="margin:0 0 5px 0"><small>在庫<br>
                             @foreach ($stocks as $stock)
                               @isset($stock)
@@ -405,7 +406,7 @@
                               /{{ $default_plan->res_limit_number }}
                             @if($default_plan->res_limit_flag == 0) 人 @else 件 @endif
                             </small></p>
-
+                            @endif
                              <!-- <p style="margin:0 0 5px 0"><small>料金<br>
                             @foreach ($stocks as $stock)
                               @isset($stock)
@@ -581,6 +582,7 @@
 
                            @endisset
                             </p>
+                            @if($default_plan->res_type != 2)
                             <p style="margin:0 0 5px 0"><small>在庫<br>
                             @foreach ($stocks as $stock)
                               @isset($stock)
@@ -600,6 +602,7 @@
                               /{{ $default_plan->res_limit_number }}
                             @if($default_plan->res_limit_flag == 0) 人 @else 件 @endif
                             </small></p>
+                            @endif
 
 
 

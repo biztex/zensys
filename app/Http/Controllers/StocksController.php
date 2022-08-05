@@ -114,36 +114,64 @@ class StocksController extends Controller
 
         $plan = Plan::find($id);
 
-
-        foreach($request->limit_number as $ln) {
-            if ($ln > $plan->res_limit_number) {
-                throw ValidationException::withMessages(['limit_number' => '上限値を超えた在庫数は設定できません']);
-            }
-        }
-        $stocks = $plan->stocks;
-        foreach ($request->days as $i => $day) {
-
-            foreach ($stocks as $stock) {
-                if ($day == $stock->res_date && $request->price_type_id == $stock->price_type_id) {
-                    Stock::where('id', $stock->id)->update([
-                        'is_active'     => $request->is_active[$i],
-                        'rank'          => $request->rank[$i],
-                        'limit_number'  => $request->limit_number[$i]
-                    ]);
+        if($plan->res_type != 2){
+            foreach($request->limit_number as $ln) {
+                if ($ln > $plan->res_limit_number) {
+                    throw ValidationException::withMessages(['limit_number' => '上限値を超えた在庫数は設定できません']);
                 }
             }
-            $stock_result = Stock::where('res_date', $day)->where('plan_id', $plan->id)->get();
-            if (count($stock_result) == 0){
-                $new_stock = new Stock();
-                $new_stock->plan_id = $plan->id;
-                $new_stock->price_type_id = $request->price_type_id;
-                $new_stock->res_date = $day;
-                $new_stock->is_active = $request->is_active[$i];
-                $new_stock->rank = $request->rank[$i];
-                $new_stock->limit_number = $request->limit_number[$i];
-                $new_stock->save();
+            $stocks = $plan->stocks;
+
+            foreach ($request->days as $i => $day) {
+                foreach ($stocks as $stock) {
+                    if ($day == $stock->res_date && $request->price_type_id == $stock->price_type_id) {
+
+                        Stock::where('id', $stock->id)->update([
+                            'is_active'     => $request->is_active[$i],
+                            'rank'          => $request->rank[$i],
+                            'limit_number'  => $request->limit_number[$i]
+                        ]);
+                    }
+                }
+                $stock_result = Stock::where('res_date', $day)->where('plan_id', $plan->id)->get();
+                if (count($stock_result) == 0){
+                    $new_stock = new Stock();
+                    $new_stock->plan_id = $plan->id;
+                    $new_stock->price_type_id = $request->price_type_id;
+                    $new_stock->res_date = $day;
+                    $new_stock->is_active = $request->is_active[$i];
+                    $new_stock->rank = $request->rank[$i];
+                    $new_stock->limit_number = $request->limit_number[$i];
+                    $new_stock->save();
+                }
             }
         }
+        else{
+            $stocks = $plan->stocks;
+
+            foreach ($request->days as $i => $day) {
+                foreach ($stocks as $stock) {
+                    if ($day == $stock->res_date && $request->price_type_id == $stock->price_type_id) {
+
+                        Stock::where('id', $stock->id)->update([
+                            'is_active'     => $request->is_active[$i],
+                            'rank'          => $request->rank[$i],
+                        ]);
+                    }
+                }
+                $stock_result = Stock::where('res_date', $day)->where('plan_id', $plan->id)->get();
+                if (count($stock_result) == 0){
+                    $new_stock = new Stock();
+                    $new_stock->plan_id = $plan->id;
+                    $new_stock->price_type_id = $request->price_type_id;
+                    $new_stock->res_date = $day;
+                    $new_stock->is_active = $request->is_active[$i];
+                    $new_stock->rank = $request->rank[$i];
+                    $new_stock->save();
+                }
+            }
+        }
+
         //値段
         $priceTypes = PriceType::whereIn('number', 
                function ($query) use($plan)

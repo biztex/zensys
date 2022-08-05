@@ -374,7 +374,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                     foreach ($tmp_arr as  $al) {
                                                                         if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
                                                                             echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                                            echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
+                                                                            echo '<p class="datePrice">'.$stock["rank"];
 
 
                                                                             if($price[strtolower($al)."_1"]){
@@ -382,6 +382,13 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                             }
                                                                             if($price[strtolower($al)."_2"]){
                                                                                 echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
+                                                                            }
+                                                                            if($stock["limit_number"] > 3){
+                                                                                echo '<br>○';
+                                                                            }
+                                                                            else{
+                                                                                echo '<br>△';
+
                                                                             }
                                                                             echo '</p>';
                                                                             echo '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">';
@@ -392,9 +399,9 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                 
                                                             //	echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>○</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
                                                             } else if ($stock["limit_number"] == 0) {
-                                                            //	echo '×';
+                                                            	echo '×';
                                                             } else {
-                                                            //	echo '-';
+                                                            	echo '-';
                                                             }
                                                             $count++;
                                                         } else if ($stock["res_type"] == 1 && $stock["res_date"] >= date("Y-m-d")) {
@@ -432,7 +439,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                 foreach ($tmp_arr as  $al) {
                                                                     if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
                                                                         echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
-                                                                        echo '<p class="datePrice">'.$stock["rank"].'<br>残数：'.$stock["limit_number"] .'';
+                                                                        echo '<p class="datePrice">'.$stock["rank"];
 
 
                                                                         if($price[strtolower($al)."_1"]){
@@ -441,6 +448,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                                         if($price[strtolower($al)."_2"]){
                                                                             echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
                                                                         }
+                                                                        echo '<br> □ ';
                                                                         echo '</p>';
                                                                         echo '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">';
                                                                     }
