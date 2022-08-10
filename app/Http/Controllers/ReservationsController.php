@@ -1199,7 +1199,8 @@ class ReservationsController extends Controller
                     'bank'          => $bank,
                     'payment'       => '現地払い',
                     'prices'        => $prices,
-                    'priceName'     => $priceName
+                    'priceName'     => $priceName,
+                    'type_id'   => $typeid
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
@@ -1241,7 +1242,8 @@ class ReservationsController extends Controller
                     'bank'          => $bank,
                     'payment'       => '事前払い',
                     'prices'        => $prices,
-                    'priceName'     => $priceName
+                    'priceName'     => $priceName,
+                    'type_id'   => $typeid
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
@@ -1257,7 +1259,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cvsemail'],
                 [
                     'url_cvs' =>
-                        'https://153.127.31.62/zenryo/pay?prm=' .
+                        'https://zenryo.zenryo-ec.info/pay?prm=' .
                         encrypt($param_cvs),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1292,7 +1294,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cardemail'],
                 [
                     'url_card' =>
-                        'https://153.127.31.62/zenryo/pay?prm=' .
+                        'https://zenryo.zenryo-ec.info/pay?prm=' .
                         encrypt($param_card),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1951,7 +1953,7 @@ class ReservationsController extends Controller
                 )
             );
         } else {
-            return redirect('https://153.127.31.62/zenryo/list.php');
+            return redirect('https://zenryo.zenryo-ec.info/list.php');
         }
     }
 
@@ -2114,19 +2116,17 @@ class ReservationsController extends Controller
          * 設定ファイルのパスを手動で指定する場合は以下のようにパスを指定してTGMDK_Configクラスのインスタンス生成をしておく
          * TGMDK_Config::getInstance("/home/test/laravel_sample/config/3GPSMDK.properties");
          */
-        TGMDK_Config::getInstance(
-            '/var/www/blue-tourism-hokkaido/local_packages/veritrans-tgmdk/src/tgMdk/3GPSMDK.properties'
-        );
+        TGMDK_Config::getInstance();
         $transaction = new TGMDK_Transaction();
         //$response_data = $transaction->execute($request_data);
 
         /*
          * マーチャントIDとマーチャント認証鍵を動的に設定する場合はexecuteメソッドの第2引数に以下のようにセットする
          */
-        $props['merchant_ccid'] = 'A100000800000001100002cc';
+        /*$props['merchant_ccid'] = 'A100000800000001100002cc';
         $props['merchant_secret_key'] =
-            '5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9';
-        $response_data = $transaction->execute($request_data, $props);
+            '5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9';*/
+        $response_data = $transaction->execute($request_data);
         if ($response_data instanceof CvsCancelResponseDto) {
             $mstatus = $response_data->getMstatus();
             // 予約者へメール通知
