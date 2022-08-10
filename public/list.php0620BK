@@ -11,7 +11,7 @@
     <div class="inner">
         <div class="flex-container-plans">
         <?php
-        $url = "https://zenryo.zenryo-ec.info/api/plans/json/0";
+        $url = "http://153.127.31.62/zenryo/public/api/plans/json/0";
         $json = file_get_contents($url);
         $plans = json_decode($json,true);
 
