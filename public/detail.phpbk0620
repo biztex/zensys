@@ -2,7 +2,7 @@
 if ($_GET["plan_id"]) {
     $plan_id = $_GET["plan_id"];
 }
-$url = "http://153.127.31.62/zenryo/public/api/plan/json/" . $plan_id;
+$url = "https://zenryo.zenryo-ec.info//api/plan/json/" . $plan_id;
 $array = file_get_contents($url);
 $plan = json_decode($array,true);
 $plan_json = json_encode($array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
@@ -23,10 +23,10 @@ if ($_GET["year"] && $_GET["month"]) {
 $next_y = $next_m_date->format('Y');
 $next_m = $next_m_date->format('m');
 
-$url_stocks = "http://153.127.31.62/zenryo/public/api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id;
+$url_stocks = "https://zenryo.zenryo-ec.info//api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id;
 $json_stocks = file_get_contents($url_stocks);
 $stocks = json_decode($json_stocks,true);
-$url_stocks_next = "http://153.127.31.62/zenryo/public/api/stocks/json/" . $next_y . '/' . $next_m . '/' . $plan_id;
+$url_stocks_next = "https://zenryo.zenryo-ec.info//api/stocks/json/" . $next_y . '/' . $next_m . '/' . $plan_id;
 $json_stocks_next = file_get_contents($url_stocks_next);
 $stocks_next = json_decode($json_stocks_next,true);
 ?>
@@ -34,15 +34,15 @@ $stocks_next = json_decode($json_stocks_next,true);
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>詳細 | ZENRYO EC</title>
-<link rel="stylesheet" href="http://153.127.31.62/zenryo/public/css/reset.css">
+<link rel="stylesheet" href="https://zenryo.zenryo-ec.info//css/reset.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css">
-<link rel="stylesheet" href="http://153.127.31.62/zenryo/public/css/template.css">
+<link rel="stylesheet" href="https://zenryo.zenryo-ec.info//css/template.css">
 
-<link rel='stylesheet' id='astra-theme-css-css'  href='http://153.127.31.62/zenryo/public/base.css' type='text/css' media='all' />
+<link rel='stylesheet' id='astra-theme-css-css'  href='https://zenryo.zenryo-ec.info//base.css' type='text/css' media='all' />
 <style id='astra-theme-css-inline-css' type='text/css'>
 html{font-size:93.75%;}a,.page-title{color:#0274be;}a:hover,a:focus{color:#3a3a3a;}blockquote{border-color:rgba(2,116,190,0.05);}.site-title{font-size:35px;font-size:2.33333333333rem;}#masthead .site-logo-img .custom-logo-link img{max-width:600px;}.astra-logo-svg{width:600px;}.ast-archive-description .ast-archive-title{font-size:40px;font-size:2.66666666667rem;}.site-header .site-description{font-size:15px;font-size:1rem;}.entry-title{font-size:30px;font-size:2rem;}.comment-reply-title{font-size:24px;font-size:1.6rem;}.ast-comment-list #cancel-comment-reply-link{font-size:15px;font-size:1rem;}h1,.entry-content h1,.entry-content h1 a{font-size:48px;font-size:3.2rem;}h2,.entry-content h2,.entry-content h2 a{font-size:42px;font-size:2.8rem;}h3,.entry-content h3,.entry-content h3 a{font-size:30px;font-size:2rem;}h4,.entry-content h4,.entry-content h4 a{font-size:20px;font-size:1.33333333333rem;}h5,.entry-content h5,.entry-content h5 a{font-size:18px;font-size:1.2rem;}h6,.entry-content h6,.entry-content h6 a{font-size:15px;font-size:1rem;}.ast-single-post .entry-title,.page-title{font-size:30px;font-size:2rem;}#secondary,#secondary button,#secondary input,#secondary select,#secondary textarea{font-size:15px;font-size:1rem;}::selection{background-color:#00b8c9;color:#000000;}body,h1,.entry-title a,.entry-content h1,.entry-content h1 a,h2,.entry-content h2,.entry-content h2 a,h3,.entry-content h3,.entry-content h3 a,h4,.entry-content h4,.entry-content h4 a,h5,.entry-content h5,.entry-content h5 a,h6,.entry-content h6,.entry-content h6 a{color:#3a3a3a;}.tagcloud a:hover,.tagcloud a:focus,.tagcloud a.current-item{color:#ffffff;border-color:#0274be;background-color:#0274be;}.main-header-menu a,.ast-header-custom-item a{color:#3a3a3a;}.main-header-menu li:hover > a,.main-header-menu li:hover > .ast-menu-toggle,.main-header-menu .ast-masthead-custom-menu-items a:hover,.main-header-menu li.focus > a,.main-header-menu li.focus > .ast-menu-toggle,.main-header-menu .current-menu-item > a,.main-header-menu .current-menu-ancestor > a,.main-header-menu .current_page_item > a,.main-header-menu .current-menu-item > .ast-menu-toggle,.main-header-menu .current-menu-ancestor > .ast-menu-toggle,.main-header-menu .current_page_item > .ast-menu-toggle{color:#0274be;}input:focus,input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="reset"]:focus,input[type="search"]:focus,textarea:focus{border-color:#0274be;}input[type="radio"]:checked,input[type=reset],input[type="checkbox"]:checked,input[type="checkbox"]:hover:checked,input[type="checkbox"]:focus:checked,input[type=range]::-webkit-slider-thumb{border-color:#0274be;background-color:#0274be;box-shadow:none;}.site-footer a:hover + .post-count,.site-footer a:focus + .post-count{background:#0274be;border-color:#0274be;}.ast-small-footer > .ast-footer-overlay{background-color:#00b8c9;}.ast-small-footer a:hover{color:#ffc300;}.footer-adv-overlay{background-color:#3a9df9;}.ast-comment-meta{line-height:1.666666667;font-size:12px;font-size:0.8rem;}.single .nav-links .nav-previous,.single .nav-links .nav-next,.single .ast-author-details .author-title,.ast-comment-meta{color:#0274be;}.menu-toggle,button,.ast-button,.button,input#submit,input[type="button"],input[type="submit"],input[type="reset"]{border-radius:2px;padding:10px 40px;color:#000000;border-color:#00b8c9;background-color:#00b8c9;}button:focus,.menu-toggle:hover,button:hover,.ast-button:hover,.button:hover,input[type=reset]:hover,input[type=reset]:focus,input#submit:hover,input#submit:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus{color:#ffc300;border-color:#3a3a3a;background-color:#3a3a3a;}.search-submit,.search-submit:hover,.search-submit:focus{color:#ffffff;background-color:#0274be;}.entry-meta,.entry-meta *{line-height:1.45;color:#0274be;}.entry-meta a:hover,.entry-meta a:hover *,.entry-meta a:focus,.entry-meta a:focus *{color:#3a3a3a;}blockquote,blockquote a{color:#000000;}.ast-404-layout-1 .ast-404-text{font-size:200px;font-size:13.3333333333rem;}.widget-title{font-size:21px;font-size:1.4rem;color:#3a3a3a;}#cat option,.secondary .calendar_wrap thead a,.secondary .calendar_wrap thead a:visited{color:#0274be;}.secondary .calendar_wrap #today,.ast-progress-val span{background:#0274be;}.secondary a:hover + .post-count,.secondary a:focus + .post-count{background:#0274be;border-color:#0274be;}.calendar_wrap #today > a{color:#ffffff;}.ast-pagination a,.page-links .page-link,.single .post-navigation a{color:#0274be;}.ast-pagination a:hover,.ast-pagination a:focus,.ast-pagination > span:hover:not(.dots),.ast-pagination > span.current,.page-links > .page-link,.page-links .page-link:hover,.post-navigation a:hover{color:#3a3a3a;}@media (min-width:545px){.ast-page-builder-template .comments-area,.single.ast-page-builder-template .entry-header,.single.ast-page-builder-template .post-navigation{max-width:1240px;margin-left:auto;margin-right:auto;}}@media (max-width:768px){.ast-archive-description .ast-archive-title{font-size:40px;}.entry-title{font-size:30px;}h1,.entry-content h1,.entry-content h1 a{font-size:30px;}h2,.entry-content h2,.entry-content h2 a{font-size:25px;}h3,.entry-content h3,.entry-content h3 a{font-size:20px;}.ast-single-post .entry-title,.page-title{font-size:30px;}}@media (max-width:544px){.ast-archive-description .ast-archive-title{font-size:40px;}.entry-title{font-size:30px;}h1,.entry-content h1,.entry-content h1 a{font-size:30px;}h2,.entry-content h2,.entry-content h2 a{font-size:25px;}h3,.entry-content h3,.entry-content h3 a{font-size:20px;}.ast-single-post .entry-title,.page-title{font-size:30px;}}@media (max-width:768px){html{font-size:85.5%;}}@media (max-width:544px){html{font-size:85.5%;}}@media (min-width:769px){.ast-container{max-width:1240px;}}@font-face {}@media (max-width:920px){.ast-404-layout-1 .ast-404-text{font-size:100px;font-size:6.66666666667rem;}}
 .ast-header-break-point .site-header {border-bottom-width:0;border-bottom-color:;}@media (min-width: 769px) {.main-header-bar {border-bottom-width:0;border-bottom-color:;}}
@@ -128,7 +128,7 @@ html{font-size:93.75%;}a,.page-title{color:#0274be;}a:hover,a:focus{color:#3a3a3
 </head>
 
 <body>
-<div class="header"><a href="list.php"><img src ="http://153.127.31.62/zenryo/public/img/logo_login.png"></a></div>
+<div class="header"><a href="list.php"><img src ="https://zenryo.zenryo-ec.info//img/logo_login.png"></a></div>
 <div class="container-plan">
 	<div class="title">
 		<span><?=$plan[0][name]?></span>
@@ -174,18 +174,18 @@ html{font-size:93.75%;}a,.page-title{color:#0274be;}a:hover,a:focus{color:#3a3a3
     <div class="catchphrase"><span><?=$plan[0][catchphrase]?></span></div>
 	<div class="picture">
         <ul class="slider thumb-item">
-            <?php if($plan[0][file_path1]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path1]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path2]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path2]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path3]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path3]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path4]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path4]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path5]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path5]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path1]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path1]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path2]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path2]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path3]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path3]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path4]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path4]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path5]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path5]?>" alt=""></li><?php } ?>
         </ul>
         <ul class="slider thumb-item-nav">
-            <?php if($plan[0][file_path1]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path1]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path2]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path2]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path3]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path3]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path4]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path4]?>" alt=""></li><?php } ?>
-            <?php if($plan[0][file_path5]){ ?><li><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][file_path5]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path1]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path1]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path2]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path2]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path3]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path3]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path4]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path4]?>" alt=""></li><?php } ?>
+            <?php if($plan[0][file_path5]){ ?><li><img src="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][file_path5]?>" alt=""></li><?php } ?>
         </ul>
 	</div>
 	<div class="calendar">
@@ -454,7 +454,7 @@ html{font-size:93.75%;}a,.page-title{color:#0274be;}a:hover,a:focus{color:#3a3a3
 
                     <?php if($plan[0][url_path]){ ?>
                         <tr>
-                      <th>旅行条件書</th><td>申込み・問合せの前に<a href="http://153.127.31.62/zenryo/public/uploads/<?=$plan[0][url_path]?>" target="_blank"> 旅行条件書</a>を必ずご確認ください。</td>
+                      <th>旅行条件書</th><td>申込み・問合せの前に<a href="https://zenryo.zenryo-ec.info//uploads/<?=$plan[0][url_path]?>" target="_blank"> 旅行条件書</a>を必ずご確認ください。</td>
                     </tr>
     
                                    
@@ -556,7 +556,7 @@ $(function() {
         date.setMonth(date.getMonth() - 2); // ここで1ヶ月前をセット
         let prevMonthYear = date.getFullYear();
         let prevMonth = date.getMonth() + 1;
-        location.href = 'http://153.127.31.62/zenryo/public/detail.php/?page_id=2622&year=' + prevMonthYear + '&month=' + prevMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = 'https://zenryo.zenryo-ec.info//detail.php/?page_id=2622&year=' + prevMonthYear + '&month=' + prevMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
     $('.next-month').click(function () {
         let year = "<?= $current_y ?>",
@@ -566,7 +566,7 @@ $(function() {
         date.setMonth(date.getMonth() + 1); // ここで1ヶ月後をセット
         let nextMonthYear = date.getFullYear();
         let nextMonth = date.getMonth();
-        location.href = 'http://153.127.31.62/zenryo/public/detail.php/?page_id=2622&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = 'https://zenryo.zenryo-ec.info//detail.php/?page_id=2622&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
 });
 
@@ -650,7 +650,7 @@ $('.reserve-button').click(function () {
     } else {
         resType = 1;
     }
-	open( "http://153.127.31.62/zenryo/public/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType, "_blank" ) ;
+	open( "https://zenryo.zenryo-ec.info//reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType, "_blank" ) ;
 });
 
 </script>
