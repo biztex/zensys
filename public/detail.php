@@ -445,7 +445,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                             }
                                                             $count++;
                                                         } else if ($stock["res_type"] == 1) {
-                                                            echo '<td><p class="dayP">' . $d . '</p>';
+                                                            echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
                                                             echo '<p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>';
                                                             if ($stock["limit_number"] > 0) {
                                                                 foreach ($prices as  $price) {
@@ -474,7 +474,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                             }
                                                             $count++;
                                                         } else if ($stock["res_type"] == 2) {
-                                                            echo '<td><p class="dayP">' . $d . '</p>';
+                                                            echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
                                                             foreach ($prices as  $price) {
                                                                 foreach ($tmp_arr as  $al) {
                                                                     if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
