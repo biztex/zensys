@@ -6,23 +6,23 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info//assets/img/favicon2_2.ico" />
+    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info/assets/img/favicon2_2.ico" />
 
     <!-- css -->
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info//libs/slick/slick.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info//libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info//assets/css/theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info//assets/css/add.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
 
     <!-- javascript -->
-    <script src="https://zenryo.zenryo-ec.info//libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
     <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 </head>
 
 <body>
     <header class="page-header">
         <div class="header-inner">
-            <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info//assets/img/logo3.png" alt="" /></a>
+            <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
             <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
             <div class="nav-wrapper">
                 <ul class="nav">
@@ -650,7 +650,7 @@
                                 <p><b>@if($plan->notice)
                                     <a href="{{$plan->notice}}" target="_blank">「旅行条件書」</a>
                                     @elseif($plan->file_path11)
-                                    <a href="https://zenryo.zenryo-ec.info//uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
+                                    <a href="https://zenryo.zenryo-ec.info/uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
                                     @endif
                                     「注意事項」
                                     <a href="{{$companies[0]->url2}}" target="_blank">「個人情報の取扱に関する基本方針」</a>を確認しました</b></p>
@@ -676,7 +676,7 @@
             <div class="footer-top">
                 <div class="container">
                     <p class="syamei_footer">長野電鉄株式会社</p>
-                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info//assets/img/logo3.png" alt="" /></a>
+                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
                         <p class="post">〒380-0823</p>
@@ -716,6 +716,6 @@
     </footer>
 
     <script src="libs/slick/slick.min.js"></script>
-    <script src="https://zenryo.zenryo-ec.info//assets/js/theme.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
 </body>
 </html>

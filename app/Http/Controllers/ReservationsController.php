@@ -1259,7 +1259,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cvsemail'],
                 [
                     'url_cvs' =>
-                        'https://zenryo.zenryo-ec.info//pay?prm=' .
+                        'https://zenryo.zenryo-ec.info/pay?prm=' .
                         encrypt($param_cvs),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1294,7 +1294,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cardemail'],
                 [
                     'url_card' =>
-                        'https://zenryo.zenryo-ec.info//pay?prm=' .
+                        'https://zenryo.zenryo-ec.info/pay?prm=' .
                         encrypt($param_card),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1953,7 +1953,7 @@ class ReservationsController extends Controller
                 )
             );
         } else {
-            return redirect('https://zenryo.zenryo-ec.info//list.php');
+            return redirect('https://zenryo.zenryo-ec.info/list.php');
         }
     }
 
