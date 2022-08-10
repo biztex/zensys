@@ -72,7 +72,7 @@
                     $json = file_get_contents($url);
                     $plans = json_decode($json,true);
 
-                     var_dump($url);
+                     var_dump($plans);
                      exit;
                     $j = 0;
 
