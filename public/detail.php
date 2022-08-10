@@ -2,7 +2,7 @@
 if ($_GET["plan_id"]) {
     $plan_id = $_GET["plan_id"];
 }
-$url = "http://153.127.31.62/zenryo/public/api/plan/json/" . $plan_id;
+$url = "https://zenryo.zenryo-ec.info/api/plan/json/" . $plan_id;
 $array = file_get_contents($url);
 $plan = json_decode($array,true);
 $plan = $plan[0];
@@ -29,7 +29,7 @@ for($k=0; $k<count($plan["prices"]); $k++){
 $plan_json = json_encode($array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 $plan_json = str_replace('¥u0022', '¥¥¥"', $plan_json);
 $plan_json = str_replace('"', '', $plan_json);
-$url = "http://153.127.31.62/zenryo/public/api/roadMap/json/" . $plan_id;
+$url = "https://zenryo.zenryo-ec.info/api/roadMap/json/" . $plan_id;
 $array = file_get_contents($url);
 $roadmaps = json_decode($array,true);
 
@@ -39,12 +39,12 @@ $roadmap_json = str_replace('"', '', $roadmap_json);
 
 
 
-$url = "http://153.127.31.62/zenryo/public/api/price/json/" . $plan_id;
+$url = "https://zenryo.zenryo-ec.info/api/price/json/" . $plan_id;
 $array = file_get_contents($url);
 $prices = json_decode($array,true);
 
 
-$url =  "http://153.127.31.62/zenryo/public/api/company/json";
+$url =  "https://zenryo.zenryo-ec.info/api/company/json";
 $company_array = file_get_contents($url);
 $companies = json_decode($company_array, true);
 
@@ -67,10 +67,10 @@ if ($_GET["year"] && $_GET["month"]) {
 $next_y = $next_m_date->format('Y');
 $next_m = $next_m_date->format('m');
 
-$url_stocks = "http://153.127.31.62/zenryo/public/api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id.'/'.$priceType ;
+$url_stocks = "https://zenryo.zenryo-ec.info/api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id.'/'.$priceType ;
 $json_stocks = file_get_contents($url_stocks);
 $stocks = json_decode($json_stocks,true);
-$url_stocks_next = "http://153.127.31.62/zenryo/public/api/stocks/json/" . $next_y . '/' . $next_m . '/' . $plan_id.'/'.$priceType;
+$url_stocks_next = "https://zenryo.zenryo-ec.info/api/stocks/json/" . $next_y . '/' . $next_m . '/' . $plan_id.'/'.$priceType;
 $json_stocks_next = file_get_contents($url_stocks_next);
 $stocks_next = json_decode($json_stocks_next,true);
 ?>
@@ -82,23 +82,23 @@ $stocks_next = json_decode($json_stocks_next,true);
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="http://153.127.31.62/zenryo/public/assets/img/favicon2_2.ico" />
+    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info/assets/img/favicon2_2.ico" />
     <title><?=htmlspecialchars($plan["name"]) ?></title>
     <!-- css -->
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/libs/slick/slick.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/assets/css/theme.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/assets/css/add.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/assets/css/print.css" media="print">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/print.css" media="print">
 
     <!-- javascript -->
-    <script src="http://153.127.31.62/zenryo/public/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
     <header class="page-header">
         <div class="header-inner">
-            <a href="/" class="logo"><img src="http://153.127.31.62/zenryo/public/assets/img/logo3.png" alt="" /></a>
+            <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
             <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
             <div class="nav-wrapper">
                 <ul class="nav">
@@ -123,26 +123,26 @@ $stocks_next = json_decode($json_stocks_next,true);
                             <div class="listItemInfo">
                                 <div class="rightP">
                                     <div class="dtFor">
-                                        <div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
-                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path2"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path3"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path4"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
+                                        <div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
+                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path4"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
                                     </div>
                                     <div class="dtNav">
-                                    <div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
-                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path2"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path3"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path4"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
+                                    <div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
+                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path4"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
                                     </div>
                                 </div>
                                 <div class="leftP">
@@ -603,7 +603,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                 <p>お申込みの際には、必ず<b>
                                                     <?php if($plan["file_path11"] != null)
                                                         {?>
-                                                        <a href="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path11"]?>" target="_blank">
+                                                        <a href="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path11"]?>" target="_blank">
                                                     <?php }elseif($plan["notice"] != null)
                                                         {?>
                                                         <a href="<?=$plan["notice"]?>" target="_blank">
@@ -644,7 +644,7 @@ $stocks_next = json_decode($json_stocks_next,true);
             <div class="footer-top">
                 <div class="container">
                     <p class="syamei_footer">長野電鉄株式会社</p>
-                    <a href="/" class="logo syamei_footer_logo"><img src="http://153.127.31.62/zenryo/public/assets/img/logo3.png" alt="" /></a>
+                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
                         <p class="post">〒380-0823</p>
@@ -683,8 +683,8 @@ $stocks_next = json_decode($json_stocks_next,true);
         </div>
     </footer>
 
-    <script src="http://153.127.31.62/zenryo/public/libs/slick/slick.min.js"></script>
-    <script src="http://153.127.31.62/zenryo/public/assets/js/theme.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
 
     <script src='https://maps.google.com/maps/api/js?key=AIzaSyCG9SfPt8adGSdlgWkq8jdbt64mYaPRkaM' type="text/javascript"></script>
 <script>
@@ -765,7 +765,7 @@ $(function() {
         date.setMonth(date.getMonth() - 2); // ここで1ヶ月前をセット
         let prevMonthYear = date.getFullYear();
         let prevMonth = date.getMonth() + 1;
-        location.href = 'http://153.127.31.62/zenryo/public/detail.php/?plan_id=' + planId + '&year=' + prevMonthYear + '&month=' + prevMonth + '#anchor-calendar';
+        location.href = 'https://zenryo.zenryo-ec.info/detail.php/?plan_id=' + planId + '&year=' + prevMonthYear + '&month=' + prevMonth + '#anchor-calendar';
     });
     $('.next-month').click(function () {
         let year = "<?= $current_y ?>",
@@ -775,7 +775,7 @@ $(function() {
         date.setMonth(date.getMonth() + 1); // ここで1ヶ月後をセット
         let nextMonthYear = date.getFullYear();
         let nextMonth = date.getMonth();
-        location.href = 'http://153.127.31.62/zenryo/public/detail.php/?plan_id=' + planId + '&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = 'https://zenryo.zenryo-ec.info/detail.php/?plan_id=' + planId + '&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
 });
 
@@ -878,7 +878,7 @@ $('.reserve-button').click(function () {
         }
         price_type_id = $('select[name="price_type_id"]').val();
 	// open( "http://localhost:8000/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id ,+  "_blank" ) ;
-	open( "http://153.127.31.62/zenryo/public/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id ,+  "_blank" ) ;
+	open( "https://zenryo.zenryo-ec.info/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id ,+  "_blank" ) ;
 });
 
 </script>

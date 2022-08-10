@@ -10,13 +10,13 @@
     <link rel="shortcut icon" href="assets/img/favicon2_2.ico" />
 
     <!-- css -->
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/libs/slick/slick.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/assets/css/theme.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/assets/css/add.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
 
     <!-- javascript -->
-    <script src="http://153.127.31.62/zenryo/public/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
@@ -105,7 +105,7 @@
         </div>
     </footer>
 
-    <script src="http://153.127.31.62/zenryo/public/libs/slick/slick.min.js"></script>
-    <script src="http://153.127.31.62/zenryo/public/assets/js/theme.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
 </body>
 </html>

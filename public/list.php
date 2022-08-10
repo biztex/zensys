@@ -6,22 +6,22 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="http://153.127.31.62/zenryo/public/assets/img/favicon2_2.ico" />
+    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info/assets/img/favicon2_2.ico" />
 
     <!-- css -->
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/libs/slick/slick.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/assets/css/theme.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/assets/css/add.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
 
     <!-- javascript -->
-    <script src="http://153.127.31.62/zenryo/public/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
     <header class="page-header">
         <div class="header-inner">
-            <a href="/" class="logo"><img src="http://153.127.31.62/zenryo/public/assets/img/logo3.png" alt="" /></a>
+            <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
             <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
             <div class="nav-wrapper">
                 <ul class="nav">
@@ -43,14 +43,14 @@
                         <div class="listSide">
                             <p class="listSideHd">カテゴリ</p>
                             <ul class="listSideUl">
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=all">すべて</a></li>
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=0">国内旅行（募集ツアー）</a></li>
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=1">海外旅行</a></li>
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=2">GO ON ながの　</a></li>
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=3">FDA自由旅</a></li>
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=4">国内宿泊プラン</a></li>
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=5">新潟高速バス宿泊パック</a></li>
-                                <li><a href="http://153.127.31.62/zenryo/public/list.php?kind=6">長野パルセイロ応援ツアー</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=all">すべて</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=0">国内旅行（募集ツアー）</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=1">海外旅行</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=2">GO ON ながの　</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=3">FDA自由旅</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=4">国内宿泊プラン</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=5">新潟高速バス宿泊パック</a></li>
+                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=6">長野パルセイロ応援ツアー</a></li>
                             </ul>
                         </div>
 
@@ -68,7 +68,7 @@
                         $params = $_GET['kind'];
                      }
 
-                    $url = "http://153.127.31.62/zenryo/public/api/plans/json/" . $params;
+                    $url = "https://zenryo.zenryo-ec.info/api/plans/json/" . $params;
                     $json = file_get_contents($url);
                     $plans = json_decode($json,true);
 
@@ -103,7 +103,7 @@
                                     <div class="listItemCont">
                                         <p class="listItemTxt"><?=nl2br(htmlspecialchars($plan["catchphrase"]))?></p>
                                         <div class="listItemInfo">
-                                            <div class="leftP"><img src="http://153.127.31.62/zenryo/public/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
+                                            <div class="leftP"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
                                             <div class="rightP">
                                                 <div class="messageP">
                                                     <dl>
@@ -133,7 +133,7 @@
                                                     </dl>
                                                 </div>
                                                 <p class="priceP">旅行代金（お一人様<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
-                                                <p class="btnP"><a href="http://153.127.31.62/zenryo/public/detail.php?plan_id=<?=htmlspecialchars($plan["id"])?>" class="btnLink01">プラン詳細をみる</a></p>
+                                                <p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id=<?=htmlspecialchars($plan["id"])?>" class="btnLink01">プラン詳細をみる</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
             <div class="footer-top">
                 <div class="container">
                     <p class="syamei_footer">長野電鉄株式会社</p>
-                    <a href="/" class="logo syamei_footer_logo"><img src="http://153.127.31.62/zenryo/public/assets/img/logo3.png" alt="" /></a>
+                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
                         <p class="post">〒380-0823</p>
@@ -205,7 +205,7 @@
         </div>
     </footer>
 
-    <script src="http://153.127.31.62/zenryo/public/libs/slick/slick.min.js"></script>
-    <script src="http://153.127.31.62/zenryo/public/assets/js/theme.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
 </body>
 </html>

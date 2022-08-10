@@ -3,20 +3,20 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>一覧 | ZENRYO EC</title>
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/css/reset.css">
-    <link rel="stylesheet" href="http://153.127.31.62/zenryo/public/css/template.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/css/reset.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/css/template.css">
 </head>
 <body id="list_page">
-    <div class="header"><a href="list.php"><img src ="http://153.127.31.62/zenryo/public/img/logo_login.png"></a></div>
+    <div class="header"><a href="list.php"><img src ="https://zenryo.zenryo-ec.info/img/logo_login.png"></a></div>
     <div class="inner">
         <div class="flex-container-plans">
         <?php
-        $url = "http://153.127.31.62/zenryo/public/api/plans/json/0";
+        $url = "https://zenryo.zenryo-ec.info/api/plans/json/0";
         $json = file_get_contents($url);
         $plans = json_decode($json,true);
 
         for ($i = 0 ; $i < count($plans) ; $i++) {
-            echo '<div class="flex-item-plans"><a href="http://153.127.31.62/zenryo/public/detail.php?page_id=2622&plan_id=' . $plans[$i][id] . '"><img src="http://153.127.31.62/zenryo/public/uploads/' . $plans[$i][file_path1] . '"><p>' . $plans[$i][name] . '</p></a></div>';
+            echo '<div class="flex-item-plans"><a href="https://zenryo.zenryo-ec.info/detail.php?page_id=2622&plan_id=' . $plans[$i][id] . '"><img src="https://zenryo.zenryo-ec.info/uploads/' . $plans[$i][file_path1] . '"><p>' . $plans[$i][name] . '</p></a></div>';
         }
         ?>
         </div>
