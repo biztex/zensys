@@ -16,6 +16,9 @@ use App\Models\Stock;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
+use App\Models\Price;
+use App\Models\Plan;
+use App\Models\PriceType;
 
 class CvsController extends Controller
 {
@@ -45,17 +48,18 @@ class CvsController extends Controller
         $request_data->setTelNo($request->request->get("telNo"));
         $request_data->setPayLimit($request->request->get("payLimit"));
         $request_data->setPayLimitHhmm($request->request->get("payLimitHhmm"));
-        $request_data->setPushUrl($request->request->get("pushUrl"));
+        //$request_data->setPushUrl($request->request->get("pushUrl"));
+        $request_data->setPushUrl('https://153.127.31.62/zenryo/public/push/mpi');
         $request_data->setPaymentType("0");
 
-        TGMDK_Config::getInstance("/var/www/blue-tourism-hokkaido/local_packages/veritrans-tgmdk/src/tgMdk/3GPSMDK.properties");
+        TGMDK_Config::getInstance();
         $transaction = new TGMDK_Transaction();
         /*
         $response_data = $transaction->execute($request_data);
         */ 
-        $props["merchant_ccid"] = "A100000800000001100002cc";
-        $props["merchant_secret_key"] = "5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9";
-        $response_data = $transaction->execute($request_data, $props);
+        /*$props["merchant_ccid"] = "A100000800000001100002cc";
+        $props["merchant_secret_key"] = "5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9";*/
+        $response_data = $transaction->execute($request_data);
 
         if ($response_data instanceof CvsAuthorizeResponseDto) {
             $request->session()->put($request->request->get("orderId"), $response_data);
@@ -80,6 +84,37 @@ class CvsController extends Controller
 	    	$weekday = 'holiday';
                 }
             }
+            // 料金区分２０以上対応
+            $typeid=0;
+            $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+            if(!is_null($reservation->Number_of_reservations)){
+                $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+                $count_member = 0;
+                // 合計金額リセット
+                $amount = 0;
+                for($i=0;$i<=100;$i++){
+                    for($j=0;$j<6;$j++){
+                        for($k=1;$k<=3;$k++){
+                            if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                $typeid = $i;
+                                $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                                foreach ($reservation->plan->prices as $price) {
+                                    if($price->type == $typeid){
+                                        $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            $prices = Price::select()
+            ->where('plan_id' , $reservation->plan_id)
+            ->where('type' , $typeid)
+            ->get();
+            $priceName = PriceType::select()
+                ->where('number' , $typeid)
+                ->first();
             Mail::send(['text' => 'user.reservations.email'], [
                 "number" => $reservation->number,
                 "plan" => $reservation->plan->name,
@@ -95,24 +130,28 @@ class CvsController extends Controller
                 "haraikomiUrl" => $response_data->getHaraikomiUrl(),
                 "receiptNo" => $response_data->getReceiptNo(),
                 "weekday" => $weekday,
-                "amount" => $request->amount
+                "amount" => $request->amount,
+                'prices'        => $prices,
+                'priceName'     => $priceName,
+                'type_id'   => $typeid
             ], function($message) use($reservation) {
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('info@zenryo-ec.com')
-                    ->subject("【全旅】予約確定メール");
+                    ->from('test@toebisu.jp')
+                    ->subject("【全旅】仮予約メール");
 	        }
             });
             // ベリトランスオーダーIDをDBへ格納
             $reservation->order_id = $request->request->get("orderId");
             // 決済ステータスをDBへ格納
-            $reservation->status = '予約確定';
+            $reservation->status = '未決済';
             $reservation->save();
             // 在庫を減数
             $stock = Stock::select()
             ->where('plan_id', $reservation->plan->id)
             ->where('res_date', date('Y-m-d', strtotime($reservation->fixed_datetime)))
+            ->where('price_type_id', $typeid)
             ->first();
             if ($stock) {
                 if ($reservation->plan->res_limit_flag == 0) {
@@ -124,11 +163,28 @@ class CvsController extends Controller
                             $count_member += $count;
                         }
                     }
-                    $stock->limit_number = $stock->limit_number - $count_member;
-                    $stock->save();
+                    // 料金区分２０以上対応
+                    $typeid=0;
+                    $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+                    if(!is_null($reservation->Number_of_reservations)){
+                        $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+                        $count_member = 0;
+                        for($i=0;$i<=100;$i++){
+                            for($j=0;$j<6;$j++){
+                                for($k=1;$k<=3;$k++){
+                                    if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                        $typeid = $i;
+                                        $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //$stock->limit_number = $stock->limit_number - $count_member;
+                    //$stock->save();
                 } else {
-                    $stock->limit_number = $stock->limit_number - 1;
-                    $stock->save();
+                    //$stock->limit_number = $stock->limit_number - 1;
+                    //$stock->save();
                 }
             }
             //return view('user.reservations.result');

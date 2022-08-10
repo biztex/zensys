@@ -80,23 +80,19 @@
                                         rowspan="0"
                                         >料金</th>
                                         @php
-                                        $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
                                         if($prices){
                                             echo '<tr><td>';
 
                                             for ($i=0; $i<count($prices); $i++ ){
-                                                for($j=0;$j<6;$j++){
-                                                    for($k=1;$k<=3;$k++){
-                                                        echo '<div class="numberP">';
-                                                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k), $info)){
-                                                            echo $prices[$k-1];
-                                                            echo '<input type="hidden" name="price_table[]" value="'.$prices[$i].'">';
-                                                            echo '<p>'. $info[sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)] .'人</p>';
-                                                            echo '<input type="hidden" name="'. sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k) .'" class="number" value="' .$info[sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)] .'">';
-                                                        }
-                                                        echo '</div>';
-                                                    }
-                                                }
+
+                                                echo '<div class="numberP">';
+
+                                                echo $prices[$i];
+                                                echo '<input type="hidden" name="price_table[]" value="'.$prices[$i].'">';
+                                                echo '<p>'. $types[$i] .'人</p>';
+                                                echo '<input type="hidden" name="type'. $i .'" class="number" value="' .$types[$i] .'">';
+
+                                                echo '</div>';
                                             }
                                             echo '</td></tr>';
 

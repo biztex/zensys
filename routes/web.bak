@@ -99,7 +99,7 @@ Route::get(
 );
 Route::get('pay', '\App\Http\Controllers\ReservationsController@emailToPay');
 
-Route::match(['put', 'post'], 'push/mpi', '\App\Http\Controllers\PushController@mpi');
+Route::post('push/mpi', 'PushController@mpi');
 
 /**
  * 非認証ページ
