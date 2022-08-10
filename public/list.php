@@ -68,7 +68,7 @@
                         $params = $_GET['kind'];
                      }
 
-                    $url = "http://153.127.31.62/zenryo/public/api/plans/json/" . $params;
+                    $url = "https://zenryo.zenryo-ec.info/api/plans/json/" . $params;
                     $json = file_get_contents($url);
                     $plans = json_decode($json,true);
 
