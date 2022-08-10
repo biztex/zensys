@@ -5091,7 +5091,44 @@ ul {
     position: relative;
 }
 
-.dateTable td:nth-of-type(1) {
+.dateTable td.stockA{
+    background-color: #ffeaea;
+}
+.dateTable td.stockB{
+    background-color: #ffeaf4;
+}
+.dateTable td.stockC{
+    background-color: #ffeaff;
+}
+.dateTable td.stockD{
+    background-color: #f4eaff;
+}
+.dateTable td.stockE{
+    background-color: #eaeaff;
+}
+.dateTable td.stockF{
+    background-color: #eaf4ff;
+}
+.dateTable td.stockG{
+    background-color: #eaffff;
+}
+.dateTable td.stockH{
+    background-color: #eafff4;
+}
+.dateTable td.stockI{
+    background-color: #eaffea;
+}
+.dateTable td.stockJ{
+    background-color: #f4ffea;
+}
+.dateTable td.stockK{
+    background-color: #ffffea;
+}
+.dateTable td.stockL{
+    background-color: #fff4ea;
+}
+
+/* .dateTable td:nth-of-type(1) {
     background: #FFEAEA;
 }
 
@@ -5101,7 +5138,7 @@ ul {
 
 .dateTable td:nth-of-type(7) {
     background: #FFEAEA;
-}
+} */
 
 .dateTable td.noTd {
     background: #fff!important;

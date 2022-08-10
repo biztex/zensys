@@ -364,7 +364,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                                     }
                                                     if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
                                                         if ($stock["res_type"] == 0) {
-                                                            echo '<td><p class="dayP">' . $d . '</p>';
+                                                            echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
 
                                                             if ($stock["limit_number"] > 0) {
 
