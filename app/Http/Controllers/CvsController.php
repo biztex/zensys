@@ -49,7 +49,7 @@ class CvsController extends Controller
         $request_data->setPayLimit($request->request->get("payLimit"));
         $request_data->setPayLimitHhmm($request->request->get("payLimitHhmm"));
         //$request_data->setPushUrl($request->request->get("pushUrl"));
-        $request_data->setPushUrl('https://zenryo.zenryo-ec.info/push/mpi');
+        $request_data->setPushUrl('http://153.127.31.62/zenryo/public/push/mpi');
         $request_data->setPaymentType("0");
 
         TGMDK_Config::getInstance();
