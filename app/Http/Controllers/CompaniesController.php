@@ -154,6 +154,7 @@ class CompaniesController extends Controller
         ini_set('memory_limit', '256M');
         $rules = [
             'name' => ['required', 'string', 'max:50'],
+            'company_number' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'max:8'],
             'prefecture' => ['required', 'string', 'max:10'],
             'area' => ['required', 'string', 'max:100'],

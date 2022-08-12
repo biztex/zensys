@@ -247,6 +247,9 @@ return [
         'road_map5' => '行程表5',
         'road_map6' => '行程表6',
         '' => '',
+        'area' => 'エリア',
+        'company_number' => '旅行業登録番号',
+        'tel_inquiry' => '問合せ先TEL'
     ],
 
 ];
