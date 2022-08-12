@@ -363,6 +363,11 @@
                     </div>
                     <div class="form-group row mb-2 float-right">
                         <div class="col-md-2">
+		    	<input type="button" class="custom-table btn btn-sm btn-primary" value="価格表カスタマイズ">
+                        </div>
+                    </div>
+                    <div class="form-group row mb-2 float-right">
+                        <div class="col-md-2">
 		    	<input type="button" class="update-price btn btn-sm btn-secondary" value="価格表更新">
                         </div>
                     </div>
@@ -381,36 +386,92 @@
                         $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
                         $Sumpt = 0;
                         $Number_req = [];
+                        $custom_view = true;
                     @endphp
-                    @for ($i=0; $i<count($arr); $i++)
-                    <tr>
-                        <td>
-                            {{ $arr[$i] .  $priceName->name }}
-                        </td>
-                        @for($j=0; $j<count($tmp_arr); $j++)
-                            @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), $Number_of_reservations))
-                                @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), $Number_of_reservations))
-                                    <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
-                                    <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
-                                    <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type1_a_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
-                                    <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp">
-                                    <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)}) }}円</td>
-                                    <input type="hidden" id="per-price{{ $i + 1 }}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)} }}">
-                                    <?php $Sumpt += $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};$Number_req[$i+1]=$Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};?>
-                                @else
-                                    <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
-                                    <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
-                                    <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type1_a_{{$i+1}}_number" value="0"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
-                                    <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="0">
-                                    <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">0円</td>
-                                    <input type="hidden" id="per-price{{ $i + 1 }}" value="0">
-                                @endif
+                    @if(array_key_exists('custom_flg', $Number_of_reservations))
+                        @if($Number_of_reservations->custom_flg == 1)
+                            <?php $custom_view = false; ?>
+                            @if(array_key_exists('price_name', $Number_of_reservations))
+                                @for ($k=0; $k<6; $k++)
+                                <tr>
+                                    <td>
+                                        <input type="text" id="price_name{{$k + 1}}" name="price_name{{$k + 1}}" value="{{ $Number_of_reservations->price_name->{$k+1} }}">
+                                    </td>
+                                        <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$k + 1}}" name="typec_{{$k+1}}_price" value="{{ $Number_of_reservations->typec_price->{$k+1} }}" style="width: 80%;">円</td>
+                                        <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$k + 1}}" name="typec_{{$k+1}}_number" value="{{ $Number_of_reservations->typec_number->{$k+1} }}">名</td>
+                                        <td id="per-text-price{{ ($k + 1) }}" style="text-align: right;">{{ number_format($Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1}) }}円</td>
+                                        <input type="hidden" id="per-price{{ $k + 1 }}" value="{{ $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1} }}"> 
+                                        <?php $Sumpt += $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1};$Number_req[$k+1]=$Number_of_reservations->typec_number->{$k+1};?>
+                                </tr>
+                                @endfor
+                            @else
+                            @for ($i=0; $i<count($arr); $i++)
+                            <tr>
+                                <td>
+                                    <input type="text" id="price_name{{$i + 1}}" name="price_name{{$i + 1}}" value="{{ $arr[$i] . $priceName->name }}">
+                                </td>
+                                @for($j=0; $j<count($tmp_arr); $j++)
+                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), $Number_of_reservations))
+                                        @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), $Number_of_reservations))
+                                            <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$i + 1}}" name="typec_{{$i+1}}_price" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}" style="width: 80%;">円</td>
+                                            <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$i + 1}}" name="typec_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp">名</td>
+                                            <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)}) }}円</td>
+                                            <input type="hidden" id="per-price{{ $i + 1 }}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)} }}">
+                                            <?php $Sumpt += $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};$Number_req[$i+1]=$Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};?>
+                                        @else
+                                            <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$i + 1}}" name="typec_{{$i+1}}_price" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}" style="width: 80%;">円</td>
+                                            <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="number{{$i + 1}}" name="typec_{{$i+1}}_number" value="0">名</td>
+                                            <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">0円</td>
+                                            <input type="hidden" id="per-price{{ $i + 1 }}" value="0">
+                                        @endif
+                                    @endif
+                                @endfor
+                            </tr>
+                            @endfor
+                            @for ($k=$i; $k<6; $k++)
+                            <tr>
+                                <td>
+                                    <input type="text" id="price_name{{$k + 1}}" name="price_name{{$k + 1}}" value="">
+                                </td>
+                                    <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$k + 1}}" name="typec_{{$k+1}}_price" value="0" style="width: 80%;">円</td>
+                                    <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$k + 1}}" name="typec_{{$k+1}}_number" value="0">名</td>
+                                    <td id="per-text-price{{ ($k + 1) }}" style="text-align: right;">0円</td>
+                                    <input type="hidden" id="per-price{{ $k + 1 }}" value="0"> 
+                            </tr>
+                            @endfor
                             @endif
+                        @endif
+                    @endif
+                    @if($custom_view)
+                        @for ($i=0; $i<count($arr); $i++)
+                        <tr>
+                            <td>
+                                {{ $arr[$i] . $priceName->name }}
+                            </td>
+                            @for($j=0; $j<count($tmp_arr); $j++)
+                                @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), $Number_of_reservations))
+                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), $Number_of_reservations))
+                                        <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
+                                        <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
+                                        <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type1_a_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
+                                        <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp">
+                                        <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)}) }}円</td>
+                                        <input type="hidden" id="per-price{{ $i + 1 }}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)} }}">
+                                        <?php $Sumpt += $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};$Number_req[$i+1]=$Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};?>
+                                    @else
+                                        <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
+                                        <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
+                                        <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type1_a_{{$i+1}}_number" value="0"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
+                                        <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="0">
+                                        <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">0円</td>
+                                        <input type="hidden" id="per-price{{ $i + 1 }}" value="0">
+                                    @endif
+                                @endif
+                            @endfor
+
+                        </tr>
                         @endfor
-
-                    </tr>
-                    @endfor
-
+                    @endif
                     <tr>
                       <td colspan="2" class="bg-light font-weight-bold">人数・金額合計</td>
                       <td id="total-number" style="text-align: center;" class="font-weight-bold"></td>
@@ -463,8 +524,10 @@
                             <div class="col-md-6 offset-md-4">
 				<input type="submit" class="submit btn btn-primary" data-action="{{config('app.url')}}client/reservations/update/{{ $reservations->id }}" value="変更する">
 				<input type="submit" class="submit-send btn btn-danger" data-action="{{config('app.url')}}client/reservations/sendpaymentmail/{{ $reservations->id }}" value="決済メール送信">
+                <a href="{{config('app.url')}}client/reservations/previewpaymentmail/{{ $reservations->id }}" onclick="window.open('{{config('app.url')}}client/reservations/previewpaymentmail/{{ $reservations->id }}', '', 'width=950,height=500,scrollbars=yes');return false;" class="btn btn-primary">プレビュー</a>
                                 <a href="{{config('app.url')}}client/reservations/" class="btn btn-secondary">戻る</a>
                             </div>
+                            <input type="hidden" id="custom_flg" name="custom_flg" value="">
                         </div>
                     </form>
                 </div>
@@ -569,6 +632,12 @@ function goCreditCancel2() {
 $(".close, .popup-overlay").on("click", function(){
   $(".popup-overlay, .popup-content").removeClass("active");
   return false;
+});
+$('.custom-table').click(function() {
+    $('#custom_flg').val(1);
+    $('.submit').parents('form').attr('action', '/client/reservations/update/{{ $reservations->id }}');
+    $('.submit').parents('form').submit();
+    return true;
 });
 </script>
 @stop

@@ -413,6 +413,10 @@ foreach (config('fortify.users') as $user) {
                         'reservations/csv-selected',
                         '\App\Http\Controllers\ReservationsController@csvSelected'
                     );
+                    Route::get(
+                        'reservations/previewpaymentmail/{id}',
+                        '\App\Http\Controllers\ReservationsController@PreviewPaymentMail'
+                    );
                     // genres
                     Route::get(
                         'genres/json',

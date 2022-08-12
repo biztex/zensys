@@ -15,28 +15,48 @@
                 </li>
 @php
     $Number_of_reservations = json_decode($reservation->Number_of_reservations);
-    $arr = ['大人　','子供　','幼児　'];
-    $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
-    for($i=0; $i<count($arr); $i++){
-        echo '<li class="list-group-item d-flex justify-content-between">';
-        echo '<div>';
-        echo '<h6 class="my-0">';
-        for($j=0; $j<count($tmp_arr); $j++){
-            if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],1), $Number_of_reservations)){
-                if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1), $Number_of_reservations)){
-                    echo $arr[$i] . $priceName->name . " / &yen;" . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)};
+    $custom_view = true;
+    if(array_key_exists('custom_flg', $Number_of_reservations)){
+        if($Number_of_reservations->custom_flg == 1){
+            $custom_view = false;
+            for($i=0; $i<6; $i++){
+                if(!is_null($Number_of_reservations->price_name->{$i+1})){
+                    echo '<li class="list-group-item d-flex justify-content-between">';
+                    echo '<div>';
+                    echo '<h6 class="my-0">';
+                    echo $Number_of_reservations->price_name->{$i+1} . " / &yen;" . $Number_of_reservations->typec_price->{$i+1} . " × " . $Number_of_reservations->typec_number->{$i+1};
                     echo '</h6>';
                     echo '</div>';
-                    echo '<span class="text-muted">&yen;' . number_format($prices[0][$tmp_arr[$j]."_". ((int)$i + 1)] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)}) . '</span>';
-                }else{
-                    echo $arr[$i] . $priceName->name . " / &yen;" . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " × " . 0;
-                    echo '</h6>';
-                    echo '</div>';
-                    echo '<span class="text-muted">&yen;0</span>';
+                    echo '<span class="text-muted">&yen;' . number_format($Number_of_reservations->typec_price->{$i+1} * $Number_of_reservations->typec_number->{$i+1}) . '</span>';
+                    echo '</li>';
                 }
             }
         }
-        echo '</li>';
+    }
+    if($custom_view){
+        $arr = ['大人　','子供　','幼児　'];
+        $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
+        for($i=0; $i<count($arr); $i++){
+            echo '<li class="list-group-item d-flex justify-content-between">';
+            echo '<div>';
+            echo '<h6 class="my-0">';
+            for($j=0; $j<count($tmp_arr); $j++){
+                if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],1), $Number_of_reservations)){
+                    if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1), $Number_of_reservations)){
+                        echo $arr[$i] . $priceName->name . " / &yen;" . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)};
+                        echo '</h6>';
+                        echo '</div>';
+                        echo '<span class="text-muted">&yen;' . number_format($prices[0][$tmp_arr[$j]."_". ((int)$i + 1)] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)}) . '</span>';
+                    }else{
+                        echo $arr[$i] . $priceName->name . " / &yen;" . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " × " . 0;
+                        echo '</h6>';
+                        echo '</div>';
+                        echo '<span class="text-muted">&yen;0</span>';
+                    }
+                }
+            }
+            echo '</li>';
+        }
     }
 @endphp
                 <li class="list-group-item d-flex justify-content-between">

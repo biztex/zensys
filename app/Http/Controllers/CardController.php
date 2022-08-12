@@ -19,6 +19,9 @@ use App\Models\Stock;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
+use App\Models\Price;
+use App\Models\Plan;
+use App\Models\PriceType;
 
 class CardController extends Controller
 {
@@ -65,97 +68,147 @@ class CardController extends Controller
 
         if ($response_data instanceof CardAuthorizeResponseDto) {
             $request->session()->put($request->request->get("orderId"), $response_data);
-            // 予約者へメール通知
-            $reservation = Reservation::find($request->reservation_id);
-            $dt = new Carbon($reservation->fixed_datetime);
-            $week_map = [
-                0 => 'sunday',
-                1 => 'monday',
-                2 => 'tuesday',
-                3 => 'wednesday',
-                4 => 'thursday',
-                5 => 'friday',
-                6 => 'saturday',
-            ];
-            $day_of_week = $dt->dayOfWeek;
-            $weekday = $week_map[$day_of_week];
-            // 祝日判定
-            $holidays = Yasumi::create('Japan', $dt->format('Y'));
-            foreach ($holidays->getHolidayDates() as $holiday) {
-                if ($holiday == $dt->format('Y-m-d')) {
-	    	$weekday = 'holiday';
-                }
-            }
-            Mail::send(['text' => 'user.reservations.email'], [
-                "number" => $reservation->number,
-                "plan" => $reservation->plan->name,
-                "date" => date('Y年m月d日', strtotime($reservation->fixed_datetime)),
-                "activity" => $reservation->activity_date,
-                "name_last" => $reservation->user->name_last,
-                "name_first" => $reservation->user->name_first,
-                "email" => $reservation->user->email,
-                "tel" => $reservation->user->tel,
-                "tel2" => $reservation->user->tel2,
-                "reservation" => $reservation,
-                "payment" => 'クレジットカード決済',
-                "haraikomiUrl" => null,
-                "receiptNo" => null,
-                "weekday" => $weekday,
-                "amount" => $request->amount
-            ], function($message) use($reservation) {
-                if ($reservation->user->email) {
-                    $message
-                    ->to($reservation->user->email)
-                    ->from('test@toebisu.jp')
-                    ->subject("【全旅】予約確定メール");
-	        }
-            });
-            // ベリトランスオーダーIDをDBへ格納
-            $reservation->order_id = $request->request->get("orderId");
-            // 決済ステータスをDBへ格納
-            $reservation->status = '予約確定';
-            // 支払方法と回数をDBへ格納
-            $reservation->jpo1 = $request->jpo1;
-            $reservation->jpo2 = $request->jpo2;
-            $reservation->save();
-            // 在庫を減数
-            $stock = Stock::select()
-            ->where('plan_id', $reservation->plan->id)
-            ->where('res_date', date('Y-m-d', strtotime($reservation->fixed_datetime)))
-            ->first();
-            if ($stock) {
-                if ($reservation->plan->res_limit_flag == 0) {
-                    // 予約人数をカウント
-                    $count_member = 0; 
-                    for ($i = 0; $i <= 20 ; $i++) {
-                        $count = $reservation->{'type'. $i . '_number'};
-                        if ($count > 0) {
-                            $count_member += $count;
-                        }
+            if ($response_data->getMstatus() == 'success'){
+                // 予約者へメール通知
+                $reservation = Reservation::find($request->reservation_id);
+                $dt = new Carbon($reservation->fixed_datetime);
+                $week_map = [
+                    0 => 'sunday',
+                    1 => 'monday',
+                    2 => 'tuesday',
+                    3 => 'wednesday',
+                    4 => 'thursday',
+                    5 => 'friday',
+                    6 => 'saturday',
+                ];
+                $day_of_week = $dt->dayOfWeek;
+                $weekday = $week_map[$day_of_week];
+                // 祝日判定
+                $holidays = Yasumi::create('Japan', $dt->format('Y'));
+                foreach ($holidays->getHolidayDates() as $holiday) {
+                    if ($holiday == $dt->format('Y-m-d')) {
+                $weekday = 'holiday';
                     }
-                    // 料金区分２０以上対応
-                    $typeid=0;
-                    $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
-                    if(!is_null($reservation->Number_of_reservations)){
-                        $Number_of_reservations = json_decode($reservation->Number_of_reservations);
-                        $count_member = 0;
-                        for($i=0;$i<=100;$i++){
-                            for($j=0;$j<6;$j++){
-                                for($k=1;$k<=3;$k++){
-                                    if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
-                                        $typeid = $i;
-                                        $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                }
+                // 料金区分２０以上対応
+                $typeid=0;
+                $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+                if(!is_null($reservation->Number_of_reservations)){
+                    $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+                    $count_member = 0;
+                    // 合計金額リセット
+                    $amount = 0;
+                    for($i=0;$i<=100;$i++){
+                        for($j=0;$j<6;$j++){
+                            for($k=1;$k<=3;$k++){
+                                if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                    $typeid = $i;
+                                    $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                                    foreach ($reservation->plan->prices as $price) {
+                                        if($price->type == $typeid){
+                                            $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                    $stock->limit_number = $stock->limit_number - $count_member;
-                    $stock->save();
-                } else {
-                    $stock->limit_number = $stock->limit_number - 1;
-                    $stock->save();
+                    if(array_key_exists('custom_flg', $Number_of_reservations)){
+                        if($Number_of_reservations->custom_flg == 1){
+                            $amount = 0;
+                            for($j=1;$j<=6;$j++){
+                                $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
+                            }
+                        }
+                    }
                 }
+                $prices = Price::select()
+                ->where('plan_id' , $reservation->plan_id)
+                ->where('type' , $typeid)
+                ->get();
+                $priceName = PriceType::select()
+                    ->where('number' , $typeid)
+                    ->first();
+                Mail::send(['text' => 'user.reservations.email'], [
+                    "number" => $reservation->number,
+                    "plan" => $reservation->plan->name,
+                    "date" => date('Y年m月d日', strtotime($reservation->fixed_datetime)),
+                    "activity" => $reservation->activity_date,
+                    "name_last" => $reservation->user->name_last,
+                    "name_first" => $reservation->user->name_first,
+                    "email" => $reservation->user->email,
+                    "tel" => $reservation->user->tel,
+                    "tel2" => $reservation->user->tel2,
+                    "reservation" => $reservation,
+                    "payment" => 'クレジットカード決済',
+                    "haraikomiUrl" => null,
+                    "receiptNo" => null,
+                    "weekday" => $weekday,
+                    "amount" => $request->amount,
+                    'prices'        => $prices,
+                    'priceName'     => $priceName,
+                    'type_id'   => $typeid
+                ], function($message) use($reservation) {
+                    if ($reservation->user->email) {
+                        $message
+                        ->to($reservation->user->email)
+                        ->from('test@toebisu.jp')
+                        ->subject("【全旅】予約確定メール");
+                }
+                });
+                // ベリトランスオーダーIDをDBへ格納
+                $reservation->order_id = $request->request->get("orderId");
+                // 決済ステータスをDBへ格納
+                $reservation->status = '予約確定';
+                // 支払方法と回数をDBへ格納
+                $reservation->jpo1 = $request->jpo1;
+                $reservation->jpo2 = $request->jpo2;
+                $reservation->save();
+                // 在庫を減数
+                $stock = Stock::select()
+                ->where('plan_id', $reservation->plan->id)
+                ->where('res_date', date('Y-m-d', strtotime($reservation->fixed_datetime)))
+                ->where('price_type_id', $typeid)
+                ->first();
+                if ($stock) {
+                    if ($reservation->plan->res_limit_flag == 0) {
+                        // 予約人数をカウント
+                        $count_member = 0; 
+                        for ($i = 0; $i <= 20 ; $i++) {
+                            $count = $reservation->{'type'. $i . '_number'};
+                            if ($count > 0) {
+                                $count_member += $count;
+                            }
+                        }
+                        // 料金区分２０以上対応
+                        $typeid=0;
+                        $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+                        if(!is_null($reservation->Number_of_reservations)){
+                            $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+                            $count_member = 0;
+                            for($i=0;$i<=100;$i++){
+                                for($j=0;$j<6;$j++){
+                                    for($k=1;$k<=3;$k++){
+                                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                            $typeid = $i;
+                                            $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        $stock->limit_number = $stock->limit_number - $count_member;
+                        $stock->save();
+                    } else {
+                        //$stock->limit_number = $stock->limit_number - 1;
+                        //$stock->save();
+                    }
+                }
+            }else{
+                $reservation = Reservation::find($request->reservation_id);
+                // 決済ステータスをDBへ格納
+                $reservation->status = '未決済';
+                $reservation->save();
             }
             //return view('user.reservations.result');
             return redirect('/card/result/' . $request->request->get("orderId"));

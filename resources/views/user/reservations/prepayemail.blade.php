@@ -34,17 +34,35 @@
 予約人数
 ----------------------------------------------------
 @php
-  $Number_of_reservations = json_decode($reservation->Number_of_reservations);
-  $arr = ['大人　','子供　','幼児　'];
-  $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
-  for($i=0; $i<count($arr); $i++){
-    if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1), $Number_of_reservations)){
-      echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  . " 円 × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1)} . "=" . number_format((int)$prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  * (int)$Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1)}) . " 円" . "\n";
-    }else{
-      echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  . " 円 × " . 0 . "=" . number_format((int)$prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  * 0) . " 円" . "\n";
+$Number_of_reservations = json_decode($reservation->Number_of_reservations);
+$custom_view = true;
+  if(array_key_exists('custom_flg', $Number_of_reservations)){
+    if($Number_of_reservations->custom_flg == 1){
+      $custom_view = false;
+      $amount = 0;
+      for($i=0; $i<6; $i++){
+        if(!is_null($Number_of_reservations->price_name->{$i+1})){
+          echo $Number_of_reservations->price_name->{$i+1} . " / " . $Number_of_reservations->typec_price->{$i+1} . " 円 × " . $Number_of_reservations->typec_number->{$i+1} . "=" . number_format($Number_of_reservations->typec_price->{$i+1} * $Number_of_reservations->typec_number->{$i+1}) . " 円" . "\n";
+          $amount += $Number_of_reservations->typec_price->{$i+1} * $Number_of_reservations->typec_number->{$i+1};
+        }
+      }
     }
   }
-
+  if($custom_view){
+    $arr = ['大人　','子供　','幼児　'];
+    $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
+    for($i=0; $i<count($arr); $i++){
+      for($j=0; $j<count($tmp_arr); $j++){
+        if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],1), $Number_of_reservations)){
+          if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1), $Number_of_reservations)){
+            echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " 円 × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)} . "=" . number_format((int)$prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  * (int)$Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)}) . " 円" . "\n";
+          }else{
+            echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " 円 × " . 0 . "=" . number_format((int)$prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  * 0) . " 円" . "\n";
+          }
+        }
+      }
+    }
+  }
 @endphp
 
 決済金額合計：{{ number_format($amount) }}円

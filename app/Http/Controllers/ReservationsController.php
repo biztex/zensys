@@ -1094,6 +1094,7 @@ class ReservationsController extends Controller
         if(!is_null($reservation->Number_of_reservations)){
             $Number_of_reservations = json_decode($reservation->Number_of_reservations);
             $count_old_member = 0;
+            $typeid = 0;
             for($i=0;$i<=100;$i++){
                 for($j=0;$j<6;$j++){
                     for($k=1;$k<=3;$k++){
@@ -1149,6 +1150,14 @@ class ReservationsController extends Controller
                                 $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
                             }
                         }
+                    }
+                }
+            }
+            if(array_key_exists('custom_flg', $Number_of_reservations)){
+                if($Number_of_reservations->custom_flg == 1){
+                    $amount = 0;
+                    for($j=1;$j<=6;$j++){
+                        $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                     }
                 }
             }
@@ -1403,6 +1412,12 @@ class ReservationsController extends Controller
                 }
             }
         }
+        $custom_flg = false;
+        if(array_key_exists('custom_flg', $Number_of_reservations)){
+            if($Number_of_reservations->custom_flg == 1){
+                $custom_flg = true;
+            }
+        }
         $count_requested_member = 0;
         for ($i = 0; $i <= 20; $i++) {
             $num2 = $request->{'type' . $i . '_number'};
@@ -1428,7 +1443,7 @@ class ReservationsController extends Controller
         $reservation->add_drop = $request->add_drop;
        
        
-        $reservation->companion_name_first = $request->companion_name_first;
+        /*$reservation->companion_name_first = $request->companion_name_first;
         $reservation->companion_name_last = $request->companion_name_last;
         $reservation->companion_kana_first = $request->companion_kana_first;
         $reservation->companion_kana_last = $request->companion_kana_last;
@@ -1436,7 +1451,7 @@ class ReservationsController extends Controller
         $reservation->companion_gender = $request->companion_gender;
         $reservation->companion_birth = $request->companion_birth;
         $reservation->companion_boarding = $request->companion_boarding;
-        $reservation->companion_drop = $request->companion_drop;
+        $reservation->companion_drop = $request->companion_drop;*/
 
 
         $reservation->type0_number = $request->type0_number;
@@ -1513,6 +1528,11 @@ class ReservationsController extends Controller
                     }
                 }
             }
+            if(isset($request->custom_flg)){
+                if($request->custom_flg == 1){
+                    $Number_of_reservations['custom_flg'] = 1;
+                }
+            }
             $reservation->Number_of_reservations = json_encode($Number_of_reservations);
             if ($reservation->payment_method == 3) {
                 $mstatus = $this->cardReAuthorize(
@@ -1526,6 +1546,16 @@ class ReservationsController extends Controller
                 );
                 Log::info('change price result are: ' . $mstatus);
             }
+        }
+        if($custom_flg){
+            $Number_of_reservations = [];
+            $Number_of_reservations['custom_flg'] = 1;
+            for($k=1;$k<=6;$k++){
+                $Number_of_reservations['price_name'][$k] = $request->{'price_name'.$k};
+                $Number_of_reservations['typec_price'][$k] = $request->{'typec_'.$k.'_price'};
+                $Number_of_reservations['typec_number'][$k] = $request->{'typec_'.$k.'_number'};
+            }
+            $reservation->Number_of_reservations = json_encode($Number_of_reservations);
         }
         $reservation->save();
         // コンビニ決済キャンセルの場合
@@ -1866,6 +1896,7 @@ class ReservationsController extends Controller
         if(!is_null($reservation->Number_of_reservations)){
             $Number_of_reservations = json_decode($reservation->Number_of_reservations);
             $count_old_member = 0;
+            $type_id = 0;
             for($i=0;$i<=100;$i++){
                 for($j=0;$j<6;$j++){
                     for($k=1;$k<=3;$k++){
@@ -1898,6 +1929,14 @@ class ReservationsController extends Controller
                                 $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
                             }
                         }
+                    }
+                }
+            }
+            if(array_key_exists('custom_flg', $Number_of_reservations)){
+                if($Number_of_reservations->custom_flg == 1){
+                    $amount = 0;
+                    for($j=1;$j<=6;$j++){
+                        $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                     }
                 }
             }
@@ -2232,6 +2271,29 @@ class ReservationsController extends Controller
             // ダミー予約を追加
             $dummy_reservation = new Reservation();
             $dummy_reservation->order_id = $reservation->order_id;
+            $dummy_reservation->price_type = $reservation->price_type;
+            $dummy_reservation->add_name_first = 'dummy';
+            $dummy_reservation->add_name_last = 'dummy';
+            $dummy_reservation->add_kana_first = 'dummy';
+            $dummy_reservation->add_kana_last = 'dummy';
+            $dummy_reservation->add_age = $reservation->add_age;
+            $dummy_reservation->add_birth = $reservation->add_birth;
+            $dummy_reservation->add_postalcode = $reservation->add_postalcode;
+            $dummy_reservation->add_prefecture = $reservation->add_prefecture;
+            $dummy_reservation->add_address = 'dummy';
+            $dummy_reservation->add_telephone = 'dummy';
+            $dummy_reservation->add_building =    'dummy';
+            $dummy_reservation->add_boarding = 'dummy';
+            $dummy_reservation->add_drop = $reservation->add_drop;
+            $dummy_reservation->companion_name_first  = 'dummy';
+            $dummy_reservation->companion_name_last   = 'dummy';
+            $dummy_reservation->companion_kana_first  = 'dummy';
+            $dummy_reservation->companion_kana_last   = 'dummy';
+            $dummy_reservation->companion_age         = $reservation->companion_age;
+            $dummy_reservation->companion_gender      = $reservation->companion_gender;
+            $dummy_reservation->companion_birth       = $reservation->companion_birth;
+            $dummy_reservation->companion_boarding    = 'dummy';
+            $dummy_reservation->companion_drop        = $reservation->companion_drop;
             $dummy_reservation->status = 'dummy';
             $dummy_reservation->activity_date = 'dummy';
             $dummy_reservation->save();
@@ -2299,6 +2361,45 @@ class ReservationsController extends Controller
                     $weekday = 'holiday';
                 }
             }
+            // 料金区分２０以上対応
+            $typeid=0;
+            $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+            if(!is_null($reservation->Number_of_reservations)){
+                $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+                $count_member = 0;
+                // 合計金額リセット
+                $amount = 0;
+                for($i=0;$i<=100;$i++){
+                    for($j=0;$j<6;$j++){
+                        for($k=1;$k<=3;$k++){
+                            if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                $typeid = $i;
+                                $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                                foreach ($reservation->plan->prices as $price) {
+                                    if($price->type == $typeid){
+                                        $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if(array_key_exists('custom_flg', $Number_of_reservations)){
+                    if($Number_of_reservations->custom_flg == 1){
+                        $amount = 0;
+                        for($j=1;$j<=6;$j++){
+                            $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
+                        }
+                    }
+                }
+            }
+            $prices = Price::select()
+            ->where('plan_id' , $reservation->plan_id)
+            ->where('type' , $typeid)
+            ->get();
+            $priceName = PriceType::select()
+                ->where('number' , $typeid)
+                ->first();
             // 予約者へメール通知
             Mail::send(
                 ['text' => 'user.reservations.email'],
@@ -2321,6 +2422,9 @@ class ReservationsController extends Controller
                     'weekday' => $weekday,
                     'amount' => $amount,
                     'receiptNo' => null,
+                    'prices'        => $prices,
+                    'priceName'     => $priceName,
+                    'type_id'   => $typeid
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
@@ -2370,5 +2474,173 @@ class ReservationsController extends Controller
         }
 */
         return $mstatus;
+    }
+    // 決済メールプレビュー
+    public function PreviewPaymentMail($id)
+    {
+        ini_set('memory_limit', '256M');
+        $reservation = Reservation::find($id);
+        /*if ($reservation->status != 'リクエスト予約') {
+            throw ValidationException::withMessages([
+                'status_error' =>
+                    '予約ステータスをリクエスト予約に変更後、再度お試しください',
+            ]);
+        }*/
+
+        $prices = Price::select()
+        ->where('plan_id' , $reservation->plan_id)
+        ->where('type' , $reservation->price_type)
+        ->get();
+        $priceName = PriceType::select()
+                    ->where('number' , $reservation->price_type)
+                    ->first();
+        // 料金区分２０以上対応
+        $typeid=0;
+        $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+        if(!is_null($reservation->Number_of_reservations)){
+            $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+            $count_old_member = 0;
+            $typeid = 0;
+            for($i=0;$i<=100;$i++){
+                for($j=0;$j<6;$j++){
+                    for($k=1;$k<=3;$k++){
+                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                            $typeid = $i;
+                            $prtype = $j;
+                            $count_old_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                        }
+                    }
+                }
+            }
+        }
+        $prices = Price::select()
+                    ->where('plan_id' , $reservation->plan_id)
+                    ->where('type' , $typeid)
+                    ->get();
+        $priceName = PriceType::select()
+                        ->where('number' , $typeid)
+                        ->first();
+        //$reservation->save();
+        // 合計金額セット
+        $amount = 0;
+        $dt = new Carbon($reservation->fixed_datetime);
+        $week_map = [
+            0 => 'sunday',
+            1 => 'monday',
+            2 => 'tuesday',
+            3 => 'wednesday',
+            4 => 'thursday',
+            5 => 'friday',
+            6 => 'saturday',
+        ];
+        $day_of_week = $dt->dayOfWeek;
+        $weekday = $week_map[$day_of_week];
+        // 祝日判定
+        $holidays = Yasumi::create('Japan', $dt->format('Y'));
+        foreach ($holidays->getHolidayDates() as $holiday) {
+            if ($holiday == $dt->format('Y-m-d')) {
+                $weekday = 'holiday';
+            }
+        }
+        // 料金区分２０以上対応
+        // 合計金額リセット
+        $amount = 0;
+        $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+        if(!is_null($reservation->Number_of_reservations)){
+            $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+            foreach ($prices as $price) {
+                for($i=0;$i<=100;$i++){
+                    for($j=0;$j<6;$j++){
+                        for($k=1;$k<=3;$k++){
+                            if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
+                            }
+                        }
+                    }
+                }
+            }
+            if(array_key_exists('custom_flg', $Number_of_reservations)){
+                if($Number_of_reservations->custom_flg == 1){
+                    $amount = 0;
+                    for($j=1;$j<=6;$j++){
+                        $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
+                    }
+                }
+            }
+        }
+        // 決済用URLメール通知
+        // パラメーターを暗号化
+        $param_card = [
+            'payment_method' => 0,
+            'reservation_id' => $reservation->id,
+        ];
+        $param_cvs = [
+            'payment_method' => 1,
+            'reservation_id' => $reservation->id,
+        ];
+        $bank = Bankaccount::find($reservation->plan->company->id);
+        // 決済方法ごとにメールテンプレートを分岐
+        $pm = $reservation->payment_method;
+        // 各項目設定
+        $number = $reservation->order_id;
+        $plan = $reservation->plan->name;
+        $date = date('Y年m月d日',strtotime($reservation->fixed_datetime));
+        $activity      = $reservation->activity_date;
+        $name_last     = $reservation->user->name_last;
+        $kana_last     = $reservation->user->kana_last;
+        $name_first    = $reservation->user->name_first;
+        $kana_first    = $reservation->user->kana_first;
+        $postalcode    = $reservation->user->postalcode;
+        $prefecture    = $reservation->user->prefecture;
+        $address       = $reservation->user->address;
+        $birth_year    = $reservation->user->birth_year;
+        $birth_month   = $reservation->user->birth_month;
+        $birth_day     = $reservation->user->birth_day;
+        $email         = $reservation->user->email;
+        $tel           = $reservation->user->tel;
+        $tel2          = $reservation->user->tel2;
+        $reservation   = $reservation;
+        $amount        = $amount;
+        $weekday       = $weekday;
+        $bank          = $bank;
+        $prices        = $prices;
+        $priceName     = $priceName;
+        $type_id   = $typeid;
+
+        if ($pm == 0) {
+            $payment       = '現地払い';
+            return view(
+                'user.reservations.spotemail_pv',
+                compact('number','plan','date' ,'activity', 'name_last', 'kana_last', 'name_first','kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id'
+                )
+            );
+        } elseif ($pm == 1) {
+            $payment       = '事前払い';
+            return view(
+                'user.reservations.prepayemail_pv',
+                compact('number','plan','date' ,'activity', 'name_last', 'kana_last', 'name_first','kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id'
+                )
+            );
+        } elseif ($pm == 2) {
+            $payment    = 'コンビニ決済';
+            $url_cvs    = 'https://zenryo.zenryo-ec.info/pay?prm=' . encrypt($param_cvs);
+            return view(
+                'user.reservations.cvsemail_pv',
+                compact('url_cvs', 'number','plan','date' ,'activity', 'name_last', 'name_first',
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id'
+                )
+            );
+        } elseif ($pm == 3) {
+            $payment    = 'クレジットカード決済';
+            $url_card    = 'https://zenryo.zenryo-ec.info/pay?prm=' . encrypt($param_card);
+            return view(
+                'user.reservations.cardemail_pv',
+                compact('url_card', 'number','plan','date' ,'activity', 'name_last', 'name_first',
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id'
+                )
+            );
+        }
     }
 }
