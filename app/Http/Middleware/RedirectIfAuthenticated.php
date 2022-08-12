@@ -20,11 +20,12 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
+
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check() && $guard) {
                 // ログイン済みユーザーの管理画面へのリダイレクト処理（マルチログイン）
                 return redirect(\Str::singular($guard).'/'.RouteServiceProvider::HOME);
-            }
+            } 
         }
 
         return $next($request);

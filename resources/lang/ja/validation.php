@@ -249,7 +249,12 @@ return [
         '' => '',
         'area' => 'エリア',
         'company_number' => '旅行業登録番号',
-        'tel_inquiry' => '問合せ先TEL'
+        'tel_inquiry' => '問合せ先TEL',
+        'code' => '金融機関コード',
+        'branch name' => '店舗名称',
+        'account name' => '口座名義',
+        'staff' => '担当者名',
+
     ],
 
 ];
