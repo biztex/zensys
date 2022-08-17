@@ -961,7 +961,7 @@ class ReservationsController extends Controller
             for($i=0;$i<=100;$i++){
                 for($j=0;$j<6;$j++){
                     for($k=1;$k<=3;$k++){
-                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k), (array)$Number_of_reservations)){
                             $typeid = $i;
                             $prtype = $j;
                             $count_old_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
@@ -1404,7 +1404,7 @@ class ReservationsController extends Controller
             for($i=0;$i<=100;$i++){
                 for($j=0;$j<6;$j++){
                     for($k=1;$k<=3;$k++){
-                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),(array)$Number_of_reservations)){
                             $typeid = $i;
                             $count_old_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
                         }
@@ -1413,7 +1413,7 @@ class ReservationsController extends Controller
             }
         }
         $custom_flg = false;
-        if(array_key_exists('custom_flg', $Number_of_reservations)){
+        if(array_key_exists('custom_flg', (array)$Number_of_reservations)){
             if($Number_of_reservations->custom_flg == 1){
                 $custom_flg = true;
             }
@@ -1428,30 +1428,30 @@ class ReservationsController extends Controller
         $reservation->status = $request->status;
         $reservation->payment_method = $request->payment_method;
 
-        $reservation->add_name_first = $request->add_name_first;
-        $reservation->add_name_last = $request->add_name_last;
-        $reservation->add_kana_first = $request->add_kana_first;
-        $reservation->add_kana_last = $request->add_kana_last;
-        $reservation->add_age = $request->add_age;
-        $reservation->add_birth = $request->add_birth;
-        $reservation->add_postalcode = $request->add_postalcode;
-        $reservation->add_prefecture = $request->add_prefecture;
-        $reservation->add_address = $request->add_address;
-        $reservation->add_telephone = $request->add_telephone;
-        $reservation->add_building = $request->add_building;
-        $reservation->add_boarding = $request->add_boarding;
-        $reservation->add_drop = $request->add_drop;
+        $reservation->add_name_first    = $request->add_name_first;
+        $reservation->add_name_last     = $request->add_name_last;
+        $reservation->add_kana_first    = $request->add_kana_first;
+        $reservation->add_kana_last     = $request->add_kana_last;
+        $reservation->add_age           = $request->add_age;
+        $reservation->add_birth         = $request->add_birth;
+        $reservation->add_postalcode    = $request->add_postalcode;
+        $reservation->add_prefecture    = $request->add_prefecture;
+        $reservation->add_address       = $request->add_address;
+        $reservation->add_telephone     = $request->add_telephone;
+        $reservation->add_building      = $request->add_building;
+        $reservation->add_boarding      = $request->add_boarding;
+        $reservation->add_drop          = $request->add_drop;
        
        
-        /*$reservation->companion_name_first = $request->companion_name_first;
-        $reservation->companion_name_last = $request->companion_name_last;
-        $reservation->companion_kana_first = $request->companion_kana_first;
-        $reservation->companion_kana_last = $request->companion_kana_last;
-        $reservation->companion_age = $request->companion_age;
-        $reservation->companion_gender = $request->companion_gender;
-        $reservation->companion_birth = $request->companion_birth;
-        $reservation->companion_boarding = $request->companion_boarding;
-        $reservation->companion_drop = $request->companion_drop;*/
+        $reservation->companion_name_first  = json_encode($request->companion_name_first);
+        $reservation->companion_name_last   = json_encode($request->companion_name_last);
+        $reservation->companion_kana_first  = json_encode($request->companion_kana_first);
+        $reservation->companion_kana_last   = json_encode($request->companion_kana_last);
+        $reservation->companion_age         = json_encode($request->companion_age);
+        $reservation->companion_gender      = json_encode($request->companion_gender);
+        $reservation->companion_birth       = json_encode($request->companion_birth);
+        $reservation->companion_boarding    = json_encode($request->companion_boarding);
+        $reservation->companion_drop        = json_encode($request->companion_drop);
 
 
         $reservation->type0_number = $request->type0_number;

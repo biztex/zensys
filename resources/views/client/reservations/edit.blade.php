@@ -276,20 +276,20 @@
                             </select>
                         </div>
                     </div>
-                    
-                    @foreach(json_decode($reservations->companion_name_last) as $key=>$custom)
+
+                    @foreach( json_decode($reservations->companion_name_last) as $key=>$custom)
                     <div class="form-group row border-top pt-1">
                         <label for="" class="col-md-3 col-form-label text-md-right">同行者氏名(漢字)</label>
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('姓') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="companion_name_last" value="{{ old('companion_name_last',$custom) }}" required> 
+                                <input id="" type="text" class="form-control" name="companion_name_last[]" value="{{ old('companion_name_last',$custom) }}" required> 
                             </div>
                         </div>
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('名') }}</label>
                             <div class="col ml-2">
-                                 <input id="" type="text" class="form-control" name="companion_name_first" value="{{ old('companion_name_first',json_decode($reservations->companion_name_first)[$key]) }}" required>
+                                 <input id="" type="text" class="form-control" name="companion_name_first[]" value="{{ old('companion_name_first',json_decode($reservations->companion_name_first)[$key]) }}" required>
                             </div>
                         </div>
                     </div>
@@ -298,26 +298,26 @@
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('セイ') }}</label>
                             <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="companion_kana_last" value="{{ old('companion_kana_last',json_decode($reservations->companion_kana_last)[$key]) }}" required >
+                                <input id="" type="text" class="form-control" name="companion_kana_last[]" value="{{ old('companion_kana_last',json_decode($reservations->companion_kana_last)[$key]) }}" required >
                             </div>
                         </div>
                         <div class="row align-items-center col-md-3">
                             <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイ') }}</label>
                             <div class="col ml-2">
-                            <input id="" type="text" class="for/m-control" name="companion_kana_first" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required>
+                            <input id="" type="text" class="for/m-control" name="companion_kana_first[]" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('年齢') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="text" class="form-control" name="companion_age" value="{{ old('companion_age',json_decode($reservations->companion_age)[$key]) }}"  required>
+                            <input id="" type="text" class="form-control" name="companion_age[]" value="{{ old('companion_age',json_decode($reservations->companion_age)[$key]) }}"  required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('生年月日') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="date" class="form-control" name="companion_birth" value="{{ old('companion_birth',date('Y-m-d', strtotime(json_decode($reservations->companion_birth)[$key]))) }}" required>
+                            <input id="" type="date" class="form-control" name="companion_birth[]" value="{{ old('companion_birth',date('Y-m-d', strtotime(json_decode($reservations->companion_birth)[$key]))) }}" required>
                         </div>
 
 
@@ -325,7 +325,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('性別') }}</label>
                         <div class="col-md-3">
-                            <select name="companion_gender" id="" class="form-control">
+                            <select name="companion_gender[]" id="" class="form-control">
                                 <option value="0"  @if(old('companion_gender',json_decode($reservations->companion_gender)[$key])=='0') selected @endif>男</option>
                                 <option value="1" @if(old('companion_gender',json_decode($reservations->companion_gender)[$key])=='1') selected @endif>女</option>
                             </select>
@@ -334,7 +334,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
                         <div class="col-md-3">
-                            <select name="companion_boarding" id="" class="form-control">
+                            <select name="companion_boarding[]" id="" class="form-control">
                                 @foreach($pieces as $piece)
                                     <option value="{{$piece}}" @if(old('companion_boarding',json_decode($reservations->companion_boarding)[$key])== $piece) selected @endif>{{$piece}}</option>
                                 @endforeach
@@ -344,7 +344,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                         <div class="col-md-3">
-                             <select name="companion_drop" id="" class="form-control">
+                             <select name="companion_drop[]" id="" class="form-control">
                                 @foreach($drops as $drop)
                                     <option value="{{$drop}}" @if(old('companion_drop',json_decode($reservations->companion_drop)[$key])== $drop) selected @endif>{{$drop}}</option>
                                 @endforeach
@@ -389,10 +389,10 @@
                         $custom_view = true;
                         $linecount = 0;
                     @endphp
-                    @if(array_key_exists('custom_flg', $Number_of_reservations))
+                    @if(array_key_exists('custom_flg', (array)$Number_of_reservations))
                         @if($Number_of_reservations->custom_flg == 1)
                             <?php $custom_view = false;$add_view = true; ?>
-                            @if(array_key_exists('price_name', $Number_of_reservations))
+                            @if(array_key_exists('price_name', (array)$Number_of_reservations))
                                 @for ($k=0; $k<6; $k++)
                                 <tr>
                                     <td>
@@ -437,8 +437,8 @@
                                     <input type="text" id="price_name{{$i + 1}}" name="price_name{{$i + 1}}" value="{{ $arr[$i] . $priceName->name }}">
                                 </td>
                                 @for($j=0; $j<count($tmp_arr); $j++)
-                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), $Number_of_reservations))
-                                        @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), $Number_of_reservations))
+                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations))
+                                        @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                             <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$i + 1}}" name="typec_{{$i+1}}_price" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}" style="width: 80%;">円</td>
                                             <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$i + 1}}" name="typec_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp">名</td>
                                             <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)}) }}円</td>
@@ -475,8 +475,8 @@
                                 {{ $arr[$i] . $priceName->name }}
                             </td>
                             @for($j=0; $j<count($tmp_arr); $j++)
-                                @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), $Number_of_reservations))
-                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), $Number_of_reservations))
+                                @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations))
+                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                         <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
                                         <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
                                         <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type1_a_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
@@ -578,7 +578,7 @@
 $(document).ready(function(){
     var totalNumber = 0,
         totalPrice = 0;
-@if(array_key_exists('custom_flg', $Number_of_reservations) && array_key_exists('price_name', $Number_of_reservations))
+@if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations))
     @if($Number_of_reservations->custom_flg == 1)
         for (var i = 1 ; i <= 20 ; i++) {
     @endif
@@ -602,7 +602,7 @@ $(document).ready(function(){
 $('.update-price').click(function() {
     var totalNumber = 0,
         totalPrice = 0;
-@if(array_key_exists('custom_flg', $Number_of_reservations) && array_key_exists('price_name', $Number_of_reservations))
+@if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations))
     @if($Number_of_reservations->custom_flg == 1)
         for (var i = 1 ; i <= 20 ; i++) {
     @endif
@@ -632,7 +632,7 @@ $('.submit').click(function(event) {
 $('.submit-send').click(function() {
     $flag = true;
     @php
-    if(array_key_exists('custom_flg', $Number_of_reservations) && array_key_exists('price_name', $Number_of_reservations)){
+    if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations)){
         if($Number_of_reservations->custom_flg == 1){
             for($i=1;$i<=20;$i++){
                 if(array_key_exists($i, $Number_req)){
