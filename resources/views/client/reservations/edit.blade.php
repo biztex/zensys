@@ -387,10 +387,11 @@
                         $Sumpt = 0;
                         $Number_req = [];
                         $custom_view = true;
+                        $linecount = 0;
                     @endphp
                     @if(array_key_exists('custom_flg', $Number_of_reservations))
                         @if($Number_of_reservations->custom_flg == 1)
-                            <?php $custom_view = false; ?>
+                            <?php $custom_view = false;$add_view = true; ?>
                             @if(array_key_exists('price_name', $Number_of_reservations))
                                 @for ($k=0; $k<6; $k++)
                                 <tr>
@@ -402,8 +403,33 @@
                                         <td id="per-text-price{{ ($k + 1) }}" style="text-align: right;">{{ number_format($Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1}) }}円</td>
                                         <input type="hidden" id="per-price{{ $k + 1 }}" value="{{ $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1} }}"> 
                                         <?php $Sumpt += $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1};$Number_req[$k+1]=$Number_of_reservations->typec_number->{$k+1};?>
+                                        <td><input type="button" class="btn btn-default" value="-" onClick="delLine({{ $k + 1 }})"></td>
                                 </tr>
                                 @endfor
+                                @for ($k=6; $k<20; $k++)
+                                    @if(is_null($Number_of_reservations->price_name->{$k+1}))
+                                        @if($add_view)
+                                            <tr id="addline{{ $k }}"><td colspan="4" style="text-align: center;"><input type="button" class="btn btn-default" value="+" onClick="addLine({{ $k+1 }})"></td></tr>
+                                            <?php $add_view = false; $linecount = $k; ?>
+                                        @else
+                                            <tr id="addline{{ $k }}" style="display: none;"><td colspan="4" style="text-align: center;"><input type="button" class="btn btn-default" value="+" onClick="addLine({{ $k+1 }})"></td></tr>
+                                        @endif
+                                <tr id="line{{ $k+1 }}" style="display: none;">
+                                    @else
+                                <tr id="line{{ $k+1 }}">
+                                    @endif
+                                    <td>
+                                        <input type="text" id="price_name{{$k + 1}}" name="price_name{{$k + 1}}" value="{{ $Number_of_reservations->price_name->{$k+1} }}">
+                                    </td>
+                                        <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$k + 1}}" name="typec_{{$k+1}}_price" value="{{ $Number_of_reservations->typec_price->{$k+1} }}" style="width: 80%;">円</td>
+                                        <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$k + 1}}" name="typec_{{$k+1}}_number" value="{{ $Number_of_reservations->typec_number->{$k+1} }}">名</td>
+                                        <td id="per-text-price{{ ($k + 1) }}" style="text-align: right;">{{ number_format($Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1}) }}円</td>
+                                        <input type="hidden" id="per-price{{ $k + 1 }}" value="{{ $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1} }}"> 
+                                        <?php $Sumpt += $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1};$Number_req[$k+1]=$Number_of_reservations->typec_number->{$k+1};?>
+                                        <td><input type="button" class="btn btn-default" value="-" onClick="delLine({{ $k + 1 }})"></td>
+                                </tr>
+                                @endfor
+                                <input type="hidden" id="linecount" value="{{ $linecount }}">
                             @else
                             @for ($i=0; $i<count($arr); $i++)
                             <tr>
@@ -472,6 +498,12 @@
                         </tr>
                         @endfor
                     @endif
+                    <tr>
+                      <td colspan="4" class="bg-light font-weight-bold" style="text-align: center;">履歴メモ</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" style="text-align: center;"><textarea width="100%" rows="5" class="col-md-6 text-left" id="memo2" name="memo2">{{ $reservations->memo2 }}</textarea></td>
+                    </tr>
                     <tr>
                       <td colspan="2" class="bg-light font-weight-bold">人数・金額合計</td>
                       <td id="total-number" style="text-align: center;" class="font-weight-bold"></td>
@@ -546,7 +578,13 @@
 $(document).ready(function(){
     var totalNumber = 0,
         totalPrice = 0;
+@if(array_key_exists('custom_flg', $Number_of_reservations) && array_key_exists('price_name', $Number_of_reservations))
+    @if($Number_of_reservations->custom_flg == 1)
+        for (var i = 1 ; i <= 20 ; i++) {
+    @endif
+@else
     for (var i = 1 ; i <= 6 ; i++) {
+@endif
         if ($('#per-number' + i).val()) {
             var tmpPerNumber = $.trim($('#per-number' + i).val()),
                 perNumber = parseInt(tmpPerNumber);
@@ -564,7 +602,13 @@ $(document).ready(function(){
 $('.update-price').click(function() {
     var totalNumber = 0,
         totalPrice = 0;
+@if(array_key_exists('custom_flg', $Number_of_reservations) && array_key_exists('price_name', $Number_of_reservations))
+    @if($Number_of_reservations->custom_flg == 1)
+        for (var i = 1 ; i <= 20 ; i++) {
+    @endif
+@else
     for (var i = 1 ; i <= 6 ; i++) {
+@endif
         if ($('#per-number' + i).val()) {
             var tmpPerNumber = $.trim($('#per-number' + i).val()),
                 perNumber = parseInt(tmpPerNumber);
@@ -588,9 +632,21 @@ $('.submit').click(function(event) {
 $('.submit-send').click(function() {
     $flag = true;
     @php
-    for($i=1;$i<=6;$i++){
-        if(array_key_exists($i, $Number_req)){
-            echo "if($('#per-number" . $i . "').length){\nif($('#per-number" . $i . "').val() != " . $Number_req[$i] . "){\$flag = false;\n}\n}";
+    if(array_key_exists('custom_flg', $Number_of_reservations) && array_key_exists('price_name', $Number_of_reservations)){
+        if($Number_of_reservations->custom_flg == 1){
+            for($i=1;$i<=20;$i++){
+                if(array_key_exists($i, $Number_req)){
+                    if(!is_null($Number_req[$i])){
+                        echo "if($('#per-number" . $i . "').length){\nif($('#per-number" . $i . "').val() != " . $Number_req[$i] . "){\$flag = false;\n}\n}";
+                    }
+                }
+            }
+        }
+    }else{
+        for($i=1;$i<=6;$i++){
+            if(array_key_exists($i, $Number_req)){
+                echo "if($('#per-number" . $i . "').length){\nif($('#per-number" . $i . "').val() != " . $Number_req[$i] . "){\$flag = false;\n}\n}";
+            }
         }
     }
     @endphp
@@ -639,5 +695,33 @@ $('.custom-table').click(function() {
     $('.submit').parents('form').submit();
     return true;
 });
+function addLine($line) {
+    $linecount = parseInt($('#linecount').val());
+    $('#addline' + ($line - 1)).attr('style', 'display: none;');
+    $('#addline' + $line).attr('style', '');
+    $('#line' + $line).attr('style', '');
+    if($linecount<20){
+        $linecount = $linecount +1;
+        $('#linecount').val($linecount);
+    }
+    return false;
+}
+function delLine($line) {
+    $linecount = parseInt($('#linecount').val());
+    for($i=$line;$i<=$linecount;$i++){
+        $('#price_name' + $i).val($('#price_name' + ($i+1)).val());
+        $('#price' + $i).val($('#price' + ($i+1)).val());
+        $('#per-number' + $i).val($('#per-number' + ($i+1)).val());
+    }
+    if($linecount>6){
+        $('#addline' + ($linecount - 1)).attr('style', '');
+        $('#addline' + $linecount).attr('style', 'display: none;');
+        $('#line' + ($linecount - 1)).attr('style', '');
+        $('#line' + $linecount).attr('style', 'display: none;');
+        $linecount = $linecount -1;
+        $('#linecount').val($linecount);
+    }
+    return false;
+}
 </script>
 @stop

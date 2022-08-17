@@ -28,7 +28,7 @@ $custom_view = true;
     if($Number_of_reservations->custom_flg == 1){
       $custom_view = false;
       $amount = 0;
-      for($i=0; $i<6; $i++){
+      for($i=0; $i<20; $i++){
         if(!is_null($Number_of_reservations->price_name->{$i+1})){
           echo $Number_of_reservations->price_name->{$i+1} . " / " . $Number_of_reservations->typec_price->{$i+1} . " 円 × " . $Number_of_reservations->typec_number->{$i+1} . "=" . number_format($Number_of_reservations->typec_price->{$i+1} * $Number_of_reservations->typec_number->{$i+1}) . " 円" . "\n";
           $amount += $Number_of_reservations->typec_price->{$i+1} * $Number_of_reservations->typec_number->{$i+1};

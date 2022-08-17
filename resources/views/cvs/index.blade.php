@@ -19,7 +19,7 @@
     if(array_key_exists('custom_flg', $Number_of_reservations)){
         if($Number_of_reservations->custom_flg == 1){
             $custom_view = false;
-            for($i=0; $i<6; $i++){
+            for($i=0; $i<20; $i++){
                 if(!is_null($Number_of_reservations->price_name->{$i+1})){
                     echo '<li class="list-group-item d-flex justify-content-between">';
                     echo '<div>';

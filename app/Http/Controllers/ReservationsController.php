@@ -1156,7 +1156,7 @@ class ReservationsController extends Controller
             if(array_key_exists('custom_flg', $Number_of_reservations)){
                 if($Number_of_reservations->custom_flg == 1){
                     $amount = 0;
-                    for($j=1;$j<=6;$j++){
+                    for($j=1;$j<=20;$j++){
                         $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                     }
                 }
@@ -1476,6 +1476,7 @@ class ReservationsController extends Controller
         $reservation->type19_number = $request->type19_number;
         $reservation->type20_number = $request->type20_number;
         $reservation->memo = $request->memo;
+        $reservation->memo2 = $request->memo2;
         if ($count_old_member != $count_requested_member) {
             // 合計金額セット
             $amount = 0;
@@ -1550,7 +1551,7 @@ class ReservationsController extends Controller
         if($custom_flg){
             $Number_of_reservations = [];
             $Number_of_reservations['custom_flg'] = 1;
-            for($k=1;$k<=6;$k++){
+            for($k=1;$k<=20;$k++){
                 $Number_of_reservations['price_name'][$k] = $request->{'price_name'.$k};
                 $Number_of_reservations['typec_price'][$k] = $request->{'typec_'.$k.'_price'};
                 $Number_of_reservations['typec_number'][$k] = $request->{'typec_'.$k.'_number'};
@@ -1940,7 +1941,7 @@ class ReservationsController extends Controller
             if(array_key_exists('custom_flg', $Number_of_reservations)){
                 if($Number_of_reservations->custom_flg == 1){
                     $amount = 0;
-                    for($j=1;$j<=6;$j++){
+                    for($j=1;$j<=20;$j++){
                         $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                     }
                 }
@@ -2392,7 +2393,7 @@ class ReservationsController extends Controller
                 if(array_key_exists('custom_flg', $Number_of_reservations)){
                     if($Number_of_reservations->custom_flg == 1){
                         $amount = 0;
-                        for($j=1;$j<=6;$j++){
+                        for($j=1;$j<=20;$j++){
                             $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                         }
                     }
@@ -2567,7 +2568,7 @@ class ReservationsController extends Controller
             if(array_key_exists('custom_flg', $Number_of_reservations)){
                 if($Number_of_reservations->custom_flg == 1){
                     $amount = 0;
-                    for($j=1;$j<=6;$j++){
+                    for($j=1;$j<=20;$j++){
                         $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                     }
                 }
