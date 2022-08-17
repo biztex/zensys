@@ -1649,6 +1649,11 @@ class ReservationsController extends Controller
                 }
             }
         }
+        if(isset($request->custom_flg)){
+            if($request->custom_flg == 1){
+                return redirect('/client/reservations/edit/' . $id . '#price_name1')->with('message', '価格表がカスタマイズ可能になりました。');
+            }
+        }
         return redirect()
             ->back()
             ->with('message', '変更が完了しました');
