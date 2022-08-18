@@ -29,9 +29,10 @@ for($k=0; $k<count($plan["prices"]); $k++){
 $plan_json = json_encode($array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 $plan_json = str_replace('¥u0022', '¥¥¥"', $plan_json);
 $plan_json = str_replace('"', '', $plan_json);
-$url = "http://153.127.31.62/zenryo/public/roadMap/json/" . $plan_id;
+$url = "http://153.127.31.62/zenryo/public/api/roadMap/json/" . $plan_id;
 $array = file_get_contents($url);
 $roadmaps = json_decode($array,true);
+
 
 $roadmap_json = json_encode($array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 $roadmap_json = str_replace('¥u0022', '¥¥¥"', $roadmap_json);
@@ -236,7 +237,8 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <th>食事</th>
                                         <th>宿泊</th>
                                     </tr>
-                                    <?php foreach ($roadmaps as $key => $value) {
+                                    <?php 
+                                    foreach ($roadmaps as $key => $value) {
                                           
                                         ?>
                                          
