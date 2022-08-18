@@ -74,14 +74,14 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> キャッチコピー</label>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <textarea id="name" type="textarea" class="form-control catchphrase" name="catchphrase" rows="5" placeholder="※最大100文字まで" maxlength="100">{{ old('catchphrase') }}</textarea>
                                 <span id="char_count" class="d-block text-lg-right">100/100</span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> プラン説明文</label>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <textarea id="name" type="textarea" class="form-control plan_text" name="description" rows="15" placeholder="※最大1200文字まで" maxlength="1200">{{ old('description') }}</textarea>
                                 <span id="plan_char_count" class="d-block text-lg-right">1200/1200</span>
                             </div>
@@ -224,14 +224,16 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('利用宿泊施設') }}</label>
                             <div class="col-md-6">
-                                <textarea id="institution" type="textarea" class="form-control" name="institution" rows="5" placeholder="※最大100文字まで">{{ old('institution') }}</textarea>
-
+                                <textarea id="institution" type="textarea" class="form-control institution" name="institution" rows="5" maxlength="100" placeholder="※最大100文字まで">{{ old('institution') }}</textarea>
+                                <span id="plan_institution_count" class="d-block text-lg-right">100/100</span>
                             </div>
+                           
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('利用交通機関') }}</label>
                             <div class="col-md-6">
-                                <textarea id="transportation" type="textarea" class="form-control" name="transportation" rows="5" placeholder="※最大100文字まで">{{ old('transportation') }}</textarea>
+                                <textarea id="transportation" type="textarea" class="form-control transportation"  name="transportation" rows="5" maxlength="100" placeholder="※最大100文字まで">{{ old('transportation') }}</textarea>
+                                <span id="plan_transportation_count" class="d-block text-lg-right">100/100</span>
 
                             </div>
                         </div>
@@ -580,7 +582,9 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> 支払方法の補足・詳細</label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="payment_comment" rows="2" placeholder="※最大200文字まで">{{ old('payment_comment') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control payment_comment" name="payment_comment" rows="2" maxlength="200" placeholder="※最大200文字まで">{{ old('payment_comment') }}</textarea>
+                                <span id="plan_comment_count" class="d-block text-lg-right">200/200</span>
+
                             </div>
                         </div>
                         <div class="form-group row mt-5 bg-dark">
@@ -708,7 +712,9 @@
                           <div class="form-group row mt-5">
                             <label class="col-md-2 col-form-label text-md-right"> 料金に含まれるもの</label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="included_item" rows="2" placeholder="※最大100文字まで">{{ old('included_item') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control included_item" name="included_item" rows="2" maxlength="100" placeholder="※最大100文字まで">{{ old('included_item') }}</textarea>
+                                <span id="plan_include_count" class="d-block text-lg-right">100/100</span>
+
                             </div>
                         </div>
 
@@ -1059,7 +1065,8 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="question_content" rows="10" placeholder="※最大1200文字まで">{{ old('question_content') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control question_content" name="question_content" rows="10" maxlength="1200" placeholder="※最大1200文字まで">{{ old('question_content') }}</textarea>
+                                <span id="plan_question_count" class="d-block text-lg-right">1200/1200</span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -1083,7 +1090,8 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control" name="caution_content" rows="10" placeholder="※最大5000文字まで">{{ old('caution_content') }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control caution_content" name="caution_content" rows="10" maxlength="5000" placeholder="※最大5000文字まで">{{ old('caution_content') }}</textarea>
+                                <span id="plan_caution_count" class="d-block text-lg-right">5000/5000</span>
                             </div>
                         </div>
 <!--                         <div class="form-group row mt-5 bg-dark">
@@ -2155,33 +2163,28 @@ $('#road_map').summernote({
 
 let textArea = document.querySelector(".catchphrase");
 let planArea = document.querySelector(".plan_text");
+let institutionArea = document.querySelector('.institution');
+let transportationArea = document.querySelector('.transportation');
+let commentArea = document.querySelector('.payment_comment');
+let includeArea = document.querySelector('.included_item');
+let questionArea = document.querySelector('.question_content');
+let cautionArea = document.querySelector('.caution_content');
+
+
 let characterCounter = document.getElementById("char_count");
 let plan_characterCounter = document.getElementById("plan_char_count");
+let plan_institution_count = document.getElementById('plan_institution_count');
+let plan_transportation_count = document.getElementById('plan_transportation_count');
+let plan_comment_count = document.getElementById('plan_comment_count');
+let plan_include_count = document.getElementById('plan_include_count');
+let plan_question_count = document.getElementById('plan_question_count');
+let plan_caution_count = document.getElementById('plan_caution_count');
+
 const maxNumOfChars = 100;
 const plan_maxNumOfChars = 1200;
+const maxCommentOfChars = 200;
+const maxOfChars = 5000;
 
-
-let numOfEnteredChars = textArea.value.length;
-let counter = maxNumOfChars - numOfEnteredChars;
-characterCounter.textContent = counter + "/100";
-if (counter < 0) {
-    characterCounter.style.color = "red";
-} else if (counter < 20) {
-    characterCounter.style.color = "orange";
-} else {
-    characterCounter.style.color = "black";
-}
-
-let plan_numOfEnteredChars = planArea.value.length;
-let plan_counter = plan_maxNumOfChars - plan_numOfEnteredChars;
-plan_characterCounter.textContent = plan_counter + "/1200";
-if (counter < 0) {
-    plan_characterCounter.style.color = "red";
-} else if (counter < 20) {
-    plan_characterCounter.style.color = "orange";
-} else {
-    plan_characterCounter.style.color = "black";
-}
 
 const countCharacters = () => {
     let numOfEnteredChars = textArea.value.length;
@@ -2208,8 +2211,111 @@ const plancountCharacters = () => {
     }
 };
 
+// 利用宿泊施設
+const planInstitutionCountCharacters = () => {
+    let institution_numOfEnteredChars = institutionArea.value.length;
+    let institution_counter = maxNumOfChars - institution_numOfEnteredChars;
+    plan_institution_count.textContent = institution_counter + "/100";
+    if (institution_counter < 0) {
+        plan_institution_count.style.color = "red";
+    } else if (institution_counter < 20) {
+        plan_institution_count.style.color = "orange";
+    } else {
+        plan_institution_count.style.color = "black";
+    }
+};
+
+    //利用交通機関
+
+const planTransportationCountCharacters = () => {
+
+    let transportation_numOfEnteredChars = transportationArea.value.length;
+    let transportation_counter = maxNumOfChars - transportation_numOfEnteredChars;
+    plan_transportation_count.textContent = transportation_counter + "/100";
+    if (transportation_counter < 0) {
+        characterCounter.style.color = "red";
+    } else if (transportation_counter < 20) {
+        plan_transportation_count.style.color = "orange";
+    } else {
+        plan_transportation_count.style.color = "black";
+    }
+
+};
+
+//支払方法の補足・詳細
+
+const planCommentCountCharacters = () => {
+
+    let comment_numOfEnteredChars = commentArea.value.length;
+    let comment_counter = maxCommentOfChars - comment_numOfEnteredChars;
+    plan_comment_count.textContent = comment_counter + "/200";
+    if (comment_counter < 0) {
+        plan_comment_count.style.color = "red";
+    } else if (comment_counter < 20) {
+        plan_comment_count.style.color = "orange";
+    } else {
+        plan_comment_count.style.color = "black";
+    }
+
+};
+
+//料金に含まれるもの
+
+const planIncludeCountCharacters = () => {
+
+    let include_numOfEnteredChars = includeArea.value.length;
+    let include_counter = maxNumOfChars - include_numOfEnteredChars;
+    plan_include_count.textContent = include_counter + "/100";
+    if (include_counter < 0) {
+        plan_include_count.style.color = "red";
+    } else if (include_counter < 20) {
+        plan_include_count.style.color = "orange";
+    } else {
+        plan_include_count.style.color = "black";
+    }
+
+};
+//予約者への質問
+
+const planQuestionCountCharacters = () => {
+
+    let question_numOfEnteredChars = questionArea.value.length;
+    let question_counter = plan_maxNumOfChars - question_numOfEnteredChars;
+    plan_question_count.textContent = question_counter + "/1200";
+    if (question_counter < 0) {
+        plan_question_count.style.color = "red";
+    } else if (question_counter < 20) {
+        plan_question_count.style.color = "orange";
+    } else {
+        plan_question_count.style.color = "black";
+    }
+
+};
+
+//注意事項・その他
+
+const planCautionCountCharacters = () => {
+
+    let caution_numOfEnteredChars = cautionArea.value.length;
+    let caution_counter = maxOfChars - caution_numOfEnteredChars;
+    plan_caution_count.textContent = caution_counter + "/5000";
+    if (caution_counter < 0) {
+        plan_caution_count.style.color = "red";
+    } else if (caution_counter < 20) {
+        plan_caution_count.style.color = "orange";
+    } else {
+        plan_caution_count.style.color = "black";
+    }
+
+};
 textArea.addEventListener("input", countCharacters);
 planArea.addEventListener("input", plancountCharacters);
+institutionArea.addEventListener("input", planInstitutionCountCharacters);
+transportationArea.addEventListener("input", planTransportationCountCharacters);
+commentArea.addEventListener("input", planCommentCountCharacters);
+includeArea.addEventListener("input", planIncludeCountCharacters);
+questionArea.addEventListener("input", planQuestionCountCharacters);
+cautionArea.addEventListener("input", planCautionCountCharacters);
 
 </script>
 
