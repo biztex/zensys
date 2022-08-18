@@ -765,6 +765,19 @@ class PlansController extends Controller
     {
         ini_set('memory_limit', '256M');
 
+        $rules = [
+            'is_listed' => ['required'],
+            'name' => ['nullable', 'string', 'max:100'],
+            'catchphrase' => ['nullable', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:1200'],
+            'payment_comment' => ['nullable', 'string', 'max:200'],
+            'included_item' => ['nullable', 'string', 'max:100'],
+            'question_content' => ['nullable', 'string', 'max:1200'],
+            'caution_content' => ['nullable', 'string', 'max:5000'],
+        ];
+
+        $this->validate($request, $rules);
+
         // 画像トリミング処理（forのループ分）
         $image_count = 0;
         for ($i = 1; $i <= 11; $i++) {
