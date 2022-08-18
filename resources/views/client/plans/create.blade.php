@@ -74,14 +74,14 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> キャッチコピー</label>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <textarea id="name" type="textarea" class="form-control catchphrase" name="catchphrase" rows="5" placeholder="※最大100文字まで" maxlength="100">{{ old('catchphrase') }}</textarea>
                                 <span id="char_count" class="d-block text-lg-right">100/100</span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> プラン説明文</label>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <textarea id="name" type="textarea" class="form-control plan_text" name="description" rows="15" placeholder="※最大1200文字まで" maxlength="1200">{{ old('description') }}</textarea>
                                 <span id="plan_char_count" class="d-block text-lg-right">1200/1200</span>
                             </div>
@@ -224,14 +224,16 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('利用宿泊施設') }}</label>
                             <div class="col-md-6">
-                                <textarea id="institution" type="textarea" class="form-control" name="institution" rows="5" placeholder="※最大100文字まで">{{ old('institution') }}</textarea>
-
+                                <textarea id="institution" type="textarea" class="form-control institution" name="institution" rows="5" maxlength="100" placeholder="※最大100文字まで">{{ old('institution') }}</textarea>
+                                <span id="plan_institution_count" class="d-block text-lg-right">100/100</span>
                             </div>
+                           
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('利用交通機関') }}</label>
                             <div class="col-md-6">
-                                <textarea id="transportation" type="textarea" class="form-control" name="transportation" rows="5" placeholder="※最大100文字まで">{{ old('transportation') }}</textarea>
+                                <textarea id="transportation" type="textarea" class="form-control transportation"  name="transportation" rows="5" maxlength="100" placeholder="※最大100文字まで">{{ old('transportation') }}</textarea>
+                                <span id="plan_transportation_count" class="d-block text-lg-right">100/100</span>
 
                             </div>
                         </div>
@@ -2155,8 +2157,15 @@ $('#road_map').summernote({
 
 let textArea = document.querySelector(".catchphrase");
 let planArea = document.querySelector(".plan_text");
+let institutionArea = document.querySelector('.institution');
+let transportationArea = document.querySelector('.transportation');
+
+
 let characterCounter = document.getElementById("char_count");
 let plan_characterCounter = document.getElementById("plan_char_count");
+let plan_institution_count = document.getElementById('plan_institution_count');
+let plan_transportation_count = document.getElementById('plan_transportation_count');
+
 const maxNumOfChars = 100;
 const plan_maxNumOfChars = 1200;
 
@@ -2172,6 +2181,7 @@ if (counter < 0) {
     characterCounter.style.color = "black";
 }
 
+
 let plan_numOfEnteredChars = planArea.value.length;
 let plan_counter = plan_maxNumOfChars - plan_numOfEnteredChars;
 plan_characterCounter.textContent = plan_counter + "/1200";
@@ -2182,6 +2192,34 @@ if (counter < 0) {
 } else {
     plan_characterCounter.style.color = "black";
 }
+
+// 利用宿泊施設
+
+let institution_numOfEnteredChars = institutionArea.value.length;
+let institution_counter = maxNumOfChars - institution_numOfEnteredChars;
+plan_institution_count.textContent = institution_counter + "/100";
+if (institution_counter < 0) {
+    characterCounter.style.color = "red";
+} else if (institution_counter < 20) {
+    plan_institution_count.style.color = "orange";
+} else {
+    plan_institution_count.style.color = "black";
+}
+
+//利用交通機関
+
+let transportation_numOfEnteredChars = transportationArea.value.length;
+let transportation_counter = maxNumOfChars - transportation_numOfEnteredChars;
+plan_transportation_count.textContent = transportation_counter + "/100";
+if (transportation_counter < 0) {
+    characterCounter.style.color = "red";
+} else if (transportation_counter < 20) {
+    plan_transportation_count.style.color = "orange";
+} else {
+    plan_transportation_count.style.color = "black";
+}
+
+
 
 const countCharacters = () => {
     let numOfEnteredChars = textArea.value.length;
@@ -2208,8 +2246,41 @@ const plancountCharacters = () => {
     }
 };
 
+// 利用宿泊施設
+const planInstitutionCountCharacters = () => {
+    let institution_numOfEnteredChars = institutionArea.value.length;
+    let institution_counter = maxNumOfChars - institution_numOfEnteredChars;
+    plan_institution_count.textContent = institution_counter + "/100";
+    if (institution_counter < 0) {
+        plan_institution_count.style.color = "red";
+    } else if (institution_counter < 20) {
+        plan_institution_count.style.color = "orange";
+    } else {
+        plan_institution_count.style.color = "black";
+    }
+};
+
+    //利用交通機関
+
+const planTransportationCountCharacters = () => {
+
+    let transportation_numOfEnteredChars = transportationArea.value.length;
+    let transportation_counter = maxNumOfChars - transportation_numOfEnteredChars;
+    plan_transportation_count.textContent = transportation_counter + "/100";
+    if (transportation_counter < 0) {
+        characterCounter.style.color = "red";
+    } else if (transportation_counter < 20) {
+        plan_transportation_count.style.color = "orange";
+    } else {
+        plan_transportation_count.style.color = "black";
+    }
+
+};
+
 textArea.addEventListener("input", countCharacters);
 planArea.addEventListener("input", plancountCharacters);
+institutionArea.addEventListener("input", planInstitutionCountCharacters);
+transportationArea.addEventListener("input", planTransportationCountCharacters);
 
 </script>
 
