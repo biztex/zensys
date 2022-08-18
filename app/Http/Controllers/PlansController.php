@@ -767,6 +767,8 @@ class PlansController extends Controller
 
         $rules = [
             'is_listed' => ['required'],
+            'road_map1' => ['nullable', 'string', 'max:1000000'],
+            'cancel' => ['nullable','string', 'max:1000000'],
             'name' => ['nullable', 'string', 'max:100'],
             'catchphrase' => ['nullable', 'string', 'max:100'],
             'description' => ['nullable', 'string', 'max:1200'],
@@ -1273,7 +1275,20 @@ class PlansController extends Controller
     {
         ini_set('memory_limit', '256M');
         // 画像トリミング処理（forのループ分）
+        $rules = [
+            'is_listed' => ['required'],
+            'road_map1' => ['nullable', 'string', 'max:1000000'],
+            'cancel' => ['nullable','string', 'max:1000000'],
+            'name' => ['nullable', 'string', 'max:100'],
+            'catchphrase' => ['nullable', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:1200'],
+            'payment_comment' => ['nullable', 'string', 'max:200'],
+            'included_item' => ['nullable', 'string', 'max:100'],
+            'question_content' => ['nullable', 'string', 'max:1200'],
+            'caution_content' => ['nullable', 'string', 'max:5000'],
+        ];
 
+        $this->validate($request, $rules);
         $image_count = 0;
         for ($i = 1; $i <= 11; $i++) {
             if ($i == 11 && $request->file('file_path11')) {
@@ -1766,9 +1781,9 @@ class PlansController extends Controller
         ini_set('memory_limit', '256M');
         $rules = [
             'kind' => ['required'],
-            'road_map1' => ['required'],
+            'road_map1' => ['required','string', 'max:1000000'],
             'cancel_date' => ['nullable'],
-            'cancel' => ['required'],
+            'cancel' => ['required','string', 'max:1000000'],
             'is_listed' => ['required'],
             'name' => ['required', 'string', 'max:100'],
             'catchphrase' => ['required', 'string', 'max:100'],
