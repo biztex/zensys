@@ -170,38 +170,41 @@ class CardController extends Controller
                 ->where('res_date', date('Y-m-d', strtotime($reservation->fixed_datetime)))
                 ->where('price_type_id', $typeid)
                 ->first();
-                if ($stock) {
-                    if ($reservation->plan->res_limit_flag == 0) {
-                        // 予約人数をカウント
-                        $count_member = 0; 
-                        for ($i = 0; $i <= 20 ; $i++) {
-                            $count = $reservation->{'type'. $i . '_number'};
-                            if ($count > 0) {
-                                $count_member += $count;
+                // リクエスト予約以外の場合、在庫を減数
+                if($reservation->plan->res_type == 0){
+                    if ($stock) {
+                        if ($reservation->plan->res_limit_flag == 0) {
+                            // 予約人数をカウント
+                            $count_member = 0; 
+                            for ($i = 0; $i <= 20 ; $i++) {
+                                $count = $reservation->{'type'. $i . '_number'};
+                                if ($count > 0) {
+                                    $count_member += $count;
+                                }
                             }
-                        }
-                        // 料金区分２０以上対応
-                        $typeid=0;
-                        $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
-                        if(!is_null($reservation->Number_of_reservations)){
-                            $Number_of_reservations = json_decode($reservation->Number_of_reservations);
-                            $count_member = 0;
-                            for($i=0;$i<=100;$i++){
-                                for($j=0;$j<count($byDay);$j++){
-                                    for($k=1;$k<=3;$k++){
-                                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
-                                            $typeid = $i;
-                                            $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                            // 料金区分２０以上対応
+                            $typeid=0;
+                            $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+                            if(!is_null($reservation->Number_of_reservations)){
+                                $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+                                $count_member = 0;
+                                for($i=0;$i<=100;$i++){
+                                    for($j=0;$j<count($byDay);$j++){
+                                        for($k=1;$k<=3;$k++){
+                                            if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                                $typeid = $i;
+                                                $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                                            }
                                         }
                                     }
                                 }
                             }
+                            $stock->limit_number = $stock->limit_number - $count_member;
+                            $stock->save();
+                        } else {
+                            //$stock->limit_number = $stock->limit_number - 1;
+                            //$stock->save();
                         }
-                        $stock->limit_number = $stock->limit_number - $count_member;
-                        $stock->save();
-                    } else {
-                        //$stock->limit_number = $stock->limit_number - 1;
-                        //$stock->save();
                     }
                 }
             }else{
