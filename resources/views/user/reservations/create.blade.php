@@ -300,7 +300,7 @@
                                     $("select[name='birth_month_representative[]']").first().val($("select[name='birth_month']").val());
                                     $("select[name='birth_day_representative[]']").first().val($("select[name='birth_day']").val());
                                     $("input[name='postalcode_representative']").first().val($("input[name='postalcode']").val());
-                                    $("input[name='prefecture_representative']").first().val($("input[name='prefecture']").val());
+                                    $("select[name='prefecture_representative']").first().val($("select[name='prefecture']").val());
                                     $("input[name='address_representative']").first().val($("input[name='address']").val());
                                     $("input[name='extended_representative']").first().val($("input[name='extended']").val());
                                     $("input[name='tel_representative']").first().val($("input[name='tel']").val());
