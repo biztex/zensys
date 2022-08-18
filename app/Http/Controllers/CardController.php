@@ -99,7 +99,7 @@ class CardController extends Controller
                     // 合計金額リセット
                     $amount = 0;
                     for($i=0;$i<=100;$i++){
-                        for($j=0;$j<6;$j++){
+                        for($j=0;$j<count($byDay);$j++){
                             for($k=1;$k<=3;$k++){
                                 if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                                     $typeid = $i;
@@ -152,7 +152,7 @@ class CardController extends Controller
                     if ($reservation->user->email) {
                         $message
                         ->to($reservation->user->email)
-                        ->from('test@toebisu.jp')
+                        ->from('info@zenryo-ec.com')
                         ->subject("【全旅】予約確定メール");
                 }
                 });
@@ -187,7 +187,7 @@ class CardController extends Controller
                             $Number_of_reservations = json_decode($reservation->Number_of_reservations);
                             $count_member = 0;
                             for($i=0;$i<=100;$i++){
-                                for($j=0;$j<6;$j++){
+                                for($j=0;$j<count($byDay);$j++){
                                     for($k=1;$k<=3;$k++){
                                         if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                                             $typeid = $i;

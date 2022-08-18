@@ -479,7 +479,7 @@
                                     @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                         <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
                                         <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
-                                        <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type1_a_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
+                                        <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="{{ sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1) }}" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
                                         <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp">
                                         <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)}) }}円</td>
                                         <input type="hidden" id="per-price{{ $i + 1 }}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)} }}">
@@ -487,7 +487,7 @@
                                     @else
                                         <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
                                         <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
-                                        <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="type1_a_{{$i+1}}_number" value="0"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
+                                        <td style="text-align: right; padding-left: 50px;"><div class="row justify-content-center"><input id="per-number{{ ($i + 1) }}" class="number-input col-md-5" name="{{ sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1) }}" value="0"> <span style="line-height: 1.8;" class="col-md-2"> 名</span></div></td>
                                         <input type="hidden" class="col-md-6 text-right" id="number{{$i + 1}}" value="0">
                                         <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">0円</td>
                                         <input type="hidden" id="per-price{{ $i + 1 }}" value="0">

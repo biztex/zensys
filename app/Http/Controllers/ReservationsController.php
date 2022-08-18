@@ -361,7 +361,7 @@ class ReservationsController extends Controller
         $Number_of_reservations = [];
         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
         for($i=0;$i<=100;$i++){
-            for($j=0;$j<6;$j++){
+            for($j=0;$j<count($byDay);$j++){
                 for($k=1;$k<=3;$k++){
                     if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
                         if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0){
@@ -418,7 +418,7 @@ class ReservationsController extends Controller
             $amount = 0;
             foreach ($plan->prices as $price) {
                 for($i=0;$i<=100;$i++){
-                    for($j=0;$j<6;$j++){
+                    for($j=0;$j<count($byDay);$j++){
                         for($k=1;$k<=3;$k++){
                             if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
                                 if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0 && $price->type == $i){
@@ -909,7 +909,7 @@ class ReservationsController extends Controller
         // 料金区分２０以上対応
         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
         for($i=0;$i<=100;$i++){
-            for($j=0;$j<6;$j++){
+            for($j=0;$j<count($byDay);$j++){
                 for($k=1;$k<=3;$k++){
                     if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
                         if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0){
@@ -959,7 +959,7 @@ class ReservationsController extends Controller
             $Number_of_reservations = json_decode($reservations->Number_of_reservations);
             $count_old_member = 0;
             for($i=0;$i<=100;$i++){
-                for($j=0;$j<6;$j++){
+                for($j=0;$j<count($byDay);$j++){
                     for($k=1;$k<=3;$k++){
                         if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k), (array)$Number_of_reservations)){
                             $typeid = $i;
@@ -1096,7 +1096,7 @@ class ReservationsController extends Controller
             $count_old_member = 0;
             $typeid = 0;
             for($i=0;$i<=100;$i++){
-                for($j=0;$j<6;$j++){
+                for($j=0;$j<count($byDay);$j++){
                     for($k=1;$k<=3;$k++){
                         if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                             $typeid = $i;
@@ -1144,7 +1144,7 @@ class ReservationsController extends Controller
             $Number_of_reservations = json_decode($reservation->Number_of_reservations);
             foreach ($prices as $price) {
                 for($i=0;$i<=100;$i++){
-                    for($j=0;$j<6;$j++){
+                    for($j=0;$j<count($byDay);$j++){
                         for($k=1;$k<=3;$k++){
                             if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                                 $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
@@ -1389,12 +1389,6 @@ class ReservationsController extends Controller
         }
         // 人数変更＝価格変更があった場合
         $count_old_member = 0;
-        for ($i = 0; $i <= 20; $i++) {
-            $num1 = $reservation->{'type' . $i . '_number'};
-            if ($num1 > 0) {
-                $count_old_member += $num1;
-            }
-        }
         // 料金区分２０以上対応
         $typeid=0;
         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
@@ -1402,12 +1396,19 @@ class ReservationsController extends Controller
             $Number_of_reservations = json_decode($reservation->Number_of_reservations);
             $count_old_member = 0;
             for($i=0;$i<=100;$i++){
-                for($j=0;$j<6;$j++){
+                for($j=0;$j<count($byDay);$j++){
                     for($k=1;$k<=3;$k++){
                         if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),(array)$Number_of_reservations)){
                             $typeid = $i;
                             $count_old_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
                         }
+                    }
+                }
+            }
+            if(array_key_exists('custom_flg', $Number_of_reservations)){
+                if($Number_of_reservations->custom_flg == 1){
+                    for($j=1;$j<=20;$j++){
+                        $count_old_member += $Number_of_reservations->typec_number->{$j};
                     }
                 }
             }
@@ -1419,10 +1420,25 @@ class ReservationsController extends Controller
             }
         }
         $count_requested_member = 0;
-        for ($i = 0; $i <= 20; $i++) {
-            $num2 = $request->{'type' . $i . '_number'};
-            if ($num2 > 0) {
-                $count_requested_member += $num2;
+        if($custom_flg){
+            for($i=1;$i<=20;$i++){
+                if(!is_null($request->{sprintf('typec_%d_number', $i)})){
+                    if($request->{sprintf('typec_%d_number', $i)} > 0){
+                        $count_requested_member += $request->{sprintf('typec_%d_number', $i)};
+                    }
+                }
+            }
+        }else{
+            for($i=0;$i<=100;$i++){
+                for($j=0;$j<count($byDay);$j++){
+                    for($k=1;$k<=3;$k++){
+                        if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
+                            if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0){
+                                $count_requested_member += $request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                            }
+                        }
+                    }
+                }
             }
         }
         $reservation->status = $request->status;
@@ -1504,7 +1520,7 @@ class ReservationsController extends Controller
             $amount = 0;
             foreach ($reservation->plan->prices as $price) {
                 for($i=0;$i<=100;$i++){
-                    for($j=0;$j<6;$j++){
+                    for($j=0;$j<count($byDay);$j++){
                         for($k=1;$k<=3;$k++){
                             if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
                                 if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0 && $price->type == $i){
@@ -1519,7 +1535,7 @@ class ReservationsController extends Controller
             $Number_of_reservations = [];
             $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
             for($i=0;$i<=100;$i++){
-                for($j=0;$j<6;$j++){
+                for($j=0;$j<count($byDay);$j++){
                     for($k=1;$k<=3;$k++){
                         if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
                             if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0){
@@ -1534,8 +1550,20 @@ class ReservationsController extends Controller
                     $Number_of_reservations['custom_flg'] = 1;
                 }
             }
+            if($custom_flg){
+                $Number_of_reservations = [];
+                $Number_of_reservations['custom_flg'] = 1;
+                // 合計金額リセット
+                $amount = 0;
+                for($k=1;$k<=20;$k++){
+                    $Number_of_reservations['price_name'][$k] = $request->{'price_name'.$k};
+                    $Number_of_reservations['typec_price'][$k] = $request->{'typec_'.$k.'_price'};
+                    $Number_of_reservations['typec_number'][$k] = $request->{'typec_'.$k.'_number'};
+                    $amount += $request->{'typec_'.$k.'_price'} * $request->{'typec_'.$k.'_number'};
+                }
+            }
             $reservation->Number_of_reservations = json_encode($Number_of_reservations);
-            if ($reservation->payment_method == 3) {
+            if ($reservation->payment_method == 3 && $reservation->status == '予約確定') {
                 $mstatus = $this->cardReAuthorize(
                     $reservation,
                     $request,
@@ -1587,6 +1615,36 @@ class ReservationsController extends Controller
             $Sum_refund_amount += $request->credit_cancel_price;
             $reservation->status = '一部返金';
             $reservation->save();
+            if(!is_null($reservation->Number_of_reservations)){
+                $Number_of_reservations = json_decode($reservation->Number_of_reservations);
+                $count_member = 0;
+                // 合計金額リセット
+                $amount = 0;
+                for($i=0;$i<=100;$i++){
+                    for($j=0;$j<count($byDay);$j++){
+                        for($k=1;$k<=3;$k++){
+                            if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
+                                $typeid = $i;
+                                $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
+                                foreach ($reservation->plan->prices as $price) {
+                                    if($price->type == $typeid){
+                                        $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if(array_key_exists('custom_flg', $Number_of_reservations)){
+                    if($Number_of_reservations->custom_flg == 1){
+                        $amount = 0;
+                        for($j=1;$j<=20;$j++){
+                            $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
+                        }
+                    }
+                }
+            }
+            $sum_amount = $amount;
             if ($request->{'credit_cancel_price'} > 1 && $Sum_refund_amount <= $sum_amount){
                 $mstatus = $this->cardCancel($reservation->order_id, $reservation->id, $request->{'credit_cancel_price'});
             } elseif ($Sum_refund_amount > $sum_amount ){
@@ -1904,7 +1962,7 @@ class ReservationsController extends Controller
             $count_old_member = 0;
             $type_id = 0;
             for($i=0;$i<=100;$i++){
-                for($j=0;$j<6;$j++){
+                for($j=0;$j<count($byDay);$j++){
                     for($k=1;$k<=3;$k++){
                         if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                             $type_id = $i;
@@ -1929,7 +1987,7 @@ class ReservationsController extends Controller
             $Number_of_reservations = json_decode($reservation->Number_of_reservations);
             foreach ($prices as $price) {
                 for($i=0;$i<=100;$i++){
-                    for($j=0;$j<6;$j++){
+                    for($j=0;$j<count($byDay);$j++){
                         for($k=1;$k<=3;$k++){
                             if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                                 $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
@@ -2302,6 +2360,7 @@ class ReservationsController extends Controller
             $dummy_reservation->companion_drop        = $reservation->companion_drop;
             $dummy_reservation->status = 'dummy';
             $dummy_reservation->activity_date = 'dummy';
+            $dummy_reservation->Number_of_reservations = $reservation->Number_of_reservations;
             $dummy_reservation->save();
         }
         // 新予約番号作成
@@ -2373,28 +2432,13 @@ class ReservationsController extends Controller
             if(!is_null($reservation->Number_of_reservations)){
                 $Number_of_reservations = json_decode($reservation->Number_of_reservations);
                 $count_member = 0;
-                // 合計金額リセット
-                $amount = 0;
                 for($i=0;$i<=100;$i++){
-                    for($j=0;$j<6;$j++){
+                    for($j=0;$j<count($byDay);$j++){
                         for($k=1;$k<=3;$k++){
                             if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                                 $typeid = $i;
                                 $count_member += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
-                                foreach ($reservation->plan->prices as $price) {
-                                    if($price->type == $typeid){
-                                        $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
-                                    }
-                                }
                             }
-                        }
-                    }
-                }
-                if(array_key_exists('custom_flg', $Number_of_reservations)){
-                    if($Number_of_reservations->custom_flg == 1){
-                        $amount = 0;
-                        for($j=1;$j<=20;$j++){
-                            $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                         }
                     }
                 }
@@ -2508,7 +2552,7 @@ class ReservationsController extends Controller
             $count_old_member = 0;
             $typeid = 0;
             for($i=0;$i<=100;$i++){
-                for($j=0;$j<6;$j++){
+                for($j=0;$j<count($byDay);$j++){
                     for($k=1;$k<=3;$k++){
                         if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                             $typeid = $i;
@@ -2556,7 +2600,7 @@ class ReservationsController extends Controller
             $Number_of_reservations = json_decode($reservation->Number_of_reservations);
             foreach ($prices as $price) {
                 for($i=0;$i<=100;$i++){
-                    for($j=0;$j<6;$j++){
+                    for($j=0;$j<count($byDay);$j++){
                         for($k=1;$k<=3;$k++){
                             if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                                 $amount += $Number_of_reservations->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};

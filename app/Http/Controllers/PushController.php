@@ -80,7 +80,7 @@ class PushController extends Controller
                             // 合計金額リセット
                             $amount = 0;
                             for($i=0;$i<=100;$i++){
-                                for($j=0;$j<6;$j++){
+                                for($j=0;$j<count($byDay);$j++){
                                     for($k=1;$k<=3;$k++){
                                         if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k),$Number_of_reservations)){
                                             $typeid = $i;
@@ -91,6 +91,14 @@ class PushController extends Controller
                                                 }
                                             }
                                         }
+                                    }
+                                }
+                            }
+                            if(array_key_exists('custom_flg', $Number_of_reservations)){
+                                if($Number_of_reservations->custom_flg == 1){
+                                    $amount = 0;
+                                    for($j=1;$j<=20;$j++){
+                                        $amount += $Number_of_reservations->typec_price->{$j} * $Number_of_reservations->typec_number->{$j};
                                     }
                                 }
                             }
