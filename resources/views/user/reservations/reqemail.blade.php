@@ -28,10 +28,7 @@
   $arr = ['大人　','子供　','幼児　'] ;
   $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
 
-  for($i=0; $i<count($arr); $i++){
-    if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1), $Number_of_reservations)){
-      $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)];
-    }
-  }
+  echo $type_id;
+
 
 @endphp
