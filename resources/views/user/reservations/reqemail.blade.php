@@ -36,7 +36,7 @@
       $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)];
    
     }else{
-      echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  . " 円 × " . 0 . "=" . number_format((int)$prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  * 0) . " 円" . "\n";
+     
     }
   }
 
