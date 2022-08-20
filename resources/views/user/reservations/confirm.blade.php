@@ -105,7 +105,7 @@
                                         echo '<input type="hidden" name="price_type" class="number" value=" '.$info['price_type'].'">';
 
                                         @endphp
-                                        
+
                                 </table>
                             </div>
                             <div class="reserveItem">
@@ -216,7 +216,7 @@
                                                 {{$info['add_lastname'][0]}} {{$info['add_firstname'][0]}}
                                                 <!-- <input class="midIpt" type="hidden" name="add_lastname[]" value="{{$info['add_lastname'][0]}}"> -->
                                                <!-- <input class="midIpt" type="hidden" name="add_firstname[]"  value="{{$info['add_firstname'][0]}}"> -->
-                                          
+
                                             </td>
                                         </tr>
                                         <tr class="nameTr">
@@ -261,7 +261,7 @@
                                                 <p>〒{{$info['postalcode_representative']}}</p>
                                                 <p>{{$info['prefecture_representative']}}</p>
                                                 <p>{{$info['address_representative']}} {{$info['extended_representative']}}</p>
-                                               
+
                                             </td>
                                         </tr>
                                         <tr>
@@ -290,7 +290,7 @@
                                             <td>
                                                 {{$info['add_lastname'][$i]}} {{$info['add_firstname'][$i]}}
                                             </td>
-                                        </tr> 
+                                        </tr>
                                        <tr class="nameTr">
                                             <th>同行者氏名(カナ)</th>
                                             <td>
@@ -319,7 +319,7 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                      
+
                                         <tr>
                                             <th>乗車地</th>
                                             <td>
@@ -336,10 +336,10 @@
                                     @endfor
                                 </div>
                             </div>
-                           
 
-                                 
-                               
+
+
+
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">料金決済</h4>
                                 <table class="reserveTable">
@@ -372,7 +372,7 @@
                                         <td>{{ $plan->name }}</td>
                                     </tr>
                                     <tr>
-                                        <th>集合日時/集合場所</th>
+                                        <th>集合日時</th>
                                         {{-- <td>@if ($plan->meeting_point_flag == 1 && $plan->meeting_point_name)<strong class="meeting-point-placeholder"></strong><br />{{ $plan->meeting_point_name }}
 〒{{ $plan->meeting_point_postalcode }}
 {{ $plan->meeting_point_prefecture }}{{ $plan->meeting_point_address }}
@@ -388,7 +388,7 @@
 @endif</td> --}}
 
 <td>
-{{ date('Y年m月d日', strtotime($date)) }} /
+{{ date('Y年m月d日', strtotime($date)) }}
                                     </tr>
                                     <tr>
                                         <th>目的地</th>

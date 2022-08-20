@@ -98,7 +98,7 @@
                                                 }
                                                 echo '</td></tr>';
                                             }
-                                       
+
                                         }
                                         echo '<input type="hidden" name="price_type" value="'. $priceType['number'] .'">';
 
@@ -285,7 +285,7 @@
                                 $('input[type=radio][name=radio_sex]').click(function() {
                                    value=$(this).val
                                 });
-                               
+
                                 function copyJoint() {
                                     $("input[name='add_lastname[]']").first().val($("#name_last").val())
                                     $("input[name='add_firstname[]']").first().val($("#name_first").val())
@@ -330,7 +330,7 @@
                                         </tr>
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(カナ)<span class="requiredRed">※</span></th>
-                                            <td>乗車地
+                                            <td>
                                                 <div class="halfP">
                                                     <span>セイ</span>
                                                     <input class="midIpt" type="text" name="join_kana1[]" required>
@@ -467,14 +467,14 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <p class="reserveDelete">X</p>
+                                    <p class="reserveDelete"></p>
                                 </div>
 
                                 <div class="reserveList helperNone" id="reserveList">
                                     <table class="reserveTable">
                                         <tr class="nameTr">
                                             <th>同行者氏名(漢字)<span class="requiredRed">※</span></th>
-                                            <td>
+                                            <td class="sp-pt-20">
                                                 <div class="halfP">
                                                     <span>姓</span>
                                                     <input class="midIpt" type="text" name="add_lastname[]" required>
@@ -550,7 +550,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <p class="reserveDelete">X</p>
+                                    <p class="reserveDelete"></p>
                                 </div>
                                 <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">同行者情報を追加</a></p>
                             </div>

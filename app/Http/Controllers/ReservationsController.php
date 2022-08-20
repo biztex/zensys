@@ -416,6 +416,8 @@ class ReservationsController extends Controller
             // 料金区分２０以上対応
             // 合計金額リセット
             $amount = 0;
+            // 予約人数リセット
+            $count_member = 0;
             foreach ($plan->prices as $price) {
                 for($i=0;$i<=100;$i++){
                     for($j=0;$j<count($byDay);$j++){
@@ -423,6 +425,7 @@ class ReservationsController extends Controller
                             if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
                                 if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0 && $price->type == $i){
                                     $amount += $request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} * $price->{sprintf('%s_%d', $byDay[$j],$k)};
+                                    $count_member += $request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
                                 }
                             }
                         }
@@ -596,14 +599,6 @@ class ReservationsController extends Controller
                     ->first();
                 if ($stock) {
                     if ($reservation->plan->res_limit_flag == 0) {
-                        // 予約人数をカウント
-                        $count_member = 0;
-                        for ($i = 0; $i <= 20; $i++) {
-                            $count = $reservation->{'type' . $i . '_number'};
-                            if ($count > 0) {
-                                $count_member += $count;
-                            }
-                        }
                         $stock->limit_number =
                             $stock->limit_number - $count_member;
                         $stock->save();
@@ -670,14 +665,6 @@ class ReservationsController extends Controller
                     ->first();
                 if ($stock) {
                     if ($reservation->plan->res_limit_flag == 0) {
-                        // 予約人数をカウント
-                        $count_member = 0;
-                        for ($i = 0; $i <= 20; $i++) {
-                            $count = $reservation->{'type' . $i . '_number'};
-                            if ($count > 0) {
-                                $count_member += $count;
-                            }
-                        }
                         $stock->limit_number =
                             $stock->limit_number - $count_member;
                         $stock->save();

@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="{{config('app.url')}}{{ mix('css/app.css') }}">
 
         <!-- Scripts -->
-        <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->.
+        <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
         <script src="{{config('app.url')}}{{ mix('js/app.js') }}" defer></script>
     </head>
     <body>

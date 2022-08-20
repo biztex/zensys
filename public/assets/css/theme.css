@@ -68,6 +68,7 @@ select {
 }
 
 @media screen and (max-width: 768px) {
+
     input[type=text],
     input[type=email],
     input[type=tel],
@@ -591,11 +592,13 @@ textarea:focus {
         top: 0;
         opacity: 0;
     }
+
     50% {
         height: 100%;
         top: 0;
         opacity: 0.5;
     }
+
     100% {
         height: 100%;
         top: 100%;
@@ -1231,6 +1234,7 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 768px) {
+
     .section.section--searchbar .search-field-list .postform,
     .section.section--searchbar .search-field-list .category-selector,
     .section.section--searchbar .search-field-list .ym-selector {
@@ -1282,6 +1286,7 @@ textarea:focus {
         margin-right: auto;
         background-position: calc(50% - 3em) center;
     }
+
     .section.section--searchbar .search-field-list .submit span {
         display: inline;
         font-size: 3.73vw;
@@ -1411,6 +1416,7 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 768px) {
+
     .section.section--company .section__content .details .item .item__name span,
     .section.section--company .section__content .details .item .item__value span {
         margin-left: 5.33vw;
@@ -1680,6 +1686,7 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 768px) {
+
     .section.section--company .section__content .about .info .post,
     .section.section--company .section__content .about .info .address,
     .section.section--company .section__content .about .info .open {
@@ -2251,6 +2258,7 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 768px) {
+
     .section.section--archive .section__content .article-list .item .news .details .title,
     .section.section--archive .section__content .article-list .item .news .details .text {
         font-size: 4vw;
@@ -3052,6 +3060,7 @@ textarea:focus {
     .nav-wrapper .nav>li:last-of-type {
         background-color: #DE9A2E;
     }
+
     .nav-wrapper .nav>li:last-of-type:hover {
         background-color: #E88B11;
     }
@@ -3181,6 +3190,7 @@ textarea:focus {
     .nav>li>a.submenu-opener {
         display: none;
     }
+
     .nav .menu-popup {
         display: block !important;
     }
@@ -3204,6 +3214,7 @@ textarea:focus {
         -o-transition: all 0.3s ease;
         transition: all 0.3s ease;
     }
+
     .nav-wrapper a.contact-link {
         width: auto;
         margin: 0;
@@ -3219,10 +3230,12 @@ textarea:focus {
         -ms-flex-direction: row;
         flex-direction: row;
     }
+
     .nav-wrapper a.contact-link span {
         color: #FFFFFF;
         display: unset;
     }
+
     .nav-open {
         width: 12.8vw;
         height: 12.8vw;
@@ -3258,6 +3271,7 @@ textarea:focus {
         flex-direction: column;
         background-color: #104C8F;
     }
+
     .nav-open i {
         position: relative;
         display: block;
@@ -3266,6 +3280,7 @@ textarea:focus {
         border-top: 2px solid;
         color: white;
     }
+
     .nav-open i:before,
     .nav-open i:after {
         content: "";
@@ -3278,9 +3293,11 @@ textarea:focus {
         left: 0;
         top: -2.8vw;
     }
+
     .nav-open i:after {
         top: calc(2.8vw - 4px);
     }
+
     .nav-open span {
         display: block;
         font-size: 2.4vw;
@@ -3288,6 +3305,7 @@ textarea:focus {
         position: relative;
         top: 1em;
     }
+
     .nav li {
         display: block;
         position: relative;
@@ -3295,9 +3313,11 @@ textarea:focus {
         font-size: 4.2vw;
         margin: 0;
     }
+
     .nav li:hover>a {
         color: white;
     }
+
     .nav .menu-popup {
         display: none;
         position: static;
@@ -3307,6 +3327,7 @@ textarea:focus {
         padding: 0;
         position: unset;
     }
+
     .nav .menu-popup .popup-inner {
         -webkit-box-pack: flex-start;
         -webkit-justify-content: flex-start;
@@ -3315,9 +3336,11 @@ textarea:focus {
         justify-content: flex-start;
         -webkit-box-pack: start;
     }
+
     .nav .menu-popup .popup-inner h3 {
         display: none;
     }
+
     .nav .menu-popup .popup-inner ul {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -3327,6 +3350,7 @@ textarea:focus {
         -ms-flex-direction: column;
         flex-direction: column;
     }
+
     .nav .menu-popup .popup-inner ul li {
         -webkit-flex: 0 0 100%;
         -webkit-box-flex: 0 0 100%;
@@ -3335,20 +3359,24 @@ textarea:focus {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
     }
+
     .nav .menu-popup .popup-inner ul li a::after {
         display: none;
     }
+
     .nav>li>a {
         display: inline-block;
         vertical-align: middle;
         padding: 5.33vw 0;
     }
+
     .nav>li>a.submenu-opener {
         width: 30px;
         text-align: center;
         padding: 5px 0;
         margin-left: 5px;
     }
+
     .nav>li>a.submenu-opener:before {
         content: "+";
         font-family: Arial;
@@ -3359,6 +3387,7 @@ textarea:focus {
         -o-transition: all 0.3s ease;
         transition: all 0.3s ease;
     }
+
     .nav>li>a.submenu-opener.opened:before {
         -webkit-transform: rotate(90deg);
         -ms-transform: rotate(90deg);
@@ -3367,6 +3396,7 @@ textarea:focus {
         font-weight: bold;
         content: "|";
     }
+
     .nav-open i,
     .nav-open i:after,
     .nav-open i:before {
@@ -3374,9 +3404,11 @@ textarea:focus {
         -o-transition: all 0.3s ease;
         transition: all 0.3s ease;
     }
+
     body:not(.nav-opened) .nav-wrapper a {
         pointer-events: none;
     }
+
     .nav-opened .nav-wrapper {
         display: block;
         height: calc(100vh - 12.8vw);
@@ -3391,37 +3423,46 @@ textarea:focus {
         padding: unset;
         animation: scale-animation 0.4s linear forwards;
     }
+
     @keyframes scale-animation {
         from {
             width: 0;
         }
+
         to {
             width: 100vw;
         }
     }
+
     .nav-opened .page-header .nav-wrapper .nav .menu-popup {
         background: inherit;
         padding-left: 1em;
     }
+
     .nav-opened .logo {
         -webkit-transition: none;
         -o-transition: none;
         transition: none;
     }
+
     .nav-opened .nav-open {
         animation: move-animation 0.4s linear forwards;
     }
+
     @keyframes move-animation {
         from {
             right: 0;
         }
+
         to {
             right: 72vw;
         }
     }
+
     .nav-opened .nav-open i {
         border-color: transparent;
     }
+
     .nav-opened .nav-open i:after {
         -webkit-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
@@ -3429,6 +3470,7 @@ textarea:focus {
         top: 0;
         left: 0;
     }
+
     .nav-opened .nav-open i:before {
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
@@ -3523,11 +3565,13 @@ textarea:focus {
     .header-inner {
         padding-left: 4.2vw;
     }
+
     .nav-opened .header-inner {
         width: 100vw;
         height: 100vh;
         position: relative;
     }
+
     .nav-opened .header-inner:before {
         content: "";
         position: absolute;
@@ -3541,10 +3585,12 @@ textarea:focus {
         z-index: 1;
         display: none;
     }
+
     .nav-opened .header-inner .logo {
         position: absolute;
         top: 2.13vw;
     }
+
     .nav-opened .header-inner .nav-open {
         position: absolute;
         left: 87.2vw;
@@ -3552,6 +3598,7 @@ textarea:focus {
         z-index: 2;
         background-color: #104C8F;
     }
+
     .nav-opened .header-inner .nav-open i,
     .nav-opened .header-inner .nav-open i:before,
     .nav-opened .header-inner .nav-open i:after {
@@ -3682,6 +3729,7 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 768px) {
+
     .page-footer .footer-top .container .company-info .post,
     .page-footer .footer-top .container .company-info .address,
     .page-footer .footer-top .container .company-info .open,
@@ -3698,6 +3746,7 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 768px) {
+
     .page-footer .footer-top .container .company-info .post,
     .page-footer .footer-top .container .company-info .open {
         display: block;
@@ -3711,6 +3760,7 @@ textarea:focus {
 }
 
 @media only screen and (max-width: 768px) {
+
     .page-footer .footer-top .container .company-info .address,
     .page-footer .footer-top .container .company-info .tel-mail {
         display: block;
@@ -3898,6 +3948,7 @@ textarea:focus {
     .section--reserve {
         padding: 25px 0 40px;
     }
+
     .inner {
         max-width: none;
         padding: 0 15px;
@@ -4164,10 +4215,6 @@ textarea:focus {
     margin-top: 20px;
 }
 
-.reserveList:first-of-type .reserveDelete {
-    display: none;
-}
-
 .reserveDelete {
     position: absolute;
     right: 0px;
@@ -4182,13 +4229,38 @@ textarea:focus {
     align-items: center;
 }
 
+.reserveBox .reserveDelete::before,
+.reserveBox .reserveDelete::after {
+    position: absolute;
+    display: inline-block;
+    content: "";
+}
+
+.reserveBox .reserveDelete::before {
+    width: 15px;
+    height: 2px;
+    background: #000;
+    transform: rotate(45deg);
+}
+
+.reserveBox .reserveDelete::after {
+    width: 2px;
+    height: 15px;
+    background: #000;
+    transform: rotate(45deg);
+}
+
+.reserveList:first-of-type .reserveDelete {
+    display: none;
+}
+
 .reserveTable select.midSelect {
     width: 240px;
 }
 
 .reserveTxt p {
     font-size: 13px;
-    line-height: 1.9!important;
+    line-height: 1.9 !important;
 }
 
 .reserveTxt p+p {
@@ -4295,6 +4367,7 @@ ul {
         display: flex;
         margin-bottom: 10px;
     }
+
     .stepUl li {
         width: 100%;
         display: flex;
@@ -4307,9 +4380,11 @@ ul {
         font-size: 14px;
         font-weight: bold;
     }
+
     .stepUl li+li {
         margin-left: 10px;
     }
+
     .stepUl li:not(:last-of-type):before {
         content: '';
         position: absolute;
@@ -4320,17 +4395,21 @@ ul {
         background: url(../img/reserve/arrow_step_no.svg)no-repeat right center;
         background-size: auto 100%;
     }
+
     .stepUl li.is_active {
         background: #DD9A2E;
         color: #fff;
     }
+
     .stepUl li.is_active:before {
         background: url(../img/reserve/arrow_step_on.svg)no-repeat right center;
         background-size: auto 100%;
     }
+
     .reserveBox {
         background: #fff;
     }
+
     .reserveBoxHd {
         background: #0F4C8E;
         color: #fff;
@@ -4338,15 +4417,19 @@ ul {
         font-weight: bold;
         padding: 8px 10px;
     }
+
     .reserveCont {
         padding: 15px;
     }
+
     .reserveItem+.reserveItem {
         margin-top: 20px;
     }
+
     .helperMarginTop {
         margin-top: 20px;
     }
+
     .reserveItemHd {
         border-left: 5px solid #0F4C8E;
         padding: 8px 10px;
@@ -4355,26 +4438,32 @@ ul {
         margin-bottom: 10px;
         background: #F8F8F8;
     }
+
     .reserveDl01 {
         display: block;
     }
+
     .reserveDl01 dt {
         width: auto;
         margin-right: 0px;
         margin-bottom: 15px;
     }
+
     .reserveDl01 dd {
         width: auto;
     }
+
     .reserveDl01 .nameP {
         font-size: 14px;
         font-weight: bold;
         margin-bottom: 10px;
     }
+
     .reserveDl01 .txtP {
         font-size: 12px;
         margin-bottom: 5px;
     }
+
     .reserveTable th,
     .reserveTable td {
         border: 1px solid #CCCCCC;
@@ -4382,20 +4471,24 @@ ul {
         font-size: 12px;
         text-align: left;
     }
+
     .reserveTable th {
         background: #EAEAEA;
         padding: 9px 15px;
         width: 26%;
         min-width: 26%;
     }
+
     .reserveTable th.topTh {
         vertical-align: top;
     }
+
     .reserveTable .numberP {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+
     .reserveTable input[type=text],
     .reserveTable select {
         width: 100%;
@@ -4409,74 +4502,92 @@ ul {
         font-family: inherit;
         margin-bottom: 3px;
     }
+
     .reserveTable .numberP input[type=text] {
         margin-right: 5px;
         width: 80px;
     }
+
     .nameTr span {
         width: 2em;
         margin-right: 5px;
     }
+
     .nameTr .halfP {
         display: flex;
         align-items: center;
     }
+
     .nameTr .halfP+.halfP {
         margin-left: 0px;
     }
+
     .reserveTable input[type=text].midIpt,
     .reserveTable select {
         width: 100px;
     }
+
     .reserveTable .nameTr input[type=text].midIpt {
         width: calc(100% - 30px);
     }
+
     .radioBox {
         display: flex;
     }
+
     .radioBox label {
         display: inline-flex;
         align-items: center;
         font-size: 12px;
         margin-right: 15px;
     }
+
     .radioBox label input {
         margin-right: 5px;
         position: relative;
         top: -1px;
     }
+
     .zipTr span {
         width: 2em;
         margin-right: 5px;
     }
+
     .zipP01 {
         display: flex;
         align-items: center;
         margin-bottom: 6px;
     }
+
     .zipP02 {
         margin-top: 6px;
     }
+
     .dateP {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
     }
+
     .dateP select {
         max-width: calc(33% - 19px);
         padding: 0;
     }
+
     .dateP span {
         margin: 0 3px;
     }
+
     .ageP {
         display: flex;
         align-items: center;
     }
+
     .ageP span {
         width: 2em;
         margin: 0 5px;
     }
+
     .grayBtn {
         font-size: 12px;
         font-weight: bold;
@@ -4489,53 +4600,65 @@ ul {
         border: 1px solid #707070;
         background: #E5E5E5;
     }
+
     .helperTextOver {
         text-align: center;
         height: 40px;
     }
+
     .reflectsP {
         text-align: right;
         margin-bottom: 8px;
     }
+
     .reserveAdd {
         text-align: center;
         margin-top: 10px;
     }
+
     .reserveList {
         position: relative;
     }
+
     .reserveList+.reserveList {
         margin-top: 10px;
     }
+
     .reserveList:first-of-type .reserveDelete {
         display: none;
     }
+
     .reserveDelete {
         position: absolute;
-        right: -8px;
+        right: 0px;
         top: 0px;
         z-index: 2;
         cursor: pointer;
         font-weight: bold;
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
     .reserveTable select.midSelect {
         width: 140px;
     }
+
     .reserveTxt p {
         font-size: 12px;
-        line-height: 1.7!important;
+        line-height: 1.7 !important;
     }
+
     .reserveTxt p+p {
         margin-top: 10px;
     }
+
     .reserveTxt+.reserveTable {
         margin: 10px 0;
     }
+
     .reserveAgree {
         text-align: left;
         font-size: 12px;
@@ -4544,6 +4667,7 @@ ul {
         padding: 15px 10px;
         margin-top: 10px;
     }
+
     label.checkBox01,
     label.radioBox01 {
         display: flex;
@@ -4554,18 +4678,22 @@ ul {
         margin-bottom: 5px;
         text-align: left;
     }
+
     .reserveAgree label input {
         margin-right: 3px;
         position: relative;
         top: 2px;
     }
+
     .reserveButton {
         text-align: center;
         margin-top: 15px;
     }
+
     .reserveButton li+li {
         margin-top: 10px;
     }
+
     .btnLink01 {
         border: 0;
         width: 200px;
@@ -4582,20 +4710,28 @@ ul {
         justify-content: center;
         align-items: center;
     }
+
     .thanksCont {
         text-align: center;
     }
+
     .thanksHd {
         font-size: 14px;
         font-weight: bold;
         margin-bottom: 10px;
     }
+
     .thanksTxt {
         font-size: 12px;
         margin-bottom: 15px;
     }
+
     .reserveTextarea {
         font-size: 12px;
+    }
+
+    .reserveTable .sp-pt-20 {
+        padding-top: 20px;
     }
 }
 
@@ -4738,6 +4874,7 @@ ul {
 }
 
 @media only screen and (max-width: 1160px) {
+
     .listSideUl a,
     .listSideHd {
         padding: 15px 15px;
@@ -4748,12 +4885,14 @@ ul {
     .section--list {
         padding: 30px 0;
     }
+
     .listContent {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         flex-direction: column-reverse;
     }
+
     .listSide {
         width: 100%;
         font-size: 12px;
@@ -4763,9 +4902,11 @@ ul {
         overflow: hidden;
         margin-top: 15px;
     }
+
     .listMain {
         width: 100%;
     }
+
     .listSideHd {
         font-weight: bold;
         color: #fff;
@@ -4773,19 +4914,23 @@ ul {
         background: #0F4C8E;
         font-size: 13px;
     }
+
     .listSideUl a {
         display: block;
         padding: 10px;
         border-bottom: 1px solid #CCCCCC;
         background: #fff;
     }
+
     .listItem {
         background: #fff;
         border: 1px solid #CCCCCC;
     }
+
     .listItem+.listItem {
         margin-top: 10px;
     }
+
     .listItemHd {
         font-size: 15px;
         font-weight: bold;
@@ -4793,34 +4938,42 @@ ul {
         border-left: 5px solid #DD9A2E;
         margin: 6px 0;
     }
+
     .listItemCont {
         border-top: 1px solid #CCCCCC;
         padding: 10px 10px;
     }
+
     .listItemTxt {
         font-weight: bold;
         font-size: 12px;
         margin-bottom: 10px;
     }
+
     .listItemInfo {
         display: block;
         justify-content: space-between;
     }
+
     .listItemInfo .leftP {
         width: auto;
     }
+
     .listItemInfo .rightP {
         width: auto;
     }
+
     .listItemInfo .rightP+.leftP,
     .listItemInfo .leftP+.rightP {
         margin-top: 15px;
     }
+
     .listItemInfo .messageP {
         display: block;
         flex-wrap: wrap;
         margin: 0;
     }
+
     .listItemInfo .messageP dl {
         margin: 0 0 6px;
         display: flex;
@@ -4828,6 +4981,7 @@ ul {
         min-width: auto;
         font-size: 12px;
     }
+
     .listItemInfo .messageP dt {
         margin-right: 8px;
         width: 100px;
@@ -4839,16 +4993,19 @@ ul {
         background: #EAEAEA;
         font-weight: bold;
     }
+
     .listItemInfo .messageP dd {
         width: calc(100% - 110px);
         line-height: 1.25;
     }
+
     .listItemInfo .priceP {
         text-align: center;
         font-size: 12px;
         font-weight: bold;
         padding: 6px 0;
     }
+
     .listItemInfo .priceP span {
         display: block;
         font-size: 18px;
@@ -5091,40 +5248,51 @@ ul {
     position: relative;
 }
 
-.dateTable td.stockA{
+.dateTable td.stockA {
     background-color: #ffeaea;
 }
-.dateTable td.stockB{
+
+.dateTable td.stockB {
     background-color: #ffeaf4;
 }
-.dateTable td.stockC{
+
+.dateTable td.stockC {
     background-color: #ffeaff;
 }
-.dateTable td.stockD{
+
+.dateTable td.stockD {
     background-color: #f4eaff;
 }
-.dateTable td.stockE{
+
+.dateTable td.stockE {
     background-color: #eaeaff;
 }
-.dateTable td.stockF{
+
+.dateTable td.stockF {
     background-color: #eaf4ff;
 }
-.dateTable td.stockG{
+
+.dateTable td.stockG {
     background-color: #eaffff;
 }
-.dateTable td.stockH{
+
+.dateTable td.stockH {
     background-color: #eafff4;
 }
-.dateTable td.stockI{
+
+.dateTable td.stockI {
     background-color: #eaffea;
 }
-.dateTable td.stockJ{
+
+.dateTable td.stockJ {
     background-color: #f4ffea;
 }
-.dateTable td.stockK{
+
+.dateTable td.stockK {
     background-color: #ffffea;
 }
-.dateTable td.stockL{
+
+.dateTable td.stockL {
     background-color: #fff4ea;
 }
 
@@ -5141,11 +5309,11 @@ ul {
 } */
 
 .dateTable td.noTd {
-    background: #fff!important;
+    background: #fff !important;
 }
 
 .dateTable thead td {
-    background: #EAEAEA!important;
+    background: #EAEAEA !important;
     font-size: 20px;
     padding: 12px 8px;
 }
@@ -5225,14 +5393,20 @@ ul {
     line-height: 1.2;
 }
 
+.section_calendar .dateBox>.reserve-box {
+    margin-top: 20px;
+}
+
 @media only screen and (max-width: 768px) {
     .section--detail {
         padding: 30px 0 0;
         border-bottom: 2px solid #DD9A2E;
     }
+
     .detailItem {
         margin-top: 20px;
     }
+
     .detailItemHd {
         background: #0F4C8E;
         font-size: 14px;
@@ -5244,6 +5418,7 @@ ul {
         justify-content: space-between;
         flex-wrap: wrap;
     }
+
     .detailItemHd a {
         display: flex;
         justify-content: center;
@@ -5256,17 +5431,21 @@ ul {
         font-weight: bold;
         color: #313131;
     }
+
     .dtSlist img {
         width: 100%;
     }
+
     .dtNav {
         padding: 0px 14px;
         margin: 10px 0;
     }
+
     .dtNav .dtSlist {
         margin: 0 5px;
         max-width: 67px;
     }
+
     .dtNav .slick-prev,
     .dtNav .slick-next {
         position: absolute;
@@ -5279,28 +5458,34 @@ ul {
         top: 0;
         transform: translateY(0);
     }
+
     .dtNav .slick-next {
         background: url(../img/detail/next_nav.svg)no-repeat right center;
         background-size: 100% auto;
         left: auto;
         right: 0;
     }
+
     .slick-prev:before,
     .slick-next:before {
         content: none;
     }
+
     .listItemInfo .leftP .priceP {
         padding-top: 16px;
         margin-top: 15px;
         border-top: 1px solid #CCCCCC;
     }
+
     .listItemInfo .leftP .messageP dl {
         margin-bottom: 8px;
     }
+
     .detailTable {
         width: 100%;
         border-collapse: collapse;
     }
+
     .detailTable th,
     .detailTable td {
         border: 1px solid #CCCCCC;
@@ -5308,8 +5493,9 @@ ul {
         line-height: 1.66;
         padding: 8px;
         vertical-align: top;
-        width: auto!important;
+        width: auto !important;
     }
+
     .detailTable th {
         font-size: 14px;
         font-weight: bold;
@@ -5317,6 +5503,7 @@ ul {
         text-align: center;
         padding: 8px;
     }
+
     .calendarHd {
         text-align: center;
         color: #fff;
@@ -5327,10 +5514,12 @@ ul {
         background: #DD9A2E;
         margin-top: 20px;
     }
+
     .section_calendar {
         background: #fff;
         padding: 20px 0 30px;
     }
+
     .timeSelect {
         display: flex;
         align-items: center;
@@ -5338,10 +5527,12 @@ ul {
         font-weight: bold;
         margin-bottom: 12px;
     }
+
     .timeSelect span {
         width: 100px;
         color: #717070;
     }
+
     .timeSelect select {
         width: calc(100% - 100px);
         border: 1px solid #CCCCCC;
@@ -5359,12 +5550,15 @@ ul {
         appearance: none;
         -moz-appearance: none;
     }
+
     .dateItems {
         display: none;
     }
+
     .dateItems.is_active {
         display: block;
     }
+
     .dateHd {
         display: flex;
         justify-content: center;
@@ -5376,9 +5570,11 @@ ul {
         margin-bottom: 10px;
         height: 28px;
     }
+
     .dateHd a {
         color: #313131;
     }
+
     .dateHd a.prevM,
     .dateHd a.nextM {
         position: absolute;
@@ -5393,19 +5589,23 @@ ul {
         justify-content: center;
         align-items: center;
     }
+
     .dateHd a.nextM {
         left: auto;
         right: 0;
     }
+
     .dateHd a.prevM.disabled,
     .dateHd a.nextM.disabled {
         pointer-events: none;
         opacity: .5;
     }
+
     .dateTable {
         width: 100%;
         border-collapse: collapse;
     }
+
     .dateTable td {
         border: 1px solid #ccc;
         padding: 19px 0px 10px;
@@ -5418,23 +5618,29 @@ ul {
         color: #717070;
         position: relative;
     }
+
     .dateTable td:nth-of-type(1) {
         background: #FFEAEA;
     }
+
     .dateTable td:nth-of-type(6) {
         background: #F2FFEA;
     }
+
     .dateTable td:nth-of-type(7) {
         background: #FFEAEA;
     }
+
     .dateTable td.noTd {
-        background: #fff!important;
+        background: #fff !important;
     }
+
     .dateTable thead td {
-        background: #EAEAEA!important;
+        background: #EAEAEA !important;
         font-size: 12px;
         padding: 6px 4px;
     }
+
     .dayP {
         position: absolute;
         left: 6px;
@@ -5444,56 +5650,73 @@ ul {
         letter-spacing: -0.3em;
         line-height: 1.5;
     }
+
     .dateTable td a {
         color: #717070;
     }
+
     p.datePrice {
         line-height: 1.3;
     }
+
     .datePrice font {
         font-size: 10px;
         font-weight: normal;
     }
+
     .reserveP {
         font-weight: normal;
     }
+
     .dateType {
         margin: 10px 0 15px;
         font-size: 12px;
     }
+
     .dateNotice {
         font-size: 12px;
     }
+
     .detailHd01 {
         font-size: 14px;
         font-weight: bold;
         color: #717070;
         margin-bottom: 10px;
     }
+
     .reserveTxt+.detailHd01 {
         margin: 10px 0;
     }
+
     .dtPayment {
         padding-top: 40px;
         background: url(../img/detail/arrow_payment.svg)no-repeat top 15px center;
         background-size: 120px auto;
     }
+
     .detailTable .btnLink01 {
         width: 80px;
         height: 26px;
         font-size: 12px;
     }
+
     .detailTable .tcTr td {
         vertical-align: middle;
         text-align: center;
     }
+
     .dtPayment+.detailTable {
         margin-top: 15px;
     }
+
     .detailBtn .btnLink01 {
         width: auto;
         height: 60px;
         margin-top: 20px;
         line-height: 1.2;
+    }
+
+    .section_calendar .dateBox>.reserve-box {
+        margin-top: 10px;
     }
 }

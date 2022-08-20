@@ -3,7 +3,7 @@
         <x-slot name="logo">
 <!--
             <x-jet-authentication-card-logo />
--->        
+-->
         </x-slot>
         <div>
             <img class="d-block mx-auto" width="200"  src="{{ asset('img//logo_login.png') }}">

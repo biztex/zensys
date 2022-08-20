@@ -9,7 +9,7 @@
 @section('js')
 <script type="text/javascript" src="{{asset('js/default.js')}}"></script>
 <script>
-  
+
     var planId = $('#submit_select').val();
     $('#year').val($('#disp-year').text());
     $('#month').val($('#disp-month').text());
@@ -25,7 +25,7 @@
         $('#next-month').attr('href', '{{config('app.url')}}client/stocks/' + $('#year').val() + '/' + (parseInt($('#month').val()) +1 ) + '/' + planId+ '/' + price_type_id);
     }
     // プランセレクトしたらPOST
-    
+
     $("#submit_select").change(function(){
         let planId = $('#submit_select').val();
         let year = $('input#' + planId + '_year').attr('name');
@@ -57,7 +57,7 @@
 @stop
 @section('content')
 <script>
-   
+
 
     function goSubmit(num){
 
@@ -242,12 +242,13 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
+                    <span class="pl-2">在庫</span>
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num" value="" @if($default_plan->res_type == 2) disabled @endif></label>
                     <input type="button" value="更新する" onclick="goSubmit(1)">
-                   
 
-                   
-                   
+
+
+
                     <br> <br>
                     曜日一括変更　
                     <label class="form-label"><input type="checkbox" class="day ml-1" name="day[]" value="0" id="sunday">日</label>
@@ -274,6 +275,7 @@
                     <option value="K" >K</option>
                     <option value="L" >L</option>
                     </select>
+                    <span class="pl-2">在庫</span>
                     <input type="text" class="form-control col-md-1 d-inline mx-2 " name="limit_num2" value="" @if($default_plan->res_type == 2) disabled @endif></label>
                     <input type="button" value="更新する" onclick="goSubmit(2)">
                     <br><br>
@@ -313,7 +315,7 @@
                                     }
                                 }
                             }
-                          
+
                         @endphp
                           @if ($option_count != 0)
 
@@ -323,7 +325,7 @@
                             class=""
                             @endif
                           >
-                         
+
                             <p class="h5" style="margin:0">{{ $date->day }}</p>
                             <hr style="margin:7px 0 7px 0" />
                             <p style="margin:0 0 5px 0"><small>
@@ -519,7 +521,7 @@
                           </td>
                           @else
                           <td style="background-color: #c0c0c0">
-                         
+
                             <p class="h5" style="margin:0">{{ $date->day }}</p>
                             <hr style="margin:7px 0 7px 0" />
                             <p style="margin:0 0 5px 0"><small>
@@ -658,4 +660,3 @@
 @section('css')
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
 @stop
-
