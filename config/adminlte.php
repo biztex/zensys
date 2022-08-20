@@ -267,6 +267,11 @@ return [
             'icon' => 'fas fa-fw fa-credit-card',
         ],
         [
+            'text' => '料金区分設定',
+            'url'  => '/client/price_types/',
+            'icon' => 'fas fa-fw fa-th-list',
+        ],
+        [
             'text' => '販売管理',
             'url'  => '/client/stocks/',
             'icon' => 'fas fa-fw fa-calendar-plus',
@@ -281,11 +286,7 @@ return [
             'url'  => '/client/reservations/',
             'icon' => 'fas fa-fw fa-calendar-check',
         ],
-        [
-            'text' => '料金区分設定',
-            'url'  => '/client/price_types/',
-            'icon' => 'fas fa-fw fa-th-list',
-        ],
+    
         [
             'text' => '会員管理',
             'url'  => '/client/users/',
