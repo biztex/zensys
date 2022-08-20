@@ -34,7 +34,8 @@
   }
 
   if(isset($amount)){
-    var_dump($amount);
+    echo '1';
+
   }
 
   else{
