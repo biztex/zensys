@@ -27,7 +27,7 @@
   $arr = ['大人　','子供　','幼児　'] ;
   $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
   for($i=0; $i<count($arr); $i++){
-    sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1);
+    sprintf('type%d_%s_%d_number', 16,$tmp_arr[$reservation->price_type],$i+1);
   }
  
 
