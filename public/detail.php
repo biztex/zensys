@@ -131,7 +131,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
                                         <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
                                         <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path8"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
                                         <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
                                     </div>
                                     <div class="dtNav">
@@ -142,7 +142,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
                                         <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
                                         <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
-                                        <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
+                                        <?php if($plan["file_path8"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
                                         <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
                                     </div>
                                 </div>
