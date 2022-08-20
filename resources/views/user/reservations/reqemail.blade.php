@@ -24,11 +24,11 @@
 ----------------------------------------------------
 @php
   $Number_of_reservations = json_decode($reservation->Number_of_reservations);
-
   $arr = ['大人　','子供　','幼児　'] ;
   $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
-
-  echo $type_id;
-
+  for($i=0; $i<count($arr); $i++){
+    sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1);
+  }
+ 
 
 @endphp
