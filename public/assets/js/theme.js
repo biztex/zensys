@@ -92,7 +92,8 @@ jQuery(function($){
 	  slidesToScroll: 1,
 	  arrows: false,
 	  fade: true,
-	  asNavFor: '.dtNav'
+	  asNavFor: '.dtNav',
+	  adaptiveHeight: true
 	});
 	$('.dtNav').slick({
 	  slidesToShow: 1,
