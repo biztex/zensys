@@ -438,7 +438,6 @@ class ReservationsController extends Controller
         $tokenApiKey = config('adminlte.TOKEN_API_KEY');
         $orderId = $reservation_number;
        
-        dd(json_decode($reservation->Number_of_reservations));
         // 管理者へ通知メール
         if ($request->is_request == 0) {
             Mail::send(
