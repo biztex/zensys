@@ -494,7 +494,8 @@ class ReservationsController extends Controller
                     'birth_year'    => $request->birth_year,
                     'birth_month'   => $request->birth_month,
                     'prices'        => $prices,
-                    'priceName'     => $priceName
+                    'priceName'     => $priceName,
+                    'amount'        => $amount,
                 ],
                 function ($message) use ($request) {
                     if ($request->email) {

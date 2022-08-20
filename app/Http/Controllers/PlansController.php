@@ -118,12 +118,7 @@ class PlansController extends Controller
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
         ];
-        if($request->res_type == 2){
-            $limit_rules = [
-                'res_type' => ['required'],
-            ];
-            $rules = array_merge($rules, $limit_rules);
-        }
+      
         /*
             if ($request->payment_method == 0 || $request->payment_method == 3) {
                 $p_rules = [
@@ -327,6 +322,12 @@ class PlansController extends Controller
             ];
             $rules = array_merge($rules, $p_rules6);
         }
+        if($request->res_type == 2){
+            $limit_rules = [
+                'res_type' => ['required'],
+            ];
+            $rules = array_merge($rules, $limit_rules);
+        }
         $this->validate($request, $rules);
         // 支払方法のバリデーション　いずれか1つ必須
         if (
@@ -486,7 +487,12 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
+        if($request->res_type == 0){
+            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
+        }
+        else{
+            $plans->res_limit_number = $request->res_limit_number;
+        }
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
@@ -2067,6 +2073,12 @@ class PlansController extends Controller
             ];
             $rules = array_merge($rules, $p_rules6);
         }
+        if($request->res_type == 2){
+            $limit_rules = [
+                'res_type' => ['required'],
+            ];
+            $rules = array_merge($rules, $limit_rules);
+        }
         $this->validate($request, $rules);
         // 支払方法のバリデーション　いずれか1つ必須
         if (
@@ -2357,7 +2369,12 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
+        if($request->res_type == 0){
+            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
+        }
+        else{
+            $plans->res_limit_number = $request->res_limit_number;
+        }
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
