@@ -378,6 +378,7 @@ class ReservationsController extends Controller
                     ->where('plan_id' , $request->plan_id)
                     ->where('type' , $typeid)
                     ->get();
+        dd($prices);
         $priceName = PriceType::select()
                         ->where('number' , $typeid)
                         ->first();

@@ -20,14 +20,30 @@
 予約日　　：　{{ $date }}
 予約時間　：　{{ $activity }}
 予約人数
-
 ----------------------------------------------------
 @php
   $Number_of_reservations = json_decode($reservation->Number_of_reservations);
   $arr = ['大人　','子供　','幼児　'] ;
   $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
-
-  echo $reservation->price_type;
- 
-
+  for($i=0; $i<count($arr); $i++){
+    for($k=0; $k<count($tmp_arr); $k++){
+      if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$k,$i+1), $Number_of_reservations)){
+        echo $arr[$i] . $priceName->name . " / " . $prices[0][$k]."_". ((int)$i + 1)]  . " 円 × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$k],$i+1)} . "=" . number_format((int)$prices[0][$k]."_". ((int)$i + 1)]  * (int)$Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$k],$i+1)}) . " 円" . "\n";
+      }else{
+        echo $arr[$i] . $priceName->name . " / " . $prices[0][$k]."_". ((int)$i + 1)]  . " 円 × " . 0 . "=" . number_format((int)$prices[0][$k]."_". ((int)$i + 1)]  * 0) . " 円" . "\n";
+      }
+    }
+  }
 @endphp
+
+合計：{{ number_format($amount) }}円　※本予約確定後に決済用メールが送られます
+----------------------------------------------------
+=====================================
+
+=====================================
+株式会社全旅
+
+所在地	〒104-0061　東京都中央区銀座8-13-1　銀座三井ビルディング2F
+電話番号	03-6264-3132
+公式サイト:　 https://www.zenryo.co.jp
+=====================================
