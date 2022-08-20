@@ -118,6 +118,12 @@ class PlansController extends Controller
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
         ];
+        if($request->res_type == 2){
+            $limit_rules = [
+                'res_type' => ['required'],
+            ];
+            $rules = array_merge($rules, $limit_rules);
+        }
         /*
             if ($request->payment_method == 0 || $request->payment_method == 3) {
                 $p_rules = [
@@ -138,6 +144,19 @@ class PlansController extends Controller
                 'meeting_point_longitude' => ['required', 'string', 'max:50'],
             ];
             $rules = array_merge($rules, $m_rules);
+        }
+        if($request->notice == null){
+            $notice_rule = [
+                'file_path11' =>  ['required'],
+            ];
+            $rules = array_merge($rules, $notice_rule);
+        }
+        
+        else if($request->file_path11 == null){
+            $notice_rule_1 = [
+                'notice' =>  ['required'],
+            ];
+            $rules = array_merge($rules, $notice_rule_1);
         }
         $a_rules1 = [
             // 体験時間join
@@ -1865,6 +1884,19 @@ class PlansController extends Controller
                 'meeting_point_longitude' => ['required', 'string', 'max:50'],
             ];
             $rules = array_merge($rules, $m_rules);
+        }
+        if($request->notice == null){
+            $notice_rule = [
+                'file_path11' =>  ['required'],
+            ];
+            $rules = array_merge($rules, $notice_rule);
+        }
+        
+        else if($request->file_path11 == null){
+            $notice_rule_1 = [
+                'notice' =>  ['required'],
+            ];
+            $rules = array_merge($rules, $notice_rule_1);
         }
         $a_rules1 = [
             // 体験時間join

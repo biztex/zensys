@@ -254,6 +254,8 @@ return [
         'branch name' => '店舗名称',
         'account name' => '口座名義',
         'staff' => '担当者名',
+        'notice' => '旅行条件書',
+        'file_path11' => '旅行条件書',
 
     ],
 
