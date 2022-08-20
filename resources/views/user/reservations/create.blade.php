@@ -86,15 +86,20 @@
                                         $arr = ['大人　','子供　','幼児　'] ;
                                         foreach ($stock_price_types as $i => $stock_price_type) {
                                             if($stock_price_type['type'] == $priceType['number']){
+
                                                 echo '<tr><td>';
+                                                echo '<input type="hidden" name="price_table_type" value="'. $priceType['number'] . '">';
 
                                                 for($i = 1; $i < 4; $i++){
-                                                    echo '<div class="numberP">';
+                                                    if ($stock_price_type[strtolower($stock['rank']) . '_'. $i] > 0){
+                                                        echo '<div class="numberP">';
 
-                                                    echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
-                                                    echo '<input type="hidden" name="price_table[]" value="'. $arr[$i-1] . $priceType['name'] . '/' . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) .' 円' .'">';
-                                                    echo '<p><input type="text" name="type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number" class="number" min="0" max="'.$stock->limit_number.'" value=""> 人</p>';
-                                                    echo '</div>';
+                                                        echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
+                                                        echo '<input type="hidden" name="price_table_name[]" value="'. $arr[$i-1] . $priceType['name'] . '">';
+                                                        echo '<input type="hidden" name="price_table_price[]" value="'. number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) . '">';
+                                                        echo '<p><input type="text" name="type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number" class="number" min="0" max="'.$stock->limit_number.'" value=""> 人</p>';
+                                                        echo '</div>';
+                                                    }
                                                 }
                                                 echo '</td></tr>';
                                             }

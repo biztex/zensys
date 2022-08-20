@@ -848,14 +848,14 @@ class ReservationsController extends Controller
 
 
         // 料金
-        $prices = $request->price_table ;
+        $prices_name = $request->price_table_name ;
+        $prices_types = $request->price_table_type ;
+        $prices = $request->price_table_price ;
         // $types = [];
         // foreach ($request->type_number as $type) {
         //     # code...
         //     $types = $type;
         // }
-
-        $types = $request->type_number ;
 
         // 
 
@@ -918,12 +918,13 @@ class ReservationsController extends Controller
                 'companies',
                 'info',
                 'prices',
-                'types',
                 'date',
                 'weekday',
                 'stock',
                 'stock_price_types',
-                'request'
+                'request',
+                'prices_name',
+                'prices_types'
             )
         );
     }

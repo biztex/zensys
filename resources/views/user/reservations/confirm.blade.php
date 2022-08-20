@@ -81,21 +81,20 @@
                                         >料金</th>
                                         @php
                                         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
-                                        if($prices){
+                                            
+
+                                        if(isset($prices)){
                                             echo '<tr><td>';
 
                                             for ($i=0; $i<count($prices); $i++ ){
-                                                for($j=0;$j<6;$j++){
-                                                    for($k=1;$k<=3;$k++){
-                                                        echo '<div class="numberP">';
-                                                        if(array_key_exists(sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k), $info)){
-                                                            echo $prices[$k-1];
-                                                            echo '<input type="hidden" name="price_table[]" value="'.$prices[$i].'">';
-                                                            echo '<p>'. $info[sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)] .'人</p>';
-                                                            echo '<input type="hidden" name="'. sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k) .'" class="number" value="' .$info[sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)] .'">';
-                                                        }
-                                                        echo '</div>';
+                                                for($k=0;$k<count($byDay);$k++){
+                                                    echo '<div class="numberP">';
+
+                                                    if(array_key_exists(sprintf('type%d_%s_%d_number', $prices_types,$byDay[$k],$k+1), $info)){
+                                                        echo $prices_name[$i] . '/'.$prices[$i] .'円';
+                                                        echo '<p>'. $info[sprintf('type%d_%s_%d_number', $prices_types,$byDay[$k],$k+1)] .'人</p>';
                                                     }
+                                                    echo '</div>';
                                                 }
                                             }
                                             echo '</td></tr>';
