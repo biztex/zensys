@@ -26,9 +26,8 @@
   $Number_of_reservations = json_decode($reservation->Number_of_reservations);
   $arr = ['大人　','子供　','幼児　'] ;
   $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
-  for($i=0; $i<count($arr); $i++){
-    sprintf('type%d_%s_%d_number', 10,$tmp_arr[$reservation->price_type],$i+1);
-  }
+
+  echo $reservation->price_type;
  
 
 @endphp
