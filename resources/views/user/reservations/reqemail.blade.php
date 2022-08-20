@@ -33,8 +33,13 @@
     }
   }
 
+  if(isset($amount)){
+    var_dump($amount);
+  }
 
-  var_dump($amount);
+  else{
+    echo '0';
+  }
   exit;
 
 @endphp
