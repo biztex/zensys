@@ -32,6 +32,11 @@
       echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  . " 円 × " . 0 . "=" . number_format((int)$prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  * 0) . " 円" . "\n";
     }
   }
+
+
+  var_dump($amount);
+  exit;
+
 @endphp
 
 合計：{{ number_format($amount) }}円　※本予約確定後に決済用メールが送られます
