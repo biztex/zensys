@@ -83,6 +83,7 @@
                                         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
                                             
 
+
                                         if(isset($prices)){
                                             echo '<tr><td>';
 
@@ -90,9 +91,9 @@
                                                 for($k=0;$k<count($byDay);$k++){
                                                     echo '<div class="numberP">';
 
-                                                    if(array_key_exists(sprintf('type%d_%s_%d_number', $prices_types,$byDay[$k],$k+1), $info)){
+                                                    if(array_key_exists(sprintf('type%d_%s_%d_number', $prices_types,$byDay[$k],$i+1), $info)){
                                                         echo $prices_name[$i] . '/'.$prices[$i] .'円';
-                                                        echo '<p>'. $info[sprintf('type%d_%s_%d_number', $prices_types,$byDay[$k],$k+1)] .'人</p>';
+                                                        echo '<p>'. $info[sprintf('type%d_%s_%d_number', $prices_types,$byDay[$k],$i+1)] .'人</p>';
                                                     }
                                                     echo '</div>';
                                                 }
