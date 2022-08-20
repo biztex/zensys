@@ -33,7 +33,8 @@
   exit;
   for($i=0; $i<count($arr); $i++){
     if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1), $Number_of_reservations)){
-      echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  . " 円 × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1)} . "=" . number_format((int)$prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  * (int)$Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$reservation->price_type],$i+1)}) . " 円" . "\n";
+      $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)];
+   
     }else{
       echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  . " 円 × " . 0 . "=" . number_format((int)$prices[0][$tmp_arr[$reservation->price_type]."_". ((int)$i + 1)]  * 0) . " 円" . "\n";
     }
