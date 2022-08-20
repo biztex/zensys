@@ -437,8 +437,7 @@ class ReservationsController extends Controller
         //$tokenApiKey = 'cd76ca65-7f54-4dec-8ba3-11c12e36a548';
         $tokenApiKey = config('adminlte.TOKEN_API_KEY');
         $orderId = $reservation_number;
-        dd($amount);
-        exit;
+       
         // 管理者へ通知メール
         if ($request->is_request == 0) {
             Mail::send(
