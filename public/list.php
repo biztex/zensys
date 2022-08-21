@@ -55,7 +55,8 @@
                                 <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=all">すべて</a></li>
                                 <?php
                                     foreach($kinds as $kind){
-                                        echo '<li><a href="https://zenryo.zenryo-ec.info/list.php?kind='. $kind->number .'">'.$kind->name.'</a></li>';
+                                        echo $kind;
+                                      //  echo '<li><a href="https://zenryo.zenryo-ec.info/list.php?kind='. $kind->number .'">'.$kind->name .'</a></li>';
                                     }
                                 ?>
                             </ul>
