@@ -270,7 +270,7 @@
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表 (1)</label>
+                            <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表1日目</label>
                         </div>
                          <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> {{ __('タイトル') }}</label>
@@ -1848,7 +1848,7 @@ $('div[name="add-road"]').click(function(e) {
         $("div.road-section-").attr('class', 'mt-5 road-section-' + (val + 1));
         $(".add-road-section-" + val).attr('name', 'add-road-section-' + val);
         $(".schedule").attr('class', 'schedule' + val);
-        $(".schedule" + val).text($(".schedule" + val).text() + '(' + (val + 1) + ')');
+        $(".schedule" + val).text($(".schedule" + val).text() +  (val + 1) + '日目');
         $('div[name="delete-road-' + val + '"]').hide();
         $('div[name="delete-road-"]').attr('name', 'delete-road-' + (val + 1));
         $('[name=road_map]').attr('name', 'road_map' + (val + 1));

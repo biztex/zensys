@@ -329,7 +329,7 @@
 
                          
                                                     <div class="form-group row">
-                                <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表 ({{ $loop->index + 1 }})</label>
+                                <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表{{ $loop->index + 1 }}日目</label>
                                 @if ($loop->last && $loop->count != 1)
                                 <div class="col-md-3">
                                     <div type="" class="btn btn-default" name='delete-road-{{ $loop->index + 1 }}' value=''>
@@ -2130,7 +2130,7 @@ $('div[name="add-road"]').click(function(e) {
         $("div.road-section-").attr('class', 'mt-5 road-section-' + (val + 1));
         $(".add-road-section-" + val).attr('name', 'add-road-section-' + val);
         $(".schedule").attr('class', 'schedule' + val);
-        $(".schedule" + val).text($(".schedule" + val).text() + '(' + (val + 1) + ')');
+        $(".schedule" + val).text($(".schedule" + val).text() +  (val + 1) + '日目');
         $('div[name="delete-road-' + val + '"]').hide();
         $('div[name="delete-road-"]').attr('name', 'delete-road-' + (val + 1));
         $('[name=road_map]').attr('name', 'road_map' + (val + 1));
