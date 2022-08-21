@@ -2727,7 +2727,7 @@ class PlansController extends Controller
             }
             else if ($kind >= 0) {
                 $result = Plan::select()
-                ->orderBy('sort')
+                ->orderBy('sort', 'DESC')
                 ->where('kind', $kind)
                 ->where('is_listed', 1)
                 ->where('name', '!=', 'コピー用')
