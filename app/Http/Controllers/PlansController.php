@@ -2718,7 +2718,7 @@ class PlansController extends Controller
         try {
             if($kind == 'all'){
                 $result = Plan::select()
-                ->orderBy('sort')
+                ->orderBy('sort','DESC')
                 ->where('is_listed', 1)
                 ->where('name', '!=', 'コピー用')
                 ->with('prices.price_types')
@@ -2735,6 +2735,8 @@ class PlansController extends Controller
                 ->with('activities')
                 ->get();
             }
+
+
         } catch (\Exception $e) {
             $result = [
                 'result' => false,

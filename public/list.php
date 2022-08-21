@@ -73,7 +73,10 @@
                     $json = file_get_contents($url);
                     $plans = json_decode($json,true);
 
+
                     $j = 0;
+
+                    
 
                     if(count($plans) > 0){
                         for ($i = 0 ; $i < count($plans) ; $i++) {
