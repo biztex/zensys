@@ -1,3 +1,11 @@
+<?php
+                              
+    $url = "http://153.127.31.62/zenryo/public/api/kinds/json";
+    $array = file_get_contents($url);
+    $kinds = json_decode($array,true);
+    var_dump($kinds);
+?>
+
 <!-- HTMLコード -->
 <!DOCTYPE html>
 <html lang="ja">
@@ -42,6 +50,8 @@
                     <div class="listContent">
                         <div class="listSide">
                             <p class="listSideHd">カテゴリ</p>
+
+                        
                             <ul class="listSideUl">
                                 <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=all">すべて</a></li>
                                 <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=0">国内旅行（募集ツアー）</a></li>
