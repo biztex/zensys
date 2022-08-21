@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum', 'verified'])
  * API
  */
 
+
 Route::get(
     'api/kinds/json',
     '\App\Http\Controllers\KindsController@json'
@@ -486,7 +487,10 @@ foreach (config('fortify.users') as $user) {
                     );
 
                     // kinds
-                  
+                    Route::get(
+                        'kinds/json',
+                        '\App\Http\Controllers\KindsController@json'
+                    );
                     Route::get(
                         'kinds',
                         '\App\Http\Controllers\KindsController@index'

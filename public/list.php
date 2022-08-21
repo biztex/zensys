@@ -3,7 +3,6 @@
     $url = "http://153.127.31.62/zenryo/public/api/kinds/json";
     $array = file_get_contents($url);
     $kinds = json_decode($array,true);
-    var_dump($kinds);
 ?>
 
 <!-- HTMLコード -->
