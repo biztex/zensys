@@ -1397,13 +1397,16 @@ class ReservationsController extends Controller
                     }
                 }
             }
-            if(array_key_exists('custom_flg', $Number_of_reservations)){
-                if($Number_of_reservations->custom_flg == 1){
-                    for($j=1;$j<=20;$j++){
-                        $count_old_member += $Number_of_reservations->typec_number->{$j};
-                    }
-                }
-            }
+
+
+
+            // if(array_key_exists('custom_flg', (array)$Number_of_reservations)){
+            //     if($Number_of_reservations->custom_flg == 1){
+            //         for($j=1;$j<=20;$j++){
+            //             $count_old_member += $Number_of_reservations->typec_number->{$j};
+            //         }
+            //     }
+            // }
         }
         $custom_flg = false;
         if(array_key_exists('custom_flg', (array)$Number_of_reservations)){

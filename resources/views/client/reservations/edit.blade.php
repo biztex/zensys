@@ -277,84 +277,87 @@
                         </div>
                     </div>
 
-                    @foreach( json_decode($reservations->companion_name_last) as $key=>$custom)
-                    <div class="form-group row border-top pt-1">
-                        <label for="" class="col-md-3 col-form-label text-md-right">同行者氏名(漢字)</label>
-                        <div class="row align-items-center col-md-3">
-                            <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('姓') }}</label>
-                            <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="companion_name_last[]" value="{{ old('companion_name_last',$custom) }}" required> 
+
+                    
+                    @if($reservations->companion_name_last != "null")
+                        @foreach( json_decode($reservations->companion_name_last) as $key=>$custom)
+                            <div class="form-group row border-top pt-1">
+                                <label for="" class="col-md-3 col-form-label text-md-right">同行者氏名(漢字)</label>
+                                <div class="row align-items-center col-md-3">
+                                    <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('姓') }}</label>
+                                    <div class="col ml-2">
+                                        <input id="" type="text" class="form-control" name="companion_name_last[]" value="{{ old('companion_name_last',$custom) }}" required> 
+                                    </div>
+                                </div>
+                                <div class="row align-items-center col-md-3">
+                                    <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('名') }}</label>
+                                    <div class="col ml-2">
+                                        <input id="" type="text" class="form-control" name="companion_name_first[]" value="{{ old('companion_name_first',json_decode($reservations->companion_name_first)[$key]) }}" required>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row align-items-center col-md-3">
-                            <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('名') }}</label>
-                            <div class="col ml-2">
-                                 <input id="" type="text" class="form-control" name="companion_name_first[]" value="{{ old('companion_name_first',json_decode($reservations->companion_name_first)[$key]) }}" required>
+                            <div class="form-group row">
+                                <label for="" class="col-md-3 col-form-label text-md-right">同行者氏名(カナ)</label>
+                                <div class="row align-items-center col-md-3">
+                                    <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('セイ') }}</label>
+                                    <div class="col ml-2">
+                                        <input id="" type="text" class="form-control" name="companion_kana_last[]" value="{{ old('companion_kana_last',json_decode($reservations->companion_kana_last)[$key]) }}" required >
+                                    </div>
+                                </div>
+                                <div class="row align-items-center col-md-3">
+                                    <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイ') }}</label>
+                                    <div class="col ml-2">
+                                    <input id="" type="text" class="for/m-control" name="companion_kana_first[]" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-3 col-form-label text-md-right">同行者氏名(カナ)</label>
-                        <div class="row align-items-center col-md-3">
-                            <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('セイ') }}</label>
-                            <div class="col ml-2">
-                                <input id="" type="text" class="form-control" name="companion_kana_last[]" value="{{ old('companion_kana_last',json_decode($reservations->companion_kana_last)[$key]) }}" required >
+                            <div class="form-group row">
+                                <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('年齢') }}</label>
+                                <div class="col-md-3">
+                                    <input id="" type="text" class="form-control" name="companion_age[]" value="{{ old('companion_age',json_decode($reservations->companion_age)[$key]) }}"  required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row align-items-center col-md-3">
-                            <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイ') }}</label>
-                            <div class="col ml-2">
-                            <input id="" type="text" class="for/m-control" name="companion_kana_first[]" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required>
+                            <div class="form-group row">
+                                <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('生年月日') }}</label>
+                                <div class="col-md-3">
+                                    <input id="" type="date" class="form-control" name="companion_birth[]" value="{{ old('companion_birth',date('Y-m-d', strtotime(json_decode($reservations->companion_birth)[$key]))) }}" required>
+                                </div>
+
+
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('年齢') }}</label>
-                        <div class="col-md-3">
-                            <input id="" type="text" class="form-control" name="companion_age[]" value="{{ old('companion_age',json_decode($reservations->companion_age)[$key]) }}"  required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('生年月日') }}</label>
-                        <div class="col-md-3">
-                            <input id="" type="date" class="form-control" name="companion_birth[]" value="{{ old('companion_birth',date('Y-m-d', strtotime(json_decode($reservations->companion_birth)[$key]))) }}" required>
-                        </div>
+                            <div class="form-group row">
+                                <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('性別') }}</label>
+                                <div class="col-md-3">
+                                    <select name="companion_gender[]" id="" class="form-control">
+                                        <option value="0"  @if(old('companion_gender',json_decode($reservations->companion_gender)[$key])=='0') selected @endif>男</option>
+                                        <option value="1" @if(old('companion_gender',json_decode($reservations->companion_gender)[$key])=='1') selected @endif>女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
+                                <div class="col-md-3">
+                                    <select name="companion_boarding[]" id="" class="form-control">
+                                        @foreach($pieces as $piece)
+                                            <option value="{{$piece}}" @if(old('companion_boarding',json_decode($reservations->companion_boarding)[$key])== $piece) selected @endif>{{$piece}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
+                                <div class="col-md-3">
+                                    <select name="companion_drop[]" id="" class="form-control">
+                                        @foreach($drops as $drop)
+                                            <option value="{{$drop}}" @if(old('companion_drop',json_decode($reservations->companion_drop)[$key])== $drop) selected @endif>{{$drop}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
 
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('性別') }}</label>
-                        <div class="col-md-3">
-                            <select name="companion_gender[]" id="" class="form-control">
-                                <option value="0"  @if(old('companion_gender',json_decode($reservations->companion_gender)[$key])=='0') selected @endif>男</option>
-                                <option value="1" @if(old('companion_gender',json_decode($reservations->companion_gender)[$key])=='1') selected @endif>女</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
-                        <div class="col-md-3">
-                            <select name="companion_boarding[]" id="" class="form-control">
-                                @foreach($pieces as $piece)
-                                    <option value="{{$piece}}" @if(old('companion_boarding',json_decode($reservations->companion_boarding)[$key])== $piece) selected @endif>{{$piece}}</option>
-                                @endforeach
-                             </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
-                        <div class="col-md-3">
-                             <select name="companion_drop[]" id="" class="form-control">
-                                @foreach($drops as $drop)
-                                    <option value="{{$drop}}" @if(old('companion_drop',json_decode($reservations->companion_drop)[$key])== $drop) selected @endif>{{$drop}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-
-                    @endforeach
-
+                        @endforeach
+                    @endif
 
 
 
