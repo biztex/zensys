@@ -210,7 +210,7 @@
                                             <span class="p-country-name" style="display:none;">Japan</span>
                                             <div class="zipP01">
                                                 <span>〒</span>
-                                                <input class="midIpt p-postal-code" type="text" name="postalcode" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" required>
+                                                <input class="midIpt p-postal-code" type="text" name="postalcode" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" placeholder="ハイフンなしで入力" required>
                                             </div>
                                             <select  id="contact_address_pref" name="prefecture" required class="p-region midIpt">
                                             <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
@@ -381,7 +381,7 @@
                                                 <span class="p-country-name" style="display:none;">Japan</span>
                                                 <div class="zipP01">
                                                     <span>〒</span>
-                                                    <input class="midIpt p-postal-code" type="text" name="postalcode_representative" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" required>
+                                                    <input class="midIpt p-postal-code" type="text" name="postalcode_representative" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" placeholder="ハイフンなしで入力" required>
                                                 </div>
                                                 <select  id="contact_address_pref" name="prefecture_representative" required class="p-region midIpt">
                                                 <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
