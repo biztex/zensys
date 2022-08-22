@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
     <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
     <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/vendor/adminlte/dist/css/adminlte.css">
 
     <!-- javascript -->
     <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
@@ -55,12 +56,12 @@
                                 </div>
                                 @endif
                                 @if ($errors->any())
-                                <div class="text-red alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                                <div>
+                                    <ul  class="text-red alert alert-danger">
+                                        @foreach ($errors->all() as $error)
+                                            <li  class="text-white">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                                 @endif
                             <div class="reserveItem">
@@ -188,7 +189,7 @@
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="ageP">
-                                                    <input class="midIpt" type="text" name="age" required>
+                                                    <input class="midIpt" type="text" name="age" value="{{ old('age')}}" required>
                                                     <span>才</span>
                                                 </div>
                                             </td>
@@ -197,20 +198,21 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="dateP">
-                                            <select name="birth_year">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                            <select name="birth_year" value="{{ old('birth_year')}}">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month" value="{{ old('birth_month')}}">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" value="{{ old('birth_day')}}">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>メールアドレス<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input type="text" name="email" class="width-half" value="{{ old('email') }}" required>
+                                            <input type="text" name="email" id="email" class="width-half" value="{{ old('email') }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>メールアドレス確認<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input class="" type="text" name="">
+                                            <input class="width-half form-control" type="email" name="email_confirmation" id="email-confirm" value="{{ old('email_confirmation') }}" onblur="confirmEmail()"  required>
+                                            <p id="confAlert" class="requiredRed"></p>
                                         </td>
                                     </tr>
                                     <tr class="zipTr h-adr">
@@ -223,52 +225,52 @@
                                             </div>
                                             <select  id="contact_address_pref" name="prefecture" required class="p-region midIpt">
                                             <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
-                                    <option value="青森県" @if(old('prefecture')=='青森県') selected @endif>青森県</option>
-                                    <option value="岩手県" @if(old('prefecture')=='岩手県') selected @endif>岩手県</option>
-                                    <option value="宮城県" @if(old('prefecture')=='宮城県') selected @endif>宮城県</option>
-                                    <option value="秋田県" @if(old('prefecture')=='秋田県') selected @endif>秋田県</option>
-                                    <option value="山形県" @if(old('prefecture')=='山形県') selected @endif>山形県</option>
-                                    <option value="福島県" @if(old('prefecture')=='福島県') selected @endif>福島県</option>
-                                    <option value="茨城県" @if(old('prefecture')=='茨城県') selected @endif>茨城県</option>
-                                    <option value="栃木県" @if(old('prefecture')=='栃木県') selected @endif>栃木県</option>
-                                    <option value="群馬県" @if(old('prefecture')=='群馬県') selected @endif>群馬県</option>
-                                    <option value="埼玉県" @if(old('prefecture')=='埼玉県') selected @endif>埼玉県</option>
-                                    <option value="千葉県" @if(old('prefecture')=='千葉県') selected @endif>千葉県</option>
-                                    <option value="東京都" @if(old('prefecture')=='東京都') selected @endif>東京都</option>
-                                    <option value="神奈川県" @if(old('prefecture')=='神奈川県') selected @endif>神奈川県</option>
-                                    <option value="新潟県" @if(old('prefecture')=='新潟県') selected @endif>新潟県</option>
-                                    <option value="富山県" @if(old('prefecture')=='富山県') selected @endif>富山県</option>
-                                    <option value="石川県" @if(old('prefecture')=='石川県') selected @endif>石川県</option>
-                                    <option value="福井県" @if(old('prefecture')=='福井県') selected @endif>福井県</option>
-                                    <option value="山梨県" @if(old('prefecture')=='山梨県') selected @endif>山梨県</option>
-                                    <option value="長野県" @if(old('prefecture')=='長野県') selected @endif>長野県</option>
-                                    <option value="岐阜県" @if(old('prefecture')=='岐阜県') selected @endif>岐阜県</option>
-                                    <option value="静岡県" @if(old('prefecture')=='静岡県') selected @endif>静岡県</option>
-                                    <option value="愛知県" @if(old('prefecture')=='愛知県') selected @endif>愛知県</option>
-                                    <option value="三重県" @if(old('prefecture')=='三重県') selected @endif>三重県</option>
-                                    <option value="滋賀県" @if(old('prefecture')=='滋賀県') selected @endif>滋賀県</option>
-                                    <option value="京都府" @if(old('prefecture')=='京都府') selected @endif>京都府</option>
-                                    <option value="大阪府" @if(old('prefecture')=='大阪府') selected @endif>大阪府</option>
-                                    <option value="兵庫県" @if(old('prefecture')=='兵庫県') selected @endif>兵庫県</option>
-                                    <option value="奈良県" @if(old('prefecture')=='奈良県') selected @endif>奈良県</option>
-                                    <option value="和歌山県" @if(old('prefecture')=='和歌山県') selected @endif>和歌山県</option>
-                                    <option value="鳥取県" @if(old('prefecture')=='鳥取県') selected @endif>鳥取県</option>
-                                    <option value="島根県" @if(old('prefecture')=='島根県') selected @endif>島根県</option>
-                                    <option value="岡山県" @if(old('prefecture')=='岡山県') selected @endif>岡山県</option>
-                                    <option value="広島県" @if(old('prefecture')=='広島県') selected @endif>広島県</option>
-                                    <option value="山口県" @if(old('prefecture')=='山口県') selected @endif>山口県</option>
-                                    <option value="徳島県" @if(old('prefecture')=='徳島県') selected @endif>徳島県</option>
-                                    <option value="香川県" @if(old('prefecture')=='香川県') selected @endif>香川県</option>
-                                    <option value="愛媛県" @if(old('prefecture')=='愛媛県') selected @endif>愛媛県</option>
-                                    <option value="高知県" @if(old('prefecture')=='高知県') selected @endif>高知県</option>
-                                    <option value="福岡県" @if(old('prefecture')=='福岡県') selected @endif>福岡県</option>
-                                    <option value="佐賀県" @if(old('prefecture')=='佐賀県') selected @endif>佐賀県</option>
-                                    <option value="長崎県" @if(old('prefecture')=='長崎県') selected @endif>長崎県</option>
-                                    <option value="熊本県" @if(old('prefecture')=='熊本県') selected @endif>熊本県</option>
-                                    <option value="大分県" @if(old('prefecture')=='大分県') selected @endif>大分県</option>
-                                    <option value="宮崎県" @if(old('prefecture')=='宮崎県') selected @endif>宮崎県</option>
-                                    <option value="鹿児島県" @if(old('prefecture')=='鹿児島県') selected @endif>鹿児島県</option>
-                                    <option value="沖縄県" @if(old('prefecture')=='沖縄県') selected @endif>沖縄県</option>
+                                                <option value="青森県" @if(old('prefecture')=='青森県') selected @endif>青森県</option>
+                                                <option value="岩手県" @if(old('prefecture')=='岩手県') selected @endif>岩手県</option>
+                                                <option value="宮城県" @if(old('prefecture')=='宮城県') selected @endif>宮城県</option>
+                                                <option value="秋田県" @if(old('prefecture')=='秋田県') selected @endif>秋田県</option>
+                                                <option value="山形県" @if(old('prefecture')=='山形県') selected @endif>山形県</option>
+                                                <option value="福島県" @if(old('prefecture')=='福島県') selected @endif>福島県</option>
+                                                <option value="茨城県" @if(old('prefecture')=='茨城県') selected @endif>茨城県</option>
+                                                <option value="栃木県" @if(old('prefecture')=='栃木県') selected @endif>栃木県</option>
+                                                <option value="群馬県" @if(old('prefecture')=='群馬県') selected @endif>群馬県</option>
+                                                <option value="埼玉県" @if(old('prefecture')=='埼玉県') selected @endif>埼玉県</option>
+                                                <option value="千葉県" @if(old('prefecture')=='千葉県') selected @endif>千葉県</option>
+                                                <option value="東京都" @if(old('prefecture')=='東京都') selected @endif>東京都</option>
+                                                <option value="神奈川県" @if(old('prefecture')=='神奈川県') selected @endif>神奈川県</option>
+                                                <option value="新潟県" @if(old('prefecture')=='新潟県') selected @endif>新潟県</option>
+                                                <option value="富山県" @if(old('prefecture')=='富山県') selected @endif>富山県</option>
+                                                <option value="石川県" @if(old('prefecture')=='石川県') selected @endif>石川県</option>
+                                                <option value="福井県" @if(old('prefecture')=='福井県') selected @endif>福井県</option>
+                                                <option value="山梨県" @if(old('prefecture')=='山梨県') selected @endif>山梨県</option>
+                                                <option value="長野県" @if(old('prefecture')=='長野県') selected @endif>長野県</option>
+                                                <option value="岐阜県" @if(old('prefecture')=='岐阜県') selected @endif>岐阜県</option>
+                                                <option value="静岡県" @if(old('prefecture')=='静岡県') selected @endif>静岡県</option>
+                                                <option value="愛知県" @if(old('prefecture')=='愛知県') selected @endif>愛知県</option>
+                                                <option value="三重県" @if(old('prefecture')=='三重県') selected @endif>三重県</option>
+                                                <option value="滋賀県" @if(old('prefecture')=='滋賀県') selected @endif>滋賀県</option>
+                                                <option value="京都府" @if(old('prefecture')=='京都府') selected @endif>京都府</option>
+                                                <option value="大阪府" @if(old('prefecture')=='大阪府') selected @endif>大阪府</option>
+                                                <option value="兵庫県" @if(old('prefecture')=='兵庫県') selected @endif>兵庫県</option>
+                                                <option value="奈良県" @if(old('prefecture')=='奈良県') selected @endif>奈良県</option>
+                                                <option value="和歌山県" @if(old('prefecture')=='和歌山県') selected @endif>和歌山県</option>
+                                                <option value="鳥取県" @if(old('prefecture')=='鳥取県') selected @endif>鳥取県</option>
+                                                <option value="島根県" @if(old('prefecture')=='島根県') selected @endif>島根県</option>
+                                                <option value="岡山県" @if(old('prefecture')=='岡山県') selected @endif>岡山県</option>
+                                                <option value="広島県" @if(old('prefecture')=='広島県') selected @endif>広島県</option>
+                                                <option value="山口県" @if(old('prefecture')=='山口県') selected @endif>山口県</option>
+                                                <option value="徳島県" @if(old('prefecture')=='徳島県') selected @endif>徳島県</option>
+                                                <option value="香川県" @if(old('prefecture')=='香川県') selected @endif>香川県</option>
+                                                <option value="愛媛県" @if(old('prefecture')=='愛媛県') selected @endif>愛媛県</option>
+                                                <option value="高知県" @if(old('prefecture')=='高知県') selected @endif>高知県</option>
+                                                <option value="福岡県" @if(old('prefecture')=='福岡県') selected @endif>福岡県</option>
+                                                <option value="佐賀県" @if(old('prefecture')=='佐賀県') selected @endif>佐賀県</option>
+                                                <option value="長崎県" @if(old('prefecture')=='長崎県') selected @endif>長崎県</option>
+                                                <option value="熊本県" @if(old('prefecture')=='熊本県') selected @endif>熊本県</option>
+                                                <option value="大分県" @if(old('prefecture')=='大分県') selected @endif>大分県</option>
+                                                <option value="宮崎県" @if(old('prefecture')=='宮崎県') selected @endif>宮崎県</option>
+                                                <option value="鹿児島県" @if(old('prefecture')=='鹿児島県') selected @endif>鹿児島県</option>
+                                                <option value="沖縄県" @if(old('prefecture')=='沖縄県') selected @endif>沖縄県</option>
                                             </select>
                                             <div class="zipP02">
                                                 <p>市区郡町村</p>
@@ -276,7 +278,7 @@
                                             </div>
                                             <div class="zipP02">
                                                 <p>番地、アパート、マンション名等</p>
-                                                <input class="width-half p-extended-address" type="text" name="extended" required>
+                                                <input class="width-half p-extended-address" type="text" name="extended" value="{{ old('extended') }}" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -323,6 +325,19 @@
                                    // $(".reserveItem").append($("#reserveList"),html())
                                 }
 
+
+                                function confirmEmail() {
+                                    var email = document.getElementById("email").value
+                                    var confemail = document.getElementById("email-confirm").value
+                                    var confemailAlert = document.getElementById("confAlert");
+                                    if(email != confemail) {
+                                        confemailAlert.innerHTML = "メールアドレスと確認用メールアドレスが一致しません";
+                                    }
+                                    else{
+                                        confemailAlert.innerHTML = "";
+
+                                    }
+                                }
                             </script>
                             <div class="reserveItem helperMarginTop">
                                 <h4 class="reserveItemHd">旅行参加者情報</h4>
@@ -335,11 +350,11 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>姓</span>
-                                                    <input class="midIpt" type="text" name="add_lastname[]" required>
+                                                    <input class="midIpt" type="text" name="add_lastname[]" value="{{ old('add_lastname[]') }}" required>
                                                 </div>
                                                 <div class="halfP">
                                                     <span>名</span>
-                                                    <input class="midIpt" type="text" name="add_firstname[]" required>
+                                                    <input class="midIpt" type="text" name="add_firstname[]" value="{{ old('add_firstname[]') }}" required>
                                                 </div>
                                             </td>
                                         </tr>
@@ -348,11 +363,11 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>セイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana1[]" required>
+                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1[]') }}" required>
                                                 </div>
                                                 <div class="halfP">
                                                     <span>メイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana2[]" required>
+                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2[]') }}" required>
                                                 </div>
                                             </td>
                                         </tr>
@@ -360,7 +375,7 @@
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="ageP">
-                                                    <input class="midIpt" type="text" name="join_age[]" required>
+                                                    <input class="midIpt" type="text" name="join_age[]"  value="{{ old('join_age[]') }}" required>
                                                     <span>才</span>
                                                 </div>
                                             </td>
@@ -369,7 +384,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                <select name="birth_year_representative[]">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year_representative[]"  value="{{ old('birth_year_representative[]') }}" >@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]" value="{{ old('birth_month_representative[]') }}">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]" value="{{ old('birth_day_representative[]') }}">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
                                             </td>
                                         </tr>
@@ -391,7 +406,7 @@
                                                 <span class="p-country-name" style="display:none;">Japan</span>
                                                 <div class="zipP01">
                                                     <span>〒</span>
-                                                    <input class="midIpt p-postal-code" type="text" name="postalcode_representative" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" placeholder="ハイフンなしで入力" required>
+                                                    <input class="midIpt p-postal-code" type="text" name="postalcode_representative" pattern="\d{3}-?\d{4}" value="{{ old('postalcode_representative') }}" placeholder="ハイフンなしで入力" required>
                                                 </div>
                                                 <select  id="contact_address_pref" name="prefecture_representative" required class="p-region midIpt">
                                                 <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
@@ -444,25 +459,25 @@
                                                 </select>
                                                 <div class="zipP02">
                                                     <p>市区郡町村</p>
-                                                    <input type="text" name="address_representative" class="width-half p-locality p-street-address" value="{{ old('address') }}" required>
+                                                    <input type="text" name="address_representative" class="width-half p-locality p-street-address" value="{{ old('address_representative') }}" required>
                                                 </div>
                                                 <div class="zipP02">
                                                     <p>番地、アパート、マンション名等</p>
-                                                    <input class="width-half p-extended-address" type="text" name="extended_representative" required>
+                                                    <input class="width-half p-extended-address" type="text" name="extended_representative"  value="{{ old('extended_representative') }}" required>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>電話番号<span class="requiredRed">※</span></th>
                                             <td>
-                                                <input class="" type="text" name="tel_representative" pattern="\d{2,4}-?\d{2,4}-\d{3,4}" value="{{ old('tel') }}" required placeholder="ハイフンありで入力">
+                                                <input class="" type="text" name="tel_representative" pattern="\d{2,4}-?\d{2,4}-\d{3,4}" value="{{ old('tel_representative') }}" required placeholder="ハイフンありで入力">
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
-                                                <select name="boarding[]" required class="helperWidthMedium">
+                                                <select name="boarding[]" value="{{ old('boarding[]') }}" required class="helperWidthMedium">
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}">{{$piece}}</option>
                                                     @endforeach
@@ -474,7 +489,7 @@
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
-                                                <select name="drop[]" required class="helperWidthMedium">
+                                                <select name="drop[]" value="{{ old('drop[]') }}"  class="helperWidthMedium" required>
                                                     @foreach($drops as $drop)
                                                         <option value="{{$drop}}">{{$drop}}</option>
                                                     @endforeach

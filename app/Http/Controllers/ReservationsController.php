@@ -40,6 +40,7 @@ use tgMdk\TGMDK_Logger;
 use tgMdk\TGMDK_Transaction;
 use App\Models\Company;
 use App\Models\CreditCancel;
+use App\Rules\ZipcodeRule;
 
 class ReservationsController extends Controller
 {
@@ -731,8 +732,8 @@ class ReservationsController extends Controller
             'name_first' => ['required', 'string', 'max:50'],
             'kana_last' => ['required', 'regex:/^[ァ-ヾ　〜ー]+$/u', 'max:50'],
             'kana_first' => ['required', 'regex:/^[ァ-ヾ　〜ー]+$/u', 'max:50'],
-            'email' => ['required', 'email', 'max:100'],
-            'postalcode' => ['required', 'string', 'max:8'],
+            'email' => 'required|string|email|max:255|unique:users|confirmed',
+            'postalcode' => ['required', 'string', 'max:8', new ZipcodeRule],
             'prefecture' => ['required', 'string', 'max:5'],
             'tel' => ['required', 'string', 'max:50'],
             'birth_year' => ['required', 'numeric'],
