@@ -153,6 +153,14 @@ class PlansController extends Controller
             ];
             $rules = array_merge($rules, $notice_rule_1);
         }
+
+        if($request->res_type == 0){
+            $res_type_rule = [
+                'res_limit_number' => ['required', 'numeric'],
+            ];
+            $rules = array_merge($rules, $res_type_rule);
+        }
+        
         $a_rules1 = [
             // 体験時間join
             'activity_name1' => ['nullable'],
@@ -488,10 +496,10 @@ class PlansController extends Controller
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
-            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
+            $plans->res_limit_number = $request->res_limit_number;
         }
         else{
-            $plans->res_limit_number = $request->res_limit_number;
+            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
         }
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
@@ -1836,7 +1844,6 @@ class PlansController extends Controller
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
-            // 'res_limit_number' => ['required', 'numeric'],
             // 'min_number' => ['required', 'numeric'],
             // 'max_number' => ['required', 'numeric'],
             //'payment_method' => ['required', 'numeric'],
@@ -1903,6 +1910,13 @@ class PlansController extends Controller
                 'notice' =>  ['required'],
             ];
             $rules = array_merge($rules, $notice_rule_1);
+        }
+
+        if($request->res_type == 0){
+            $res_type_rule = [
+                'res_limit_number' => ['required', 'numeric'],
+            ];
+            $rules = array_merge($rules, $res_type_rule);
         }
         $a_rules1 = [
             // 体験時間join
@@ -2370,10 +2384,10 @@ class PlansController extends Controller
         $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
-            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
+            $plans->res_limit_number = $request->res_limit_number;
         }
         else{
-            $plans->res_limit_number = $request->res_limit_number;
+            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
         }
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
