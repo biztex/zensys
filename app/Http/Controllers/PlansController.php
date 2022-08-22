@@ -439,7 +439,7 @@ class PlansController extends Controller
         $plans->conductor_selected = $request->conductor_selected;
         $plans->notice = $request->notice;
         $plans->notice2 = $request->notice2;
-        $plans->deadline = $request->deadline;
+        // $plans->deadline = $request->deadline;
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
@@ -904,7 +904,7 @@ class PlansController extends Controller
         $plans->conductor_selected = $request->conductor_selected;
         $plans->notice = $request->notice;
         $plans->notice2 = $request->notice2;
-        $plans->deadline = $request->deadline;
+        // $plans->deadline = $request->deadline;
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
@@ -1441,7 +1441,7 @@ class PlansController extends Controller
         $plans->conductor_selected = $request->conductor_selected;
         $plans->notice = $request->notice;
         $plans->notice2 = $request->notice2;
-        $plans->deadline = $request->deadline;
+        // $plans->deadline = $request->deadline;
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
@@ -2325,7 +2325,7 @@ class PlansController extends Controller
         $plans->conductor_selected = $request->conductor_selected;
         $plans->notice = $request->notice;
         $plans->notice2 = $request->notice2;
-        $plans->deadline = $request->deadline;
+        // $plans->deadline = $request->deadline;
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
