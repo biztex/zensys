@@ -253,24 +253,24 @@
                             <div class="col-md-4">
                                 <input id="boarding" type="text" class="form-control" name="boarding" value="{{ old('boarding',$plans->boarding) }}" placeholder="カンマ区切り複数">
                             </div>
-                            <!-- <div class="col-md-2">
+                            <div class="col-md-2">
                                 <select  class="form-control" name="boarding_type">
                                     <option value="1" @if ($plans->boarding_type == 1) selected @endif>必須
                                     <option value="2" @if ($plans->boarding_type == 2) selected @endif>必須ではない
                                 </select>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('降車地　設定') }}</label>
                             <div class="col-md-4">
                                 <input id="drop" type="text" class="form-control" name="drop" value="{{ old('drop',$plans->drop) }}" placeholder="カンマ区切り複数">
                             </div>
-                            <!-- <div class="col-md-2">
+                            <div class="col-md-2">
                                 <select  class="form-control" name="drop_type">
                                     <option value="1" @if ($plans->drop_type == 1) selected @endif>必須
                                     <option value="2" @if ($plans->drop_type == 2) selected @endif>必須ではない
                                 </select>
-                            </div> -->
+                            </div>
                         </div>
    
        <!--                  <div class="form-group row">

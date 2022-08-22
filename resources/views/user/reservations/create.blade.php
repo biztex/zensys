@@ -459,7 +459,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>乗車地<span class="requiredRed">※</span></th>
+                                            <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
                                                 <select name="boarding[]" required class="helperWidthMedium">
@@ -471,7 +471,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>降車地<span class="requiredRed">※</span></th>
+                                            <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
                                                 <select name="drop[]" required class="helperWidthMedium">
@@ -543,7 +543,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>乗車地<span class="requiredRed">※</span></th>
+                                            <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
                                                 <select name="boarding[]" required class="helperWidthMedium">
@@ -554,7 +554,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>降車地<span class="requiredRed">※</span></th>
+                                            <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
                                                 <select name="drop[]" required class="helperWidthMedium">
