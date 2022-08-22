@@ -188,7 +188,7 @@
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="ageP">
-                                                    <input class="midIpt" type="text" name="age" id="age" required>
+                                                    <input class="midIpt" type="text" name="age" required>
                                                     <span>才</span>
                                                 </div>
                                             </td>
@@ -309,7 +309,7 @@
 
                                     var selectedVal = $('input[name=radio_sex]:checked').val();
                                     $("select[name='join_sex[]']").first().val(selectedVal);
-                                    $("select[name='join_age[]']").first().val($("#age").val());
+                                    $("input[name='join_age[]']").first().val($("input[name='age']").val());
 
                                     $("select[name='birth_year_representative[]']").first().val($("select[name='birth_year']").val());
                                     $("select[name='birth_month_representative[]']").first().val($("select[name='birth_month']").val());
