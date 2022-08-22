@@ -72,7 +72,7 @@ function chgSelect(){
     server: {
     url: '{{config('app.url')}}client/reservations/json?date='+date+'&status='+status,
     then: data => data.map(data => 
-      ['', data.id, data.order_id, data.status, data.user.name_last + ' ' + data.user.name_first, data.plan.name.slice(0, 10), data.created_at.slice(0, 10), displayPaymentMethod(data.payment_method)]
+      ['', data.id, data.order_id, data.status, data.user.name_last + ' ' + data.user.name_first, data.plan.name.slice(0, 10),data.plan.start_day, data.plan.end_day, data.created_at.slice(0, 10), displayPaymentMethod(data.payment_method)]
     )
   } 
 
@@ -130,7 +130,7 @@ const mygrid = new gridjs.Grid ({
         </div>
       `)
     },
-    '予約番号','予約状況',' 名前','プラン名','予約受付日時', '決済方法',
+    '予約番号','予約状況',' 名前','プラン名','開始日','終了日','予約受付日時', '決済方法',
     { 
       name: 'データ操作',
       sort: false,
@@ -148,7 +148,7 @@ const mygrid = new gridjs.Grid ({
   server: {
     url: '{{config('app.url')}}client/reservations/json',
     then: data => data.map(data => 
-      ['', data.id, data.order_id, data.status, data.user.name_last + ' ' + data.user.name_first, data.plan.name.slice(0, 10), data.created_at.slice(0, 10), displayPaymentMethod(data.payment_method)]
+      ['', data.id, data.order_id, data.status, data.user.name_last + ' ' + data.user.name_first, data.plan.name.slice(0, 10),data.plan.start_day, data.plan.end_day, data.created_at.slice(0, 10), displayPaymentMethod(data.payment_method)]
     )
   } 
 }).render(document.getElementById('result'));
