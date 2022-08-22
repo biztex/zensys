@@ -142,7 +142,7 @@ class PlansController extends Controller
         }
         if($request->notice == null){
             $notice_rule = [
-                'file_path11' =>  ['required'],
+                'file_path11' =>  'required|mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule);
         }

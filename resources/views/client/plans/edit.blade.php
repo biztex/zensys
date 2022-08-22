@@ -211,7 +211,7 @@
                             </div>
                         </div> -->
                          <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">{{ __('旅行条件書') }}</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('旅行条件書') }}</label>
                             <div class="col-md-6">
                                 <div class="col-md-12 p-0">
                                     <input id="notice" type="text" name="notice" class="form-control" value="{{ old('notice',$plans->notice) }}">or
