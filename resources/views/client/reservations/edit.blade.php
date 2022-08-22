@@ -84,6 +84,12 @@
                         </div>
                         @endforeach
                         <div class="form-group row">
+                            <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('出発日') }}</label>
+                            <div class="col-md-3">
+                                <input id="name" type="text" class="form-control" name="" value="{{$reservations->plan->start_day }}～{{$reservations->plan->end_day }}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約受付日時') }}</label>
                             <div class="col-md-3">
                                 <input id="name" type="text" class="form-control" name="" value="{{ substr($reservations->created_at,0, 16) }}" disabled>
