@@ -170,7 +170,12 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         </dl>
                                         <dl>
                                             <dt>受付締切日時</dt>
-                                            <dd><?=htmlspecialchars($plan["deadline"]) ?></dd>
+                                            <?php if($plan["res_type"] == 0){ ?>
+                                                <dd>出発日の<?=htmlspecialchars($plan["res_end_day"])?><?php if($plan["res_end_type"] == 0){echo '日前';}else{echo '週間前' ;} ?></dd>
+                                            <?php }
+                                            else{?>
+                                                <dd>出発日の<?=htmlspecialchars($plan["req_before_day"])?><?php if($plan["req_before_type"] == 0){echo '日前';}else{echo '週間前' ;} ?></dd>
+                                            <?php }?>
                                         </dl>
                                         <dl>
                                             <dt>支払方法</dt>
