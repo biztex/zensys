@@ -188,7 +188,7 @@
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="ageP">
-                                                    <input class="midIpt" type="text" name="age" required>
+                                                    <input class="midIpt" type="text" name="age" id="age" required>
                                                     <span>才</span>
                                                 </div>
                                             </td>
