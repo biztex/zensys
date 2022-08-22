@@ -225,7 +225,7 @@
                 </div>
 
                 <div class="card-body">
-                <b>期間一括変更　<input type="date" name="start_date">～<input type="date" name="end_date" >
+                <b>期間一括変更　<input type="date" name="start_date" data-date-inline-picker="true">～<input type="date" data-date-inline-picker="true" name="end_date" >
                     を
                     <select name="rank1">
                     <option value="">ランク</option>
@@ -659,4 +659,49 @@
 @stop
 @section('css')
 <link rel="stylesheet" href="{{asset('css/style.css')}}">
+<style>
+    input[type="date"] {
+    position: relative;
+    cursor: pointer;
+
+}
+
+/* create a new arrow, because we are going to mess up the native one
+see "List of symbols" below if you want another, you could also try to add a font-awesome icon.. */
+    input[type="date"]:after {
+        content: "\25BC"; 
+        color: #555;
+        padding: 0 5px;
+    }
+
+    /* change color of symbol on hover */
+    input[type="date"]:hover:after {
+        color: #bf1400;
+
+    }
+
+    /* make the native arrow invisible and stretch it over the whole field so you can click anywhere in the input field to trigger the native datepicker*/
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        height: auto;
+        color: transparent;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    /* adjust increase/decrease button */
+    input[type="date"]::-webkit-inner-spin-button {
+        z-index: 1;
+    }
+
+    /* adjust clear button */
+    input[type="date"]::-webkit-clear-button {
+        z-index: 1;
+    }
+</style>
 @stop
