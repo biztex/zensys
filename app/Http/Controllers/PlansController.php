@@ -150,6 +150,7 @@ class PlansController extends Controller
         else if($request->file_path11 == null){
             $notice_rule_1 = [
                 'notice' =>  ['required'],
+                'file_path11' =>  'mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule_1);
         }
@@ -1900,7 +1901,7 @@ class PlansController extends Controller
         }
         if($request->notice == null){
             $notice_rule = [
-                'file_path11' =>  ['required'],
+                'file_path11' =>  'required|mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule);
         }
@@ -1908,6 +1909,7 @@ class PlansController extends Controller
         else if($request->file_path11 == null){
             $notice_rule_1 = [
                 'notice' =>  ['required'],
+                'file_path11' =>  'mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule_1);
         }
