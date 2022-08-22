@@ -157,7 +157,7 @@ class CompaniesController extends Controller
             'company_number' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'max:8'],
             'prefecture' => ['required', 'string', 'max:10'],
-            'area' => ['required', 'string', 'max:100'],
+            // 'area' => ['required', 'string', 'max:100'],
             'address' => ['required', 'string', 'max:200'],
             'buildings' => ['nullable', 'string', 'max:100'],
             'url' => ['nullable', 'string', 'max:200'],
@@ -229,7 +229,7 @@ class CompaniesController extends Controller
         $companies->name = $request->name;
         $companies->postal_code = $request->postal_code;
         $companies->prefecture = $request->prefecture;
-        $companies->area = $request->area;
+        // $companies->area = $request->area;
         $companies->address = $request->address;
         $companies->buildings = $request->buildings;
         $companies->url = $request->url;

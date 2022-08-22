@@ -70,12 +70,12 @@
                               @endempty
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('エリア') }}</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="area" value="{{ old('area',$companies->area) }}" placeholder="札幌／ススキノ・大通">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"> {{ __('住所') }}</label>
 
