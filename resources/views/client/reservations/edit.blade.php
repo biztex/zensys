@@ -86,7 +86,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('出発日') }}</label>
                             <div class="col-md-3">
-                                <input id="name" type="text" class="form-control" name="" value="{{$reservations->plan->start_day }}～{{$reservations->plan->end_day }}" disabled>
+                                <input id="name" type="text" class="form-control" name="" value="{{$reservations->fixed_datetime }}" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
