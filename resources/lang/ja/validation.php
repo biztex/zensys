@@ -215,7 +215,7 @@ return [
         'answer' => '質問事項の回答',
         'included_item' => '料金に含まれるもの',
         'payment_comment' => '支払方法の補足・詳細',
-        'res_limit_number' => '即時予約受付制限（数値）',
+        'res_limit_number' => '在庫',
         'min_number' => '1予約あたり最小人数',
         'max_number' => '1予約あたり最大人数',
         'caution_content' => '注意事項・その他',

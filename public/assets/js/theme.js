@@ -61,12 +61,12 @@ jQuery(function($){
 	});
 
 	// 20220613
-	$('.reserveItem').each(function(){
-		$(this).find(".reserveAdd").click(function(){
-			$(this).before($(this).prev().clone());
-			return false;
-		}); 
-	});
+	// $('.reserveItem').each(function(){
+	// 	$(this).find(".reserveAdd").click(function(){
+	// 		$(this).before($(this).prev().clone());
+	// 		return false;
+	// 	}); 
+	// });
 
 	$(document).on('click','.reserveDelete',function(){
 		$(this).parents('.reserveList').remove();

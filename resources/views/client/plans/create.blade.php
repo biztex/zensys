@@ -494,7 +494,7 @@
                         <hr />
 
                         <div class="form-group row res-limit-section">
-                            <label class="col-md-2 col-form-label text-md-center" >在庫</label>
+                            <label class="col-md-2 col-form-label text-md-center"><span class="badge badge-danger">必須</span> 在庫</label>
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="res_limit_number" value="{{ old('res_limit_number') }}">
                             </div>
