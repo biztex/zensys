@@ -732,7 +732,7 @@ class ReservationsController extends Controller
             'name_first' => ['required', 'string', 'max:50'],
             'kana_last' => ['required', 'regex:/^[ァ-ヾ　〜ー]+$/u', 'max:50'],
             'kana_first' => ['required', 'regex:/^[ァ-ヾ　〜ー]+$/u', 'max:50'],
-            'email' => 'required|string|email|max:255|unique:users|confirmed',
+            'email' => 'required|string|email|max:255|confirmed',
             'postalcode' => ['required', 'string', 'max:8', new ZipcodeRule],
             'prefecture' => ['required', 'string', 'max:5'],
             'tel' => ['required', 'string', 'max:50'],
