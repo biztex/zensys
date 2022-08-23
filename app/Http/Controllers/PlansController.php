@@ -140,19 +140,26 @@ class PlansController extends Controller
             ];
             $rules = array_merge($rules, $m_rules);
         }
-        if($request->notice == null){
+        if($request->notice == null && $request->file_path11 != null){
             $notice_rule = [
                 'file_path11' =>  'required|mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule);
         }
         
-        else if($request->file_path11 == null){
+        else if($request->file_path11 == null && $request->notice != null){
             $notice_rule_1 = [
                 'notice' =>  ['required'],
                 'file_path11' =>  'mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule_1);
+        }
+        else{
+            $arr_rules = [
+                'file_path11' =>  'required|mimes:pdf|max:10000',
+            ];
+            $rules = array_merge($rules, $arr_rules);
+
         }
 
         if($request->res_type == 0){
@@ -1899,19 +1906,26 @@ class PlansController extends Controller
             ];
             $rules = array_merge($rules, $m_rules);
         }
-        if($request->notice == null){
+        if($request->notice == null && $request->file_path11 != null){
             $notice_rule = [
                 'file_path11' =>  'required|mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule);
         }
         
-        else if($request->file_path11 == null){
+        else if($request->file_path11 == null && $request->notice != null){
             $notice_rule_1 = [
                 'notice' =>  ['required'],
                 'file_path11' =>  'mimes:pdf|max:10000',
             ];
             $rules = array_merge($rules, $notice_rule_1);
+        }
+        else{
+            $arr_rules = [
+                'file_path11' =>  'required|mimes:pdf|max:10000',
+            ];
+            $rules = array_merge($rules, $arr_rules);
+
         }
 
         if($request->res_type == 0){
