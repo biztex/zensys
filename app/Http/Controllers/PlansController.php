@@ -158,11 +158,12 @@ class PlansController extends Controller
             $rules = array_merge($rules, $notice_rule_1);
         }
         else{
-            $arr_rules = [
-                'file_path11' =>  'required|mimes:pdf|max:10000',
-            ];
-            $rules = array_merge($rules, $arr_rules);
-
+            if($request->file_path11_tmp == null){
+                $arr_rules = [
+                    'file_path11' =>  'required|mimes:pdf|max:10000',
+                ];
+                $rules = array_merge($rules, $arr_rules);
+            }
         }
 
         if($request->res_type == 0){
@@ -1931,10 +1932,13 @@ class PlansController extends Controller
             $rules = array_merge($rules, $notice_rule_1);
         }
         else{
-            $arr_rules = [
-                'file_path11' =>  'required|mimes:pdf|max:10000',
-            ];
-            $rules = array_merge($rules, $arr_rules);
+            if($request->file_path11_tmp == null){
+                $arr_rules = [
+                    'file_path11' =>  'required|mimes:pdf|max:10000',
+                ];
+                $rules = array_merge($rules, $arr_rules);
+            }
+         
 
         }
 
