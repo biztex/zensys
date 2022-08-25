@@ -105,9 +105,8 @@ class PlansController extends Controller
             'caution_content' => ['nullable', 'string', 'max:5000'],
             // 'item' => ['nullable', 'string', 'max:1000'],
             // 'wear' => ['nullable', 'string', 'max:1000'],
-            'file_path1' =>
-                'required_without:old_file_path1|mimes:jpeg,jpg,png,gif|max:500000',
-            'old_file_path1' => 'required_without:file_path1|string|max:1000',
+            'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:500000',
+            // 'old_file_path1' => 'required_without:file_path1|string|max:1000',
             'file_path2' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path3' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path4' => 'mimes:jpeg,jpg,png,gif|max:500000',
@@ -1875,9 +1874,8 @@ class PlansController extends Controller
             'caution_content' => ['nullable', 'string', 'max:5000'],
             // 'item' => ['nullable', 'string', 'max:1000'],
             // 'wear' => ['nullable', 'string', 'max:1000'],
-            'file_path1' =>
-                'required_without:old_file_path1|mimes:jpeg,jpg,png,gif|max:500000',
-            'old_file_path1' => 'required_without:file_path1|string|max:1000',
+            'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:500000',
+            // 'old_file_path1' => 'required_without:file_path1|string|max:1000',
             'file_path2' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path3' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path4' => 'mimes:jpeg,jpg,png,gif|max:500000',
