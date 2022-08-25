@@ -6136,8 +6136,3 @@ readers do not read off random characters that represent icons */
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
 }
-
-.note-popover.popover {
-    top: 100px !important;
-    left: 0 !important;
-}
