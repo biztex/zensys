@@ -1327,6 +1327,7 @@ class PlansController extends Controller
             'included_item' => ['nullable', 'string', 'max:100'],
             'question_content' => ['nullable', 'string', 'max:1200'],
             'caution_content' => ['nullable', 'string', 'max:5000'],
+            'file_path11' =>  'mimes:pdf|max:10000',
         ];
 
         $this->validate($request, $rules);
@@ -1562,7 +1563,9 @@ class PlansController extends Controller
         if ($request->del_fiel11) {
             $plans->file_path11 = '';
         } else {
-            $plans->file_path11 = $fileName11;
+            if($request->file_path11_tmp == null){
+                $plans->file_path11 = $fileName11;
+            }
         }
         $max_sort_number = Plan::max('sort');
         $plans->sort = $max_sort_number + 1;
@@ -2484,7 +2487,9 @@ class PlansController extends Controller
         if ($request->del_fiel11) {
             $plans->file_path11 = '';
         } else {
-            $plans->file_path11 = $fileName11;
+            if($request->file_path11_tmp == null){
+                $plans->file_path11 = $fileName11;
+            }
         }
 
         $plans->save();

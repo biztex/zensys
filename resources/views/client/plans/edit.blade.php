@@ -223,7 +223,7 @@
                                         <input type="file" class="col-md-6" name="file_path11" id="file_path11">
                                     @else
                                         <a id="file_path11_link" href="{{config('app.url')}}uploads/{{ $plans->file_path11 }}" >{{ $plans->file_path11 }}</a>
-                                        <input id="file_path11" type="hidden"  class="col-md-4" name="file_path11" value="{{ old('file_path6',$plans->file_path11) }}">
+                                        <input id="file_path11" type="hidden"  class="col-md-4" name="file_path11_tmp" value="{{ old('file_path6',$plans->file_path11) }}">
                                         <button type="button"class="btn btn-secondary p-1 delete_file" onclick="PdfDelete()">削除</button>
                                     <!-- <input type="checkbox" name="del_fiel11" value="1">削除 -->
                                     @endempty
@@ -1189,6 +1189,7 @@ function PdfDelete() {
     let pdf_link = document.querySelector("#file_path11_link");
     pdf_val.value = '';
     pdf_val.setAttribute('type', 'file');
+    pdf_val.name = 'file_path11';
     pdf_link.remove();
     document.querySelector(".delete_file").remove();
 }
