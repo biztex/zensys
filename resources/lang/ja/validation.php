@@ -259,6 +259,7 @@ return [
         'notice' => '旅行条件書',
         'file_path11' => '旅行条件書',
         'zipcode'=>'郵便番号',
+        'postalcode_representative' => '旅行参加者郵便番号'
 
     ],
 

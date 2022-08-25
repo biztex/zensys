@@ -933,7 +933,7 @@ class PlansController extends Controller
         $plans->kind = $request->kind;
         $plans->cancel_date = $request->cancel_date;
         $plans->road_map = $request->road_map;
-        $plans->is_listed = $request->is_listed;
+        $plans->is_listed = '0';
         $plans->name = $request->name ? $request->name : '';
         $plans->company_id = 1;
         $plans->catchphrase = $request->catchphrase
@@ -1424,7 +1424,7 @@ class PlansController extends Controller
 
         $plans->cancel_date = $request->cancel_date;
         $plans->road_map = $request->road_map;
-        $plans->is_listed = $request->is_listed;
+        $plans->is_listed = '0';
         $plans->name = $request->name ? $request->name : '';
         $plans->company_id = 1;
         $plans->catchphrase = $request->catchphrase
