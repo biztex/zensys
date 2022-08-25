@@ -734,6 +734,7 @@ class ReservationsController extends Controller
             'kana_first' => ['required', 'regex:/^[ァ-ヾ　〜ー]+$/u', 'max:50'],
             'email' => 'required|string|email|max:255|unique:users|confirmed',
             'postalcode' => ['required', 'string', 'max:8', new ZipcodeRule],
+            'postalcode_representative' => ['required', 'string', 'max:8', new ZipcodeRule],
             'prefecture' => ['required', 'string', 'max:5'],
             'tel' => ['required', 'string', 'max:50'],
             'birth_year' => ['required', 'numeric'],
