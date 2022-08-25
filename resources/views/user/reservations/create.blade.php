@@ -522,19 +522,19 @@
                                         <th>お支払方法</th>
                                         <td>
                                             <select name="payment_method" class="midSelect">
-                                              
+                                                @if ($plan->card == 1)
+                                                        <option value="3" @if(old('payment_method')==3) selected @endif >クレジットカード決済</option>
+                                                @endif
                                                 @if ($plan->spot == 1)
-                                                        <option value="0">現地払い</option>
+                                                        <option value="0" @if(old('payment_method')==0) selected @endif >現地払い</option>
                                                 @endif
                                                 @if ($plan->prepay == 1)
-                                                        <option value="1">事前払い</option>
+                                                        <option value="1" @if(old('payment_method')==1) selected @endif >事前払い</option>
                                                 @endif
                                                 @if ($plan->cvs == 1)
-                                                        <option value="2">コンビニ決済</option>
+                                                        <option value="2" @if(old('payment_method')==2) selected @endif >コンビニ決済</option>
                                                 @endif
-                                                @if ($plan->card == 1)
-                                                        <option value="3" selected>クレジットカード決済</option>
-                                                @endif
+                                               
                                              </select>
                                         </td>
                                     </tr>
