@@ -971,7 +971,7 @@
                               <input type="file" name="file_path1">
                               @else
                               <img id="img1" src="{{config('app.url')}}uploads/{{ $plans->file_path1 }}" width="auto" height="150px">
-                              <input id="hidden1" type="hidden" name="file_path1" value="{{ old('file_path1',$plans->file_path1) }}">
+                              <input id="hidden1" type="hidden" name="old_file_path1" value="{{ old('file_path1',$plans->file_path1) }}">
                               @endempty
                             </div>
                             <div id="div-button1" class="col-md-4 file_path1">

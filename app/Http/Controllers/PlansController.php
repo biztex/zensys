@@ -105,7 +105,6 @@ class PlansController extends Controller
             'caution_content' => ['nullable', 'string', 'max:5000'],
             // 'item' => ['nullable', 'string', 'max:1000'],
             // 'wear' => ['nullable', 'string', 'max:1000'],
-            'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:500000',
             // 'old_file_path1' => 'required_without:file_path1|string|max:1000',
             'file_path2' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path3' => 'mimes:jpeg,jpg,png,gif|max:500000',
@@ -117,7 +116,12 @@ class PlansController extends Controller
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
         ];
-      
+        if($request->old_file_path1 == null){
+            $img_rule = [
+                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:500000',
+            ];
+            $rules = array_merge($rules, $img_rule);
+        }
         /*
             if ($request->payment_method == 0 || $request->payment_method == 3) {
                 $p_rules = [
@@ -1874,7 +1878,6 @@ class PlansController extends Controller
             'caution_content' => ['nullable', 'string', 'max:5000'],
             // 'item' => ['nullable', 'string', 'max:1000'],
             // 'wear' => ['nullable', 'string', 'max:1000'],
-            'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:500000',
             // 'old_file_path1' => 'required_without:file_path1|string|max:1000',
             'file_path2' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path3' => 'mimes:jpeg,jpg,png,gif|max:500000',
@@ -1886,6 +1889,12 @@ class PlansController extends Controller
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:500000',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
         ];
+        if($request->old_file_path1 == null){
+            $img_rule = [
+                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:500000',
+            ];
+            $rules = array_merge($rules, $img_rule);
+        }
         /*
                 if ($request->payment_method == 0 || $request->payment_method == 3) {
                     $p_rules = [
