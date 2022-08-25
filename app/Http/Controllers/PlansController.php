@@ -458,9 +458,9 @@ class PlansController extends Controller
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
-        // $plans->boarding_type = $request->boarding_type;
+        $plans->boarding_type = $request->boarding_type;
         $plans->drop = $request->drop;
-        // $plans->drop_type = $request->drop_type;
+        $plans->drop_type = $request->drop_type;
         $plans->road_map_title = $request->road_map_title;
         $plans->road_map_build = $request->road_map_build;
 
@@ -923,9 +923,9 @@ class PlansController extends Controller
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
-        // $plans->boarding_type = $request->boarding_type;
+        $plans->boarding_type = $request->boarding_type;
         $plans->drop = $request->drop;
-        // $plans->drop_type = $request->drop_type;
+        $plans->drop_type = $request->drop_type;
         $plans->road_map_title = $request->road_map_title;
         $plans->road_map_build = $request->road_map_build;
 
@@ -1461,9 +1461,9 @@ class PlansController extends Controller
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
-        // $plans->boarding_type = $request->boarding_type;
+        $plans->boarding_type = $request->boarding_type;
         $plans->drop = $request->drop;
-        // $plans->drop_type = $request->drop_type;
+        $plans->drop_type = $request->drop_type;
         $plans->road_map_title = $request->road_map_title;
         $plans->road_map_build = $request->road_map_build;
 
@@ -2360,9 +2360,9 @@ class PlansController extends Controller
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
-        // $plans->boarding_type = $request->boarding_type;
+        $plans->boarding_type = $request->boarding_type;
         $plans->drop = $request->drop;
-        // $plans->drop_type = $request->drop_type;
+        $plans->drop_type = $request->drop_type;
         $plans->road_map_title = $request->road_map_title;
         $plans->road_map_build = $request->road_map_build;
 
