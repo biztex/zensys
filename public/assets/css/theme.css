@@ -2026,11 +2026,6 @@ textarea:focus {
     }
 }
 
-.note-popover.popover {
-    top: 100px !important;
-    left: 0 !important;
-}
-
 .section.section--breadcrumb {
     padding-top: 76px;
     padding-bottom: 30px;
