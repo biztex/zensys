@@ -158,7 +158,16 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         </dl>
                                         <dl>
                                             <dt>出発日</dt>
-                                            <dd><?=htmlspecialchars($plan["start_day"])?>～<?=htmlspecialchars($plan["end_day"])?></dd>
+                                            <dd>
+                                                <?php if($plan["start_day"] == $plan["end_day"])
+                                                    { 
+                                                        echo htmlspecialchars($plan["start_day"]);
+                                                    }
+                                                    else{
+                                                        echo htmlspecialchars($plan["start_day"])?>～<?=htmlspecialchars($plan["end_day"]);
+                                                    }?>
+
+                                            </dd>
                                         </dl>
                                         <dl>
                                             <dt>お食事</dt>
