@@ -773,20 +773,10 @@ class ReservationsController extends Controller
 
         for($j=0; $j<count($rank); $j++){
             for ($i = 1; $i < 4; $i++) {
-                $p_rules = [];
                 $count = $request->{'type'.$request->price_type. '_'. $rank[$j].'_'. $i . '_number'};
                 if ($count > 0) {
-                    $p_rules = [
-                        'type' . $i . '_number' => [
-                            'required',
-                            'numeric',
-                            ' min:0',
-                            'max:99',
-                        ],
-                    ];
                     $count_member += $count;
                 }
-                $rules = array_merge($rules, $p_rules);
             }
         }
         
