@@ -57,7 +57,7 @@ return [
         'array'   => ':attributeは:min個以上にしてください',
     ],
     'not_in'               => '選択された:attributeは正しくありません',
-    'numeric'              => ':attributeは数字にしてください',
+    'numeric'              => ':attributeは半角数字にしてください',
     'regex'                => ':attributeの書式が正しくありません',
     'required'             => ':attributeは必須です',
     'required_if'          => ':otherが:valueの時、:attributeは必須です',
