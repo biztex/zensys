@@ -488,7 +488,7 @@
                                             <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_from[]"> --}}
-                                                <select name="boarding[]" value="{{ old('boarding[]') }}" required class="helperWidthMedium">
+                                                <select name="boarding[]" value="{{ old('boarding[]') }}" @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}">{{$piece}}</option>
                                                     @endforeach
@@ -500,7 +500,7 @@
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 {{-- <input class="" type="text" name="join_to[]"> --}}
-                                                <select name="drop[]" value="{{ old('drop[]') }}"  class="helperWidthMedium" required>
+                                                <select name="drop[]" value="{{ old('drop[]') }}"  class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
                                                     @foreach($drops as $drop)
                                                         <option value="{{$drop}}">{{$drop}}</option>
                                                     @endforeach
