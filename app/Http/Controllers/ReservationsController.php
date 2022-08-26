@@ -1846,9 +1846,10 @@ class ReservationsController extends Controller
                 if (isset($_GET['date']) && $_GET['date']) {
                     $query = $query->whereDate('created_at', $_GET['date']);
                 }
-                // if($_GET['status']){
-                //     $query = $query->where('status', $_GET['status'])
-                // }
+                if (isset($_GET['startDay']) && $_GET['startDay']){
+                    $query = $query->whereDate('fixed_datetime', $_GET['startDay']);
+                }
+ 
                 $query = $query->orderBy('id', 'desc');
             } else {
                 $query = Reservation::with(['user', 'plan']);
@@ -1857,6 +1858,9 @@ class ReservationsController extends Controller
                 }
                 if (isset($_GET['date']) && $_GET['date']) {
                     $query = $query->whereDate('created_at', $_GET['date']);
+                }
+                if (isset($_GET['startDay']) && $_GET['startDay']){
+                    $query = $query->whereDate('fixed_datetime', $_GET['startDay']);
                 }
                 $query = $query
                     ->where('user_id', $user_id)

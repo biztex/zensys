@@ -21,6 +21,7 @@
   <option value="キャンセル" >キャンセル</option>
 </select>
 予約日<input type="date" name="date" id="date"  onchange="chgSelect()">
+出発日<input type="date" name="startDate" id="startDate"  onchange="chgSelect()">
 <div id="result"></div>
 <div class="row mb-2">
   <div class="col-sm-12 mt-4">
@@ -67,10 +68,11 @@ function chgNum(){
 function chgSelect(){
   let status = $("#status").val();
   let date = $("#date").val();
+  let startDate = $("#startDate").val();
   //$("#result").html("");
   mygrid.updateConfig({
     server: {
-    url: '{{config('app.url')}}client/reservations/json?date='+date+'&status='+status,
+    url: '{{config('app.url')}}client/reservations/json?date='+date+'&status='+status+'&startDay='+startDate,
     then: data => data.map(data => 
       ['', data.id, data.order_id, data.status, data.user.name_last + ' ' + data.user.name_first, data.plan.name.slice(0, 10),data.fixed_datetime.slice(0, 10) , data.created_at.slice(0, 10), displayPaymentMethod(data.payment_method)]
     )
