@@ -794,14 +794,14 @@ class ReservationsController extends Controller
                 throw ValidationException::withMessages([
                     'count_member' => '参加人数は最低1名以上必要です',
                 ]);
-            } elseif ($count_member < $plan->min_number) {
+            } elseif ($plan->min_number != null && $count_member < $plan->min_number) {
                 throw ValidationException::withMessages([
                     'min_member' =>
                         'このプランの最低参加人数は' .
                         $plan->min_number .
                         '名以上です',
                 ]);
-            } elseif ($count_member > $plan->max_number) {
+            } elseif ($plan->max_number != null && $count_member > $plan->max_number) {
                 throw ValidationException::withMessages([
                     'max_member' =>
                         'このプランの最大参加人数は' .
