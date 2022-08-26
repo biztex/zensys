@@ -157,7 +157,41 @@
                                                     </dl>
                                                 </div>
                                                 <p class="priceP">旅行代金（お一人様<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
-                                                <p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id=<?=htmlspecialchars($plan["id"])?>" class="btnLink01">プラン詳細をみる</a></p>
+                                                <?php
+                                                    date_default_timezone_set('Asia/Tokyo');
+
+                                                    $date = new DateTimeImmutable(date('Y-m-d'));
+                                                    if($plan['res_type'] == 0){
+                                                        $end =  new DateTimeImmutable($plan['end_day']);
+                                                    }
+                                                    else{
+                                                        $end =  new DateTimeImmutable($plan['req_before_day']);
+                                                    }
+                                                    $time = date('H');
+                                                    $interval = $end->diff($date);
+
+                                                    if($plan['res_type'] == 0){
+                                                        $compare = intval($interval->format('%d')) - intval($plan['res_end_day']);
+
+                                                    }
+                                                    else{
+                                                        $compare = intval($interval->format('%d')) - intval($plan['req_before_time']);
+                                                    }
+                                                    if( $compare < 0 ){
+                                                       echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                    }
+                                                    else if($compare == 0){
+                                                        if(intval($time) > intval($plan['res_end_time'])){
+                                                            echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                        }
+                                                        else{
+                                                            echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
+                                                        }
+                                                    }
+                                                    else{
+                                                        echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
+                                                    }
+                                                    ?>
                                             </div>
                                         </div>
                                     </div>
