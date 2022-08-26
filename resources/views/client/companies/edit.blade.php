@@ -34,12 +34,12 @@
                     <form action="{{config('app.url')}}client/companies/update/{{ $companies->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="id" class="col-md-2 col-form-label text-md-right">{{ __('ID') }}</label>
                             <div class="col-md-6">
                                 <input id="id" class="input-group-text text-md-left" type="text" name="id" value="{{ old('$companies->id', $companies->id) }}" disabled>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('会社名') }}</label>
                             <div class="col-md-6">
