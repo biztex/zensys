@@ -34,10 +34,15 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        // $this->reportable(function (Throwable $e) {
+        //     //
+        //     if ($e->getPrevious() instanceof \Illuminate\Session\TokenMismatchException) {
+        //         return redirect()->route('client.login');
+        //     };
+        // });
+        $this->renderable(function (\Exception $e) {
             if ($e->getPrevious() instanceof \Illuminate\Session\TokenMismatchException) {
-                return redirect()->route('client.login');
+                return redirect()->route('login');
             };
         });
     }
