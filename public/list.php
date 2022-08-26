@@ -173,7 +173,6 @@
                                                         $compare = intval($interval->format('%d')) + intval($plan['req_before_time']);
                                                     }
 
-                                                    echo $compare;
                                                     if( $compare < 0 ){
                                                        echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
                                                     }
