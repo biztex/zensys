@@ -171,7 +171,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                         </dl>
                                         <dl>
                                             <dt>お食事</dt>
-                                            <dd><?=htmlspecialchars($plan["name"]) ?></dd>
+                                            <dd><?=htmlspecialchars($plan["eat"]) ?></dd>
                                         </dl>
                                         <dl>
                                             <dt>添乗員</dt>
@@ -541,10 +541,10 @@ $stocks_next = json_decode($json_stocks_next,true);
                             <div class="reserveTxt">
                                 <p>※予約の場合は申し込みと同時に予約確定となります。予約枠ごとに料金が異なる場合がございます。<br>※リクエストが完了しても予約が確定したわけではありません。リクエスト予約は仮予約の状態となります。実施会社の確認連絡をもって予約の確定としています。予めご了承ください。<br>※子供料金はカッコ内に記載。記載がない場合は子供料金の設定はございません。</p>
                             </div>
-                            <p class="detailHd01">基本旅行代金について</p>
+                            <!-- <p class="detailHd01">基本旅行代金について</p>
                             <div class="reserveTxt">
                                 <p>●子供料金の設定はございません。尚、年齢制限はございませんが体力的な面を考慮し、小学生未満のご参加は推奨致しかねます。<br>●旅行代金にはバス代、行程表に明示した食事、宿泊代金、温泉入湯料が含まれます。</p>
-                            </div>
+                            </div> -->
                             <div class="dtPayment">
                                 <p class="detailHd01">お支払方法</p>
                                 <table class="reserveTable">
