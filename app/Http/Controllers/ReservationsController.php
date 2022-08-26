@@ -768,47 +768,46 @@ class ReservationsController extends Controller
             ]);
         }
         //参加可能人数をチェック
-        if($plan->res_type == 2){
-            $rank = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+       
+        $rank = ['a','b','c','d','e','f','g','h','i','j','k','l'];
 
-            for($j=0; $j<count($rank); $j++){
-                for ($i = 1; $i < 4; $i++) {
-                    $p_rules = [];
-                    $count = $request->{'type'.$request->price_type. '_'. $rank[$j].'_'. $i . '_number'};
-                    if ($count > 0) {
-                        $p_rules = [
-                            'type' . $i . '_number' => [
-                                'required',
-                                'numeric',
-                                ' min:0',
-                                'max:99',
-                            ],
-                        ];
-                        $count_member += $count;
-                    }
-                    $rules = array_merge($rules, $p_rules);
+        for($j=0; $j<count($rank); $j++){
+            for ($i = 1; $i < 4; $i++) {
+                $p_rules = [];
+                $count = $request->{'type'.$request->price_type. '_'. $rank[$j].'_'. $i . '_number'};
+                if ($count > 0) {
+                    $p_rules = [
+                        'type' . $i . '_number' => [
+                            'required',
+                            'numeric',
+                            ' min:0',
+                            'max:99',
+                        ],
+                    ];
+                    $count_member += $count;
                 }
+                $rules = array_merge($rules, $p_rules);
             }
-            
-            if ($count_member == 0) {
-                throw ValidationException::withMessages([
-                    'count_member' => '参加人数は最低1名以上必要です',
-                ]);
-            } elseif ($plan->min_number != null && $count_member < $plan->min_number) {
-                throw ValidationException::withMessages([
-                    'min_member' =>
-                        'このプランの最低参加人数は' .
-                        $plan->min_number .
-                        '名以上です',
-                ]);
-            } elseif ($plan->max_number != null && $count_member > $plan->max_number) {
-                throw ValidationException::withMessages([
-                    'max_member' =>
-                        'このプランの最大参加人数は' .
-                        $plan->max_number .
-                        '名までです',
-                ]);
-            }
+        }
+        
+        if ($count_member == 0) {
+            throw ValidationException::withMessages([
+                'count_member' => '参加人数は最低1名以上必要です',
+            ]);
+        } elseif ($plan->min_number != null && $count_member < $plan->min_number) {
+            throw ValidationException::withMessages([
+                'min_member' =>
+                    'このプランの最低参加人数は' .
+                    $plan->min_number .
+                    '名以上です',
+            ]);
+        } elseif ($plan->max_number != null && $count_member > $plan->max_number) {
+            throw ValidationException::withMessages([
+                'max_member' =>
+                    'このプランの最大参加人数は' .
+                    $plan->max_number .
+                    '名までです',
+            ]);
         }
       
 
