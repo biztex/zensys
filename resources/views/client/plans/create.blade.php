@@ -244,8 +244,8 @@
                             </div>
                             <div class="col-md-2">
                                 <select  class="form-control" name="boarding_type">
-                                    <option value="1" @if (old('boarding_type') == 1) selected @endif>必須
                                     <option value="2" @if (old('boarding_type') == 2) selected @endif>必須ではない
+                                    <option value="1" @if (old('boarding_type') == 1) selected @endif>必須
                                 </select>
                             </div>
                         </div>
@@ -256,8 +256,8 @@
                             </div>
                             <div class="col-md-2">
                                 <select  class="form-control" name="drop_type">
-                                    <option value="1" @if (old('drop_type') == 1) selected @endif>必須
                                     <option value="2" @if (old('drop_type') == 2) selected @endif>必須ではない
+                                    <option value="1" @if (old('drop_type') == 1) selected @endif>必須
                                 </select>
                             </div>
                         </div>
