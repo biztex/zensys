@@ -754,22 +754,7 @@ class ReservationsController extends Controller
         }
 
         $count_member = 0;
-        // for ($i = 0; $i <= 20; $i++) {
-        //     $p_rules = [];
-        //     $count = $request->{'type' . $i . '_number'};
-        //     if ($count > 0) {
-        //         $p_rules = [
-        //             'type' . $i . '_number' => [
-        //                 'required',
-        //                 'numeric',
-        //                 ' min:0',
-        //                 'max:99',
-        //             ],
-        //         ];
-        //         $count_member += $count;
-        //     }
-        //     $rules = array_merge($rules, $p_rules);
-        // }
+       
         // 在庫をチェック
         $stock_before_minus = Stock::select()
             ->where('plan_id', $request->plan_id)
@@ -782,26 +767,50 @@ class ReservationsController extends Controller
                     '現在予約在庫がありません。お手数ですが実施会社までお問い合わせください',
             ]);
         }
-        // 参加可能人数をチェック
-        // if ($count_member == 0) {
-        //     throw ValidationException::withMessages([
-        //         'count_member' => '参加人数は最低1名以上必要です',
-        //     ]);
-        // } elseif ($count_member < $plan->min_number) {
-        //     throw ValidationException::withMessages([
-        //         'min_member' =>
-        //             'このプランの最低参加人数は' .
-        //             $plan->min_number .
-        //             '名以上です',
-        //     ]);
-        // } elseif ($count_member > $plan->max_number) {
-        //     throw ValidationException::withMessages([
-        //         'max_member' =>
-        //             'このプランの最大参加人数は' .
-        //             $plan->max_number .
-        //             '名までです',
-        //     ]);
-        // }
+        //参加可能人数をチェック
+        if($request->res_type == 2){
+            $rank = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+
+            for($j=0; $j<count($rank); $j++){
+                for ($i = 1; $i < 4; $i++) {
+                    $p_rules = [];
+                    $count = $request->{'type'.$request->price_type. '_'. $rank[$j].'_'. $i . '_number'};
+                    if ($count > 0) {
+                        $p_rules = [
+                            'type' . $i . '_number' => [
+                                'required',
+                                'numeric',
+                                ' min:0',
+                                'max:99',
+                            ],
+                        ];
+                        $count_member += $count;
+                    }
+                    $rules = array_merge($rules, $p_rules);
+                }
+            }
+            
+            if ($count_member == 0) {
+                throw ValidationException::withMessages([
+                    'count_member' => '参加人数は最低1名以上必要です',
+                ]);
+            } elseif ($count_member < $plan->min_number) {
+                throw ValidationException::withMessages([
+                    'min_member' =>
+                        'このプランの最低参加人数は' .
+                        $plan->min_number .
+                        '名以上です',
+                ]);
+            } elseif ($count_member > $plan->max_number) {
+                throw ValidationException::withMessages([
+                    'max_member' =>
+                        'このプランの最大参加人数は' .
+                        $plan->max_number .
+                        '名までです',
+                ]);
+            }
+        }
+      
 
         $this->validate($request, $rules);
         

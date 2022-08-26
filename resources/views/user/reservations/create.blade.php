@@ -325,9 +325,12 @@
                                    // $(".reserveItem").append($("#reserveList"),html())
                                 }
 
-
+                                let count = 0 
+                                
                                 function addJoin(){
-                                    $(".reserveList.helperNone").before().load('{{config('app.url')}}html/reservation-companion.php' , function(e){
+                                    count++;
+                                    $(".reserveAdd").before('<div class="reserveList helperNone'+ count +'" id="reserveList"></div>')
+                                    $(".reserveList.helperNone"+count).load('{{config('app.url')}}html/reservation-companion.php' , function(e){
 
                                         $data_boarding = $(".par_boarding").children().clone();
                                         $data_drop = $(".par_drop").children().clone();
@@ -487,19 +490,16 @@
                                         <tr class="par_boarding">
                                             <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
-                                                {{-- <input class="" type="text" name="join_from[]"> --}}
                                                 <select name="boarding[]" value="{{ old('boarding[]') }}" @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}">{{$piece}}</option>
                                                     @endforeach
-
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr  class="par_drop">
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
-                                                {{-- <input class="" type="text" name="join_to[]"> --}}
                                                 <select name="drop[]" value="{{ old('drop[]') }}"  class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
                                                     @foreach($drops as $drop)
                                                         <option value="{{$drop}}">{{$drop}}</option>
@@ -511,7 +511,7 @@
                                     <p class="reserveDelete"></p>
                                 </div>
 
-                                <div class="reserveList helperNone" id="reserveList"></div>
+                                <div class="reserveList helperNone0" id="reserveList"></div>
 
                                 <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">同行者情報を追加</a></p>
                             </div>
