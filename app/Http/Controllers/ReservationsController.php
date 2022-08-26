@@ -743,6 +743,7 @@ class ReservationsController extends Controller
             'tel2' => ['required', 'string', 'max:50'],
             'is_member' => ['nullable'],
             'is_request' => ['nullable'],
+            'payment_method' => ['required', 'numeric'],
         ];
         $plan = Plan::find($request->plan_id);
         if ($plan->answer_flag == 1) {
