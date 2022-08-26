@@ -768,7 +768,7 @@ class ReservationsController extends Controller
             ]);
         }
         //参加可能人数をチェック
-        if($request->res_type == 2){
+        if($plan->res_type == 2){
             $rank = ['a','b','c','d','e','f','g','h','i','j','k','l'];
 
             for($j=0; $j<count($rank); $j++){
