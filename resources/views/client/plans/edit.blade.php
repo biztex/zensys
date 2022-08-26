@@ -403,18 +403,14 @@
                             </div>
                         </div>
                         <script>
-
                             $('#road_map[name=road_map{{ $loop->index + 1 }}]').summernote({
                                 tabsize: 2,
                                 minHeight: 250
                             });
-                        // CKEDITOR.replace( 'road_map{{ $loop->index + 1 }}' );
                         </script>
                     </div>
                          @endforeach
                          <div class="after-road-section-{{ count($plans-> road_maps)  }}"></div>
-
-
                          
                          <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -948,16 +944,7 @@
                                 <textarea id="cancel" type="textarea" class="form-control" name="cancel" rows="4" placeholder="※最大1000文字まで">{{ old('cancel',$plans->cancel) }}</textarea>
                             </div>
                         </div>
-                        <script>
-
-                                $('#cancel').summernote({
-                                    tabsize: 2,
-                                    minHeight: 250
-                                });
-
-                        // CKEDITOR.replace( 'cancel' );
-                        </script>
-
+                      
 
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真設定</span></label>
@@ -2252,6 +2239,10 @@ $('div[name="delete-road-6"]').click(function() {
     $('div[name="add-road"]').show();
     var val = Number($('input[name="add-road"]').val());
     $('input[name="add-road"]').val(5);
+});
+$('#cancel').summernote({
+    tabsize: 2,
+    minHeight: 250
 });
 
 

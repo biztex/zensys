@@ -2149,17 +2149,14 @@ function ajaxGenres(name) {
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
 
-$('#road_map').summernote({
+    $('#road_map').summernote({
         tabsize: 2,
         minHeight: 250
-      });
-      $('#cancel').summernote({
-        tabsize: 2,
-        minHeight: 250
-      });
-// CKEDITOR.replace( 'road_map1' );
-// CKEDITOR.replace( 'cancel' );
-
+    });
+    $('#cancel').summernote({
+    tabsize: 2,
+    minHeight: 250
+    });
 
 let textArea = document.querySelector(".catchphrase");
 let planArea = document.querySelector(".plan_text");

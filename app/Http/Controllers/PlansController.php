@@ -1828,10 +1828,12 @@ class PlansController extends Controller
     {
         ini_set('memory_limit', '256M');
         $rules = [
+            'code' => ['nullable'],
             'kind' => ['required'],
-            'road_map1' => ['required','string', 'max:1000000'],
             'cancel_date' => ['nullable'],
-            'cancel' => ['required','string', 'max:1000000'],
+            'cancel' => ['required'],
+            'road_map1' => ['required'],
+
             'is_listed' => ['required'],
             'name' => ['required', 'string', 'max:100'],
             'catchphrase' => ['required', 'string', 'max:100'],
@@ -2359,7 +2361,7 @@ class PlansController extends Controller
         //$plans->genre_id = $request->genre_name; //name=>id
         $plans->kind = $request->kind;
 
-        $plans->cancel = $request->cancel;
+        $plans->cancel = $request->cancel ? $request->cancel : '';
         $plans->cancel_date = $request->cancel_date;
 
         $plans->destination = $request->destination;
