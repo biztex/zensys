@@ -519,11 +519,12 @@
                                 <h4 class="reserveItemHd">料金決済</h4>
                                 <table class="reserveTable">
                                     <tr>
-                                        <th>お支払方法</th>
+                                        <th>お支払方法<span class="requiredRed">※</span></th>
                                         <td>
-                                            <select name="payment_method" class="midSelect">
+                                            <select name="payment_method" class="midSelect" required >
+                                                <option disabled selected>選択してください</option>
                                                 @if ($plan->card == 1)
-                                                        <option value="3" selected >クレジットカード決済</option>
+                                                        <option value="3">クレジットカード決済</option>
                                                 @endif
                                                 @if ($plan->spot == 1)
                                                         <option value="0" >現地払い</option>
