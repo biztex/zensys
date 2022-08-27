@@ -226,7 +226,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                 <table class="reserveTable">
                                     <tr>
                                         <th>催行期間</th>
-                                        <td><?php if($plan["start_day"] == $plan["end_day"]){
+                                        <td><?php if($plan["start_day"] != $plan["end_day"]){
                                             echo nl2br(htmlspecialchars($plan["start_day"])) . '　～　' .  nl2br(htmlspecialchars($plan["end_day"]));
                                         }
                                         else{
