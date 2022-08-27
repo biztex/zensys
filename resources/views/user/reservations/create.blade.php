@@ -325,10 +325,15 @@
                                    // $(".reserveItem").append($("#reserveList"),html())
                                 }
 
-                                let count = 0 
+                                var count = 2; 
                                 
                                 function addJoin(){
                                     count++;
+                                    $("input[name='limit_number']").val(count);
+
+                                    let comVal = parseInt($("input[name='limit_number']").val());
+
+                                    
                                     $(".reserveAdd").before('<div class="reserveList helperNone'+ count +'" id="reserveList"></div>')
                                     $(".reserveList.helperNone"+count).load('{{config('app.url')}}html/reservation-companion.php' , function(e){
 
@@ -337,8 +342,25 @@
                                         $(this).find('.child_boarding').append($data_boarding);
                                         $(this).find('.child_drop').append($data_drop);
                                     });
+
+                                    if(comVal  >= {{$plan->max_number}}){
+                                        $(".reserveAdd").css("opacity" , "0");
+                                        $(".reserveAdd").css("visibility" , "hidden");
+                                    }
+                                    
                                 }
 
+                                $(document).on('click','.reserveDelete',function(){
+                                    count--;
+                                    $("input[name='limit_number']").val(count);
+                                    let comVal = parseInt($("input[name='limit_number']").val());
+
+
+                                    if(comVal  < {{$plan->max_number}}){
+                                        $(".reserveAdd").css("opacity" , "1");
+                                        $(".reserveAdd").css("visibility" , "visible");
+                                    }
+                                });
 
                                 function confirmEmail() {
                                     var email = document.getElementById("email").value
@@ -512,6 +534,7 @@
                                 </div>
 
                                 <div class="reserveList helperNone0" id="reserveList"></div>
+                                <input type="hidden" name="limit_number" value="2" />
 
                                 <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">同行者情報を追加</a></p>
                             </div>

@@ -779,19 +779,26 @@ class ReservationsController extends Controller
                 }
             }
         }
+
+        $real_number = $request->limit_number;
         
-        if ($count_member == 0) {
+        if ($real_number != $count_member) {
+            throw ValidationException::withMessages([
+                'count_member' => '参加人数と予約数が一致しません',
+            ]);
+        }
+        if ($real_number == 0) {
             throw ValidationException::withMessages([
                 'count_member' => '参加人数は最低1名以上必要です',
             ]);
-        } elseif ($plan->min_number != null && $count_member < $plan->min_number) {
+        } elseif ($plan->min_number != null && $real_number < $plan->min_number) {
             throw ValidationException::withMessages([
                 'min_member' =>
                     'このプランの最低参加人数は' .
                     $plan->min_number .
                     '名以上です',
             ]);
-        } elseif ($plan->max_number != null && $count_member > $plan->max_number) {
+        } elseif ($plan->max_number != null && $real_number > $plan->max_number) {
             throw ValidationException::withMessages([
                 'max_member' =>
                     'このプランの最大参加人数は' .
