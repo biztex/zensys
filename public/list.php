@@ -163,17 +163,19 @@
                                                     $date = new DateTimeImmutable(date('Y-m-d'));
                                                     $end =  new DateTimeImmutable($plan['end_day']);
                                                     $time = date('H');
-                                                    $interval = $end->diff($date);
+                                                    $interval = date_diff($end, $date);
+
                                                     
                                                     if($plan['res_type'] == 0){
-                                                        $compare = intval($interval->format('%d')) + intval($plan['res_end_day']);
+                                                        $compare = intval($interval->format('%R%a')) + intval($plan['res_end_day']);
 
                                                     }
+
                                                     else{
-                                                        $compare = intval($interval->format('%d')) + intval($plan['req_before_time']);
+                                                        $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
                                                     }
 
-                                                    if( $compare < 0 ){
+                                                    if( $compare > 0 ){
                                                        echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
                                                     }
                                                     else if($compare == 0){
