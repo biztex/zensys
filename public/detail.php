@@ -93,7 +93,17 @@ $stocks_next = json_decode($json_stocks_next,true);
     <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/print.css" media="print">
 
     <!-- javascript -->
-    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <style>
+        .road p img{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .road p{
+            line-height:4
+        }
+    </style>
 </head>
 
 <body>
@@ -264,7 +274,9 @@ $stocks_next = json_decode($json_stocks_next,true);
                                          
                                     <tr>
                                         <td><?php echo $value["road_map_title"]; ?></td>
-                                        <td><?php echo $value["road_map"]; ?></td>
+                                        <td class="road">
+                                            <?php echo $value["road_map"]; ?>
+                                        </td>
                                         <td>朝：<?php 
                                                 if($value["road_eat1"] == 1){
                                                     echo "あり";
