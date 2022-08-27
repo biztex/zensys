@@ -326,6 +326,13 @@
                                 }
 
                                 var count = 2; 
+
+                                let comVal = parseInt($("input[name='limit_number']").val());
+
+                                if(comVal  >= {{$plan->max_number}}){
+                                    $(".reserveAdd").css("opacity" , "0");
+                                    $(".reserveAdd").css("visibility" , "hidden");
+                                }
                                 
                                 function addJoin(){
                                     count++;
