@@ -46,7 +46,7 @@
         <div class="col-md-12">
             <hr class="mb-4">
             <a class="btn btn-primary btn"
-               href="https://blue-tourism-hokkaido.com/jp">TOPページに戻る</a>
+               href="https://zenryo.zenryo-ec.info/list.php">TOPページに戻る</a>
         </div>
     </div>
 

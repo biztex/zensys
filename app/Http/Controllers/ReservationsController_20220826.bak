@@ -1541,6 +1541,11 @@ class ReservationsController extends Controller
                     }
                 }
             }
+            if(isset($request->custom_flg)){
+                if($request->custom_flg == 1){
+                    $Number_of_reservations['custom_flg'] = 1;
+                }
+            }
             if($custom_flg){
                 $Number_of_reservations = [];
                 $Number_of_reservations['custom_flg'] = 1;
@@ -1567,11 +1572,6 @@ class ReservationsController extends Controller
                 Log::info('change price result are: ' . $mstatus);
             }
         }
-        if(isset($request->custom_flg)){
-            if($request->custom_flg == 1){
-                $Number_of_reservations->custom_flg = 1;
-            }
-        }
         if($custom_flg){
             $Number_of_reservations = [];
             $Number_of_reservations['custom_flg'] = 1;
@@ -1580,8 +1580,8 @@ class ReservationsController extends Controller
                 $Number_of_reservations['typec_price'][$k] = $request->{'typec_'.$k.'_price'};
                 $Number_of_reservations['typec_number'][$k] = $request->{'typec_'.$k.'_number'};
             }
+            $reservation->Number_of_reservations = json_encode($Number_of_reservations);
         }
-        $reservation->Number_of_reservations = json_encode($Number_of_reservations);
         $reservation->save();
         // コンビニ決済キャンセルの場合
         if (
