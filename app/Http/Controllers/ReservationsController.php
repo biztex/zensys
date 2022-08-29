@@ -725,6 +725,7 @@ class ReservationsController extends Controller
     // 作成処理
     public function confirmForUser(Request $request)
     {
+
         $rules = [
             'plan_id' => ['required', 'numeric'],
             'date' => ['required', 'date'],

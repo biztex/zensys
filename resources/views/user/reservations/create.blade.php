@@ -97,8 +97,12 @@
 
                                                         echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
                                                         echo '<input type="hidden" name="price_table_name[]" value="'. $arr[$i-1] . $priceType['name'] . '">';
+                                  
                                                         echo '<input type="hidden" name="price_table_price[]" value="'. number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) . '">';
-                                                        echo '<p><input type="text" name="type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number" class="number" min="0" max="'.$stock->limit_number.'" value=""> 人</p>';
+                                                        $str = "type" . $priceType['number'] ."_". strtolower($stock['rank']) ."_" . $i . "_number";
+                                                        @endphp
+                                                        <p><input type="text" name="<?php echo 'type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number'?>" class="number" min="0" max="'.$stock->limit_number.'" value="{{old($str)}}"> 人</p>
+                                                        @php
                                                         echo '</div>';
                                                     }
                                                 }
@@ -198,7 +202,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="dateP">
-                                            <select name="birth_year" value="{{ old('birth_year')}}">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month" value="{{ old('birth_month')}}">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" value="{{ old('birth_day')}}">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                            <select name="birth_year">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" >@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                             </div>
                                         </td>
                                     </tr>
@@ -325,7 +329,7 @@
                                    // $(".reserveItem").append($("#reserveList"),html())
                                 }
 
-                                var count = 2; 
+                                var count = 1; 
 
                                
                                 
@@ -386,11 +390,11 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>姓</span>
-                                                    <input class="midIpt" type="text" name="add_lastname[]" value="{{ old('add_lastname[]') }}" required>
+                                                    <input class="midIpt" type="text" name="add_lastname[]" value="{!! old('add_lastname.0') !!}" required>
                                                 </div>
                                                 <div class="halfP">
                                                     <span>名</span>
-                                                    <input class="midIpt" type="text" name="add_firstname[]" value="{{ old('add_firstname[]') }}" required>
+                                                    <input class="midIpt" type="text" name="add_firstname[]" value="{{ old('add_firstname.0') }}" required>
                                                 </div>
                                             </td>
                                         </tr>
@@ -399,11 +403,11 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>セイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1[]') }}" required>
+                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1.0') }}" required>
                                                 </div>
                                                 <div class="halfP">
                                                     <span>メイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2[]') }}" required>
+                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2.0') }}" required>
                                                 </div>
                                             </td>
                                         </tr>
@@ -411,7 +415,7 @@
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="ageP">
-                                                    <input class="midIpt" type="text" name="join_age[]"  value="{{ old('join_age[]') }}" required>
+                                                    <input class="midIpt" type="text" name="join_age[]"  value="{{ old('join_age.0') }}" required>
                                                     <span>才</span>
                                                 </div>
                                             </td>
@@ -420,7 +424,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                <select name="birth_year_representative[]"  value="{{ old('birth_year_representative[]') }}" >@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == (date('Y'))) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]" value="{{ old('birth_month_representative[]') }}">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]" value="{{ old('birth_day_representative[]') }}">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == 1) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year_representative[]">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
                                             </td>
                                         </tr>
@@ -534,7 +538,7 @@
                                 </div>
 
                                 <div class="reserveList helperNone0" id="reserveList"></div>
-                                <input type="hidden" name="limit_number" value="2" />
+                                <input type="hidden" name="limit_number" value="1" />
 
                                 <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">同行者情報を追加</a></p>
                             </div>
@@ -545,18 +549,18 @@
                                         <th>お支払方法<span class="requiredRed">※</span></th>
                                         <td>
                                             <select name="payment_method" class="midSelect" required >
-                                                <option disabled selected>選択してください</option>
+                                                <option>選択してください</option>
                                                 @if ($plan->card == 1)
-                                                        <option value="3">クレジットカード決済</option>
+                                                        <option value="3" @if (old('payment_method') == 3) selected @endif>クレジットカード決済</option>
                                                 @endif
                                                 @if ($plan->spot == 1)
-                                                        <option value="0" >現地払い</option>
+                                                        <option value="0" @if (old('payment_method') == 0) selected @endif>現地払い</option>
                                                 @endif
                                                 @if ($plan->prepay == 1)
-                                                        <option value="1" >事前払い</option>
+                                                        <option value="1" @if (old('payment_method') == 1) selected @endif>事前払い</option>
                                                 @endif
                                                 @if ($plan->cvs == 1)
-                                                        <option value="2" >コンビニ決済</option>
+                                                        <option value="2" @if (old('payment_method') == 2) selected @endif>コンビニ決済</option>
                                                 @endif
                                                
                                              </select>
@@ -608,7 +612,7 @@
                                 <h4 class="reserveItemHd">予約者への質問</h4>
                                 <div class="reserveTxt">
                                     <p>@if($plan->answer_flag == 1)<span class="requiredRed">※</span>@endif {{$plan->question_content}}</p>
-                                    <textarea name="answer" class="reserveTextarea" @if($plan->answer_flag == 1) required @endif></textarea>
+                                    <textarea name="answer" class="reserveTextarea" @if($plan->answer_flag == 1) required @endif >{{ old('answer') }}</textarea>
                                 </div>
                             </div>
                             @endif
