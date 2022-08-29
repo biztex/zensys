@@ -231,7 +231,7 @@ $stocks_next = json_decode($json_stocks_next,true);
         
 
             <?php
-            sleep(2);
+            sleep(4);
             echo "<script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/list.php';</script>"; exit;
 
     }
@@ -314,7 +314,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                 </div>
             </footer>
           <?php
-          sleep(2);
+          sleep(4);
           echo "<script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/list.php';</script>"; exit;
         }
         else{
