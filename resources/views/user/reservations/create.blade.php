@@ -327,12 +327,16 @@
 
                                 var count = 2; 
 
-                                let comVal = parseInt($("input[name='limit_number']").val());
+                                let comVal_cs = parseInt($("input[name='limit_number']").val());
 
-                                if(comVal  >= {{$plan->max_number}}){
+                               
+                                if(comVal_cs  >= {{$plan->max_number}}){
                                     $(".reserveAdd").css("opacity" , "0");
                                     $(".reserveAdd").css("visibility" , "hidden");
                                 }
+
+                                console.log({{$plan->max_number}});
+                                console.log(comVal);
                                 
                                 function addJoin(){
                                     count++;
