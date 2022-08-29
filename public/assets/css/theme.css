@@ -4928,6 +4928,16 @@ ul {
     width: 100%;
 }
 
+.dtFor .dtSlist img {
+    height: 400px;
+    object-fit: cover;
+}
+
+.dtNav .dtSlist img {
+    height: 120px;
+    object-fit: cover;
+}
+
 .dtNav {
     padding: 10px 27px;
 }
@@ -5298,6 +5308,12 @@ ul {
     }
     .dtSlist img {
         width: 100%;
+    }
+    .dtFor .dtSlist img {
+        height: 320px;
+    }
+    .dtNav .dtSlist img {
+        height: 96px;
     }
     .dtNav {
         padding: 0px 14px;
