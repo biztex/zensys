@@ -1016,47 +1016,10 @@ class ReservationsController extends Controller
     }
 
     // 決済メール送信のみ
-    public function sendPaymentMail(Request $request, $id)
+    public function sendPaymentMail($id)
     {
         ini_set('memory_limit', '256M');
-        $rules = [
-            'status' => ['required', 'string', 'max:7'],
-            'type0_number' => ['nullable', 'numeric', 'max:99'],
-            'type1_number' => ['nullable', 'numeric', 'max:99'],
-            'type2_number' => ['nullable', 'numeric', 'max:99'],
-            'type3_number' => ['nullable', 'numeric', 'max:99'],
-            'type4_number' => ['nullable', 'numeric', 'max:99'],
-            'type5_number' => ['nullable', 'numeric', 'max:99'],
-            'type6_number' => ['nullable', 'numeric', 'max:99'],
-            'type7_number' => ['nullable', 'numeric', 'max:99'],
-            'type8_number' => ['nullable', 'numeric', 'max:99'],
-            'type9_number' => ['nullable', 'numeric', 'max:99'],
-            'type10_number' => ['nullable', 'numeric', 'max:99'],
-            'type11_number' => ['nullable', 'numeric', 'max:99'],
-            'type12_number' => ['nullable', 'numeric', 'max:99'],
-            'type13_number' => ['nullable', 'numeric', 'max:99'],
-            'type14_number' => ['nullable', 'numeric', 'max:99'],
-            'type15_number' => ['nullable', 'numeric', 'max:99'],
-            'type16_number' => ['nullable', 'numeric', 'max:99'],
-            'type17_number' => ['nullable', 'numeric', 'max:99'],
-            'type18_number' => ['nullable', 'numeric', 'max:99'],
-            'type19_number' => ['nullable', 'numeric', 'max:99'],
-            'type20_number' => ['nullable', 'numeric', 'max:99'],
-            'memo' => ['nullable', 'string', 'max:200'],
-        ];
-        $this->validate($request, $rules);
-        for ($i = 0; $i < 6; $i++) {
-            if (!$request->{'type' . $i . '_number'}) {
-                $request->{'type' . $i . '_number'} = 0;
-            }
-        }
         $reservation = Reservation::find($id);
-        if ($reservation->status != 'リクエスト予約') {
-            throw ValidationException::withMessages([
-                'status_error' =>
-                    '予約ステータスをリクエスト予約に変更後、再度送信をお試しください',
-            ]);
-        }
 
         $prices = Price::select()
         ->where('plan_id' , $reservation->plan_id)
@@ -1065,29 +1028,6 @@ class ReservationsController extends Controller
         $priceName = PriceType::select()
                     ->where('number' , $reservation->price_type)
                     ->first();
-        $reservation->status = $request->status;
-        $reservation->type0_number = $request->type0_number;
-        $reservation->type1_number = $request->type1_number;
-        $reservation->type2_number = $request->type2_number;
-        $reservation->type3_number = $request->type3_number;
-        $reservation->type4_number = $request->type4_number;
-        $reservation->type5_number = $request->type5_number;
-        $reservation->type6_number = $request->type6_number;
-        $reservation->type7_number = $request->type7_number;
-        $reservation->type8_number = $request->type8_number;
-        $reservation->type9_number = $request->type9_number;
-        $reservation->type10_number = $request->type10_number;
-        $reservation->type11_number = $request->type11_number;
-        $reservation->type12_number = $request->type12_number;
-        $reservation->type13_number = $request->type13_number;
-        $reservation->type14_number = $request->type14_number;
-        $reservation->type15_number = $request->type15_number;
-        $reservation->type16_number = $request->type16_number;
-        $reservation->type17_number = $request->type17_number;
-        $reservation->type18_number = $request->type18_number;
-        $reservation->type19_number = $request->type19_number;
-        $reservation->type20_number = $request->type20_number;
-        $reservation->memo = $request->memo;
         // 料金区分２０以上対応
         $typeid=0;
         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];

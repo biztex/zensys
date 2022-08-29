@@ -1,5 +1,33 @@
-<html>
-    <body>
+@extends('adminlte::page')
+
+<head>
+<link rel="stylesheet" href="{{asset('css/menu.css')}}">
+<script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+  <script>
+    $('#submit-send').click(function() {
+      $(this).parents('form').attr('action', $('#submit-send').attr('data-action'));
+      $(this).parents('form').attr('method', 'put');
+      $(this).parents('form').submit();
+      return true;
+    });
+  </script>
+</head>
+<body>
+    <form action="{{config('app.url')}}client/reservations/sendpaymentmail/{{ $reservation->id }}" method="POST">
+      @csrf
+      @method('PUT')
+      {{--成功もしくは失敗のメッセージ--}}
+      @if (Session::has('message'))
+      <div class="alert alert-info">
+          {{ session('message') }}
+      </div>
+      @endif
+      <div style="text-align: center;">
+        <input type="submit" id="submit-send" class="btn btn-danger" data-action="{{config('app.url')}}client/reservations/sendpaymentmail/{{ $reservation->id }}" value="この内容で送信" method="POST">
+        <input type="hidden" id="custom_flg" name="status" value="{{ $reservation->status }}">
+      </div>
+    </form>
+=====================================</br>
 {{ $name_last }} {{ $name_first }}　様</br>
 </br>
 この度は株式会社全旅からの予約、誠にありがとうございました。</br>
@@ -66,5 +94,4 @@ $custom_view = true;
 電話番号	03-6264-3132</br>
 公式サイト:　 https://www.zenryo.co.jp</br>
 =====================================</br>
-    </body>
-</html>
+</body>

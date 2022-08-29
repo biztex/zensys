@@ -564,8 +564,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
 				<input type="submit" class="submit btn btn-primary" data-action="{{config('app.url')}}client/reservations/update/{{ $reservations->id }}" value="変更する">
-				<input type="submit" class="submit-send btn btn-danger" data-action="{{config('app.url')}}client/reservations/sendpaymentmail/{{ $reservations->id }}" value="決済メール送信">
-                <a href="{{config('app.url')}}client/reservations/previewpaymentmail/{{ $reservations->id }}" onclick="window.open('{{config('app.url')}}client/reservations/previewpaymentmail/{{ $reservations->id }}', '', 'width=950,height=500,scrollbars=yes');return false;" class="btn btn-primary">プレビュー</a>
+                <a href="{{config('app.url')}}client/reservations/previewpaymentmail/{{ $reservations->id }}"  class="btn btn-danger" data-featherlight="iframe" data-featherlight-iframe-height="720" data-featherlight-iframe-width="640">決済メール送信</a>
                                 <a href="{{config('app.url')}}client/reservations/" class="btn btn-secondary">戻る</a>
                             </div>
                             <input type="hidden" id="custom_flg" name="custom_flg" value="">
@@ -579,10 +578,12 @@
 @stop
 
 @section('css')
+<link rel="stylesheet" href="{{asset('css/featherlight.css')}}">
 @stop
 
 @section('js')
 <script type="text/javascript" src="{{asset('js/default.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/featherlight.js')}}"></script>
 <script>
 $(document).ready(function(){
     var totalNumber = 0,
