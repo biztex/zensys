@@ -327,16 +327,7 @@
 
                                 var count = 2; 
 
-                                let comVal_cs = parseInt($("input[name='limit_number']").val());
-
                                
-                                if(comVal_cs  >= {{$plan->max_number}}){
-                                    $(".reserveAdd").css("opacity" , "0");
-                                    $(".reserveAdd").css("visibility" , "hidden");
-                                }
-
-                                console.log({{$plan->max_number}});
-                                console.log(comVal_cs);
                                 
                                 function addJoin(){
                                     count++;
@@ -365,8 +356,6 @@
                                     count--;
                                     $("input[name='limit_number']").val(count);
                                     let comVal = parseInt($("input[name='limit_number']").val());
-
-
                                     if(comVal  < {{$plan->max_number}}){
                                         $(".reserveAdd").css("opacity" , "1");
                                         $(".reserveAdd").css("visibility" , "visible");
@@ -711,5 +700,15 @@
 
     <script src="libs/slick/slick.min.js"></script>
     <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
+    <script>
+         let comVal_cs = parseInt($("input[name='limit_number']").val());
+
+                               
+        if(comVal_cs  >= {{$plan->max_number}}){
+            $(".reserveAdd").css("opacity" , "0");
+            $(".reserveAdd").css("visibility" , "hidden");
+        }
+
+    </script>
 </body>
 </html>
