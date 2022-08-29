@@ -336,7 +336,7 @@
                                 }
 
                                 console.log({{$plan->max_number}});
-                                console.log(comVal);
+                                console.log(comVal_cs);
                                 
                                 function addJoin(){
                                     count++;
