@@ -22,7 +22,7 @@ $company = $companies[0];
 <body class="bg-light">
 
     <div class="header">
-        <img src="{{config('app.url')}}uploads/{{ $company->file_path1 }}" alt="" width="">
+        <img src="{{config('app.url')}}uploads/{{ $company['file_path1'] }}" alt="" width="">
     </div>
     <!-- <hr> -->
     <div class="inner">
