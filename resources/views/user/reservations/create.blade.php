@@ -373,7 +373,7 @@
                                         $(this).find('.child_drop').append($data_drop);
                                     });
 
-                                    @if($plan->max_number != null)
+                                    @if ($plan->max_number != null)
                                         if(comVal  >= {{$plan->max_number}}){
                                             $(".reserveAdd").css("opacity" , "0");
                                             $(".reserveAdd").css("visibility" , "hidden");
@@ -738,11 +738,13 @@
     <script>
          let comVal_cs = parseInt($("input[name='limit_number']").val());
 
-                               
+         @if ($plan->max_number != null)         
         if(comVal_cs  >= {{$plan->max_number}}){
             $(".reserveAdd").css("opacity" , "0");
             $(".reserveAdd").css("visibility" , "hidden");
         }
+        @endif
+
 
     </script>
 </body>
