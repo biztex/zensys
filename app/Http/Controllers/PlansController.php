@@ -1207,45 +1207,37 @@ class PlansController extends Controller
             $roadMap->save();
         }
 
-        // stocks
-        $start_day = new Carbon($plans->start_day);
-        $end_day = new Carbon($plans->end_day);
-        $diff_days = $start_day->diffInDays($end_day);
-        $loop_count = $diff_days + 1;
-        for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-            if (
-                ($plans->monday == 1 && $start_day->isMonday()) ||
-                ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-                ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-                ($plans->thursday == 1 && $start_day->isThursday()) ||
-                ($plans->friday == 1 && $start_day->isFriday()) ||
-                ($plans->saturday == 1 && $start_day->isSaturday()) ||
-                ($plans->sunday == 1 && $start_day->isSunday())
-            ) {
-                $pc = 0;
-                for ($ii = 1; $ii <= 6; $ii++) {
-                    if (
-                        $request->{'price_type' . $ii} ||
-                        $request->{'price_monday' . $ii}
-                    ) {
-                        $pc++;
-                    }
-                }
-                for ($ii = 1; $ii <= $pc; $ii++) {
-                    $price_type_id = $request->{'price_type' . $ii};
-                    $stock = new Stock();
-                    $stock->plan_id = $plans->id;
-                    $stock->price_type_id = $price_type_id;
-                    $stock->res_date = $start_day;
-                    $stock->is_active = 1;
-                    $stock->res_type = $plans->res_type;
-                    // $stock->limit_number = $plans->res_limit_number
-                    //     ? $plans->res_limit_number
-                    //     : '0';
-                    $stock->save();
-                }
-            }
-        }
+         // stocks
+
+         $start_day = new Carbon($plans->start_day);
+         $end_day = new Carbon($plans->end_day);
+         $diff_days = $start_day->diffInDays($end_day);
+         $loop_count = $diff_days + 1;
+         for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
+             $pc = 0;
+             for ($ii = 1; $ii <= 6; $ii++) {
+                 if (
+                     isset($request->{'price_type' . $ii}) ||
+                     $request->{'price_monday' . $ii}
+                 ) {
+                     $pc++;
+                 }
+             }
+             for ($ii = 1; $ii <= $pc; $ii++) {
+                 $price_type_id = $request->{'price_type' . $ii};
+                 $stock = new Stock();
+                 $stock->plan_id = $plans->id;
+                 $stock->price_type_id = $price_type_id;
+                 $stock->res_date = $start_day;
+                 $stock->is_active = 1;
+                 $stock->res_type = $plans->res_type;
+                 // $stock->limit_number = $plans->res_limit_number
+                 //     ? $plans->res_limit_number
+                 //     : '0';
+                 $stock->save();
+             }
+         }
+         
         // if ($plans->repetition_flag == 0) {
         //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
         //         if (
@@ -1353,10 +1345,10 @@ class PlansController extends Controller
                     ->getClientOriginalName();
 
                 $request->file('file_path11')->storeAs('uploads', $fileName11);
-                copy(
-                    '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
-                    '/var/www/html/zenryo/public/uploads/' . $fileName11
-                );
+                // copy(
+                //     '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
+                //     '/var/www/html/zenryo/public/uploads/' . $fileName11
+                // );
                 // オリジナルサイズで保存
             } elseif (
                 $i <= 10 &&
@@ -1703,45 +1695,38 @@ class PlansController extends Controller
             $roadMap->save();
         }
 
+        
         // stocks
+
         $start_day = new Carbon($plans->start_day);
         $end_day = new Carbon($plans->end_day);
         $diff_days = $start_day->diffInDays($end_day);
         $loop_count = $diff_days + 1;
         for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-            if (
-                ($plans->monday == 1 && $start_day->isMonday()) ||
-                ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-                ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-                ($plans->thursday == 1 && $start_day->isThursday()) ||
-                ($plans->friday == 1 && $start_day->isFriday()) ||
-                ($plans->saturday == 1 && $start_day->isSaturday()) ||
-                ($plans->sunday == 1 && $start_day->isSunday())
-            ) {
-                $pc = 0;
-                for ($ii = 1; $ii <= 6; $ii++) {
-                    if (
-                        $request->{'price_type' . $ii} ||
-                        $request->{'price_monday' . $ii}
-                    ) {
-                        $pc++;
-                    }
-                }
-                for ($ii = 1; $ii <= $pc; $ii++) {
-                    $price_type_id = $request->{'price_type' . $ii};
-                    $stock = new Stock();
-                    $stock->plan_id = $plans->id;
-                    $stock->price_type_id = $price_type_id;
-                    $stock->res_date = $start_day;
-                    $stock->is_active = 1;
-                    $stock->res_type = $plans->res_type;
-                    // $stock->limit_number = $plans->res_limit_number
-                    //     ? $plans->res_limit_number
-                    //     : '0';
-                    $stock->save();
+            $pc = 0;
+            for ($ii = 1; $ii <= 6; $ii++) {
+                if (
+                    isset($request->{'price_type' . $ii}) ||
+                    $request->{'price_monday' . $ii}
+                ) {
+                    $pc++;
                 }
             }
+            for ($ii = 1; $ii <= $pc; $ii++) {
+                $price_type_id = $request->{'price_type' . $ii};
+                $stock = new Stock();
+                $stock->plan_id = $plans->id;
+                $stock->price_type_id = $price_type_id;
+                $stock->res_date = $start_day;
+                $stock->is_active = 1;
+                $stock->res_type = $plans->res_type;
+                // $stock->limit_number = $plans->res_limit_number
+                //     ? $plans->res_limit_number
+                //     : '0';
+                $stock->save();
+            }
         }
+        
         // if ($plans->repetition_flag == 0) {
         //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
         //         if (
