@@ -13,7 +13,7 @@
 <body class="bg-light">
 
     <div class="header">
-        <img src="{{asset('img/logo3.png')}}" alt="" width="">
+        <img src="{{asset('assets/img/logo3.png')}}" alt="" width="">
     </div>
     <!-- <hr> -->
     <div class="inner">
