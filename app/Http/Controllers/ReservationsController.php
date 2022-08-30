@@ -1517,7 +1517,12 @@ class ReservationsController extends Controller
         }
         if(isset($request->custom_flg)){
             if($request->custom_flg == 1){
-                $Number_of_reservations->custom_flg = 1;
+                if(is_array($Number_of_reservations)){
+                    $Number_of_reservations['custom_flg'] = 1;
+                }else{
+                    $Number_of_reservations = (array)$Number_of_reservations;
+                    $Number_of_reservations['custom_flg'] = 1;
+                }
             }
         }
         if($custom_flg){

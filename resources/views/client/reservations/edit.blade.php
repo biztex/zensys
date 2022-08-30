@@ -518,6 +518,7 @@
                       <td id="total-number" style="text-align: center;" class="font-weight-bold"></td>
                       <td id="total-price" style="text-align: right;" class="font-weight-bold"></td>
                     </tr>
+                    @if ($reservations->payment_method == 3 & ($reservations->status == '予約確定' | $reservations->status == '一部返金' | $reservations->status == 'キャンセル'))
                     <?php $Possible_refund_amount = $Sumpt - $Sum_refund_amount; ?>
                       @if (count($Credit_Cancels) > 0)
                         <?php $cancnt = 0; ?>
@@ -559,6 +560,10 @@
                       </tr>
                       @endif
                       <input type="hidden" id="credit_cancel_flg" name="credit_cancel_flg" value="0">
+                    @else
+                        <input type="hidden" id="credit_cancel_price" name="credit_cancel_price" value="0">
+                        <input type="hidden" id="credit_cancel_flg" name="credit_cancel_flg" value="0">
+                    @endif
                   </tbody>
                 </table>
                         <div class="form-group row mb-0">
