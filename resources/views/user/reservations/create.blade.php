@@ -373,10 +373,14 @@
                                         $(this).find('.child_drop').append($data_drop);
                                     });
 
-                                    if(comVal  >= {{$plan->max_number}}){
-                                        $(".reserveAdd").css("opacity" , "0");
-                                        $(".reserveAdd").css("visibility" , "hidden");
-                                    }
+                                    @if($plan->max_number != null)
+                                        if(comVal  >= {{$plan->max_number}}){
+                                            $(".reserveAdd").css("opacity" , "0");
+                                            $(".reserveAdd").css("visibility" , "hidden");
+                                        }
+                                    @endif
+
+                                    
                                     
                                 }
 
@@ -384,10 +388,13 @@
                                     count--;
                                     $("input[name='limit_number']").val(count);
                                     let comVal = parseInt($("input[name='limit_number']").val());
-                                    if(comVal  < {{$plan->max_number}}){
-                                        $(".reserveAdd").css("opacity" , "1");
-                                        $(".reserveAdd").css("visibility" , "visible");
-                                    }
+
+                                    @if($plan->max_number != null)
+                                        if(comVal  < {{$plan->max_number}}){
+                                            $(".reserveAdd").css("opacity" , "1");
+                                            $(".reserveAdd").css("visibility" , "visible");
+                                        }
+                                    @endif
                                 });
 
                                 function confirmEmail() {
