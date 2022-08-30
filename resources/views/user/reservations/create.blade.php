@@ -298,6 +298,26 @@
                                             <input class="" type="text" name="tel2" pattern="\d{2,4}-\d{2,4}-\d{3,4}" value="{{ old('tel2') }}" required placeholder="ハイフンありで入力">
                                         </td>
                                     </tr>
+                                    <tr class="par_boarding">
+                                            <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
+                                            <td>
+                                                <select name="planBoarding"  @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
+                                                    @foreach($pieces as $piece)
+                                                        <option value="{{$piece}}" @if(old('planBoarding') == $piece) selected @endif>{{$piece}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr  class="par_drop">
+                                            <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
+                                            <td>
+                                                <select name="planDrop" class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
+                                                    @foreach($drops as $drop)
+                                                        <option value="{{$drop}}" @if(old('planDrop') == $drop) seleted @endif>{{$drop}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
                                 </table>
                             </div>
                             <script>
@@ -316,6 +336,10 @@
                                     var selectedVal = $('input[name=radio_sex]:checked').val();
                                     $("select[name='join_sex[]']").first().val(selectedVal);
                                     $("input[name='join_age[]']").first().val($("input[name='age']").val());
+
+
+                                    $("select[name='boarding[]']").first().val($("select[name='planBoarding']").val());
+                                    $("select[name='drop[]").first().val($("select[name='planDrop']").val());
 
                                     $("select[name='birth_year_representative[]']").first().val($("select[name='birth_year']").val());
                                     $("select[name='birth_month_representative[]']").first().val($("select[name='birth_month']").val());
@@ -516,9 +540,9 @@
                                         <tr class="par_boarding">
                                             <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
-                                                <select name="boarding[]" value="{{ old('boarding[]') }}" @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
+                                                <select name="boarding[]" @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
                                                     @foreach($pieces as $piece)
-                                                        <option value="{{$piece}}">{{$piece}}</option>
+                                                        <option value="{{$piece}}" @if(old('boarding.0') == $piece) selected @endif>{{$piece}}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -526,9 +550,9 @@
                                         <tr  class="par_drop">
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
-                                                <select name="drop[]" value="{{ old('drop[]') }}"  class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
+                                                <select name="drop[]" class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
                                                     @foreach($drops as $drop)
-                                                        <option value="{{$drop}}">{{$drop}}</option>
+                                                        <option value="{{$drop}}" @if(old('drop.0') == $drop) selected @endif>{{$drop}}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
