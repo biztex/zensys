@@ -8,10 +8,21 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{config('app.url')}}css/template.css">
 </head>
+
+@php
+
+$url =  "http://153.127.31.62/zenryo/public/api/company/json";
+$company_array = file_get_contents($url);
+$companies = json_decode($company_array, true);
+
+$company = $companies[0];
+
+
+@endphp
 <body class="bg-light">
 
     <div class="header">
-        <img src="{{asset('img/logo.png')}}" alt="" width="">
+        <img src="{{config('app.url')}}uploads/{{ $company->file_path1 }}" alt="" width="">
     </div>
     <!-- <hr> -->
     <div class="inner">
