@@ -1959,7 +1959,7 @@ class ReservationsController extends Controller
             }
         }
         // 期限チェック
-        $deadlineStr = '20221029'; //$reservation->plan->deadline; //最終締め切り日
+        $deadlineStr = $reservation->plan->deadline; //最終締め切り日
         if(!is_null($deadlineStr) & strlen($deadlineStr) >= 8){
             $deadline = new DateTime(substr($deadlineStr,0,4) .'-'. substr($deadlineStr,4,2) .'-'. substr($deadlineStr,6,2));
         }else{
