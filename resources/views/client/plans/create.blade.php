@@ -405,7 +405,7 @@
                         
                         <div class="form-group row ml-5 res-section2">
                             <div class="col-md-2">
-                                <label class=col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
+                                <label class="col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
                             </div>
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="res_end_day" value="{{ old('res_end_day') }}">
