@@ -511,6 +511,12 @@ class PlansController extends Controller
         $plans->res_end_day =  $request->res_end_day;
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
+
+        $plans->req_before_day = $request->req_before_day ;
+        $plans->req_before_type = $request->req_before_type;
+        $plans->req_before_time = $request->req_before_time;
+
+        
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
             $plans->res_limit_number = $request->res_limit_number;
@@ -813,8 +819,8 @@ class PlansController extends Controller
     //　一時保存
     public function storeTmp(Request $request)
     {
+
         ini_set('memory_limit', '256M');
-        dd($request);
         $rules = [
             'is_listed' => ['required'],
             'road_map1' => ['nullable', 'string', 'max:1000000'],
@@ -987,11 +993,12 @@ class PlansController extends Controller
             : '0';
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
-        $plans->res_end_day = $request->res_end_day
-            ? $request->res_end_day
-            : '0';
+        $plans->res_end_day = $request->res_end_day;
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
+        $plans->req_before_day = $request->req_before_day ;
+        $plans->req_before_type = $request->req_before_type;
+        $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
@@ -1208,7 +1215,7 @@ class PlansController extends Controller
             $roadMap->plan_id = $id;
             $roadMap->road_map = '';
             $roadMap->road_map_title = '';
-            $roadMap->road_map_build = '0';
+            $roadMap->road_map_build = '';
             $roadMap->save();
         }
 
@@ -1499,6 +1506,10 @@ class PlansController extends Controller
             : '0';
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
+
+        $plans->req_before_day = $request->req_before_day;
+        $plans->req_before_type = $request->req_before_type;
+        $plans->req_before_time = $request->req_before_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
@@ -2406,7 +2417,10 @@ class PlansController extends Controller
         $plans->res_end_day = $request->res_end_day;
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
-   
+        $plans->req_before_day = $request->req_before_day ;
+        $plans->req_before_type = $request->req_before_type;
+        $plans->req_before_time = $request->req_before_time;
+        
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
             $plans->res_limit_number = $request->res_limit_number;
