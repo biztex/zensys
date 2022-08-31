@@ -8,12 +8,17 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{config('app.url')}}css/template.css">
 </head>
-
+@php
+    $url =  "http://153.127.31.62/zenryo/public/api/company/json";
+    $company_array = file_get_contents($url);
+    $companies = json_decode($company_array, true);
+    $company = $companies[0];
+@endphp
 
 <body class="bg-light">
 
     <div class="header">
-        <img src="{{asset('assets/img/logo3.png')}}" alt="" width="">
+        <img src="{{config('app.url')}}uploads/{{ $company['file_path1'] }}" alt="" width="">
     </div>
     <!-- <hr> -->
     <div class="inner">
@@ -26,7 +31,7 @@
         <!-- <a href="tradelaw.php">特定商取引法に基づく表記</a> -->
         <!-- <a href="privacy.php">プライバシーポリシー</a> -->
     </footer>
-    <div class="copy">Copyright © ZENRYO Co.,Ltd All Rights Reserved.</div>
+    <!-- <div class="copy">Copyright © ZENRYO Co.,Ltd All Rights Reserved.</div> -->
 
 <script src=" {{ mix('js/app.js') }} "></script>
 <script src=" {{ asset('js/menu.js') }} "></script>
