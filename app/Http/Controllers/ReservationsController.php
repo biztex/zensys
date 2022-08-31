@@ -93,8 +93,18 @@ class ReservationsController extends Controller
             ->with('prices')
             ->first();
 
-        $pieces = explode(',',$plan->boarding);
-        $drops = explode(',',$plan->drop);
+            if($plan->boarding != null){
+                $pieces = explode(',',$plan->boarding);
+            }
+            else{
+                $pieces = null;
+            }
+            if($plan->drop != null){
+                $drops = explode(',',$plan->drop);
+            }
+            else{
+                $drops = null;
+            }
 
         /////////
         $stock = Stock::select()
@@ -985,9 +995,18 @@ class ReservationsController extends Controller
                 ->with('activities')
                 ->with('prices')
                 ->first();
-        
-        $pieces = explode(',',$plan->boarding);
-        $drops = explode(',',$plan->drop);
+        if($plan->boarding != null){
+            $pieces = explode(',',$plan->boarding);
+        }
+        else{
+            $pieces = null;
+        }
+        if($plan->drop != null){
+            $drops = explode(',',$plan->drop);
+        }
+        else{
+            $drops = null;
+        }
 
 
         $week_map = [

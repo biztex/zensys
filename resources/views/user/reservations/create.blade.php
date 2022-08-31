@@ -298,7 +298,7 @@
                                             <input class="" type="text" name="tel2" pattern="\d{2,4}-\d{2,4}-\d{3,4}" value="{{ old('tel2') }}" required placeholder="ハイフンありで入力">
                                         </td>
                                     </tr>
-                                    @if( count($pieces) > 0)
+                                    @if( isset($pieces) && count($pieces) > 0)
                                     <tr>
                                         <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                         <td>
@@ -310,7 +310,7 @@
                                         </td>
                                     </tr>
                                     @endif
-                                    @if( count($drops) > 0)
+                                    @if( isset($drops) && count($drops) > 0)
                                     <tr>
                                         <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                         <td>
@@ -548,7 +548,7 @@
                                                 <input class="" type="text" name="tel_representative" pattern="\d{2,4}-?\d{2,4}-\d{3,4}" value="{{ old('tel_representative') }}" required placeholder="ハイフンありで入力">
                                             </td>
                                         </tr>
-                                        @if( count($pieces) > 0)
+                                        @if( isset($pieces) && count($pieces) > 0)
                                         <tr class="par_boarding">
                                             <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
@@ -560,7 +560,7 @@
                                             </td>
                                         </tr>
                                         @endif
-                                        @if( count($drops) > 0)
+                                        @if( isset($pieces) && count($drops) > 0)
                                         <tr  class="par_drop">
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>

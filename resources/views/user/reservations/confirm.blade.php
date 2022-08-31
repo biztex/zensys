@@ -169,79 +169,34 @@
                                     </tr>
                                 </table>
                             </div>
+
+
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">旅行参加者情報</h4>
                                 <div class="reserveList">
-                                    {{-- @foreach($request->join_kana1 as $key =>$join_kana1)
-                                    <table class="reserveTable">
-                                        <tr class="nameTr">
-                                            <th>申し込み者氏名カナ</th>
-                                            <td>
-                                                {{$join_kana1}} {{$request->join_kana2[$key]}}
-
-                                            </td>
-                                        </tr>
-                                        <tr class="ageTr">
-                                            <th>年齢</th>
-                                            <td>
-                                            {{$request->join_age[$key]}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>性別</th>
-                                            <td>
-                                                @if($request->join_sex[$key]==1)男性
-                                                @else 女性 @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>乗車地</th>
-                                            <td>
-                                            {{$request->join_from[$key]}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>降車地</th>
-                                            <td>
-                                            {{$request->join_to[$key]}}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    @endforeach --}}
-
                                     <table class="reserveTable">
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(漢字)</th>
                                             <td>
                                                 {{$info['add_lastname'][0]}} {{$info['add_firstname'][0]}}
-                                                <!-- <input class="midIpt" type="hidden" name="add_lastname[]" value="{{$info['add_lastname'][0]}}"> -->
-                                               <!-- <input class="midIpt" type="hidden" name="add_firstname[]"  value="{{$info['add_firstname'][0]}}"> -->
-
                                             </td>
                                         </tr>
                                         <tr class="nameTr">
                                             <th>参加者(代表者)氏名(カナ)</th>
                                             <td>
                                                 {{$info['join_kana1'][0]}} {{$info['join_kana2'][0]}}
-                                                <!-- <input class="midIpt" type="hidden" name="join_kana1[]" value="{{$info['join_kana1'][0]}}"> -->
-                                                <!-- <input class="midIpt" type="hidden" name="join_kana2[]" value="{{$info['join_kana2'][0]}}"> -->
                                             </td>
                                         </tr>
                                         <tr class="ageTr">
                                             <th>年齢</th>
                                             <td>
                                                 {{$info['join_age'][0]}}
-                                                <!-- <input class="midIpt" type="hidden" name="join_age[]" value="{{$info['join_age'][0]}}"> -->
-
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>生年月日</th>
                                             <td>
                                                 {{$info['birth_year_representative'][0]}}年{{ $info['birth_month_representative'][0]}}月{{ $info['birth_day_representative'][0]}}日
-                                                <!-- <input type="hidden" name="birth_year_representative[]" value="{{$info['birth_year_representative'][0]}}"> -->
-                                                <!-- <input type="hidden" name="birth_month_representative[]" value="{{$info['birth_month_representative'][0]}}"> -->
-                                                <!-- <input type="hidden" name="birth_day_representative[]" value="{{$info['birth_day_representative'][0]}}"> -->
                                             </td>
                                         </tr>
                                         <tr>
@@ -252,7 +207,6 @@
                                                 @else
                                                 女性
                                                 @endif
-                                                <!-- <input type="hidden" name="join_sex[]" value="{{$info['join_sex'][0]}}"> -->
                                             </td>
                                         </tr>
                                         <tr class="zipTr">
@@ -270,18 +224,25 @@
                                                 {{$info['tel_representative']}}
                                             </td>
                                         </tr>
+
+                                        @if( isset($info['boarding'][0]) && $info['boarding'][0] != null)
                                         <tr>
                                             <th>乗車地</th>
                                             <td>
                                                 {{ $info['boarding'][0]}}
                                             </td>
                                         </tr>
+                                        @endif
+
+                                        @if(isset($info['drop'][0]) && $info['drop'][0] != null)
                                         <tr>
                                             <th>降車地</th>
                                             <td>
                                                 {{ $info['drop'][0]}}
                                             </td>
                                         </tr>
+                                        @endif
+
                                     </table>
                                     @for($i=1 ; $i<count($info['add_lastname']); $i++)
                                     <table class="reserveTable" style="margin-top:20px;">
@@ -319,19 +280,22 @@
                                                 @endif
                                             </td>
                                         </tr>
-
+                                        @if( isset($info['drop'][$i]) && $info['boarding'][$i] != null)
                                         <tr>
                                             <th>乗車地</th>
                                             <td>
                                                 {{ $info['boarding'][$i]}}
                                             </td>
                                         </tr>
+                                        @endif
+                                        @if( isset($info['drop'][$i]) && $info['drop'][$i] != null)
                                         <tr>
                                             <th>降車地</th>
                                             <td>
                                                 {{ $info['drop'][$i]}}
                                             </td>
                                         </tr>
+                                        @endif
                                     </table>
                                     @endfor
                                 </div>
