@@ -272,6 +272,16 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right">{{ __('同行者情報') }}</label>
+                            <div class="col-md-2">
+                                <select  class="form-control" name="companion_type">
+                                    <option value="2" @if (old('companion_type', $plans->companion_type) == 2) selected @endif>必須ではない
+                                    <option value="1" @if (old('companion_type',  $plans->companion_type) == 1) selected @endif>必須
+                                </select>
+                            </div>
+                        </div>
    
        <!--                  <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">自動延長設定</label>
