@@ -39,6 +39,8 @@ class CvsController extends Controller
             TGMDK_Logger::setLogger($logger);
         }
 
+        $payLimit = new DateTime();
+        $payLimit->modify('+14 day');
         $request_data = new CvsAuthorizeRequestDto();
         $request_data->setServiceOptionType($request->request->get("serviceOptionType"));
         $request_data->setAmount($request->request->get("amount"));
@@ -46,8 +48,8 @@ class CvsController extends Controller
         $request_data->setName1($request->request->get("name1"));
         $request_data->setName2($request->request->get("name2"));
         $request_data->setTelNo($request->request->get("telNo"));
-        $request_data->setPayLimit($request->request->get("payLimit"));
-        $request_data->setPayLimitHhmm($request->request->get("payLimitHhmm"));
+        $request_data->setPayLimit($payLimit->format('Y/m/d'));
+        $request_data->setPayLimitHhmm('23:59');
         //$request_data->setPushUrl($request->request->get("pushUrl"));
         $request_data->setPushUrl('https://localzry/push/mpi');
         $request_data->setPaymentType("0");
@@ -123,7 +125,7 @@ class CvsController extends Controller
             $priceName = PriceType::select()
                 ->where('number' , $typeid)
                 ->first();
-            Mail::send(['text' => 'user.reservations.email'], [
+            Mail::send(['text' => 'user.reservations.cvs_pre_email'], [
                 "number" => $reservation->number,
                 "plan" => $reservation->plan->name,
                 "date" => date('Y年m月d日', strtotime($reservation->fixed_datetime)),
@@ -132,7 +134,7 @@ class CvsController extends Controller
                 "name_first" => $reservation->user->name_first,
                 "email" => $reservation->user->email,
                 "tel" => $reservation->user->tel,
-                "tel2" => $reservation->user->tel2,
+                "tel2" => $request->request->get("telNo"),
                 "reservation" => $reservation,
                 "payment" => 'コンビニ決済',
                 "haraikomiUrl" => $response_data->getHaraikomiUrl(),
@@ -141,13 +143,14 @@ class CvsController extends Controller
                 "amount" => $request->amount,
                 'prices'        => $prices,
                 'priceName'     => $priceName,
-                'type_id'   => $typeid
+                'type_id'   => $typeid,
+                'payLimit' => $payLimit
             ], function($message) use($reservation) {
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
                     ->from('info@zenryo-ec.com')
-                    ->subject("【全旅】仮予約メール");
+                    ->subject("【入金依頼】株式会社全旅");
 	        }
             });
             // ベリトランスオーダーIDをDBへ格納

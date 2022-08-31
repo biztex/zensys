@@ -597,7 +597,7 @@ class ReservationsController extends Controller
                             $message
                                 ->to($reservation->user->email)
                                 ->from('test@toebisu.jp')
-                                ->subject('【全旅】予約確定メール');
+                                ->subject('【予約確定】株式会社全旅');
                         }
                     }
                 );
@@ -663,7 +663,7 @@ class ReservationsController extends Controller
                             $message
                                 ->to($reservation->user->email)
                                 ->from('test@toebisu.jp')
-                                ->subject('【全旅】予約確定メール');
+                                ->subject('【予約確定】株式会社全旅');
                         }
                     }
                 );
@@ -724,7 +724,7 @@ class ReservationsController extends Controller
                         $message
                             ->to($request->email)
                             ->from('test@toebisu.jp')
-                            ->subject('【全旅】リクエスト予約確認メール');
+                            ->subject('【リクエスト】株式会社全旅');
                     }
                 }
             );
@@ -1178,7 +1178,7 @@ class ReservationsController extends Controller
                         $message
                             ->to($reservation->user->email)
                             ->from('test@toebisu.jp')
-                            ->subject('【全旅】予約確定通知メール');
+                            ->subject('【予約確定】株式会社全旅');
                     }
                 }
             );
@@ -1221,7 +1221,7 @@ class ReservationsController extends Controller
                         $message
                             ->to($reservation->user->email)
                             ->from('test@toebisu.jp')
-                            ->subject('【全旅】予約確定通知メール');
+                            ->subject('【予約確定】株式会社全旅');
                     }
                 }
             );
@@ -1256,7 +1256,7 @@ class ReservationsController extends Controller
                         $message
                             ->to($reservation->user->email)
                             ->from('test@toebisu.jp')
-                            ->subject('【全旅】予約確定通知メール');
+                            ->subject('【入金依頼】株式会社全旅');
                     }
                 }
             );
@@ -1291,7 +1291,7 @@ class ReservationsController extends Controller
                         $message
                             ->to($reservation->user->email)
                             ->from('test@toebisu.jp')
-                            ->subject('【全旅】予約確定通知メール');
+                            ->subject('【決済依頼】株式会社全旅');
                     }
                 }
             );
@@ -1980,15 +1980,16 @@ class ReservationsController extends Controller
             }
         }
         // 期限チェック
-        $deadlineStr = '20221029'; //$reservation->plan->deadline; //最終締め切り日
+        $deadlineStr = $reservation->plan->payment_final_deadline; //最終締め切り日
+        $payment_plus_day = $reservation->plan->payment_plus_day; //申込日＋○日
         if(!is_null($deadlineStr) & strlen($deadlineStr) >= 8){
-            $deadline = new DateTime(substr($deadlineStr,0,4) .'-'. substr($deadlineStr,4,2) .'-'. substr($deadlineStr,6,2));
+            $deadline = new DateTime(substr($deadlineStr,0,4) .'-'. substr($deadlineStr,5,2) .'-'. substr($deadlineStr,8,2));
         }else{
             $deadline = $reservation->created_at;
-            $deadline->modify('+15 day');
+            $deadline->modify('+' . $payment_plus_day+1 . ' day');
         }
         $limit = $reservation->created_at;
-        $limit->modify('+14 day');
+        $limit->modify('+' . $payment_plus_day . ' day');
         if($limit < $deadline){
             $deadline = $limit;
         }

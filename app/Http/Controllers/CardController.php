@@ -153,7 +153,7 @@ class CardController extends Controller
                         $message
                         ->to($reservation->user->email)
                         ->from('info@zenryo-ec.com')
-                        ->subject("【全旅】予約確定メール");
+                        ->subject("【予約確認】株式会社全旅");
                 }
                 });
                 // ベリトランスオーダーIDをDBへ格納
