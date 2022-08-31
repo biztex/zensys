@@ -498,21 +498,21 @@ class PlansController extends Controller
         $plans->res_type = $request->res_type;
         //$plans->res_end_flag = $request->res_end_flag;
      
-        $plans->res_before_day =  mb_convert_kana($request->res_before_day,"KVa");
+        $plans->res_before_day =  $request->res_before_day;
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
-        $plans->res_end_day =  mb_convert_kana($request->res_end_day,"KVa");
+        $plans->res_end_day =  $request->res_end_day;
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
-            $plans->res_limit_number = mb_convert_kana($request->res_limit_number,"KVa");
+            $plans->res_limit_number = $request->res_limit_number;
         }
         else{
-            $plans->res_limit_number = $request->res_limit_number ? mb_convert_kana($request->res_limit_number,"KVa") : 0 ;
+            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
         }
-        $plans->min_number =  mb_convert_kana($request->min_number,"KVa");
-        $plans->max_number = mb_convert_kana($request->max_number,"KVa");
+        $plans->min_number =  $request->min_number;
+        $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
@@ -975,19 +975,19 @@ class PlansController extends Controller
         $plans->res_type = $request->res_type;
         //$plans->res_end_flag = $request->res_end_flag;
         $plans->res_before_day = $request->res_before_day
-            ? mb_convert_kana($request->res_before_day,"KVa")
+            ? $request->res_before_day
             : '0';
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
         $plans->res_end_day = $request->res_end_day
-            ? mb_convert_kana($request->res_end_day,"KVa")
+            ? $request->res_end_day
             : '0';
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        $plans->res_limit_number = mb_convert_kana($request->res_limit_number,"KVa");
-        $plans->min_number = mb_convert_kana($request->min_number,"KVa");
-        $plans->max_number = mb_convert_kana($request->max_number,"KVa");
+        $plans->res_limit_number = $request->res_limit_number;
+        $plans->min_number = $request->min_number;
+        $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
@@ -1481,19 +1481,19 @@ class PlansController extends Controller
         $plans->res_type = $request->res_type;
         //$plans->res_end_flag = $request->res_end_flag;
         $plans->res_before_day = $request->res_before_day
-            ? mb_convert_kana($request->res_before_day,"KVa")
+            ? $request->res_before_day
             : '0';
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
         $plans->res_end_day = $request->res_end_day
-            ? mb_convert_kana($request->res_end_day,"KVa")
+            ? $request->res_end_day,
             : '0';
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
         // $plans->res_limit_flag = $request->res_limit_flag;
-        $plans->res_limit_number = mb_convert_kana($request->res_limit_number,"KVa");
-        $plans->min_number = mb_convert_kana($request->min_number,"KVa");
-        $plans->max_number = mb_convert_kana($request->max_number,"KVa");
+        $plans->res_limit_number = $request->res_limit_number;
+        $plans->min_number = $request->min_number;
+        $plans->max_number = $request->max_number;
         
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
@@ -2385,22 +2385,22 @@ class PlansController extends Controller
         $plans->age_to = $request->age_to;
         $plans->res_type = $request->res_type;
         //$plans->res_end_flag = $request->res_end_flag;
-        $plans->res_before_day = mb_convert_kana($request->res_before_day,"KVa");
+        $plans->res_before_day = $request->res_before_day;
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
-        $plans->res_end_day = mb_convert_kana($request->res_end_day,"KVa");
+        $plans->res_end_day = $request->res_end_day;
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
    
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
-            $plans->res_limit_number = mb_convert_kana($request->res_limit_number,"KVa");
+            $plans->res_limit_number = $request->res_limit_number;
         }
         else{
-            $plans->res_limit_number = $request->res_limit_number ? mb_convert_kana($request->res_limit_number,"KVa") : 0 ;
+            $plans->res_limit_number = $request->res_limit_number ? $request->res_limit_number : 0 ;
         }
-        $plans->min_number = mb_convert_kana($request->min_number,"KVa");
-        $plans->max_number = mb_convert_kana($request->max_number,"KVa");
+        $plans->min_number = $request->min_number;
+        $plans->max_number = $request->max_number;
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
