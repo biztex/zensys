@@ -729,6 +729,8 @@ class ReservationsController extends Controller
         $rules = [
             'plan_id' => ['required', 'numeric'],
             'date' => ['required', 'date'],
+            'age' => ['required', 'numeric'],
+            'join_age' => ['required', 'numeric'],
             'name_last' => ['required', 'string', 'max:50'],
             'name_first' => ['required', 'string', 'max:50'],
             'kana_last' => ['required', 'regex:/^[ァ-ヾ　〜ー]+$/u', 'max:50'],

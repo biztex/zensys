@@ -166,11 +166,11 @@
                                         <td>
                                             <div class="halfP">
                                                 <span>セイ</span>
-                                                <input class="midIpt" type="text" id="kana_last" name="kana_last" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*"  value="{{ old('kana_last') }}" required>
+                                                <input class="midIpt" type="text" id="kana_last" name="kana_last" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*"  value="{{ old('kana_last') }}"  required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
                                             </div>
                                             <div class="halfP">
                                                 <span>メイ</span>
-                                                <input class="midIpt" type="text" id="kana_first" name="kana_first" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" value="{{ old('kana_first') }}" required>
+                                                <input class="midIpt" type="text" id="kana_first" name="kana_first" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" value="{{ old('kana_first') }}" required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
                                             </div>
                                         </td>
                                     </tr>
@@ -209,13 +209,13 @@
                                     <tr>
                                         <th>メールアドレス<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input type="text" name="email" id="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" class="width-half" value="{{ old('email') }}" required>
+                                            <input type="email" name="email" id="email"  class="width-half" value="{{ old('email') }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>メールアドレス確認<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input class="width-half form-control" type="email" name="email_confirmation" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" id="email-confirm" value="{{ old('email_confirmation') }}" onblur="confirmEmail()"  required>
+                                            <input class="width-half form-control" type="email" name="email_confirmation"  id="email-confirm" value="{{ old('email_confirmation') }}" onblur="confirmEmail()"  required>
                                             <p id="confAlert" class="requiredRed"></p>
                                         </td>
                                     </tr>
@@ -434,11 +434,11 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>セイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1.0') }}" required>
+                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1.0') }}" required required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
                                                 </div>
                                                 <div class="halfP">
                                                     <span>メイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2.0') }}" required>
+                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2.0') }}" required required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
                                                 </div>
                                             </td>
                                         </tr>
