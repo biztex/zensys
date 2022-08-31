@@ -303,6 +303,7 @@
                                         <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                         <td>
                                             <select name="planBoarding"  @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
+                                                <option>選択してください</option>
                                                 @foreach($pieces as $piece)
                                                     <option value="{{$piece}}" @if(old('planBoarding') == $piece) selected @endif>{{$piece}}</option>
                                                 @endforeach
@@ -315,6 +316,7 @@
                                         <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                         <td>
                                             <select name="planDrop" class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
+                                                <option>選択してください</option>
                                                 @foreach($drops as $drop)
                                                     <option value="{{$drop}}" @if(old('planDrop') == $drop) seleted @endif>{{$drop}}</option>
                                                 @endforeach
@@ -553,6 +555,7 @@
                                             <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 <select name="boarding[]" @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
+                                                    <option>選択してください</option>
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}" @if(old('boarding.0') == $piece) selected @endif>{{$piece}}</option>
                                                     @endforeach
@@ -565,6 +568,7 @@
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 <select name="drop[]" class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
+                                                    <option>選択してください</option>
                                                     @foreach($drops as $drop)
                                                         <option value="{{$drop}}" @if(old('drop.0') == $drop) selected @endif>{{$drop}}</option>
                                                     @endforeach
