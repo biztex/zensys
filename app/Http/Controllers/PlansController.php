@@ -814,7 +814,7 @@ class PlansController extends Controller
     public function storeTmp(Request $request)
     {
         ini_set('memory_limit', '256M');
-
+        dd($request);
         $rules = [
             'is_listed' => ['required'],
             'road_map1' => ['nullable', 'string', 'max:1000000'],
