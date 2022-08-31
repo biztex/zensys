@@ -393,7 +393,7 @@
                             @foreach ($stocks as $stock)
                               @isset($stock)
                               @if (substr($date, 0 ,10) == $stock->res_date)
-                                <input class="text-right" style="width: 50px" name="limit_number[]" value="{{ $stock->limit_number }}" type="text" />
+                                <input class="text-right" style="width: 50px" name="limit_number[]" value="@if( $stock->limit_number > $default_plan->res_limit_number) {{$default_plan->res_limit_number}} @else {{$stock->limit_number}} @endif" type="text" />
                                 @break
                               @endif
                               @endisset
