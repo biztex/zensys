@@ -98,7 +98,10 @@ $custom_view = true;
 決済金額合計：{{ number_format($amount) }}円</br>
 ----------------------------------------------------</br>
 =====================================</br>
-</br>
+【予約内容の確認やキャンセル規定について】</br>
+予約内容の確認やキャンセル規定につきましては、以下ページよりご確認下さい。</br>
+尚、キャンセルをご希望の場合は直接当社へご連絡ください。</br>
+<a href="https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}">https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}</a></br>
 =====================================</br>
 株式会社全旅</br>
 </br>
