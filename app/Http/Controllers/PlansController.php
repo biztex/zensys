@@ -470,6 +470,9 @@ class PlansController extends Controller
         if($request->drop_type == 1 && $request->boarding_type == 1){
             $plans->companion_type = 1;
         }
+        else{
+            $plans->companion_type = $request->companion_type;
+        }
         $plans->road_map_title = $request->road_map_title;
         $plans->road_map_build = $request->road_map_build;
 
@@ -2366,6 +2369,9 @@ class PlansController extends Controller
         $plans->drop_type = $request->drop_type;
         if($request->drop_type == 1 && $request->boarding_type == 1){
             $plans->companion_type = 1;
+        }
+        else{
+            $plans->companion_type = $request->companion_type;
         }
         $plans->road_map_title = $request->road_map_title;
         $plans->road_map_build = $request->road_map_build;
