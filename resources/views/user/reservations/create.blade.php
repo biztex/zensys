@@ -202,7 +202,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="dateP">
-                                            <select name="birth_year">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" >@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                            <select name="birth_year"><option>選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month"><option>選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" ><option>選択してください</option> @for ($i = 1 ; $i <= 31 ; $i++)<option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                             </div>
                                         </td>
                                     </tr>
@@ -455,7 +455,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                <select name="birth_year_representative[]">@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]">@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]">@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year_representative[]"><option>選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]"><option>選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]"><option>選択してください</option>@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
                                             </td>
                                         </tr>
