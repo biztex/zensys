@@ -743,6 +743,9 @@
             $(".reserveAdd").css("visibility" , "hidden");
         }
 
+        $(".reserveAdd a").click(function(e){
+            e.preventDefault();
+        })
 
     </script>
 </body>
