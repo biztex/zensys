@@ -666,6 +666,19 @@
                            
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right">申込日</label>
+                            <div class="col-md-2">
+                                <input id="name" type="text" class="form-control" name="payment_plus_day" value="{{old('payment_plus_day', $plans->payment_plus_day)}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right">最終締切日</label>
+                            <div class="col-md-2">
+                                <input id="name" type="date" class="form-control" name="payment_final_deadline" value="{{old('payment_final_deadline', $plans->payment_final_deadline)}}">
+                            </div>
+                        </div>
                         <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 料金設定</span></label>
                         </div>
