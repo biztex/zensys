@@ -166,11 +166,11 @@
                                         <td>
                                             <div class="halfP">
                                                 <span>セイ</span>
-                                                <input class="midIpt" type="text" id="kana_last" name="kana_last" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*"  value="{{ old('kana_last') }}"  required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
+                                                <input class="midIpt" type="text" id="kana_last" name="kana_last" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*"  value="{{ old('kana_last') }}"  required>
                                             </div>
                                             <div class="halfP">
                                                 <span>メイ</span>
-                                                <input class="midIpt" type="text" id="kana_first" name="kana_first" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" value="{{ old('kana_first') }}" required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
+                                                <input class="midIpt" type="text" id="kana_first" name="kana_first" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" value="{{ old('kana_first') }}" required>
                                             </div>
                                         </td>
                                     </tr>
@@ -434,11 +434,11 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>セイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1.0') }}" required required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
+                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1.0') }}" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" required>
                                                 </div>
                                                 <div class="halfP">
                                                     <span>メイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2.0') }}" required required oninvalid="this.setCustomValidity('カナの書式が正しくありません')" onchange="this.setCustomValidity('')">
+                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2.0') }}"  pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" required>
                                                 </div>
                                             </td>
                                         </tr>
