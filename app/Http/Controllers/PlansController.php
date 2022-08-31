@@ -1486,7 +1486,7 @@ class PlansController extends Controller
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
         $plans->res_end_day = $request->res_end_day
-            ? $request->res_end_day,
+            ? $request->res_end_day
             : '0';
         $plans->res_end_type = $request->res_end_type;
         $plans->res_end_time = $request->res_end_time;
