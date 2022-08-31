@@ -209,13 +209,13 @@
                                     <tr>
                                         <th>メールアドレス<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input type="text" name="email" id="email" class="width-half" value="{{ old('email') }}" required>
+                                            <input type="text" name="email" id="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" class="width-half" value="{{ old('email') }}" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>メールアドレス確認<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input class="width-half form-control" type="email" name="email_confirmation" id="email-confirm" value="{{ old('email_confirmation') }}" onblur="confirmEmail()"  required>
+                                            <input class="width-half form-control" type="email" name="email_confirmation" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" id="email-confirm" value="{{ old('email_confirmation') }}" onblur="confirmEmail()"  required>
                                             <p id="confAlert" class="requiredRed"></p>
                                         </td>
                                     </tr>
