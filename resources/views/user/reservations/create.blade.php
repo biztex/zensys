@@ -379,12 +379,7 @@
                                         $(this).find('.child_drop').append($data_drop);
                                     });
 
-                                    @if ($plan->max_number != null)
-                                        if(comVal  >= {{$plan->max_number}}){
-                                            $(".reserveAdd").css("opacity" , "0");
-                                            $(".reserveAdd").css("visibility" , "hidden");
-                                        }
-                                    @endif
+                                  
 
                                     
                                     
@@ -393,14 +388,6 @@
                                 $(document).on('click','.reserveDelete',function(){
                                     count--;
                                     $("input[name='limit_number']").val(count);
-                                    let comVal = parseInt($("input[name='limit_number']").val());
-
-                                    @if($plan->max_number != null)
-                                        if(comVal  < {{$plan->max_number}}){
-                                            $(".reserveAdd").css("opacity" , "1");
-                                            $(".reserveAdd").css("visibility" , "visible");
-                                        }
-                                    @endif
                                 });
 
                                 function confirmEmail() {
@@ -582,6 +569,7 @@
 
                                 <div class="reserveList helperNone0" id="reserveList"></div>
                                 <input type="hidden" name="limit_number" value="1" />
+                                <input type="hidden" name="companion_flag" value="{{$plan->companion_type}}" />
 
                                 <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">同行者情報を追加</a></p>
                             </div>
@@ -750,12 +738,10 @@
     <script>
          let comVal_cs = parseInt($("input[name='limit_number']").val());
 
-         @if ($plan->max_number != null)         
-        if(comVal_cs  >= {{$plan->max_number}}){
+        if({{$plan->companion_type}} == 2){
             $(".reserveAdd").css("opacity" , "0");
             $(".reserveAdd").css("visibility" , "hidden");
         }
-        @endif
 
 
     </script>
