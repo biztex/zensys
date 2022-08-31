@@ -261,6 +261,7 @@
                             <input id="" type="text" class="form-control" name="add_telephone" value="{{ old('add_telephone',$reservations->add_telephone) }}" required>
                         </div>
                     </div>
+                    @if (isset($pieces) && count($pieces) > 0)
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
                         <div class="col-md-3">
@@ -271,6 +272,10 @@
                         </select>
                         </div>
                     </div>
+                    @endif
+
+                    @if (isset($drops) && count($drops) > 0)
+
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                         <div class="col-md-3">
@@ -282,6 +287,8 @@
                             </select>
                         </div>
                     </div>
+
+                    @endif
 
 
                     
@@ -340,6 +347,8 @@
                                     </select>
                                 </div>
                             </div>
+                            @if (isset($pieces) && count($pieces) > 0)
+
                             <div class="form-group row">
                                 <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
                                 <div class="col-md-3">
@@ -350,6 +359,10 @@
                                     </select>
                                 </div>
                             </div>
+                            @endif
+
+                            @if (isset($drops) && count($drops) > 0)
+
                             <div class="form-group row">
                                 <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                                 <div class="col-md-3">
@@ -360,6 +373,7 @@
                                     </select>
                                 </div>
                             </div>
+                            @endif
 
 
                         @endforeach

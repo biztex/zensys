@@ -736,6 +736,7 @@ class ReservationsController extends Controller
     public function confirmForUser(Request $request)
     {
 
+
         $rules = [
             'plan_id' => ['required', 'numeric'],
             'date' => ['required', 'date'],

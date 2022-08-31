@@ -202,7 +202,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="dateP">
-                                            <select name="birth_year"><option>選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month"><option>選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" ><option>選択してください</option> @for ($i = 1 ; $i <= 31 ; $i++)<option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                            <select name="birth_year"><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month"><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" ><option value="">選択してください</option> @for ($i = 1 ; $i <= 31 ; $i++)<option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                             </div>
                                         </td>
                                     </tr>
@@ -303,7 +303,7 @@
                                         <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                         <td>
                                             <select name="planBoarding"  @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
-                                                <option>選択してください</option>
+                                                <option value="">選択してください</option>
                                                 @foreach($pieces as $piece)
                                                     <option value="{{$piece}}" @if(old('planBoarding') == $piece) selected @endif>{{$piece}}</option>
                                                 @endforeach
@@ -316,7 +316,7 @@
                                         <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                         <td>
                                             <select name="planDrop" class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
-                                                <option>選択してください</option>
+                                                <option value="">選択してください</option>
                                                 @foreach($drops as $drop)
                                                     <option value="{{$drop}}" @if(old('planDrop') == $drop) seleted @endif>{{$drop}}</option>
                                                 @endforeach
@@ -461,7 +461,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                <select name="birth_year_representative[]"><option>選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]"><option>選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]"><option>選択してください</option>@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year_representative[]"><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]"><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]"><option value="">選択してください</option>@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
                                             </td>
                                         </tr>
@@ -555,7 +555,7 @@
                                             <th>乗車地@if($plan->boarding_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 <select name="boarding[]" @if($plan->boarding_type == 1) required @endif class="helperWidthMedium">
-                                                    <option>選択してください</option>
+                                                    <option value="">選択してください</option>
                                                     @foreach($pieces as $piece)
                                                         <option value="{{$piece}}" @if(old('boarding.0') == $piece) selected @endif>{{$piece}}</option>
                                                     @endforeach
@@ -568,7 +568,7 @@
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
                                                 <select name="drop[]" class="helperWidthMedium" @if($plan->drop_type == 1) required @endif>
-                                                    <option>選択してください</option>
+                                                    <option value="">選択してください</option>
                                                     @foreach($drops as $drop)
                                                         <option value="{{$drop}}" @if(old('drop.0') == $drop) selected @endif>{{$drop}}</option>
                                                     @endforeach
@@ -592,7 +592,7 @@
                                         <th>お支払方法<span class="requiredRed">※</span></th>
                                         <td>
                                             <select name="payment_method" class="midSelect" required >
-                                                <option>選択してください</option>
+                                                <option value="">選択してください</option>
                                                 @if ($plan->card == 1)
                                                         <option value="3" @if (old('payment_method') == 3) selected @endif>クレジットカード決済</option>
                                                 @endif
