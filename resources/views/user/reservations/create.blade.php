@@ -369,6 +369,12 @@
 
                                     let comVal = parseInt($("input[name='limit_number']").val());
 
+                                    @if ($plan->max_number != null)
+                                        if(comVal >= {{$plan->max_number}}){
+                                            $(".reserveAdd").css("opacity" , "0");
+                                            $(".reserveAdd").css("visibility" , "hidden");
+                                        }
+                                    @endif
                                     
                                     $(".reserveAdd").before('<div class="reserveList helperNone'+ count +'" id="reserveList"></div>')
                                     $(".reserveList.helperNone"+count).load('{{config('app.url')}}html/reservation-companion.php' , function(e){
@@ -388,6 +394,14 @@
                                 $(document).on('click','.reserveDelete',function(){
                                     count--;
                                     $("input[name='limit_number']").val(count);
+                                    let comVal = parseInt($("input[name='limit_number']").val());
+
+                                    @if($plan->max_number != null)
+                                        if(comVal < {{$plan->max_number}}){
+                                            $(".reserveAdd").css("opacity" , "1");
+                                            $(".reserveAdd").css("visibility" , "visible");
+                                        }
+                                    @endif
                                 });
 
                                 function confirmEmail() {
@@ -742,6 +756,7 @@
             $(".reserveAdd").css("opacity" , "0");
             $(".reserveAdd").css("visibility" , "hidden");
         }
+       
 
         $(".reserveAdd a").click(function(e){
             e.preventDefault();
