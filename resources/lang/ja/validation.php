@@ -180,8 +180,8 @@ return [
         'time_minute' => '所要時間 分',
         'genre_name' => 'ジャンル',
         'res_before_day' => '受付開始日時 何日前',
-        'res_end_day' => '受付締切日時(即時予約) 何日前',
-        'req_before_day' => '受付締切日時(リクエスト予約) 何日前',
+        'res_end_day' => '予約の受付締切日時',
+        'req_before_day' => 'リクエストの受付締切日時',
         'activity_name1' => '体験時間(1) 【名称】',
         'activity_name2' => '体験時間(2) 【名称】',
         'activity_name3' => '体験時間(3) 【名称】',
@@ -262,7 +262,8 @@ return [
         'postalcode_representative' => '旅行参加者郵便番号',
         'payment_method' => 'お支払方法',
         'join_age' => '年齢',
-        'age' => '年齢'
+        'age' => '年齢',
+         'payment_plus_day' => '申込日'
 
     ],
 
