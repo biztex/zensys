@@ -4712,6 +4712,12 @@ ul {
     width: 43.5%;
 }
 
+.listItemInfo .leftP img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
 .listItemInfo .rightP {
     width: 55%;
 }
