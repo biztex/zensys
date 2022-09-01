@@ -686,7 +686,7 @@
 
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">最終締切日</label>
+                            <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 最終締切日</label>
                             <div class="col-md-2">
                                 <input id="name" type="date" class="form-control" name="payment_final_deadline" value="{{old('payment_final_deadline', $plans->payment_final_deadline)}}">
                             </div>

@@ -263,7 +263,8 @@ return [
         'payment_method' => 'お支払方法',
         'join_age' => '年齢',
         'age' => '年齢',
-         'payment_plus_day' => '申込日'
+        'payment_plus_day' => '申込日',
+        'payment_final_deadline' => '最終締切日'
 
     ],
 

@@ -73,6 +73,8 @@ class PlansController extends Controller
             'age_to' => ['nullable', 'numeric'],
             'res_type' => ['required'],
             'payment_plus_day' => ['required', 'numeric'],
+            'payment_final_deadline' => ['required', 'date'],
+
             //'res_end_flag' => ['required'],
             // 'res_before_day' => ['required', 'numeric'],
             // 'res_before_type' => ['required'],
@@ -89,6 +91,7 @@ class PlansController extends Controller
             //'payment_method' => ['required', 'numeric'],
             'etc_card_name' => ['nullable', 'string', 'max:50'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
+            
             // 'is_discount' => ['required'],
             'included_item' => ['nullable', 'string', 'max:100'],
             // 'place_name' => ['required', 'string', 'max:120'],
@@ -845,6 +848,7 @@ class PlansController extends Controller
             'req_before_day' => ['nullable', 'numeric'],
             'req_before_time' => ['nullable', 'numeric'],
             'payment_plus_day' => ['nullable', 'numeric'],
+
         ];
 
         $this->validate($request, $rules);
@@ -1880,6 +1884,7 @@ class PlansController extends Controller
             // 'is_discount' => ['required'],
             'included_item' => ['nullable', 'string', 'max:100'],
             'payment_plus_day' => ['required', 'numeric'],
+            'payment_final_deadline' => ['required', 'date'],
             // 'place_name' => ['required', 'string', 'max:120'],
             // 'place_postalcode' => ['nullable', 'string', 'max:8'],
             // 'place_prefecture' => ['nullable', 'string', 'max:5'],
