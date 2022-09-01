@@ -76,10 +76,9 @@ class PlansController extends Controller
             // 'res_before_day' => ['required', 'numeric'],
             // 'res_before_type' => ['required'],
             // 'res_before_time' => ['required', 'numeric'],
-            'res_end_day' => ['required', 'numeric'],
             'res_end_type' => ['required'],
             'res_end_time' => ['required', 'numeric'],
-            'req_before_day' => ['required', 'numeric'],
+           
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
@@ -169,8 +168,16 @@ class PlansController extends Controller
         if($request->res_type == 0){
             $res_type_rule = [
                 'res_limit_number' => ['required', 'numeric'],
+                'res_end_day' => ['required', 'numeric'],
             ];
             $rules = array_merge($rules, $res_type_rule);
+        }
+        else{
+            $req = [
+                'req_before_day' => ['required', 'numeric'],
+            ];
+
+            $rules = array_merge($rules, $req);
         }
         
         $a_rules1 = [
@@ -1854,10 +1861,10 @@ class PlansController extends Controller
             'age_from' => ['nullable', 'numeric'],
             'age_to' => ['nullable', 'numeric'],
             'res_type' => ['required'],
-            'res_end_day' => ['required', 'numeric'],
+            
             'res_end_type' => ['required'],
             'res_end_time' => ['required', 'numeric'],
-            'req_before_day' => ['required', 'numeric'],
+           
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
@@ -1943,12 +1950,19 @@ class PlansController extends Controller
          
 
         }
-
         if($request->res_type == 0){
             $res_type_rule = [
                 'res_limit_number' => ['required', 'numeric'],
+                'res_end_day' => ['required', 'numeric'],
             ];
             $rules = array_merge($rules, $res_type_rule);
+        }
+        else{
+            $req = [
+                'req_before_day' => ['required', 'numeric'],
+            ];
+
+            $rules = array_merge($rules, $req);
         }
         $a_rules1 = [
             // 体験時間join
