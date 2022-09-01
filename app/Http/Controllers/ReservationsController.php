@@ -448,84 +448,12 @@ class ReservationsController extends Controller
         //$tokenApiKey = 'cd76ca65-7f54-4dec-8ba3-11c12e36a548';
         $tokenApiKey = config('adminlte.TOKEN_API_KEY');
         $orderId = $reservation_number;
-       
-        // 管理者へ通知メール
-        if ($request->is_request == 0) {
-            Mail::send(
-                ['text' => 'user.reservations.clientemail'],
-                [
-                    'number'        => $reservation->order_id,
-                    'plan'          => $plan->name,
-                    'date'          => date('Y年m月d日', strtotime($request->date)),
-                    'activity'      => $request->selected_activity,
-                    'name_last'     => $request->name_last,
-                    'name_first'    => $request->name_first,
-                    'email'         => $request->email,
-                    'tel'           => $request->tel,
-                    'tel2'          => $request->tel2,
-                    'kana_last'     => $request->kana_last,
-                    'kana_first'    => $request->kana_first,
-                    'postalcode'    => $request->postalcode,
-                    'prefecture'    => $request->prefecture,
-                    'address'       => $request->address,
-                    'birth_day'     => $request->birth_day,
-                    'birth_year'    => $request->birth_year,
-                    'birth_month'   => $request->birth_month,
-                    'prices'        => $prices,
-                    'priceName'     => $priceName
-                ],
-                function ($message) use ($request) {
-                    if ($request->email) {
-                        $message
-                            //->to('clgeneral015@gmail.com')
-                            ->to('test@toebisu.jp')
-                            ->from('test@toebisu.jp')
-                            ->subject('【全旅】本予約が入りました');
-                    }
-                }
-            );
-        } else {
-            Mail::send(
-                ['text' => 'user.reservations.clientemail'],
-                [
-                    'number'        => $reservation->order_id,
-                    'plan'          => $plan->name,
-                    'date'          => date('Y年m月d日', strtotime($request->date)),
-                    'activity'      => $request->selected_activity,
-                    'name_last'     => $request->name_last,
-                    'name_first'    => $request->name_first,
-                    'email'         => $request->email,
-                    'tel'           => $request->tel,
-                    'tel2'          => $request->tel2,
-                    'kana_last'     => $request->kana_last,
-                    'kana_first'    => $request->kana_first,
-                    'postalcode'    => $request->postalcode,
-                    'prefecture'    => $request->prefecture,
-                    'address'       => $request->address,
-                    'birth_day'     => $request->birth_day,
-                    'birth_year'    => $request->birth_year,
-                    'birth_month'   => $request->birth_month,
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'amount'        => $amount,
-                ],
-                function ($message) use ($request) {
-                    if ($request->email) {
-                        $message
-                            //->to('clgeneral015@gmail.com')
-                            ->to('test@toebisu.jp')
-                            ->from('test@toebisu.jp')
-                            ->subject('【全旅】リクエスト予約が入りました');
-                    }
-                }
-            );
-        }
 
-
-      
         // ここまで
         if ($request->is_request == 0) {
             if ($reservation->payment_method == 3) {
+                $reservation->status = '決済処理中';
+                $reservation->save();
                 return view(
                     'card.index',
                     compact(
@@ -541,6 +469,8 @@ class ReservationsController extends Controller
                     )
                 );
             } elseif ($reservation->payment_method == 2) {
+                $reservation->status = '決済処理中';
+                $reservation->save();
                 return view(
                     'cvs.index',
                     compact(
@@ -596,8 +526,9 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
+                                ->bcc(['test@toebisu.jp'])
                                 ->from('test@toebisu.jp')
-                                ->subject('【予約確定】株式会社全旅');
+                                ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
                 );
@@ -662,8 +593,9 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
+                                ->bcc(['test@toebisu.jp'])
                                 ->from('test@toebisu.jp')
-                                ->subject('【予約確定】株式会社全旅');
+                                ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
                 );
@@ -723,8 +655,9 @@ class ReservationsController extends Controller
                     if ($request->email) {
                         $message
                             ->to($request->email)
+                            ->bcc(['test@toebisu.jp'])
                             ->from('test@toebisu.jp')
-                            ->subject('【リクエスト】株式会社全旅');
+                            ->subject('【リクエスト】長野電鉄株式会社');
                     }
                 }
             );
@@ -1177,8 +1110,9 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
+                            ->bcc(['test@toebisu.jp'])
                             ->from('test@toebisu.jp')
-                            ->subject('【予約確定】株式会社全旅');
+                            ->subject('【予約確定】長野電鉄株式会社');
                     }
                 }
             );
@@ -1220,8 +1154,9 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
+                            ->bcc(['test@toebisu.jp'])
                             ->from('test@toebisu.jp')
-                            ->subject('【予約確定】株式会社全旅');
+                            ->subject('【予約確定】長野電鉄株式会社');
                     }
                 }
             );
@@ -1255,8 +1190,9 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
+                            ->bcc(['test@toebisu.jp'])
                             ->from('test@toebisu.jp')
-                            ->subject('【入金依頼】株式会社全旅');
+                            ->subject('【入金依頼】長野電鉄株式会社');
                     }
                 }
             );
@@ -1290,8 +1226,9 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
+                            ->bcc(['test@toebisu.jp'])
                             ->from('test@toebisu.jp')
-                            ->subject('【決済依頼】株式会社全旅');
+                            ->subject('【決済依頼】長野電鉄株式会社');
                     }
                 }
             );
@@ -1823,6 +1760,7 @@ class ReservationsController extends Controller
                 }
  
                 $query = $query->orderBy('id', 'desc');
+                $query = $query->where('status', '<>', '決済処理中');
             } else {
                 $query = Reservation::with(['user', 'plan']);
                 if (isset($_GET['status']) && $_GET['status']) {
@@ -2176,7 +2114,7 @@ class ReservationsController extends Controller
                     $message
                     ->to($reservation->user->email)
                     ->from('info@zenryo-ec.com')
-                    ->subject("【全旅】予約確定メール");
+                    ->subject("【長野電鉄株式会社】予約確定メール");
 	        }
             });
             // ベリトランスオーダーIDをDBへ格納
@@ -2293,7 +2231,7 @@ class ReservationsController extends Controller
                     $message
                     ->to($reservation->user->email)
                     ->from('info@zenryo-ec.com')
-                    ->subject("【全旅】予約確定メール");
+                    ->subject("【長野電鉄株式会社】予約確定メール");
 	        }
             });
             // ベリトランスオーダーIDをDBへ格納
@@ -2499,8 +2437,9 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
+                            ->bcc(['test@toebisu.jp'])
                             ->from('test@toebisu.jp')
-                            ->subject('【全旅】決済金額変更メール');
+                            ->subject('【長野電鉄株式会社】決済金額変更メール');
                     }
                 }
             );

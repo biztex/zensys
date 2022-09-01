@@ -191,7 +191,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 都道府県</label>
                         <div class="col-md-3">
-                            <select class="form-control" name="add_prefecture"> 
+                            <select class="form-control" name="add_prefecture">
                                 <option value="">選択してください</option>
                                  <option value="北海道" @if(old('add_prefecture',$reservations->add_prefecture)=='北海道') selected @endif>北海道</option>
                                 <option value="青森県" @if(old('add_prefecture',$reservations->add_prefecture)=='青森県') selected @endif>青森県</option>
@@ -246,7 +246,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('住所') }}</label>
                         <div class="col-md-6">
-                            <input id="" type="text" class="form-control" name="add_address" value="{{ old('add_address',$reservations->add_address) }}" required> 
+                            <input id="" type="text" class="form-control" name="add_address" value="{{ old('add_address',$reservations->add_address) }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -279,7 +279,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                         <div class="col-md-3">
-        
+
                             <select name="add_drop" id="" class="form-control">
                                 @foreach($drops as $drop)
                                     <option value="{{$drop}}" @if(old('add_drop',$reservations->add_drop)== $drop) selected @endif>{{$drop}}</option>
@@ -291,7 +291,7 @@
                     @endif
 
 
-                    
+
                     @if($reservations->companion_name_last != "null")
                         @foreach( json_decode($reservations->companion_name_last) as $key=>$custom)
                             <div class="form-group row border-top pt-1">
@@ -299,7 +299,7 @@
                                 <div class="row align-items-center col-md-3">
                                     <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('姓') }}</label>
                                     <div class="col ml-2">
-                                        <input id="" type="text" class="form-control" name="companion_name_last[]" value="{{ old('companion_name_last',$custom) }}" required> 
+                                        <input id="" type="text" class="form-control" name="companion_name_last[]" value="{{ old('companion_name_last',$custom) }}" required>
                                     </div>
                                 </div>
                                 <div class="row align-items-center col-md-3">
@@ -424,7 +424,7 @@
                                         <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$k + 1}}" name="typec_{{$k+1}}_price" value="{{ $Number_of_reservations->typec_price->{$k+1} }}" style="width: 80%;">円</td>
                                         <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$k + 1}}" name="typec_{{$k+1}}_number" value="{{ $Number_of_reservations->typec_number->{$k+1} }}">名</td>
                                         <td id="per-text-price{{ ($k + 1) }}" style="text-align: right;">{{ number_format($Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1}) }}円</td>
-                                        <input type="hidden" id="per-price{{ $k + 1 }}" value="{{ $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1} }}"> 
+                                        <input type="hidden" id="per-price{{ $k + 1 }}" value="{{ $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1} }}">
                                         <?php $Sumpt += $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1};$Number_req[$k+1]=$Number_of_reservations->typec_number->{$k+1};?>
                                         <td><input type="button" class="btn btn-default" value="-" onClick="delLine({{ $k + 1 }})"></td>
                                 </tr>
@@ -447,7 +447,7 @@
                                         <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$k + 1}}" name="typec_{{$k+1}}_price" value="{{ $Number_of_reservations->typec_price->{$k+1} }}" style="width: 80%;">円</td>
                                         <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$k + 1}}" name="typec_{{$k+1}}_number" value="{{ $Number_of_reservations->typec_number->{$k+1} }}">名</td>
                                         <td id="per-text-price{{ ($k + 1) }}" style="text-align: right;">{{ number_format($Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1}) }}円</td>
-                                        <input type="hidden" id="per-price{{ $k + 1 }}" value="{{ $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1} }}"> 
+                                        <input type="hidden" id="per-price{{ $k + 1 }}" value="{{ $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1} }}">
                                         <?php $Sumpt += $Number_of_reservations->typec_price->{$k+1} * $Number_of_reservations->typec_number->{$k+1};$Number_req[$k+1]=$Number_of_reservations->typec_number->{$k+1};?>
                                         <td><input type="button" class="btn btn-default" value="-" onClick="delLine({{ $k + 1 }})"></td>
                                 </tr>
@@ -485,7 +485,7 @@
                                     <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$k + 1}}" name="typec_{{$k+1}}_price" value="0" style="width: 80%;">円</td>
                                     <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$k + 1}}" name="typec_{{$k+1}}_number" value="0">名</td>
                                     <td id="per-text-price{{ ($k + 1) }}" style="text-align: right;">0円</td>
-                                    <input type="hidden" id="per-price{{ $k + 1 }}" value="0"> 
+                                    <input type="hidden" id="per-price{{ $k + 1 }}" value="0">
                             </tr>
                             @endfor
                             @endif

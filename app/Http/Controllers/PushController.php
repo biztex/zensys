@@ -128,7 +128,7 @@ class PushController extends Controller
                                 ->bcc(['kaname-n@magokorobin.com', 'test@toebisu.jp'])
                                 //->from('no-reply@blue-tourism-hokkaido.website')
                                 ->from('test@toebisu.jp')
-                                ->subject("【全旅】予約確定メール");
+                                ->subject("【長野電鉄株式会社】予約確定メール");
                         }
                         });
                         // メール送信タイミング変更
@@ -141,7 +141,7 @@ class PushController extends Controller
                             ->to('test@toebisu.jp')
                             ->bcc('kaname-n@magokorobin.com')
                             ->from('test@toebisu.jp')
-                            ->subject("【全旅】コンビニ決済完了メール");
+                            ->subject("【長野電鉄株式会社】コンビニ決済完了メール");
                         });
                     }
                 }

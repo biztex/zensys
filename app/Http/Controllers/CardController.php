@@ -152,8 +152,9 @@ class CardController extends Controller
                     if ($reservation->user->email) {
                         $message
                         ->to($reservation->user->email)
+                        ->bcc(['test@toebisu.jp'])
                         ->from('info@zenryo-ec.com')
-                        ->subject("【予約確認】株式会社全旅");
+                        ->subject("【予約確認】長野電鉄株式会社");
                 }
                 });
                 // ベリトランスオーダーIDをDBへ格納

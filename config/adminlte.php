@@ -286,12 +286,12 @@ return [
             'url'  => '/client/reservations/',
             'icon' => 'fas fa-fw fa-calendar-check',
         ],
-    
-        [
-            'text' => '会員管理',
-            'url'  => '/client/users/',
-            'icon' => 'fas fa-fw fa-user-circle',
-        ],
+
+        // [
+        //     'text' => '会員管理',
+        //     'url'  => '/client/users/',
+        //     'icon' => 'fas fa-fw fa-user-circle',
+        // ],
         [
             'text' => '管理者管理',
             'url'  => '/client/',

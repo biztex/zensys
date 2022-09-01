@@ -1,5 +1,5 @@
 /***********
- * cl 
+ * cl
  **********/
 
 span.select-items {
@@ -19,4 +19,8 @@ span.select-items:hover {
 .note-popover.popover {
     top: 100px !important;
     left: 0 !important;
+}
+
+.helper-pl-7-per {
+    padding-left: 7%;
 }

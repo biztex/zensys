@@ -176,7 +176,7 @@
                                 <input id="destination" type="text" class="form-control" name="destination" value="{{ old('destination',$plans->destination) }}">
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('お食事') }}</label>
                             <div class="col-md-6">
@@ -216,9 +216,9 @@
                                 <div class="col-md-12 p-0">
                                     <input id="notice" type="text" name="notice" class="form-control" value="{{ old('notice',$plans->notice) }}">or
                                 </div>
-                                
+
                                 <div class="col-md-12 mt-2">
-                                    
+
                                     @empty ($plans->file_path11)
                                         <input type="file" class="col-md-6" name="file_path11" id="file_path11">
                                     @else
@@ -228,7 +228,7 @@
                                     <!-- <input type="checkbox" name="del_fiel11" value="1">削除 -->
                                     @endempty
                                 </div>
-                              
+
                             </div>
 
                         </div>
@@ -248,6 +248,7 @@
 
                             </div>
                         </div>
+                        <p class="text-danger helper-pl-7-per">※乗車地、降車地を必須にした場合は同行者情報も必須になります。</p>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('乗車地　設定') }}</label>
                             <div class="col-md-4">
@@ -282,7 +283,7 @@
                                 </select>
                             </div>
                         </div>
-   
+
        <!--                  <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">自動延長設定</label>
                             <label class="radio-inline">
@@ -292,8 +293,8 @@
                               <input class="ml-5" type="radio" name="is_autoextend" value="0" @if ($plans->is_autoextend == 0) checked @endif> <span> 自動で延長しない</span>
                             </label>
                         </div> -->
-                       
-             
+
+
 <!--                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <div type="" class="btn btn-default" name="add-activity">
@@ -324,7 +325,7 @@
                                 </select>
                             </div>
                             <p class="col-md-4 col-form-label text-md-left">※選択した大カテゴリから絞り込まれます</p>
-           
+
                         </div> -->
                          <!-- <div class="after-road-section-1"></div> -->
                         <hr />
@@ -332,12 +333,12 @@
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
 
-                      
+
                           @foreach ($plans-> road_maps as $road_map)
 
                          <div class="after-road-section-{{ $loop->index  }}">
 
-                         
+
                                                     <div class="form-group row">
                                 <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表{{ $loop->index + 1 }}日目</label>
                                 @if ($loop->last && $loop->count != 1)
@@ -346,7 +347,7 @@
                                         <i class="fas fa-fw fa-window-close"></i> この行程表を削除
                                     </div>
                                 </div>
-                                @elseif (!$loop->first && $loop->count != 1) 
+                                @elseif (!$loop->first && $loop->count != 1)
                                 <div class="col-md-3">
                                     <div type="" class="btn btn-default" name='delete-road-{{ $loop->index + 1 }}' style="display: none;" value=''>
                                         <i class="fas fa-fw fa-window-close"></i> この行程表を削除
@@ -421,7 +422,7 @@
                     </div>
                          @endforeach
                          <div class="after-road-section-{{ count($plans-> road_maps)  }}"></div>
-                         
+
                          <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <div type="" class="btn btn-default" name='add-road'>
@@ -446,7 +447,7 @@
 <!--                             <label class="checkbox-inline">
                               <input class="ml-5" type="radio" name="res_type" value="1" @if ($plans->res_type == 1) checked @endif> <span> 併用</span>
                             </label> -->
-                            
+
                         </div>
                         <!-- <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 受付開始日時</label>
@@ -492,8 +493,9 @@
                         <hr />
                         <div class="form-group row mt-4 insert-res-point">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 受付締切日時</label>
+                            <p class="text-danger pl-4">※予約受付タイプで選択したほうの受付締切日時をご記入ください。</p>
                         </div>
-                      
+
                         <div class="form-group row ml-5 res-section2">
                             <div class="col-md-2">
                                 <label class="col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
@@ -537,7 +539,7 @@
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">時まで受付する</label>
                         </div>
-                       
+
                         <div class="form-group row ml-5 req-section">
 
                             <div class="col-md-2">
@@ -589,7 +591,7 @@
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="res_limit_number" value="{{ old('res_limit_number',$plans->res_limit_number) }}">
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row mt-4">
@@ -623,9 +625,9 @@
                             <label class="radio-inline">
                               <input class="ml-5" type="checkbox" name="spot" value="1" @if ($plans->spot == 1) checked @endif> <span> 現地払い</span>
                             </label>
-                            
-                            
-                            
+
+
+
                         </div>
                         <div class="form-group row spot_payment_section">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 現地での支払方法</label>
@@ -673,7 +675,7 @@
                             <div class="col-md-6">
                                 <textarea id="name" type="textarea" class="form-control payment_comment" name="payment_comment" maxlength="200" rows="2" placeholder="※最大200文字まで">{{ old('payment_comment',$plans->payment_comment) }}</textarea>
                                 <span id="plan_comment_count" class="d-block text-lg-right">200/200</span>
-                           
+
                             </div>
                         </div>
 
@@ -714,7 +716,7 @@
                                         <i class="fas fa-fw fa-window-close"></i> この料金区分を削除
                                     </div>
                                 </div>
-                                @elseif (!$loop->first && $loop->count != 1) 
+                                @elseif (!$loop->first && $loop->count != 1)
                                 <div class="col-md-3">
                                     <div type="" class="btn btn-default" name='delete-price-{{ $loop->index + 1 }}' style="display: none;" value=''>
                                         <i class="fas fa-fw fa-window-close"></i> この料金区分を削除
@@ -816,8 +818,8 @@
                                         </tr>
                                     </table>
                                 </div>
-                       
-                          
+
+
                             <!-- <div class="form-group row">
                                 <label class="col-md-2 col-form-label text-md-right discount-price" style="padding: 0 0 3px 0;">【割引前の料金】</label>
                                 <div class="col-md-3 discount-price">
@@ -872,9 +874,9 @@
                                     <input id="name" type="text" class="form-control" name="price_holiday{{ $loop->index + 1 }}" value="{{ old('price_holiday',$price->holiday) }}">
                                 </div>
                             </div> -->
-                             
-                        </div> 
-                       
+
+                        </div>
+
                         <div class="after-price-section-{{ $loop->index + 1 }}"></div>
                         @endforeach
                         <div class="form-group row mb-0">
@@ -893,7 +895,7 @@
                                 <span id="plan_include_count" class="d-block text-lg-right">100/100</span>
                             </div>
                         </div>
-                        
+
 
                         <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 予約者への質問・注意事項の設定</span></label>
@@ -958,7 +960,7 @@
                         <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> キャンセル規定</span></label>
                         </div>
-                        
+
 
 
 
@@ -969,12 +971,12 @@
                                 <textarea id="cancel" type="textarea" class="form-control" name="cancel" rows="4" placeholder="※最大1000文字まで">{{ old('cancel',$plans->cancel) }}</textarea>
                             </div>
                         </div>
-                      
+
 
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真設定</span></label>
                         </div>
-                        <b style="color: red">※画像アップロード容量は一枚1MBとなります</b>
+                        <b style="color: red">※推奨サイズはwidth1200px、height800pxです。画像アップロード容量は一枚1MBとなります</b>
                         <div class="form-group row">
                             <br>
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイン画像') }}</label>
@@ -1167,9 +1169,9 @@
                                 </button>
 -->
                                 <input type="submit" class="btn btn-primary submit" data-action="{{config('app.url')}}client/plans/update/{{ $plans->id }}" value="変更する">
-				
+
 				<input type="submit" class="btn btn-warning submit" data-action="{{config('app.url')}}client/plans/update-tmp/{{ $plans->id }}" value="下書き保存">
-				
+
                                 <a href="{{config('app.url')}}client/plans" class="btn btn-secondary">戻る</a>
                             </div>
                         </div>
@@ -1456,7 +1458,7 @@ $('input[name="res_limit_flag"]').change(function() {
     var val = $(this).val();
     if (val == 0) {
         $('.switch-limit-number').html('人');
-    } else { 
+    } else {
         $('.switch-limit-number').html('件');
     }
 });
@@ -1467,7 +1469,7 @@ $('input[name="res_type"]').change(function() {
         $('.res-limit-section').hide();
         $('.res-section2').insertBefore('.req-section');
         $('.res-section1').insertBefore('.req-section');
-    } else { 
+    } else {
         $('.res-limit-section').show();
         $('.res-section2').insertAfter('.insert-res-point');
         $('.res-section1').insertAfter('.insert-res-point');
@@ -1476,42 +1478,42 @@ $('input[name="res_type"]').change(function() {
 $('input[name="price_week_flag1"]').change(function() {
     if ($('input[name="price_week_flag1"]').prop('checked')) {
         $('.week-price-section-1').show();
-    } else { 
+    } else {
         $('.week-price-section-1').hide();
     }
 });
 $('input[name="price_week_flag2"]').change(function() {
     if ($('input[name="price_week_flag2"]').prop('checked')) {
         $('.week-price-section-2').show();
-    } else { 
+    } else {
         $('.week-price-section-2').hide();
     }
 });
 $('input[name="price_week_flag3"]').change(function() {
     if ($('input[name="price_week_flag3"]').prop('checked')) {
         $('.week-price-section-3').show();
-    } else { 
+    } else {
         $('.week-price-section-3').hide();
     }
 });
 $('input[name="price_week_flag4"]').change(function() {
     if ($('input[name="price_week_flag4"]').prop('checked')) {
         $('.week-price-section-4').show();
-    } else { 
+    } else {
         $('.week-price-section-4').hide();
     }
 });
 $('input[name="price_week_flag5"]').change(function() {
     if ($('input[name="price_week_flag5"]').prop('checked')) {
         $('.week-price-section-5').show();
-    } else { 
+    } else {
         $('.week-price-section-5').hide();
     }
 });
 $('input[name="price_week_flag6"]').change(function() {
     if ($('input[name="price_week_flag6"]').prop('checked')) {
         $('.week-price-section-6').show();
-    } else { 
+    } else {
         $('.week-price-section-6').hide();
     }
 });
@@ -1795,7 +1797,7 @@ $('div[name="add-price"]').click(function(e) {
           $('select[name="price_type"]').append($('<option>').html(val.name).val(val.number));
         });
         if ($('input[name="is_discount"]:checked').val() == 1) {
-	    $('.discount-price').show();   
+	    $('.discount-price').show();
         }
         $(".added-price-number-").attr('class', 'added-price-number-' + val);
         $(".added-price-number-" + val).text(val + 1);
@@ -1881,35 +1883,35 @@ $('div[name="add-price"]').click(function(e) {
         $('input[name="price_week_flag2"]').change(function() {
             if ($('input[name="price_week_flag2"]').prop('checked')) {
                 $('.week-price-section-2').show();
-            } else { 
+            } else {
                 $('.week-price-section-2').hide();
             }
         });
         $('input[name="price_week_flag3"]').change(function() {
             if ($('input[name="price_week_flag3"]').prop('checked')) {
                 $('.week-price-section-3').show();
-            } else { 
+            } else {
                 $('.week-price-section-3').hide();
             }
         });
         $('input[name="price_week_flag4"]').change(function() {
             if ($('input[name="price_week_flag4"]').prop('checked')) {
                 $('.week-price-section-4').show();
-            } else { 
+            } else {
                 $('.week-price-section-4').hide();
             }
         });
         $('input[name="price_week_flag5"]').change(function() {
             if ($('input[name="price_week_flag5"]').prop('checked')) {
                 $('.week-price-section-5').show();
-            } else { 
+            } else {
                 $('.week-price-section-5').hide();
             }
         });
         $('input[name="price_week_flag6"]').change(function() {
             if ($('input[name="price_week_flag6"]').prop('checked')) {
                 $('.week-price-section-6').show();
-            } else { 
+            } else {
                 $('.week-price-section-6').hide();
             }
         });
@@ -2067,8 +2069,8 @@ $(document).ready(function(){
     });
     $(".cboxElement").colorbox({
         inline:true,
-        width:"60%",      
-    });   
+        width:"60%",
+    });
     $('#map2').colorbox({
         inline: true,
         transition: 'none',
@@ -2080,8 +2082,8 @@ $(document).ready(function(){
     });
     $(".cboxElement").colorbox({
         inline:true,
-        width:"60%",      
-    });   
+        width:"60%",
+    });
 
 });
 
@@ -2094,8 +2096,8 @@ function deleteFile(i) {
     $('#img' + i).remove();
     $('#deletebtn' + i).remove();
     $('#hidden' + i).remove();
-    $('#div-img' + i).append('<input type="file" name="file_path' + i + '">');    
-    $('#div-button' + i).append('<input type="button" id="clearbtn' + i + '" class="btn btn-light btn-sm" value="画像選択を解除" onClick="clearFile(' + i + ')"/>');    
+    $('#div-img' + i).append('<input type="file" name="file_path' + i + '">');
+    $('#div-button' + i).append('<input type="button" id="clearbtn' + i + '" class="btn btn-light btn-sm" value="画像選択を解除" onClick="clearFile(' + i + ')"/>');
 }
 
 // 送信ボタン切り分け
@@ -2117,7 +2119,7 @@ function ajaxGenres(name) {
         if ($('#genre_id').val() > 0) {
             var genreid = $('#genre_id').val();
             $('select[name="genre_name"] option[value="' + genreid + '"]').prop('selected', true);
-        } 
+        }
     })
     .fail(function(XMLHttpRequest, textStatus, errorThrown){
         alert(errorThrown);
@@ -2127,7 +2129,7 @@ function ajaxGenres(name) {
 $('div[name="add-road"]').click(function(e) {
     e.stopPropagation();
     var val = Number($(this).children('input[type="hidden"]').val());
-    
+
     if (val == 5) {
         $(this).hide();
     }
@@ -2136,7 +2138,7 @@ $('div[name="add-road"]').click(function(e) {
     $(".after-road-section-" + (val)).load('{{config('app.url')}}html/plan-road.php', function() {
 
         if ($('input[name="is_discount"]:checked').val() == 1) {
-	    $('.discount-road').show();   
+	    $('.discount-road').show();
         }
         $(".added-road-number-").attr('class', 'added-road-number-' + val);
         $(".added-road-number-" + val).text(val + 1);
@@ -2192,35 +2194,35 @@ $('div[name="add-road"]').click(function(e) {
         $('input[name="price_week_flag2"]').change(function() {
             if ($('input[name="price_week_flag2"]').prop('checked')) {
                 $('.week-price-section-2').show();
-            } else { 
+            } else {
                 $('.week-price-section-2').hide();
             }
         });
         $('input[name="price_week_flag3"]').change(function() {
             if ($('input[name="price_week_flag3"]').prop('checked')) {
                 $('.week-price-section-3').show();
-            } else { 
+            } else {
                 $('.week-price-section-3').hide();
             }
         });
         $('input[name="price_week_flag4"]').change(function() {
             if ($('input[name="price_week_flag4"]').prop('checked')) {
                 $('.week-price-section-4').show();
-            } else { 
+            } else {
                 $('.week-price-section-4').hide();
             }
         });
         $('input[name="price_week_flag5"]').change(function() {
             if ($('input[name="price_week_flag5"]').prop('checked')) {
                 $('.week-price-section-5').show();
-            } else { 
+            } else {
                 $('.week-price-section-5').hide();
             }
         });
         $('input[name="price_week_flag6"]').change(function() {
             if ($('input[name="price_week_flag6"]').prop('checked')) {
                 $('.week-price-section-6').show();
-            } else { 
+            } else {
                 $('.week-price-section-6').hide();
             }
         });
@@ -2281,4 +2283,3 @@ $('#cancel').summernote({
 <script src="{{ asset('/js/ajaxzip3.js')}}"></script>
 
 @stop
-

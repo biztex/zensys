@@ -1,5 +1,3 @@
-@extends('adminlte::page')
-
 <head>
 <link rel="stylesheet" href="{{asset('css/menu.css')}}">
 <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
@@ -12,7 +10,7 @@
     });
   </script>
 </head>
-<body>
+<body style="padding: 20px;">
     <form action="{{config('app.url')}}client/reservations/sendpaymentmail/{{ $reservation->id }}" method="POST">
       @csrf
       @method('PUT')
@@ -30,7 +28,7 @@
 =====================================</br>
 {{ $name_last }} {{ $name_first }}　様</br>
 </br>
-この度は株式会社全旅からのご予約、誠にありがとうございました。</br>
+この度は長野電鉄株式会社からのご予約、誠にありがとうございました。</br>
 </br>
 以下の内容にて予約を承っておりますのでご確認ください。</br>
 </br>
@@ -103,10 +101,10 @@ $custom_view = true;
 尚、キャンセルをご希望の場合は直接当社へご連絡ください。</br>
 <a href="https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}">https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}</a></br>
 =====================================</br>
-株式会社全旅</br>
+長野電鉄株式会社</br>
 </br>
-所在地	〒104-0061　東京都中央区銀座8-13-1　銀座三井ビルディング2F</br>
-電話番号	03-6264-3132</br>
-公式サイト:　 https://www.zenryo.co.jp</br>
+〒380-0823 長野県長野市南千歳長電長野パーキング1F</br>
+TEL.026-227-3535</br>
+URL. https://nagaden-kanko.com/</br>
 =====================================</br>
 </body>

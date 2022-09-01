@@ -149,8 +149,9 @@ class CvsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
+                    ->bcc(['test@toebisu.jp'])
                     ->from('info@zenryo-ec.com')
-                    ->subject("【入金依頼】株式会社全旅");
+                    ->subject("【入金依頼】長野電鉄株式会社");
 	        }
             });
             // ベリトランスオーダーIDをDBへ格納

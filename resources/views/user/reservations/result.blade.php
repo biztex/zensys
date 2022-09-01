@@ -1,5 +1,5 @@
 @extends('layouts.parents')
-@section('title', '株式会社全旅 - 予約完了')
+@section('title', '長野電鉄株式会社 - 予約完了')
 @section('content')
     <div class="px-3 py-3 pt-md-5 mx-auto text-center">
         <ul class="list-unstyled">
