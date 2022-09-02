@@ -2757,7 +2757,7 @@ class PlansController extends Controller
     {
         try {
             $result = Plan::select()
-                ->orderBy('sort')
+                ->orderBy('sort','DESC')
                 ->get();
         } catch (\Exception $e) {
             $result = [
