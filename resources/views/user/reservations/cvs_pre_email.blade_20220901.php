@@ -2,25 +2,36 @@
 
 ※ご予約はまだ確定しておりません。
 
-この度は当社ホームページからのお申込、誠にありがとうございました。
+この度は当社ホームページからのご予約、誠にありがとうございました。
 
-手配が完了いたしました。{{ $reservation->plan->payment_plus_day }}日以内に以下のURLより、コンビニ決済のお手続きをお済ませの上、受付番号を控えてコンビニよりご入金をお願いいたします。
+以下の内容にてお申込を承っておりますのでご確認ください。
 
-【コンビニ決済手続きURL】
+尚、14日以内に指定のコンビニにてお支払をお願いいたします。
+
+※キャンセルをご希望の場合は直接実施会社へご連絡ください
+
+【コンビニ支払い情報】
 =====================================
-● コンビニエンスストア決済URL：{{ $url_cvs }}
-=====================================
+お支払い先コンビニエンスストア：ローソン・ファミリーマート・サークルKサンクス・ミニストップ・セイコーマート
+@if ($haraikomiUrl)
+払込票URL ：　{{ $haraikomiUrl }}
+@endif
+@if ($receiptNo)
+受付番号 ：　{{ $receiptNo }}
+お客様番号 ： {{ $tel2 }}
+お支払い期限 ：  {{ $payLimit->format('Y年m月d日') }} 23:59
+@endif
 
 【お申込情報】
 =====================================
 予約番号　：　{{ $number }}
-予約状況　：　決済待ち
+予約状況　：　未決済
 プラン名　：　{{ $plan }}　　
 お名前　　：　{{ $name_last }} {{ $name_first }}　様
-出発日　　：　{{ $date }}
-予約日　　：　{{ date_format($reservation->created_at, 'Y年m月d日') }}
+予約日　　：　{{ $date }}
 電話番号　：　{{ $tel }}
 メール　　：　{{ $email }}
+決済方法　：　{{ $payment }}
 予約人数
 ----------------------------------------------------
 @php
@@ -29,11 +40,9 @@ $custom_view = true;
   if(array_key_exists('custom_flg', $Number_of_reservations)){
     if($Number_of_reservations->custom_flg == 1){
       $custom_view = false;
-      $amount = 0;
       for($i=0; $i<20; $i++){
         if(!is_null($Number_of_reservations->price_name->{$i+1})){
           echo $Number_of_reservations->price_name->{$i+1} . " / " . $Number_of_reservations->typec_price->{$i+1} . " 円 × " . $Number_of_reservations->typec_number->{$i+1} . "=" . number_format($Number_of_reservations->typec_price->{$i+1} * $Number_of_reservations->typec_number->{$i+1}) . " 円" . "\n";
-          $amount += $Number_of_reservations->typec_price->{$i+1} * $Number_of_reservations->typec_number->{$i+1};
         }
       }
     }

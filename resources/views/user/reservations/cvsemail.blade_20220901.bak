@@ -17,8 +17,7 @@
 予約状況　：　決済待ち
 プラン名　：　{{ $plan }}　　
 お名前　　：　{{ $name_last }} {{ $name_first }}　様
-出発日　　：　{{ $date }}
-予約日　　：　{{ date_format($reservation->created_at, 'Y年m月d日') }}
+予約日　　：　{{ $date }}
 電話番号　：　{{ $tel }}
 メール　　：　{{ $email }}
 予約人数

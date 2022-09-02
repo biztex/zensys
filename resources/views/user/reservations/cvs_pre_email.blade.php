@@ -28,7 +28,8 @@
 予約状況　：　未決済
 プラン名　：　{{ $plan }}　　
 お名前　　：　{{ $name_last }} {{ $name_first }}　様
-予約日　　：　{{ $date }}
+出発日　　：　{{ $date }}
+予約日　　：　{{ date_format($reservation->created_at, 'Y年m月d日') }}
 電話番号　：　{{ $tel }}
 メール　　：　{{ $email }}
 決済方法　：　{{ $payment }}
