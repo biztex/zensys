@@ -2,15 +2,9 @@
 if ($_GET["plan_id"]) {
     $plan_id = $_GET["plan_id"];
 }
-
 $url = "http://153.127.31.62/zenryo/public/api/plan/json/" . $plan_id;
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_POST, false);
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$array = curl_exec($ch);
+$array = file_get_contents($url);
 $plan = json_decode($array,true);
-
 $plan = $plan[0];
 
 
@@ -35,14 +29,8 @@ for($k=0; $k<count($plan["prices"]); $k++){
 $plan_json = json_encode($array, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 $plan_json = str_replace('¥u0022', '¥¥¥"', $plan_json);
 $plan_json = str_replace('"', '', $plan_json);
-
-
 $url = "http://153.127.31.62/zenryo/public/api/roadMap/json/" . $plan_id;
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_POST, false);
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$array = curl_exec($ch);
+$array = file_get_contents($url);
 $roadmaps = json_decode($array,true);
 
 
@@ -51,23 +39,15 @@ $roadmap_json = str_replace('¥u0022', '¥¥¥"', $roadmap_json);
 $roadmap_json = str_replace('"', '', $roadmap_json);
 
 
+
 $url = "http://153.127.31.62/zenryo/public/api/price/json/" . $plan_id;
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_POST, false);
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$array = curl_exec($ch);
+$array = file_get_contents($url);
 $prices = json_decode($array,true);
 
 
 $url =  "http://153.127.31.62/zenryo/public/api/company/json";
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_POST, false);
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$company_array = curl_exec($ch);
+$company_array = file_get_contents($url);
 $companies = json_decode($company_array, true);
-
 
 $company = $companies[0];
 
@@ -88,23 +68,12 @@ if ($_GET["year"] && $_GET["month"]) {
 $next_y = $next_m_date->format('Y');
 $next_m = $next_m_date->format('m');
 
-
 $url_stocks = "http://153.127.31.62/zenryo/public/api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id.'/'.$priceType ;
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_POST, false);
-curl_setopt($ch, CURLOPT_URL, $url_stocks);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$json_stocks = curl_exec($ch);
-$stocks = json_decode($json_stocks, true);
-
-
+$json_stocks = file_get_contents($url_stocks);
+$stocks = json_decode($json_stocks,true);
 $url_stocks_next = "http://153.127.31.62/zenryo/public/api/stocks/json/" . $next_y . '/' . $next_m . '/' . $plan_id.'/'.$priceType;
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_POST, false);
-curl_setopt($ch, CURLOPT_URL, $url_stocks_next);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$json_stocks_next = curl_exec($ch);
-$stocks_next = json_decode($json_stocks_next, true);
+$json_stocks_next = file_get_contents($url_stocks_next);
+$stocks_next = json_decode($json_stocks_next,true);
 ?>
 <!-- HTMLコード -->
 <!DOCTYPE html>
