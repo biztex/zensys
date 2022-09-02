@@ -980,7 +980,7 @@
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真設定</span></label>
                         </div>
-                        <b style="color: red">※推奨サイズはwidth1200px、height800pxです。画像アップロード容量は一枚1MBとなります</b>
+                        <b style="color: red">※推奨サイズは横1200px、縦800pxです。。画像アップロード容量は一枚1MBとなります</b>
                         <div class="form-group row">
                             <br>
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイン画像') }}</label>

@@ -16,10 +16,7 @@ span.select-items:hover {
     width: 50px;
 }
 
-.note-popover.popover {
-    top: 100px !important;
-    left: 0 !important;
-}
+
 
 .helper-pl-7-per {
     padding-left: 7%;

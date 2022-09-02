@@ -16,6 +16,11 @@
     color: #fff
 }
 
+.note-popover.popover {
+    top: 80px !important;
+    left: 10px !important;
+}
+
 #cboxLoadedContent {
     top: 20px;
     position: relative;
