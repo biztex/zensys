@@ -547,6 +547,8 @@
                             
                             
                         </div>
+
+                    
                         <div class="form-group row spot_payment_section">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 現地での支払方法</label>
                             <label class="radio-inline">
@@ -556,6 +558,8 @@
                               <input class="ml-5" type="checkbox" name="card_flag" value="0" @if(old('card_flag', '0')=='1') checked @endif> <span> 現地カード払い</span>
                             </label>
                         </div>
+
+                       
                         <div class="form-group row card_section">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 現地での利用可能な<br />カード</label>
                             <label class="radio-inline">
@@ -595,6 +599,10 @@
                                 <span id="plan_comment_count" class="d-block text-lg-right">200/200</span>
 
                             </div>
+                        </div>
+
+                        <div class="form-group row mt-5 bg-dark">
+                            <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 支払期限設定</span></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 申込日＋</label>

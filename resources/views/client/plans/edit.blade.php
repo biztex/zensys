@@ -679,6 +679,10 @@
                             </div>
                         </div>
 
+                        <div class="form-group row mt-5 bg-dark">
+                            <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 支払期限設定</span></label>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 申込日＋</label>
                             <div class="col-md-2">
