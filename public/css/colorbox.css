@@ -16,12 +16,7 @@
     color: #fff
 }
 
-.note-popover.popover {
-    top: 80px !important;
-    right: 10px !important;
-    max-width: 181px !important;
-    left: auto !important;
-}
+
 
 #cboxLoadedContent {
     top: 20px;

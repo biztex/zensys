@@ -2277,6 +2277,29 @@ $('#cancel').summernote({
 });
 
 
+
+var css_count = 0;
+
+$("body").click(function(e) {
+   
+    if ( $(e.target).parents(".note-editor.note-frame.card").length ) {
+        let cs = parseInt($(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top")) - 100;
+        if($(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("display") == 'block'){
+            css_count++;
+        }
+        else{
+            css_count = 0;
+        }
+        
+        if(css_count < 2){
+            $(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top", cs + 'px')
+        }
+
+        console.log(css_count);
+    } 
+   
+  });
+
 </script>
 
 
