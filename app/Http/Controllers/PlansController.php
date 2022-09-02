@@ -527,6 +527,9 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
 
+        $plans->payment_plus_day = $request->payment_plus_day;
+        $plans->payment_final_deadline = $request->payment_final_deadline;
+
         
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
@@ -1029,6 +1032,8 @@ class PlansController extends Controller
         $plans->etc_card = $request->etc_card;
         $plans->etc_card_name = $request->etc_card_name;
         $plans->payment_comment = $request->payment_comment;
+        $plans->payment_plus_day = $request->payment_plus_day;
+        $plans->payment_final_deadline = $request->payment_final_deadline;
         // $plans->is_discount = $request->is_discount;
         $plans->included_item = $request->included_item;
         // $plans->place_name = $request->place_name ? $request->place_name : '';
@@ -1543,6 +1548,8 @@ class PlansController extends Controller
         $plans->etc_card = $request->etc_card;
         $plans->etc_card_name = $request->etc_card_name;
         $plans->payment_comment = $request->payment_comment;
+        $plans->payment_plus_day = $request->payment_plus_day;
+        $plans->payment_final_deadline = $request->payment_final_deadline;
         // $plans->is_discount = $request->is_discount;
         $plans->included_item = $request->included_item;
         // $plans->place_name = $request->place_name ? $request->place_name : '';
@@ -2467,6 +2474,8 @@ class PlansController extends Controller
         $plans->etc_card = $request->etc_card;
         $plans->etc_card_name = $request->etc_card_name;
         $plans->payment_comment = $request->payment_comment;
+        $plans->payment_plus_day = $request->payment_plus_day;
+        $plans->payment_final_deadline = $request->payment_final_deadline;
         // $plans->is_discount = $request->is_discount;
         $plans->included_item = $request->included_item;
         // $plans->place_name = $request->place_name;
