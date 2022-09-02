@@ -53,6 +53,8 @@
             $(this).val(1);
         }
     })
+
+                 
 </script>
 @stop
 @section('content')
@@ -115,10 +117,12 @@
                         <div class="col-md-8">
                             <select class="form-control" id="submit_select" name="plan_id">
                               @foreach ($plans as $plan)
-                              <option value="{{ $plan->id }}" @if(old('plan_id',$plan->id)==$default_plan->id) selected  @endif>（ @if($plan->is_listed == 0) 休止 @else 掲載中 @endif ）{{ $plan->name }}</option>
+                              <option value="{{ $plan->id }}" @if(old('plan_id',$plan->id)==$default_plan->id) selected  @endif>（ @if($plan->is_listed == 0) 休止 @else 掲載中 @endif ）{{ $plan->id }}{{ $plan->name }}</option>
                               @endforeach
                             </select>
                         </div>
+
+                      
 
                         @foreach ($plans as $plan)
                               <input id="{{ $plan->id }}_year" name="{{ date('Y' , strtotime($plan->start_day))}}" type="hidden"></input>
