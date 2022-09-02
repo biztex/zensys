@@ -15,20 +15,23 @@ $plan = $plan[0];
 
 
 
-
 $min_value = $plan["prices"][0]['a_1'];
 $max_value = $plan["prices"][0]['a_1']; 
+
 for($k=0; $k<count($plan["prices"]); $k++){
     $price_t = $plan["prices"][$k];
-
-    $alphas = ['b_1','c_1','d_1','e_1','f_1','g_1','h_1','i_1','j_1','k_1'];
-    for($j=0; $j<count($alphas) ; $j++ ){
-        if($max_value < $price_t[$alphas[$j]]){
-            $max_value = $price_t[$alphas[$j]]; 
+    $alphas = ['a','b','c','d','e','f','g','h','i','j','k'];
+    for($j=0; $j<count($alphas); $j++ ){
+        for($t=1; $t<4; $t++){
+            $com_val =  $alphas[$j].'_'.$t;
+            if($max_value < $price_t[$com_val]  && $price_t[$com_val] != null ){
+                $max_value = $price_t[$com_val]; 
+            }
+            else if($min_value > $price_t[$com_val] && $price_t[$com_val] != null){
+                $min_value = $price_t[$com_val];
+            }
         }
-        else if($min_value > $price_t[$alphas[$j]] && $price_t[$alphas[$j]] != null){
-            $min_value = $price_t[$alphas[$j]];
-        }
+       
     }
 }
 
@@ -74,7 +77,7 @@ $company = $companies[0];
 
 $priceType = $prices[0]['type'];
 $price_type_name=$prices[0]['name'];
-if ($_GET["year"] && $_GET["month"]) {
+if (isset($_GET["year"]) && isset($_GET["month"])) {
     $current_date = new DateTime($_GET["year"] . '-' . $_GET["month"]);
     $current_y = $current_date->format('Y');
     $current_m = $current_date->format('m');
