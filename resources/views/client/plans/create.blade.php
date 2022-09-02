@@ -2362,7 +2362,6 @@ $("body").click(function(e) {
             $(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top", cs + 'px')
         }
 
-        console.log(css_count);
     } 
    
   });
