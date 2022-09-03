@@ -1492,7 +1492,6 @@
                 if(top_pos == null){
                     top_pos = $("input[name='agree']").offset().top;
                 }
-                return;
             }
             else{
                 $("input[name='agree']").removeClass("error");
