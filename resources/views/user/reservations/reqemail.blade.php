@@ -25,6 +25,6 @@
   $Number_of_reservations = json_decode($reservation->Number_of_reservations);
   $arr = ['大人　','子供　','幼児　'];
   $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
-
+  var_dump($Number_of_reservations);
 @endphp
 
