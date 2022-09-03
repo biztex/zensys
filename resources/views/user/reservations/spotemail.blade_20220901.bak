@@ -17,20 +17,8 @@
 電話番号　　：　{{ $tel }}
 生年月日　　：　{{ $birth_year }}/{{ $birth_month }}/{{ $birth_day }}
 当日緊急連絡先　　：　{{ $tel2 }}
-出発日　　：　{{ $date }}
-予約日　　：　{{ date_format($reservation->created_at, 'Y年m月d日') }}
-決済方法　：　{{ $payment }}（下記口座へお振込ください）
-
-振込先口座
-----------------------------------------------------
-金融機関名：　{{ $bank->name }} （金融機関コード：{{ $bank->code }}）
-支店名　　：　{{ $bank->branch_name }}　(支店コード：{{ $bank->branch_code }})
-口座種別　：　@if ($bank->type == 0){{'普通'}}@else{{'当座'}}@endif　
-口座番号　：　{{ $bank->account_number }}
-口座名義　：　{{ $bank->account_name }}
-----------------------------------------------------
-※恐れ入りますが振込手数料はお客様ご負担にてお願いしております
-　
+予約日　　：　{{ $date }}
+決済方法　：　{{ $payment }} （現地にてご案内いたします）
 予約人数
 ----------------------------------------------------
 @php
@@ -77,5 +65,5 @@ https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}
 
 〒380-0823 長野県長野市南千歳長電長野パーキング1F
 TEL.026-227-3535
-URL. https://nagaden-kanko.com/</br>
+URL. https://nagaden-kanko.com/
 =====================================

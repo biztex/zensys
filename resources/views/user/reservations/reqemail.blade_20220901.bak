@@ -17,8 +17,7 @@
 電話番号　　：　{{ $tel }}
 生年月日　　：　{{ $birth_year }}/{{ $birth_month }}/{{ $birth_day }}
 当日緊急連絡先　　：　{{ $tel2 }}
-出発日　　：　{{ $date }}
-予約日　　：　{{ date_format($reservation->created_at, 'Y年m月d日') }}
+予約日　　：　{{ $date }}
 予約人数
 ----------------------------------------------------
 @php

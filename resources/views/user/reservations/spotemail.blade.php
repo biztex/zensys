@@ -17,7 +17,8 @@
 電話番号　　：　{{ $tel }}
 生年月日　　：　{{ $birth_year }}/{{ $birth_month }}/{{ $birth_day }}
 当日緊急連絡先　　：　{{ $tel2 }}
-予約日　　：　{{ $date }}
+出発日　　：　{{ $date }}
+予約日　　：　{{ date_format($reservation->created_at, 'Y年m月d日') }}
 決済方法　：　{{ $payment }} （現地にてご案内いたします）
 予約人数
 ----------------------------------------------------
