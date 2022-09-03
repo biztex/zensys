@@ -832,6 +832,10 @@
 
                     num_flag = true;
                 }
+                else{
+                    $(this).removeClass("error");
+                    $(this).next().removeClass("error");
+                }
                 
             });
             if(num_flag == false){
@@ -1499,12 +1503,14 @@
             }
 
 
-        
+            let submit_flag = true;
 
             if(top_pos != null){
                 $('html, body').animate({
                     scrollTop: top_pos - 150
                 }, 1000);
+                submit_flag = false;
+
             }
             else{
                 let number = 0;
@@ -1515,12 +1521,20 @@
                 });
                 if(number != parseInt($("input[name='limit_number']").val())){
                     alert("参加人数と予約数が一致しません。");
-                    return;
+                    submit_flag = false;
                 }
+                else{
+                    submit_flag = true;
+
+                }
+            }
+
+            if(submit_flag == true){
                 $('form.reserveCont').submit();
             }
+
         
-        })  
+        })  ;
         
     </script>
 </body>
