@@ -23,8 +23,25 @@
 .section.section--company .section__content .about .info .link-panel .link {
     font-size: 21px
 }
+textarea.error,
+select.error,
+input.error{
+    background-color: rgba(255, 0, 0, .3);
+}
+input[type='checkbox'].error{
+    -webkit-box-shadow: 0px 0px 0px 1px rgba(255,0,0,1);
+    -moz-box-shadow: 0px 0px 0px 1px rgba(255,0,0,1);
+    box-shadow: 0px 0px 0px 1px rgba(255,0,0,1);
+}
 
-
+.errorMessage{
+    display: none;
+    color: #f00;
+    white-space: nowrap;
+}
+.errorMessage.error{
+    display: block;
+}
 
 @media screen and (max-width: 767px) {
     .page-wrapper--company .details .item .item__name {

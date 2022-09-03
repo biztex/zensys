@@ -6,13 +6,13 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info/assets/img/favicon2_2.ico" />
+    <link rel="shortcut icon" href="{{asset('assets/img/favicon2_2.ico')}}" />
 
     <!-- css -->
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
+    <link rel="stylesheet" href="{{asset('libs/slick/slick.css')}}">
+    <link rel="stylesheet" href="{{asset('libs/slick/slick-theme.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/theme.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/add.css')}}">
     <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/vendor/adminlte/dist/css/adminlte.css">
 
     <!-- javascript -->
@@ -101,7 +101,10 @@
                                                         echo '<input type="hidden" name="price_table_price[]" value="'. number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) . '">';
                                                         $str = "type" . $priceType['number'] ."_". strtolower($stock['rank']) ."_" . $i . "_number";
                                                         @endphp
-                                                        <p><input type="text" name="<?php echo 'type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number'?>" class="number" min="0" max="'.$stock->limit_number.'" value="{{old($str)}}"> 人</p>
+                                                        <p>
+                                                            <input type="text" name="<?php echo 'type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number'?>" class="number" min="0" max="'.$stock->limit_number.'" value="{{old($str)}}"> 人
+                                                            <span class="errorMessage"></span>
+                                                        </p>
                                                         @php
                                                         echo '</div>';
                                                     }
@@ -153,11 +156,17 @@
                                         <td>
                                             <div class="halfP">
                                                 <span>姓</span>
-                                                <input class="midIpt" id="name_last" type="text"name="name_last" value="{{ old('name_last') }}" required>
+                                                <div>
+                                                    <input class="midIpt" id="name_last" type="text" name="name_last" value="{{ old('name_last') }}">
+                                                    <span class="errorMessage"></span>
+                                                </div>
                                             </div>
                                             <div class="halfP">
                                                 <span>名</span>
-                                                <input class="midIpt" id="name_first" type="text" name="name_first" value="{{ old('name_first') }}" required>
+                                                <div>
+                                                    <input class="midIpt" id="name_first" type="text" name="name_first" value="{{ old('name_first') }}">
+                                                    <span class="errorMessage"></span>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -166,11 +175,17 @@
                                         <td>
                                             <div class="halfP">
                                                 <span>セイ</span>
-                                                <input class="midIpt" type="text" id="kana_last" name="kana_last" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*"  value="{{ old('kana_last') }}"  required>
+                                                <div>
+                                                    <input class="midIpt" type="text" id="kana_last" name="kana_last" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*"  value="{{ old('kana_last') }}"  required>
+                                                    <span class="errorMessage"></span>
+                                                </div>
                                             </div>
                                             <div class="halfP">
                                                 <span>メイ</span>
-                                                <input class="midIpt" type="text" id="kana_first" name="kana_first" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" value="{{ old('kana_first') }}" required>
+                                                <div>
+                                                    <input class="midIpt" type="text" id="kana_first" name="kana_first" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" value="{{ old('kana_first') }}" required>
+                                                    <span class="errorMessage"></span>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -192,9 +207,12 @@
                                     <tr class="ageTr">
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
-                                                <div class="ageP">
-                                                    <input class="midIpt" type="text" name="age" value="{{ old('age')}}" required>
-                                                    <span>才</span>
+                                                <div>
+                                                    <div class="ageP"> 
+                                                        <input class="midIpt" type="text" name="age" value="{{ old('age')}}" required> <span>才</span>
+                                                    </div>
+                                                    <span class="errorMessage"></span>
+
                                                 </div>
                                             </td>
                                         </tr>
@@ -202,30 +220,37 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="dateP">
-                                            <select name="birth_year" required><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" required><option value="">選択してください</option> @for ($i = 1 ; $i <= 31 ; $i++)<option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year" required><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" required><option value="">選択してください</option> @for ($i = 1 ; $i <= 31 ; $i++)<option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                             </div>
+                                            <span class="errorMessage"></span>
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>メールアドレス<span class="requiredRed">※</span></th>
                                         <td>
                                             <input type="email" name="email" id="email"  class="width-half" value="{{ old('email') }}" required>
+                                            <span class="errorMessage"></span>
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>メールアドレス確認<span class="requiredRed">※</span></th>
                                         <td>
-                                            <input class="width-half form-control" type="email" name="email_confirmation"  id="email-confirm" value="{{ old('email_confirmation') }}" onblur="confirmEmail()"  required>
-                                            <p id="confAlert" class="requiredRed"></p>
+                                            <input class="width-half form-control" type="email" name="email_confirmation"  id="email-confirm" value="{{ old('email_confirmation') }}"  required>
+                                            <span class="errorMessage"></span>
                                         </td>
                                     </tr>
                                     <tr class="zipTr h-adr">
                                         <th class="topTh">住所<span class="requiredRed">※</span></th>
                                         <td>
                                             <span class="p-country-name" style="display:none;">Japan</span>
-                                            <div class="zipP01">
-                                                <span>〒</span>
-                                                <input class="midIpt p-postal-code" type="text" name="postalcode" pattern="\d{3}-?\d{4}" value="{{ old('postalcode') }}" placeholder="ハイフンなしで入力" required>
+                                            <div class="">
+                                                <div class="zipP01">
+                                                    <span>〒</span>
+                                                    <input class="midIpt p-postal-code" type="text" name="postalcode" pattern="\d{7}" value="{{ old('postalcode') }}" placeholder="ハイフンなしで入力" required>
+                                                </div>
+                                                <span class="errorMessage"></span>
                                             </div>
                                             <select  id="contact_address_pref" name="prefecture" required class="p-region midIpt">
                                             <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
@@ -283,6 +308,7 @@
                                             <div class="zipP02">
                                                 <p>番地、アパート、マンション名等</p>
                                                 <input class="width-half p-extended-address" type="text" name="extended" value="{{ old('extended') }}" required>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -290,12 +316,14 @@
                                         <th>電話番号<span class="requiredRed">※</span></th>
                                         <td>
                                             <input class="" type="text" name="tel" pattern="\d{2,4}-?\d{2,4}-\d{3,4}" value="{{ old('tel') }}" required placeholder="ハイフンありで入力">
+                                            <span class="errorMessage"></span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>緊急連絡先<span class="requiredRed">※</span></th>
                                         <td>
                                             <input class="" type="text" name="tel2" pattern="\d{2,4}-\d{2,4}-\d{3,4}" value="{{ old('tel2') }}" required placeholder="ハイフンありで入力">
+                                            <span class="errorMessage"></span>
                                         </td>
                                     </tr>
                                     @if( isset($pieces) && count($pieces) > 0)
@@ -308,6 +336,8 @@
                                                     <option value="{{$piece}}" @if(old('planBoarding') == $piece) selected @endif>{{$piece}}</option>
                                                 @endforeach
                                             </select>
+                                            <span class="errorMessage"></span>
+
                                         </td>
                                     </tr>
                                     @endif
@@ -321,6 +351,8 @@
                                                     <option value="{{$drop}}" @if(old('planDrop') == $drop) seleted @endif>{{$drop}}</option>
                                                 @endforeach
                                             </select>
+                                            <span class="errorMessage"></span>
+
                                         </td>
                                     </tr>
                                     @endif
@@ -404,18 +436,7 @@
                                     @endif
                                 });
 
-                                function confirmEmail() {
-                                    var email = document.getElementById("email").value
-                                    var confemail = document.getElementById("email-confirm").value
-                                    var confemailAlert = document.getElementById("confAlert");
-                                    if(email != confemail) {
-                                        confemailAlert.innerHTML = "メールアドレスと確認用メールアドレスが一致しません";
-                                    }
-                                    else{
-                                        confemailAlert.innerHTML = "";
-
-                                    }
-                                }
+                              
                             </script>
                             <div class="reserveItem helperMarginTop">
                                 <h4 class="reserveItemHd">旅行参加者情報</h4>
@@ -428,11 +449,17 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>姓</span>
-                                                    <input class="midIpt" type="text" name="add_lastname[]" value="{!! old('add_lastname.0') !!}" required>
+                                                    <div>
+                                                        <input class="midIpt" type="text" name="add_lastname[]" value="{!! old('add_lastname.0') !!}" required>
+                                                        <span class="errorMessage"></span>
+                                                    </div>
                                                 </div>
                                                 <div class="halfP">
                                                     <span>名</span>
-                                                    <input class="midIpt" type="text" name="add_firstname[]" value="{{ old('add_firstname.0') }}" required>
+                                                    <div>
+                                                         <input class="midIpt" type="text" name="add_firstname[]" value="{{ old('add_firstname.0') }}" required>
+                                                        <span class="errorMessage"></span>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -441,20 +468,29 @@
                                             <td>
                                                 <div class="halfP">
                                                     <span>セイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1.0') }}" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" required>
+                                                    <div>
+                                                        <input class="midIpt" type="text" name="join_kana1[]" value="{{ old('join_kana1.0') }}" pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" required>
+                                                        <span class="errorMessage"></span>
+                                                    </div>
                                                 </div>
                                                 <div class="halfP">
                                                     <span>メイ</span>
-                                                    <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2.0') }}"  pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" required>
+                                                    <div>
+                                                        <input class="midIpt" type="text" name="join_kana2[]" value="{{ old('join_kana2.0') }}"  pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" required>
+                                                        <span class="errorMessage"></span>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr class="ageTr">
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
-                                                <div class="ageP">
-                                                    <input class="midIpt" type="text" name="join_age[]"  value="{{ old('join_age.0') }}" required>
-                                                    <span>才</span>
+                                                <div>
+                                                    <div class="ageP">
+                                                        <input class="midIpt" type="text" name="join_age[]"  value="{{ old('join_age.0') }}" required>
+                                                        <span>才</span>
+                                                    </div>
+                                                    <span class="errorMessage"></span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -462,8 +498,10 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                <select name="birth_year_representative[]" required><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                    <select name="birth_year_representative[]" required><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
+                                                <span class="errorMessage"></span>
+
                                             </td>
                                         </tr>
                                         <tr>
@@ -482,10 +520,14 @@
                                             <th class="topTh">住所<span class="requiredRed">※</span></th>
                                             <td>
                                                 <span class="p-country-name" style="display:none;">Japan</span>
-                                                <div class="zipP01">
-                                                    <span>〒</span>
-                                                    <input class="midIpt p-postal-code" type="text" name="postalcode_representative" pattern="\d{3}-?\d{4}" value="{{ old('postalcode_representative') }}" placeholder="ハイフンなしで入力" required>
+                                                <div>
+                                                    <div class="zipP01">
+                                                        <span>〒</span>
+                                                        <input class="midIpt p-postal-code" type="text" name="postalcode_representative" pattern="\d{3}-?\d{4}" value="{{ old('postalcode_representative') }}" placeholder="ハイフンなしで入力" required>
+                                                    </div>
+                                                    <span class="errorMessage"></span>
                                                 </div>
+                                              
                                                 <select  id="contact_address_pref" name="prefecture_representative" required class="p-region midIpt">
                                                 <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
                                                     <option value="青森県" @if(old('prefecture')=='青森県') selected @endif>青森県</option>
@@ -561,6 +603,7 @@
                                                         <option value="{{$piece}}" @if(old('boarding.0') == $piece) selected @endif>{{$piece}}</option>
                                                     @endforeach
                                                 </select>
+                                                <span class="errorMessage"></span>
                                             </td>
                                         </tr>
                                         @endif
@@ -574,6 +617,7 @@
                                                         <option value="{{$drop}}" @if(old('drop.0') == $drop) selected @endif>{{$drop}}</option>
                                                     @endforeach
                                                 </select>
+                                                <span class="errorMessage"></span>
                                             </td>
                                         </tr>
                                         @endif
@@ -594,7 +638,7 @@
                                         <th>お支払方法<span class="requiredRed">※</span></th>
                                         <td>
                                             <select name="payment_method" class="midSelect" required >
-                                                <option value="">選択してください</option>
+                                                <option value="" selected>選択してください</option>
                                                 @if ($plan->card == 1)
                                                         <option value="3" @if (old('payment_method') == 3) selected @endif>クレジットカード決済</option>
                                                 @endif
@@ -609,6 +653,8 @@
                                                 @endif
                                                
                                              </select>
+                                             <span class="errorMessage"></span>
+
                                         </td>
                                     </tr>
                                 </table>
@@ -624,31 +670,11 @@
                                         <th>プラン</th>
                                         <td>{{ $plan->name }}</td>
                                     </tr>
-                                    <!-- <tr>
-                                        <th>集合日時/集合場所</th>
-                                        <td>@if ($plan->meeting_point_flag == 1 && $plan->meeting_point_name)<strong class="meeting-point-placeholder"></strong><br />{{ $plan->meeting_point_name }}
-                                        〒{{ $plan->meeting_point_postalcode }}
-                                        {{ $plan->meeting_point_prefecture }}{{ $plan->meeting_point_address }}
-
-                                        アクセス：{{ $plan->meeting_point_access }}
-                                        @elseif ($plan->meeting_point_flag == 2)
-                                        @else
-                                        {{ $plan->place_name }}
-                                        〒{{ $plan->place_postalcode }}
-                                        {{ $plan->place_prefecture }}{{ $plan->place_address }}
-
-                                        アクセス：{{ $plan->place_access }}
-                                        @endif</td>
-                                    </tr> -->
                                     <tr>
                                         <th>目的地</th>
                                         <td>{{ $plan->destination }}
                                         </td>
                                     </tr>
-                                    <!-- <tr>
-                                        <th>キャンセル締切</th>
-                                        <td>{{ $plan->cancel_date }}</td>
-                                    </tr> -->
                                 </table>
                             </div>
 
@@ -658,6 +684,8 @@
                                 <div class="reserveTxt">
                                     <p>@if($plan->answer_flag == 1)<span class="requiredRed">※</span>@endif {{$plan->question_content}}</p>
                                     <textarea name="answer" class="reserveTextarea" @if($plan->answer_flag == 1) required @endif >{{ old('answer') }}</textarea>
+                                    <span class="errorMessage"></span>
+
                                 </div>
                             </div>
                             @endif
@@ -762,32 +790,739 @@
             e.preventDefault();
         })
 
+
+        function validate(evt) {
+            var theEvent = evt || window.event;
+
+            // Handle paste
+            if (theEvent.type === 'paste') {
+                key = event.clipboardData.getData('text/plain');
+            } else {
+            // Handle key press
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+            var regex = /[0-9]|\./;
+            if( !regex.test(key) ) {
+                theEvent.returnValue = false;
+                if(theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
       
-
-        $(".number").each(function(){
-            $(this).on("input",function(){
+        $(".btnLink01").click(function(e){
+            e.preventDefault();
+            let top_pos = null;
+            var num_flag = false;
+            //予約数
+            $(".number").each(function(){
                 let chars = $(this).val();
-                if (chars !== "" && $.isNumeric(chars)) {
-                    
-                    $(this).removeClass("error");
-                    $(this).val(fullWidthNumConvert(chars));
+                if(chars !== ""){
+                    if ($.isNumeric(chars)) {
+                        $(this).removeClass("error");
+                        $(this).next().removeClass("error");
+                    }
+                    else{
+                        $(this).addClass("error");
+                        $(this).next().text("※半角数字で入力してください。");
+                        $(this).next().addClass("error");
+                        if(top_pos == null){
+                            top_pos = $(this).offset().top;
+                        }
+                    }
 
+                    num_flag = true;
+                }
+                
+            });
+            if(num_flag == false){
+                $(".number").addClass("error");
+                $(".number").next().text("※予約数を入力してください。");
+                $(".number").next().addClass("error");
+                if(top_pos == null){
+                    top_pos = $(".number").first().offset().top;
+                }
+            }
+            
+            //姓
+            if($("input[name='name_last']").val() === ''){
+                $("input[name='name_last']").addClass("error");
+                $("input[name='name_last']").next().addClass("error");
+                $("input[name='name_last']").next().text("※姓を入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='name_last']").offset().top;
+                }
+            }
+            else{
+                $("input[name='name_last']").removeClass("error");
+                $("input[name='name_last']").next().removeClass("error");
+            }
+
+            //名
+            if($("input[name='name_first']").val() === ''){
+                $("input[name='name_first']").addClass("error");
+                $("input[name='name_first']").next().addClass("error");
+                $("input[name='name_first']").next().text("※名を入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='name_first']").offset().top;
+                }
+            }
+            else{
+                $("input[name='name_first']").removeClass("error");
+                $("input[name='name_first']").next().removeClass("error");
+            }
+
+            //	セイ
+
+            let regexp = /[\u{3000}-\u{301C}\u{30A1}-\u{30F6}\u{30FB}-\u{30FE}]/mu;
+
+            if($("input[name='kana_last']").val() === ''){
+                $("input[name='kana_last']").addClass("error");
+                $("input[name='kana_last']").next().addClass("error");
+                $("input[name='kana_last']").next().text("※セイを入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='kana_last']").offset().top;
+                }
+            }
+            else{
+                if(regexp.test($("input[name='kana_last']").val()) == true){
+                    $("input[name='kana_last']").removeClass("error");
+                    $("input[name='kana_last']").next().removeClass("error");
                 }
                 else{
-                    $(this).addClass("error");
-                    $(this).val(fullWidthNumConvert(chars));
-
+                    $("input[name='kana_last']").addClass("error");
+                    $("input[name='kana_last']").next().addClass("error");
+                    $("input[name='kana_last']").next().text("※カナで入力してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='kana_last']").offset().top;
+                    }
                 }
               
+            }
+
+            //メイ
+            if($("input[name='kana_first']").val() === ''){
+                $("input[name='kana_first']").addClass("error");
+                $("input[name='kana_first']").next().addClass("error");
+                $("input[name='kana_first']").next().text("※メイを入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='kana_first']").offset().top;
+                }
+            }
+            else{
+                if(regexp.test($("input[name='kana_first']").val()) == true){
+                    $("input[name='kana_first']").removeClass("error");
+                    $("input[name='kana_first']").next().removeClass("error");
+                }
+                else{
+                    $("input[name='kana_first']").addClass("error");
+                    $("input[name='kana_first']").next().addClass("error");
+                    $("input[name='kana_first']").next().text("※カナで入力してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='kana_first']").offset().top;
+                    }
+                }
+              
+            }
+
+            //年齢
+            let ages = $("input[name='age']").val();
+
+            if(ages !== ""){
+                if ($.isNumeric(ages)) {
+                    $("input[name='age']").removeClass("error");
+                    $("input[name='age']").parent().next().removeClass("error");
+                }
+                else{
+                    $("input[name='age']").addClass("error");
+                    $("input[name='age']").parent().next().text("※半角数字で入力してください。");
+                    $("input[name='age']").parent().next().addClass("error");
+                    if(top_pos == null){
+                        top_pos = $("input[name='age']").offset().top;
+                    }
+                }
+            }
+                
+            else {
+                $("input[name='age']").addClass("error");
+                $("input[name='age']").parent().next().text("※年齢を入力してください。");
+                $("input[name='age']").parent().next().addClass("error");
+                if(top_pos == null){
+                    top_pos = $("input[name='age']").offset().top;
+                }
+            }
+
+            //生年月日
+            let year = $("select[name='birth_year']").val();
+            let month = $("select[name='birth_month']").val();
+            let day = $("select[name='birth_day']").val();
+
+            if(year !== "" && month !== "" && day !== "" ){
+                $("select[name='birth_year']").removeClass("error");
+                $("select[name='birth_month']").removeClass("error");
+                $("select[name='birth_day']").removeClass("error");
+                $("select[name='birth_year']").parent().next().removeClass("error");
+            }
+                
+            else {
+                $("select[name='birth_year']").addClass("error");
+                $("select[name='birth_month']").addClass("error");
+                $("select[name='birth_day']").addClass("error");
+                $("select[name='birth_year']").parent().next().text("※生年月日を入力してください。");
+                $("select[name='birth_year']").parent().next().addClass("error");
+                if(top_pos == null){
+                    top_pos = $("select[name='birth_year']").offset().top;
+                }
+            }
+
+
+
+            let regexp_email = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+
+
+             //メールアドレス
+             if($("input[name='email']").val() == ''){
+                $("input[name='email']").addClass("error");
+                $("input[name='email']").next().addClass("error");
+                $("input[name='email']").next().text("※メールアドレスを入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='email']").offset().top;
+                }
+            }
+            else{
+                if(regexp_email.test($("input[name='email']").val()) == true){
+                    $("input[name='email']").removeClass("error");
+                    $("input[name='email']").next().removeClass("error");
+                }
+                else{
+                    $("input[name='email']").addClass("error");
+                    $("input[name='email']").next().addClass("error");
+                    $("input[name='email']").next().text("※メールアドレス入力形式を確認してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='email']").offset().top;
+                    }
+                }
+              
+            }
+
+             //確認メールアドレス
+             if($("input[name='email_confirmation']").val() == ''){
+                $("input[name='email_confirmation']").addClass("error");
+                $("input[name='email_confirmation']").next().addClass("error");
+                $("input[name='email_confirmation']").next().text("※メールアドレスを入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='email_confirmation']").offset().top;
+                }
+            }
+            else{
+                if(regexp_email.test($("input[name='email_confirmation']").val()) == true){
+                    if($("input[name='email_confirmation']").val() == $("input[name='email']").val()){
+                        $("input[name='email_confirmation']").removeClass("error");
+                        $("input[name='email_confirmation']").next().removeClass("error");
+                    }
+                    else{
+                        $("input[name='email_confirmation']").addClass("error");
+                        $("input[name='email_confirmation']").next().addClass("error");
+                        $("input[name='email_confirmation']").next().text("※メールアドレスは一致ではありません。");
+                        if(top_pos == null){
+                            top_pos = $("input[name='email_confirmation']").offset().top;
+                        }
+                    }
+     
+
+                    
+                }
+                else{
+                    $("input[name='email_confirmation']").addClass("error");
+                    $("input[name='email_confirmation']").next().addClass("error");
+                    $("input[name='email_confirmation']").next().text("※メールアドレス入力形式を確認してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='email_confirmation']").offset().top;
+                    }
+                }
+              
+            }
+
+
+
+
+            
+            
+            
+            //郵便番号
+            let regexpZip = /^\d{7}$/;
+            
+            if($("input[name='postalcode']").val() == ''){
+                $("input[name='postalcode']").addClass("error");
+                $("input[name='postalcode']").parent().next().addClass("error");
+                $("input[name='postalcode']").parent().next().text("※郵便番号を入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='postalcode']").offset().top;
+                }
+            }
+            else{
+                if(regexpZip.test($("input[name='postalcode']").val()) == true){
+                    $("input[name='postalcode']").removeClass("error");
+                    $("input[name='postalcode']").parent().next().removeClass("error");
+                }
+                else{
+                    $("input[name='postalcode']").addClass("error");
+                    $("input[name='postalcode']").parent().next().addClass("error");
+                    $("input[name='postalcode']").parent().next().text("※郵便番号(半角数字)入力形式を確認してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='postalcode']").offset().top;
+                    }
+                }
+            
+            }
+
+            if($("input[name='postalcode_representative']").val() == ''){
+                $("input[name='postalcode_representative']").addClass("error");
+                $("input[name='postalcode_representative']").parent().next().addClass("error");
+                $("input[name='postalcode_representative']").parent().next().text("※郵便番号を入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='postalcode_representative']").offset().top;
+                }
+            }
+            else{
+                if(regexpZip.test($("input[name='postalcode_representative']").val()) == true){
+                    $("input[name='postalcode_representative']").removeClass("error");
+                    $("input[name='postalcode_representative']").parent().next().removeClass("error");
+                }
+                else{
+                    $("input[name='postalcode_representative']").addClass("error");
+                    $("input[name='postalcode_representative']").parent().next().addClass("error");
+                    $("input[name='postalcode_representative']").parent().next().text("※郵便番号(半角数字)入力形式を確認してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='postalcode_representative']").offset().top;
+                    }
+                }
+            
+            }
+
+            //市区郡町村
+
+            if($("input[name='address']").val() !== "" ){
+                $("input[name='address']").removeClass("error");
+            }
+                
+            else {
+                $("input[name='address']").addClass("error");
+                if(top_pos == null){
+                    top_pos = $("input[name='address']").offset().top;
+                }
+            }
+            if($("input[name='address_representative']").val() !== "" ){
+                $("input[name='address_representative']").removeClass("error");
+            }
+                
+            else {
+                $("input[name='address_representative']").addClass("error");
+                if(top_pos == null){
+                    top_pos = $("input[name='address_representative']").offset().top;
+                }
+            }
+            //番地、アパート、マンション名等<
+
+            if($("input[name='extended']").val() !== "" ){
+                $("input[name='extended']").removeClass("error");
+            }
+                
+            else {
+                $("input[name='extended']").addClass("error");
+                if(top_pos == null){
+                    top_pos = $("input[name='address']").offset().top;
+                }
+            }
+
+            if($("input[name='extended_representative']").val() !== "" ){
+                $("input[name='extended_representative']").removeClass("error");
+            }
+                
+            else {
+                $("input[name='extended_representative']").addClass("error");
+                if(top_pos == null){
+                    top_pos = $("input[name='extended_representative']").offset().top;
+                }
+            }
+
+
+            //電話番号
+            let regexpPhone = /^\d{2,4}-?\d{2,4}-\d{3,4}$/;
+            
+            if($("input[name='tel']").val() == ''){
+                $("input[name='tel']").addClass("error");
+                $("input[name='tel']").next().addClass("error");
+                $("input[name='tel']").next().text("※電話番号を入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='tel']").offset().top;
+                }
+            }
+            else{
+                if(regexpPhone.test($("input[name='tel']").val()) == true){
+                    $("input[name='tel']").removeClass("error");
+                    $("input[name='tel']").next().removeClass("error");
+                }
+                else{
+                    $("input[name='tel']").addClass("error");
+                    $("input[name='tel']").next().addClass("error");
+                    $("input[name='tel']").next().text("※電話番号(半角数字)入力形式を確認してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='tel']").offset().top;
+                    }
+                }
+            
+            }
+
+            if($("input[name='tel_representative']").val() == ''){
+                $("input[name='tel_representative']").addClass("error");
+                $("input[name='tel_representative']").next().addClass("error");
+                $("input[name='tel_representative']").next().text("※電話番号を入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='tel_representative']").offset().top;
+                }
+            }
+            else{
+                if(regexpPhone.test($("input[name='tel_representative']").val()) == true){
+                    $("input[name='tel_representative']").removeClass("error");
+                    $("input[name='tel_representative']").next().removeClass("error");
+                }
+                else{
+                    $("input[name='tel_representative']").addClass("error");
+                    $("input[name='tel_representative']").next().addClass("error");
+                    $("input[name='tel_representative']").next().text("※電話番号(半角数字)入力形式を確認してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='tel_representative']").offset().top;
+                    }
+                }
+            
+            }
+
+
+            //緊急連絡先
+            if($("input[name='tel2']").val() == ''){
+                $("input[name='tel2']").addClass("error");
+                $("input[name='tel2']").next().addClass("error");
+                $("input[name='tel2']").next().text("※緊急連絡先を入力してください");
+                if(top_pos == null){
+                    top_pos = $("input[name='tel']").offset().top;
+                }
+            }
+            else{
+                if(regexpPhone.test($("input[name='tel2']").val()) == true){
+                    $("input[name='tel2']").removeClass("error");
+                    $("input[name='tel2']").next().removeClass("error");
+                }
+                else{
+                    $("input[name='tel2']").addClass("error");
+                    $("input[name='tel2']").next().addClass("error");
+                    $("input[name='tel2']").next().text("※緊急連絡先(半角数字)入力形式を確認してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='tel2']").offset().top;
+                    }
+                }
+            
+            }
+
+            //乗車地
+
+            if($("select[name='planBoarding']").attr("required") != null){
+                if($("select[name='planBoarding']").val() == ''){
+                    $("select[name='planBoarding']").addClass("error");
+                    $("select[name='planBoarding']").next().addClass("error");
+                    $("select[name='planBoarding']").next().text("※乗車地を入力してください。");
+                    if(top_pos == null){
+                        top_pos = $("select[name='planBoarding']").offset().top;
+                    }
+                }
+                else{
+                    $("select[name='planBoarding']").removeClass("error");
+                    $("select[name='planBoarding']").next().removeClass("error");
+                }
+            };
+
+            if($("select[name='boarding[]']").length > 0){
+                $("select[name='boarding[]']").each(function(){
+                    if($(this).attr("required") != null){
+                        if($(this).val() == ''){
+                            $(this).addClass("error");
+                            $(this).next().addClass("error");
+                            $(this).next().text("※乗車地を入力してください。");
+                            if(top_pos == null){
+                                top_pos = $(this).offset().top;
+                            }
+                        }
+                        else{
+                            $(this).removeClass("error");
+                            $(this).next().removeClass("error");
+                        }
+                    };
+                });
+            }
+           
+
+            //降車地
+
+            if($("select[name='planDrop']").attr("required") != null){
+                if($("select[name='planDrop']").val() == ''){
+                    $("select[name='planDrop']").addClass("error");
+                    $("select[name='planDrop']").next().addClass("error");
+                    $("select[name='planDrop']").next().text("※降車地を入力してください。");
+                    if(top_pos == null){
+                        top_pos = $("input[name='planDrop']").offset().top;
+                    }
+                }
+                else{
+                    $("select[name='planDrop']").removeClass("error");
+                    $("select[name='planDrop']").next().removeClass("error");
+                }
+            };
+
+
+            if($("select[name='drop[]']").length > 0){
+                $("select[name='drop[]']").each(function(){
+                    if($(this).attr("required") != null){
+                        if($(this).val() == ''){
+                            $(this).addClass("error");
+                            $(this).next().addClass("error");
+                            $(this).next().text("※降車地を入力してください。");
+                            if(top_pos == null){
+                                top_pos = $(this).offset().top;
+                            }
+                        }
+                        else{
+                            $(this).removeClass("error");
+                            $(this).next().removeClass("error");
+                        }
+                    };
+                });
+            }
+
+
+
+            //姓
+            $("input[name='add_lastname[]']").each(function(){
+                if($(this).val() === ''){
+                    $(this).addClass("error");
+                    $(this).next().addClass("error");
+                    $(this).next().text("※姓を入力してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='name_last']").offset().top;
+                    }
+                }
+                else{
+                    $(this).removeClass("error");
+                    $(this).next().removeClass("error");
+                }   
+
             })
-        })
 
-        function fullWidthNumConvert(fullWidthNum){
-                return fullWidthNum.replace(/[\uFF10-\uFF19]/g, function(m) {
-                return String.fromCharCode(m.charCodeAt(0) - 0xfee0);
+            //名
+            $("input[name='add_firstname[]']").each(function(){
+                if($(this).val() === ''){
+                    $(this).addClass("error");
+                    $(this).next().addClass("error");
+                    $(this).next().text("※名を入力してください");
+                    if(top_pos == null){
+                        top_pos = $("input[name='name_last']").offset().top;
+                    }
+                }
+                else{
+                    $(this).removeClass("error");
+                    $(this).next().removeClass("error");
+                }   
+
+            })
+
+
+            $("input[name='join_kana1[]']").each(function(){
+            
+                if($(this).val() === ''){
+                    $(this).addClass("error");
+                    $(this).next().addClass("error");
+                    $(this).next().text("※セイを入力してください");
+                    if(top_pos == null){
+                        top_pos = $(this).offset().top;
+                    }
+                }
+                else{
+                    if(regexp.test($(this).val()) == true){
+                        $(this).removeClass("error");
+                        $(this).next().removeClass("error");
+                    }
+                    else{
+                        $(this).addClass("error");
+                        $(this).next().addClass("error");
+                        $(this).next().text("※カナで入力してください");
+                        if(top_pos == null){
+                            top_pos = $(this).offset().top;
+                        }
+                    }
+                
+                }
+
             });
-        }
 
+            //メイ
+
+            $("input[name='join_kana2[]']").each(function(){
+
+                if($(this).val() === ''){
+                    $(this).addClass("error");
+                    $(this).next().addClass("error");
+                    $(this).next().text("※メイを入力してください");
+                    if(top_pos == null){
+                        top_pos = $(this).offset().top;
+                    }
+                }
+                else{
+                    if(regexp.test($(this).val()) == true){
+                        $(this).removeClass("error");
+                        $(this).next().removeClass("error");
+                    }
+                    else{
+                        $(this).addClass("error");
+                        $(this).next().addClass("error");
+                        $(this).next().text("※カナで入力してください");
+                        if(top_pos == null){
+                            top_pos = $(this).offset().top;
+                        }
+                    }
+                
+                }
+            })
+
+
+            //年齢
+
+            $("input[name='join_age[]']").each(function(){
+                let ages = $(this).val();
+                if(ages !== ""){
+                    if ($.isNumeric(ages)) {
+                        $(this).removeClass("error");
+                        $(this).parent().next().removeClass("error");
+                    }
+                    else{
+                        $(this).addClass("error");
+                        $(this).parent().next().text("※半角数字で入力してください。");
+                        $(this).parent().next().addClass("error");
+                        if(top_pos == null){
+                            top_pos = $(this).offset().top;
+                        }
+                    }
+                }
+                    
+                else {
+                    $(this).addClass("error");
+                    $(this).parent().next().text("※年齢を入力してください。");
+                    $(this).parent().next().addClass("error");
+                    if(top_pos == null){
+                        top_pos = $(this).offset().top;
+                    }
+                }
+            })
+
+           
+
+            //生年月日
+           
+            $("select[name='birth_year_representative[]']").each(function(){
+                let year = $(this).val();
+                let month = $(this).next().val();
+                let day = $(this).next().next().val();
+
+                if(year !== "" && month !== "" && day !== "" ){
+                    $(this).removeClass("error");
+                    $(this).next().removeClass("error");
+                    $(this).next().next().removeClass("error");
+                    $(this).parent().next().removeClass("error");
+                }
+                    
+                else {
+                    $(this).addClass("error");
+                    $(this).next().addClass("error");
+                    $(this).next().next().addClass("error");
+                    $(this).parent().next().text("※生年月日を入力してください。");
+                    $(this).parent().next().addClass("error");
+                    if(top_pos == null){
+                        top_pos =$(this).offset().top;
+                    }
+                }
+            })
+
+           
+          
+
+
+            //お支払方法
+
+            if($("select[name='payment_method']").val() == ''){
+                $("select[name='payment_method']").addClass('error');
+                $("select[name='payment_method']").next().addClass('error');
+                $("select[name='payment_method']").next().text('※お支払い方法を選択してください。');
+                if(top_pos == null){
+                    top_pos =$("select[name='payment_method']").offset().top;
+                }
+            }
+            else{
+                $("select[name='payment_method']").removeClass('error');
+                $("select[name='payment_method']").next().removeClass('error');
+
+                
+            }
+
+            //予約者への質問
+
+            if($("textarea[name='answer']").attr('required') != null){
+                if($("textarea[name='answer']").val() == ''){
+                    $("textarea[name='answer']").addClass('error');
+                    $("textarea[name='answer']").next().addClass('error');
+                    $("textarea[name='answer']").next().text('※予約者への質問を入力してください。');
+                    if(top_pos == null){
+                        top_pos = $("textarea[name='answer']").offset().top;
+                    }
+                }
+                else{
+                    $("textarea[name='answer']").removeClass('error');
+                    $("textarea[name='answer']").next().removeClass('error');
+                }
+            }
+
+            if($("input[name='agree']").is(':checked') == false){
+                $("input[name='agree']").addClass("error");
+                if(top_pos == null){
+                    top_pos = $("input[name='agree']").offset().top;
+                }
+                return;
+            }
+            else{
+                $("input[name='agree']").removeClass("error");
+
+            }
+
+
+        
+
+            if(top_pos != null){
+                $('html, body').animate({
+                    scrollTop: top_pos - 150
+                }, 1000);
+            }
+            else{
+                let number = 0;
+                $(".number").each(function(){
+                    if($(this).val() != ''){
+                        number += parseInt($(this).val());
+                    }
+                });
+                if(number != parseInt($("input[name='limit_number']").val())){
+                    alert("参加人数と予約数が一致しません。");
+                    return;
+                }
+                $('form.reserveCont').submit();
+            }
+        
+        })  
+        
     </script>
 </body>
 </html>

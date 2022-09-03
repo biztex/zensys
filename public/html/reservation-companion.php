@@ -4,11 +4,17 @@
             <td class="sp-pt-20">
                 <div class="halfP">
                     <span>姓</span>
-                    <input class="midIpt" type="text" name="add_lastname[]" required>
+                    <div>
+                        <input class="midIpt" type="text" name="add_lastname[]" required>
+                        <span class="errorMessage"></span>
+                    </div>
                 </div>
                 <div class="halfP">
                     <span>名</span>
-                    <input class="midIpt" type="text" name="add_firstname[]" required>
+                    <div>
+                        <input class="midIpt" type="text" name="add_firstname[]" required>
+                        <span class="errorMessage"></span>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -17,28 +23,40 @@
             <td>
                 <div class="halfP">
                     <span>セイ</span>
-                    <input class="midIpt" type="text" name="join_kana1[]" required>
+                    <div>
+                        <input class="midIpt" type="text" name="join_kana1[]" required>
+                        <span class="errorMessage"></span>
+                    </div>
                 </div>
                 <div class="halfP">
                     <span>メイ</span>
-                    <input class="midIpt" type="text" name="join_kana2[]" required>
+                    <div>
+                        <input class="midIpt" type="text" name="join_kana2[]" required>
+                        <span class="errorMessage"></span>
+                    </div>
                 </div>
             </td>
         </tr>
         <tr class="ageTr">
             <th>年齢<span class="requiredRed">※</span></th>
             <td>
-                <div class="ageP">
-                    <input class="midIpt" type="text" name="join_age[]" required>
-                    <span>才</span>
+                <div>
+                    <div class="ageP">
+                        <input class="midIpt" type="text" name="join_age[]" required>
+                        <span>才</span>
+                    </div>
+                    <span class="errorMessage"></span>
                 </div>
             </td>
         </tr>
         <tr>
         <th>生年月日<span class="requiredRed">※</span></th>
             <td>
-                <div class="dateP">
-                <select name="birth_year_representative[]" required><option value="">選択してください</option><?php for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) {?><option value="<?php echo $i; ?>"><?php echo $i; ?></option> <?php }?></select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 12 ; $i++){?> <option value="<?php echo $i;?>"><?php echo $i; ?></option> <?php }?></select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 31 ; $i++) {?><option value="<?php echo $i; ?>"  ><?php echo $i ;?></option> <?php }?></select> 日
+                <div>
+                    <div class="dateP">
+                        <select name="birth_year_representative[]" required><option value="">選択してください</option><?php for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) {?><option value="<?php echo $i; ?>"><?php echo $i; ?></option> <?php }?></select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 12 ; $i++){?> <option value="<?php echo $i;?>"><?php echo $i; ?></option> <?php }?></select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 31 ; $i++) {?><option value="<?php echo $i; ?>"  ><?php echo $i ;?></option> <?php }?></select> 日
+                    </div>
+                    <span class="errorMessage"></span>
                 </div>
             </td>
         </tr>
