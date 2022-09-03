@@ -17,14 +17,14 @@
 電話番号　　：　{{ $tel }}
 生年月日　　：　{{ $birth_year }}/{{ $birth_month }}/{{ $birth_day }}
 当日緊急連絡先　　：　{{ $tel2 }}
-出発日　　：　{{ $date }}
-予約日　　：　{{ date_format($reservation->created_at, 'Y年m月d日') }}
+予約日　　：　{{ $date }}
 予約人数
 ----------------------------------------------------
 @php
   $Number_of_reservations = json_decode($reservation->Number_of_reservations);
   $arr = ['大人　','子供　','幼児　'];
   $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
-  var_dump($Number_of_reservations);
+  echo $reservation->price_type;
+  echo $type_id;
 @endphp
 
