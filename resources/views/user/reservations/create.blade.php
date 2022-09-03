@@ -1522,6 +1522,9 @@
                 if(number != parseInt($("input[name='limit_number']").val())){
                     alert("参加人数と予約数が一致しません。");
                     submit_flag = false;
+                    $('html, body').animate({
+                        scrollTop:  350
+                    }, 1000);
                 }
                 else{
                     submit_flag = true;
