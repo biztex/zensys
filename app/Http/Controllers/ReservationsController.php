@@ -377,6 +377,7 @@ class ReservationsController extends Controller
                     if(!is_null($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)})){
                         if($request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)} > 0){
                             $typeid = $i;
+                            $pType = $byDay[$j];
                             $prtype = $j;
                             $Number_of_reservations[sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)] = $request->{sprintf('type%d_%s_%d_number', $i,$byDay[$j],$k)};
                         }
@@ -649,7 +650,8 @@ class ReservationsController extends Controller
                     'amount' => $amount,
                     'prices'        => $prices,
                     'priceName'     => $priceName,
-                    'type_id'   => $typeid
+                    'type_id'   => $typeid,
+                    'pType' => $pType,
                 ],
                 function ($message) use ($request) {
                     if ($request->email) {
