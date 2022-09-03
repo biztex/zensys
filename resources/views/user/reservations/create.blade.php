@@ -678,7 +678,7 @@
                             </div>
                             <div class="reserveAgree">
                               <label for="agree01" class="checkBox01">
-                                <input type="checkbox" name="agree" id="agree01">
+                                <input type="checkbox" name="agree" id="agree01" required>
                                 <p><b>@if($plan->notice)
                                     <a href="{{$plan->notice}}" target="_blank">「旅行条件書」</a>
                                     @elseif($plan->file_path11)
@@ -761,6 +761,32 @@
         $(".reserveAdd a").click(function(e){
             e.preventDefault();
         })
+
+      
+
+        $(".number").each(function(){
+            $(this).on("input",function(){
+                let chars = $(this).val();
+                if (chars !== "" && $.isNumeric(chars)) {
+                    
+                    $(this).removeClass("error");
+                    $(this).val(fullWidthNumConvert(chars));
+
+                }
+                else{
+                    $(this).addClass("error");
+                    $(this).val(fullWidthNumConvert(chars));
+
+                }
+              
+            })
+        })
+
+        function fullWidthNumConvert(fullWidthNum){
+                return fullWidthNum.replace(/[\uFF10-\uFF19]/g, function(m) {
+                return String.fromCharCode(m.charCodeAt(0) - 0xfee0);
+            });
+        }
 
     </script>
 </body>

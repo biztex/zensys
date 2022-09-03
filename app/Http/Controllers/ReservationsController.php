@@ -292,8 +292,13 @@ class ReservationsController extends Controller
         $reservation->add_address = $request->address_representative;
         $reservation->add_telephone = $request->tel_representative;
         $reservation->add_building =    $request->extended_representative;
-        $reservation->add_boarding = $request->boarding[0];
-        $reservation->add_drop = $request->drop[0];
+
+        if(isset($request->boarding)){
+            $reservation->add_boarding = $request->boarding[0];
+        }
+        if(isset($request->add_drop)){
+            $reservation->add_drop = $request->drop[0];
+        }
        
        
         $temp_companion_name_first = [];
@@ -314,8 +319,13 @@ class ReservationsController extends Controller
             $temp_companion_age[$i-1]           = $request->join_age[$i];
             $temp_companion_gender[$i-1]        = $request->join_sex[$i];
             $temp_companion_birth[$i-1]         = $request->birth_year_representative[$i] .'-'.  $request->birth_month_representative[$i].'-' . $request->birth_day_representative[$i];
-            $temp_companion_boarding[$i-1]      = $request->boarding[$i];
-            $temp_companion_drop[$i-1]          = $request->drop[$i];
+            if(isset($request->boarding[$i])){
+                $temp_companion_boarding[$i-1] = $request->boarding[$i];
+            }
+            if(isset($request->drop[$i])){
+                $temp_companion_drop[$i-1]  = $request->drop[0];
+            }
+          
         }
 
         
@@ -1359,6 +1369,7 @@ class ReservationsController extends Controller
         $reservation->add_address       = $request->add_address;
         $reservation->add_telephone     = $request->add_telephone;
         $reservation->add_building      = $request->add_building;
+
         $reservation->add_boarding      = $request->add_boarding;
         $reservation->add_drop          = $request->add_drop;
        
