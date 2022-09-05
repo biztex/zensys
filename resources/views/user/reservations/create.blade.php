@@ -56,8 +56,6 @@
                         $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
                     }
 
-                    var_dump($compare);
-                    exit;
                 @endphp
 
                 @if ($compare < 0)
