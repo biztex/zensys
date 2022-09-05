@@ -460,7 +460,7 @@ class ReservationsController extends Controller
         $tokenApiKey = config('adminlte.TOKEN_API_KEY');
         $orderId = $reservation_number;
 
-        $req = $request->is_request;
+        $req_result = $request->is_request;
 
         // ここまで
         if ($request->is_request == 0) {
@@ -675,7 +675,7 @@ class ReservationsController extends Controller
                     }
                 }
             );
-            return view('user.reservations.reqresult' , compact('req'));
+            return view('user.reservations.reqresult' , compact('req_result'));
         }
     }
 
