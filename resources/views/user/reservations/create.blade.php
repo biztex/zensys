@@ -40,6 +40,27 @@
     <main class="page-wrapper">
         <section class="section section--reserve section--with-top-margin">
             <div class="inner">
+
+                @php
+                    $com_date = new DateTime(date('Y-m-d'));
+                    $end =  new DateTime($date);
+                    $time = date('H');
+                    
+                    $interval = $end->diff($com_date);
+                    
+                    if($plan['res_type'] == 0){
+                        $compare = intval($interval->format('%R%a')) + intval($plan['res_end_day']);
+                    }
+
+                    else{
+                        $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
+                    }
+
+                    var_dump($compare);
+                    exit;
+                @endphp
+
+                @if ($compare < 0)
                 <div class="section__content">
                     <ul class="stepUl">
                         <li class="is_active">予約内容入力</li>
@@ -726,6 +747,26 @@
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="section__content col-md-6 offset-md-3 pt-4"  style="height: 100vh ; ">
+                    <div class="reserveBox">
+                        <div class="inner">
+                            <div class="section__content  pt-4 pb-4 pl-2 pr-2 text-center">
+                                <div class="warning">
+                                    <div class="">
+                                        <h2>この予約は終了しました。</h2>
+                                        <a class="col-md-2 d-block offset-md-5 mt-4 px-4 py-2 bg-warning" href="https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}">戻る</a>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                    
+                </div>
+
+               <script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}';</script>
+              
+                @endif
             </div>
         </section>
 

@@ -171,7 +171,7 @@ $stocks_next = json_decode($json_stocks_next, true);
     date_default_timezone_set('Asia/Tokyo');
 
     $date = new DateTimeImmutable(date('Y-m-d'));
-    $end =  new DateTimeImmutable($plan['start_day']);
+    $end =  new DateTimeImmutable($plan['end_day']);
     $time = date('H');
     $interval = date_diff($end, $date);
 
@@ -702,7 +702,23 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                     <?php
                                                         $week = ['日', '月', '火', '水', '木', '金', '土'];
                                                         $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
+                                                        $com_date = new DateTimeImmutable(date('Y-m-d'));
+
                                                         foreach ($stocks['dates'] as $date) {
+
+
+                                                            $end =  new DateTimeImmutable($date);
+                                                            $time = date('H');
+                                                            $interval = date_diff($end, $com_date);
+                                                            
+                                                            if($plan['res_type'] == 0){
+                                                                $compare = intval($interval->format('%R%a')) + intval($plan['res_end_day']);
+                                                            }
+                                                        
+                                                            else{
+                                                                $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
+                                                            }
+
                                                             $current_date = new DateTime(substr($date, 0, 10));
                                                             $current_date = $current_date->modify("+1 days");
                                                             $w = (int)$current_date->format('w');
@@ -727,7 +743,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                                         $day_price = $str;
                                                                     }
                                                                 }
-                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
+                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1 && $compare < 0) {
                                                                     if ($stock["res_type"] == 0) {
                                                                         if( $stock["rank"] != null){
                                                                             echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
@@ -1335,7 +1351,22 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                     <?php
                                                         $week = ['日', '月', '火', '水', '木', '金', '土'];
                                                         $tmp_arr=["A","B","C","D","E","F","G","H","H","J","K","L"];
+                                                        $com_date = new DateTimeImmutable(date('Y-m-d'));
+
                                                         foreach ($stocks['dates'] as $date) {
+
+
+                                                            $end =  new DateTimeImmutable($date);
+                                                            $time = date('H');
+                                                            $interval = date_diff($end, $com_date);
+                                                            
+                                                            if($plan['res_type'] == 0){
+                                                                $compare = intval($interval->format('%R%a')) + intval($plan['res_end_day']);
+                                                            }
+                                                        
+                                                            else{
+                                                                $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
+                                                            }
                                                             $current_date = new DateTime(substr($date, 0, 10));
                                                             $current_date = $current_date->modify("+1 days");
                                                             $w = (int)$current_date->format('w');
@@ -1360,7 +1391,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                                         $day_price = $str;
                                                                     }
                                                                 }
-                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1) {
+                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1 && $compare < 0) {
                                                                     if ($stock["res_type"] == 0) {
                                                                         if( $stock["rank"] != null){
                                                                             echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
