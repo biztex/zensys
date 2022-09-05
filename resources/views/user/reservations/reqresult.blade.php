@@ -43,7 +43,7 @@
                     <ul class="stepUl">
                         <li>予約内容入力</li>
                         <li>予約内容確認</li>
-                        <li class="is_active">@if(req == 0)予約完了@else リクエスト受付完了 @endif</li>
+                        <li class="is_active">@if(req('is_request')== 0)予約完了@else リクエスト受付完了 @endif</li>
                     </ul>
                     <div class="reserveBox">
                         <h3 class="reserveBoxHd">予約完了</h3>
