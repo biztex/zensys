@@ -179,15 +179,7 @@
                                                     $time = date('H');
                                                     $interval = date_diff($end, $date);
 
-                                                    
-                                                    if($plan['res_type'] == 0){
-                                                        $compare = intval($interval->format('%R%a')) + intval($plan['res_end_day']);
-
-                                                    }
-
-                                                    else{
-                                                        $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
-                                                    }
+                                                    $compare = intval($interval->format('%R%a'));
 
                                                     if( $compare > 0 ){
                                                        echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
