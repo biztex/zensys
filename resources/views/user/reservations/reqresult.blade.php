@@ -42,13 +42,13 @@
                     <ul class="stepUl">
                         <li>予約内容入力</li>
                         <li>予約内容確認</li>
-                        <li class="is_active">@if($req_result == 0)予約完了 @else リクエスト受付完了 @endif</li>
+                        <li class="is_active">@if($req_result == 0)予約完了@elseリクエスト受付完了@endif</li>
                     </ul>
                     <div class="reserveBox">
-                        <h3 class="reserveBoxHd">@if($req_result == 0)予約完了 @else リクエスト受付完了 @endif </h3>
+                        <h3 class="reserveBoxHd">@if($req_result == 0)予約完了@elseリクエスト受付完了@endif </h3>
                         <div class="reserveCont thanksCont">
-                            <p class="thanksHd">@if($req_result == 0)予約 @else リクエスト受付 @endif が完了しました。</p>
-                            <p class="thanksTxt">@if($req_result == 0)予約完了 @else リクエスト受付完了 @endifメールをお送りしましたので、ご確認ください。</p>
+                            <p class="thanksHd">@if($req_result == 0)予約@elseリクエスト受付@endifが完了しました。</p>
+                            <p class="thanksTxt">@if($req_result == 0)予約完了@elseリクエスト受付完了@endifメールをお送りしましたので、ご確認ください。</p>
                             <ul class="reserveButton">
                                 <li><a href="index.html" class="btnLink01">トップへ戻る</a></li>
                             </ul>
