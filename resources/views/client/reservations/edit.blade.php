@@ -126,7 +126,7 @@
                                 <option value="" selected>選択してください</option>
                                 <option value="3" @if(old('payment_method', $reservations->payment_method)=='3') selected @endif>クレジットカード決済</option>
                                 <option value="0" @if(old('payment_method', $reservations->payment_method)=='0') selected @endif>現地払い</option>
-                                <option value="1" @if(old('payment_method', $reservations->payment_method)=='1') selected @endif>事前払い</option>
+                                <option value="1" @if(old('payment_method', $reservations->payment_method)=='1') selected @endif>銀行振込</option>
                                 <option value="2" @if(old('payment_method', $reservations->payment_method)=='2') selected @endif>コンビニ決済</option>
                             </select>
                             </div>

@@ -412,7 +412,7 @@
                               <input class="ml-5" type="checkbox" name="spot" value="1" @if ($plans->spot == 1) checked @endif> <span> 現地払い</span>
                             </label>
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="prepay" value="1" @if ($plans->prepay == 1) checked @endif> <span> 事前払い</span>
+                              <input class="ml-5" type="checkbox" name="prepay" value="1" @if ($plans->prepay == 1) checked @endif> <span> 銀行振込</span>
                             </label>
                             <label class="checkbox-inline">
                               <input class="ml-5" type="checkbox" name="cvs" value="1" @if ($plans->cvs == 1) checked @endif> <span> コンビニ決済</span>

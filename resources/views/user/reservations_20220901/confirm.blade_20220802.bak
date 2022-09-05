@@ -345,7 +345,7 @@
                                             @if($info['payment_method']==0)
                                             現地払い
                                             @elseif($info['payment_method']==1)
-                                            事前払い
+                                            銀行振込
                                             @elseif($info['payment_method']==2)
                                             コンビニ決済
                                             @elseif($info['payment_method']==3)

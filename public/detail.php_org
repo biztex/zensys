@@ -146,7 +146,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                                             <dt>支払方法</dt>
                                             <dd><?php if($plan["card"] == 1){echo 'クレジットカード /';}  ?>
                                                  <?php if($plan["cvs"] == 1){echo 'コンビニ決済 /';}  ?>
-                                                 <?php if($plan["prepay"] == 1){echo '事前払い /';}   ?>
+                                                 <?php if($plan["prepay"] == 1){echo '銀行振込 /';}   ?>
                                                  <?php if($plan["spot"] == 1){echo '現地払い';} ?></dd>
                                         </dl>
                                         <dl>
@@ -934,7 +934,7 @@ $stocks_next = json_decode($json_stocks_next,true);
                       echo '現地払い<br />';
                   }
 		  if ($plan[prepay] == 1) {
-                      echo '事前払い<br />';
+                      echo '銀行振込<br />';
                   }
 		  if ($plan[cvs] == 1) {
                       echo '事前コンビニ決済<br />';
@@ -1556,7 +1556,7 @@ html{font-size:93.75%;}a,.page-title{color:#0274be;}a:hover,a:focus{color:#3a3a3
                       echo '現地払い<br />';
                   }
 		  if ($plan[0][prepay] == 1) {
-                      echo '事前払い<br />';
+                      echo '銀行振込<br />';
                   }
 		  if ($plan[0][cvs] == 1) {
                       echo '事前コンビニ決済<br />';

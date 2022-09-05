@@ -513,7 +513,7 @@ class ReservationsController extends Controller
                         'birth_month' => $request->birth_month,
                         'birth_day' => $request->birth_day,
                         'reservation' => $reservation,
-                        'payment' => '事前払い',
+                        'payment' => '銀行振込',
                         'haraikomiUrl' => null,
                         'amount' => $amount,
                         'weekday' => $weekday,
@@ -1117,7 +1117,7 @@ class ReservationsController extends Controller
                 }
             );
         } elseif ($pm == 1) {
-            // 事前払い
+            // 銀行振込
             Mail::send(
                 ['text' => 'user.reservations.prepayemail'],
                 [
@@ -1145,7 +1145,7 @@ class ReservationsController extends Controller
                     'amount'        => $amount,
                     'weekday'       => $weekday,
                     'bank'          => $bank,
-                    'payment'       => '事前払い',
+                    'payment'       => '銀行振込',
                     'prices'        => $prices,
                     'priceName'     => $priceName,
                     'type_id'   => $typeid
@@ -1720,7 +1720,7 @@ class ReservationsController extends Controller
             if ($reservation->payment_method == '0') {
                 $row[] = '現地払い';
             } elseif ($reservation->payment_method == '1') {
-                $row[] = '事前払い';
+                $row[] = '銀行振込';
             } elseif ($reservation->payment_method == '2') {
                 $row[] = '事前コンビニ決済';
             } elseif ($reservation->payment_method == '3') {
@@ -2631,7 +2631,7 @@ class ReservationsController extends Controller
                 )
             );
         } elseif ($pm == 1) {
-            $payment       = '事前払い';
+            $payment       = '銀行振込';
             return view(
                 'user.reservations.prepayemail_pv',
                 compact('number','plan','date' ,'activity', 'name_last', 'kana_last', 'name_first','kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',

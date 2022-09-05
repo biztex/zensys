@@ -396,7 +396,7 @@
                             </label>
 			    <!--
                             <label class="checkbox-inline">
-                              <input class="ml-5" type="checkbox" name="prepay" value="1" @if (old('prepay') == 1) checked @endif> <span> 事前払い</span>
+                              <input class="ml-5" type="checkbox" name="prepay" value="1" @if (old('prepay') == 1) checked @endif> <span> 銀行振込</span>
                             </label>
 			    -->
                             <label class="checkbox-inline">

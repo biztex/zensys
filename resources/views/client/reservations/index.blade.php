@@ -174,7 +174,7 @@ function displayPaymentMethod(val) {
     name = '現地払い';
     break;
   case 1:
-    name = '事前払い';
+    name = '銀行振込';
     break;
   case 2:
     name = 'コンビニ決済';
