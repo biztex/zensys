@@ -10,7 +10,11 @@
 </head>
 @php
     $url =  "http://153.127.31.62/zenryo/public/api/company/json";
-    $company_array = file_get_contents($url);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_POST, false);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $company_array = curl_exec($ch);
     $companies = json_decode($company_array, true);
     $company = $companies[0];
 @endphp

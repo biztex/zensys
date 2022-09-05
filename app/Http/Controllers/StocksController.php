@@ -239,6 +239,8 @@ class StocksController extends Controller
     // 更新処理
     public function updateWeek(Request $request, $id)
     {
+
+
         $plan = Plan::find($id);
 
         $week_data = $request->week;
@@ -251,40 +253,69 @@ class StocksController extends Controller
             if($explo == '1'){
                 $indexs[$j++] = $i;
             }
-
+           
         }
 
-        
 
         $year = $request->year;
         $month = $request->month;
     
         $dates = $this->getCalendarDates($year, $month);
 
+
+        
+
         $start_date = [];
-        for($p = 1 ; $p < count($dates) + 1; $p++){
-            foreach ($indexs as $index) {
+        foreach ($indexs as $index) {
+            for($p = 1 ; $p < count($dates) + 1; $p++){
+                var_dump($p % $index);
                 # code...
-                if($p % 7 == $index || $p % 7 == 0){
-                    $start_date = explode(' ', $dates[$p-1])[0];
-                    if($request->rank2 != null){
-                        Stock::where('plan_id',$id)
-                        ->whereDate('res_date', $start_date)
-                        // ->where('price_type_id',$request->price_type_id)
-                        ->update([
-                            'rank' => $request->rank2,
-                        ]);
+                if($index == 7){
+                    if($p % 7 == 0){
+                        $start_date = explode(' ', $dates[$p-1])[0];
+                        if($request->rank2 != null){
+                            Stock::where('plan_id',$id)
+                            ->whereDate('res_date', $start_date)
+                            // ->where('price_type_id',$request->price_type_id)
+                            ->update([
+                                'rank' => $request->rank2,
+                            ]);
+                        }
+                        if($request->limit_num2 != null){
+                            Stock::where('plan_id',$id)
+                            ->whereDate('res_date', $start_date)
+                            // ->where('price_type_id',$request->price_type_id)
+                            ->update([
+                                'limit_number' => $request->limit_num2
+                            ]);
+                        }
+                        
                     }
-                    if($request->limit_num2 != null){
-                        Stock::where('plan_id',$id)
-                        ->whereDate('res_date', $start_date)
-                        // ->where('price_type_id',$request->price_type_id)
-                        ->update([
-                            'limit_number' => $request->limit_num2
-                        ]);
-                    }
-                    
+    
                 }
+                else{
+                    if($p % 7 == $index){
+                        $start_date = explode(' ', $dates[$p-1])[0];
+                        if($request->rank2 != null){
+                            Stock::where('plan_id',$id)
+                            ->whereDate('res_date', $start_date)
+                            // ->where('price_type_id',$request->price_type_id)
+                            ->update([
+                                'rank' => $request->rank2,
+                            ]);
+                        }
+                        if($request->limit_num2 != null){
+                            Stock::where('plan_id',$id)
+                            ->whereDate('res_date', $start_date)
+                            // ->where('price_type_id',$request->price_type_id)
+                            ->update([
+                                'limit_number' => $request->limit_num2
+                            ]);
+                        }
+                        
+                    }
+                }
+               
 
 
             }
