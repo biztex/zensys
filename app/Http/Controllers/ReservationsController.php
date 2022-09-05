@@ -460,6 +460,8 @@ class ReservationsController extends Controller
         $tokenApiKey = config('adminlte.TOKEN_API_KEY');
         $orderId = $reservation_number;
 
+        $req = $request->is_request;
+
         // ここまで
         if ($request->is_request == 0) {
             if ($reservation->payment_method == 3) {
@@ -564,7 +566,7 @@ class ReservationsController extends Controller
                         $stock->save();
                     }
                 }
-                return view('user.reservations.result');
+                return view('user.reservations.result' , compact('req'));
             } elseif ($reservation->payment_method == 0) {
                 // 現地支払い
                 // 予約者へメール通知
@@ -631,7 +633,7 @@ class ReservationsController extends Controller
                         $stock->save();
                     }
                 }
-                return view('user.reservations.result');
+                return view('user.reservations.result' , compact('req'));
             }
         } else {
             // リクエスト予約者へメール通知
@@ -2157,7 +2159,7 @@ class ReservationsController extends Controller
                     $stock->save();
                 }
             }
-            //return view('user.reservations.result');
+            //return view('user.reservations.result' , compact('req'));
             return redirect('/card/result/' . $request->request->get("orderId"));
         }
         return view('card/index')->with(
@@ -2274,7 +2276,7 @@ class ReservationsController extends Controller
                     $stock->save();
                 }
             }
-            //return view('user.reservations.result');
+            //return view('user.reservations.result' , compact('req'));
             return redirect('/card/result/' . $request->request->get("orderId"));
         }
         return view('card/index')->with(

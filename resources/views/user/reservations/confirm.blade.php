@@ -394,7 +394,7 @@
 
                             </div>
                             <ul class="reserveButton">
-                                <li><button class="btnLink01" type="submit">予約する</button></li>
+                                <li><button class="btnLink01" type="submit">@if(request('is_request') == 0)予約する@else リクエスト受付する @endif</button></li>
                             </ul>
                         </form>
                     </div>
