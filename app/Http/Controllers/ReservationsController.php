@@ -675,7 +675,7 @@ class ReservationsController extends Controller
                     }
                 }
             );
-            return view('user.reservations.reqresult');
+            return view('user.reservations.reqresult' , compact('req'));
         }
     }
 
