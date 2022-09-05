@@ -175,7 +175,7 @@
                                                     date_default_timezone_set('Asia/Tokyo');
 
                                                     $date = new DateTimeImmutable(date('Y-m-d'));
-                                                    $end =  new DateTimeImmutable($plan['end_day']);
+                                                    $end =  new DateTimeImmutable($plan['start_day']);
                                                     $time = date('H');
                                                     $interval = date_diff($end, $date);
 
