@@ -55,7 +55,7 @@
                     else{
                         $compare = intval($interval->format('%R%a')) + intval($plan['req_before_day']);
                     }
-                    if($comapare == 0){
+                    if($compare == 0){
                         $time = date('H');
                         if($plan['res_type'] == 0){
                             $compare = intval($plan['res_end_time']) - $time ;
