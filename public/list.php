@@ -185,12 +185,23 @@
                                                        echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
                                                     }
                                                     else if($compare == 0){
-                                                        if(intval($time) > intval($plan['res_end_time'])){
-                                                            echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                        if($plan["res_type"] == 0){
+                                                            if(intval($time) > intval($plan['res_end_time'])){
+                                                                echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                            }
+                                                            else{
+                                                                echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
+                                                            }
                                                         }
                                                         else{
-                                                            echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
+                                                            if(intval($time) > intval($plan['req_before_time'])){
+                                                                echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                            }
+                                                            else{
+                                                                echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
+                                                            }
                                                         }
+                                                      
                                                     }
                                                     else{
                                                         echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';

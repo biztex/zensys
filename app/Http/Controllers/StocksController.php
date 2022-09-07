@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use DateTime;
+
+
 
 class StocksController extends Controller
 {
@@ -249,78 +252,52 @@ class StocksController extends Controller
         $indexs = [];
         $j = 0;
         foreach ($explode_data as $explo) {
-            $i++;
             if($explo == '1'){
                 $indexs[$j++] = $i;
             }
-           
+            $i++;
         }
 
 
-        $year = $request->year;
-        $month = $request->month;
-    
-        $dates = $this->getCalendarDates($year, $month);
-
-
+      
         
 
-        $start_date = [];
+
         foreach ($indexs as $index) {
-            for($p = 1 ; $p < count($dates) + 1; $p++){
-                var_dump($p % $index);
-                # code...
-                if($index == 7){
-                    if($p % 7 == 0){
-                        $start_date = explode(' ', $dates[$p-1])[0];
-                        if($request->rank2 != null){
-                            Stock::where('plan_id',$id)
-                            ->whereDate('res_date', $start_date)
-                            // ->where('price_type_id',$request->price_type_id)
-                            ->update([
-                                'rank' => $request->rank2,
-                            ]);
-                        }
-                        if($request->limit_num2 != null){
-                            Stock::where('plan_id',$id)
-                            ->whereDate('res_date', $start_date)
-                            // ->where('price_type_id',$request->price_type_id)
-                            ->update([
-                                'limit_number' => $request->limit_num2
-                            ]);
-                        }
-                        
-                    }
+            # code...
+            $start_day = new DateTime($plan->start_day);
+            $end_day = new DateTime($plan->end_day);
+            for($i = $start_day; $i <= $end_day; $i->modify('+1 day')){
+                $timestamp = strtotime($i->format('Y-m-d'));
     
-                }
-                else{
-                    if($p % 7 == $index){
-                        $start_date = explode(' ', $dates[$p-1])[0];
-                        if($request->rank2 != null){
-                            Stock::where('plan_id',$id)
-                            ->whereDate('res_date', $start_date)
-                            // ->where('price_type_id',$request->price_type_id)
-                            ->update([
-                                'rank' => $request->rank2,
-                            ]);
-                        }
-                        if($request->limit_num2 != null){
-                            Stock::where('plan_id',$id)
-                            ->whereDate('res_date', $start_date)
-                            // ->where('price_type_id',$request->price_type_id)
-                            ->update([
-                                'limit_number' => $request->limit_num2
-                            ]);
-                        }
-                        
+                $day = date('w', $timestamp);
+                # code...
+                if(intval($day) % 7 == $index){
+                    if($request->rank2 != null){
+                        Stock::where('plan_id',$id)
+                        ->whereDate('res_date', $i->format('Y-m-d'))
+                        // ->where('price_type_id',$request->price_type_id)
+                        ->update([
+                            'rank' => $request->rank2,
+                        ]);
                     }
-                }
-               
-
-
+                    if($request->limit_num2 != null){
+                        Stock::where('plan_id',$id)
+                        ->whereDate('res_date', $i->format('Y-m-d'))
+                        // ->where('price_type_id',$request->price_type_id)
+                        ->update([
+                            'limit_number' => $request->limit_num2
+                        ]);
+                    }
+                    
+                 }
+            
             }
+
+
             
         }
+
 
         return redirect()->back()->with('message', '変更が完了しました');
     }
