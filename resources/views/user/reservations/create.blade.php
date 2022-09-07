@@ -1566,17 +1566,26 @@
                         number += parseInt($(this).val());
                     }
                 });
-                if(number != parseInt($("input[name='limit_number']").val())){
-                    alert("参加人数と予約数が一致しません。");
+                if(number > {{$plan->max_number}}){
+                    alert("このプランの最大参加人数は" + {{$plan->max_number}} +'名までです',) ;
                     submit_flag = false;
-                    $('html, body').animate({
-                        scrollTop:  350
-                    }, 1000);
-                }
-                else{
-                    submit_flag = true;
+                        $('html, body').animate({
+                            scrollTop:  350
+                        }, 1000);
+                }else{
+                    if(number != parseInt($("input[name='limit_number']").val())){
+                    alert("参加人数と予約数が一致しません。");
+                        submit_flag = false;
+                        $('html, body').animate({
+                            scrollTop:  350
+                        }, 1000);
+                    }
+                    else{
+                        submit_flag = true;
 
+                    }
                 }
+             
             }
 
             if(submit_flag == true){
