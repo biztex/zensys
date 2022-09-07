@@ -716,7 +716,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                             }
                                                         
                                                             else{
-                                                                $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
+                                                                $compare = intval($interval->format('%R%a')) + intval($plan['req_before_day']);
                                                             }
 
                                                             $current_date = new DateTime(substr($date, 0, 10));
@@ -1365,7 +1365,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                             }
                                                         
                                                             else{
-                                                                $compare = intval($interval->format('%R%a')) + intval($plan['req_before_time']);
+                                                                $compare = intval($interval->format('%R%a')) + intval($plan['req_before_day']);
                                                             }
                                                             $current_date = new DateTime(substr($date, 0, 10));
                                                             $current_date = $current_date->modify("+1 days");
@@ -1391,7 +1391,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                                         $day_price = $str;
                                                                     }
                                                                 }
-                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1 && $compare < 0) {
+                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1 && $compare < 0 && $current_date->format('m') == $current_m) {
                                                                     if ($stock["res_type"] == 0) {
                                                                         if( $stock["rank"] != null){
                                                                             echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
@@ -1580,17 +1580,17 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                 <tr>
                                                     <th>お支払方法</th>
                                                     <td><?php if ($plan["spot"] == 1) {
-                                echo '現地払い<br />';
-                            }
-                    if ($plan["prepay"] == 1) {
-                                echo '銀行振込<br />';
-                            }
-                    if ($plan["cvs"] == 1) {
-                                echo 'コンビニ決済<br />';
-                            }
-                    if ($plan["card"] == 1) {
-                                echo 'クレジットカード決済<br/ >';
-                            } ?></td>
+                                                                echo '現地払い<br />';
+                                                            }
+                                                    if ($plan["prepay"] == 1) {
+                                                                echo '銀行振込<br />';
+                                                            }
+                                                    if ($plan["cvs"] == 1) {
+                                                                echo 'コンビニ決済<br />';
+                                                            }
+                                                    if ($plan["card"] == 1) {
+                                                                echo 'クレジットカード決済<br/ >';
+                                                            } ?></td>
                                                 </tr>
                                                 <tr>
                                                     <th>お支払方法の補足、詳細</th>
