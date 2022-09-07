@@ -106,14 +106,12 @@
                                 $price_t = $plan["prices"][$k];
                                 $alphas = ['a','b','c','d','e','f','g','h','i','j','k'];
                                 for($j=0; $j<count($alphas); $j++ ){
-                                    for($t=1; $t<4; $t++){
-                                        $com_val =  $alphas[$j].'_'.$t;
-                                        if($max_value < $price_t[$com_val]  && $price_t[$com_val] != null ){
-                                            $max_value = $price_t[$com_val]; 
-                                        }
-                                        else if($min_value > $price_t[$com_val] && $price_t[$com_val] != null){
-                                            $min_value = $price_t[$com_val];
-                                        }
+                                    $com_val =  $alphas[$j].'_1';
+                                    if($max_value < $price_t[$com_val]  && $price_t[$com_val] != null ){
+                                        $max_value = $price_t[$com_val]; 
+                                    }
+                                    else if($min_value > $price_t[$com_val] && $price_t[$com_val] != null){
+                                        $min_value = $price_t[$com_val];
                                     }
                                 
                                 }
