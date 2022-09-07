@@ -566,7 +566,7 @@ class ReservationsController extends Controller
                         $stock->save();
                     }
                 }
-                return view('user.reservations.result' , compact('req'));
+                return view('user.reservations.result' , compact('req_result'));
             } elseif ($reservation->payment_method == 0) {
                 // 現地支払い
                 // 予約者へメール通知
@@ -633,7 +633,7 @@ class ReservationsController extends Controller
                         $stock->save();
                     }
                 }
-                return view('user.reservations.result' , compact('req'));
+                return view('user.reservations.result' , compact('req_result'));
             }
         } else {
             // リクエスト予約者へメール通知
