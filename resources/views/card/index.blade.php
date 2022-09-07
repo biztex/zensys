@@ -63,7 +63,6 @@
                     <strong>合計金額</strong>
                     <strong>&yen;{{ number_format($amount) }}</strong>
                 </li>
-            </ul>
         </div>
 
         <div class="col-md-8 order-md-1">

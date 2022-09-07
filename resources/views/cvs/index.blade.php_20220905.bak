@@ -154,7 +154,7 @@
                 <input type="hidden" class="form-control" id="withCapture" name="withCapture" value="true">
                 <input type="hidden" class="form-control" id="reservation_id" name="reservation_id" value="{{ $reservation->id }}">
                 <input type="hidden" class="form-control" id="paymentType" name="paymentType" value="0">
-                <button class="btn btn-success btn" id="proceed_payment" type="submit">受付番号取得</button>
+                <button class="btn btn-success btn" id="proceed_payment" type="submit">予約確定</button>
             </form>
         </div>
 

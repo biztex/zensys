@@ -121,7 +121,7 @@
                                                         $str = "type" . $priceType['number'] ."_". strtolower($stock['rank']) ."_" . $i . "_number";
                                                         @endphp
                                                         <p>
-                                                            <input type="text" name="<?php echo 'type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number'?>" class="number" min="0" max="'.$stock->limit_number.'" placeholder="半角数字" value="{{old($str)}}"> 人
+                                                            <input type="text" name="<?php echo 'type' . $priceType['number'] .'_'. strtolower($stock['rank']) .'_' . $i . '_number'?>" class="number" min="0" max="'.$stock->limit_number.'" value="{{old($str)}}"> 人
                                                             <span class="errorMessage"></span>
                                                         </p>
                                                         @php
@@ -228,7 +228,7 @@
                                             <td>
                                                 <div>
                                                     <div class="ageP"> 
-                                                        <input class="midIpt" type="text" name="age" value="{{ old('age')}}" required placeholder="半角数字"> <span>才</span>
+                                                        <input class="midIpt" type="text" name="age" value="{{ old('age')}}" required> <span>才</span>
                                                     </div>
                                                     <span class="errorMessage"></span>
 
@@ -506,7 +506,7 @@
                                             <td>
                                                 <div>
                                                     <div class="ageP">
-                                                        <input class="midIpt" type="text" name="join_age[]"  value="{{ old('join_age.0') }}" required placeholder="半角数字">
+                                                        <input class="midIpt" type="text" name="join_age[]"  value="{{ old('join_age.0') }}" required>
                                                         <span>才</span>
                                                     </div>
                                                     <span class="errorMessage"></span>
