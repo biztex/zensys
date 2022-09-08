@@ -511,14 +511,14 @@
                         </div>
 
                         <div class="form-group row mt-4">
-                            <label class="col-md-2 col-form-label text-md-right">1予約あたり最小人数	</label>
+                            <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span>1予約あたり最小人数	</label>
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="min_number" value="{{ old('min_number') }}">
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">人</label>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-right">1予約あたり最大人数	</label>
+                            <label class="col-md-3 col-form-label text-md-right">1予約あたり最大人数	</label>
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="max_number" value="{{ old('max_number') }}">
                             </div>
