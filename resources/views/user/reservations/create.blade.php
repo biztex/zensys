@@ -247,7 +247,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                         <td>
                                             <div class="dateP">
-                                                <select name="birth_year" required><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" required><option value="">選択してください</option> @for ($i = 1 ; $i <= 31 ; $i++)<option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                <select name="birth_year" required>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) @if($i == (date('Y') - 60))<option value="" selected disabled>選択してください</option>@endif<option value="{{ $i }}" @if ($i == old('birth_year')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day" required><option value="">選択してください</option> @for ($i = 1 ; $i <= 31 ; $i++)<option value="{{ $i }}"  @if ($i == old('birth_day')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                             </div>
                                             <span class="errorMessage"></span>
 
@@ -421,8 +421,9 @@
                                 var count = 1; 
 
                                
-                                
-                                function addJoin(){
+                                $(document).on('click','.grayBtn',function(e){
+                                    e.preventDefault();
+                            
                                     count++;
                                     $("input[name='limit_number']").val(count);
 
@@ -443,12 +444,7 @@
                                         $(this).find('.child_boarding').append($data_boarding);
                                         $(this).find('.child_drop').append($data_drop);
                                     });
-
-                                  
-
-                                    
-                                    
-                                }
+                                })
 
                                 $(document).on('click','.reserveDelete',function(){
                                     count--;
@@ -525,7 +521,7 @@
                                         <th>生年月日<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div class="dateP">
-                                                    <select name="birth_year_representative[]" required><option value="">選択してください</option>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) <option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
+                                                    <select name="birth_year_representative[]" required>@for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++)  @if($i == (date('Y') - 60))<option value="" selected disabled>選択してください</option>@endif<option value="{{ $i }}" @if ($i == old('birth_year_representative.0')) selected @endif>{{ $i }}</option> @endfor</select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 12 ; $i++) <option value="{{ $i }}" @if ($i == old('birth_month_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option>@for ($i = 1 ; $i <= 31 ; $i++) <option value="{{ $i }}"  @if ($i == old('birth_day_representative.0')) selected @endif >{{ $i }}</option> @endfor</select> 日
                                                 </div>
                                                 <span class="errorMessage"></span>
 
@@ -1566,6 +1562,7 @@
                         number += parseInt($(this).val());
                     }
                 });
+                @if ($plan->max_number != null)
                 if(number > {{$plan->max_number}}){
                     alert("このプランの最大参加人数は" + {{$plan->max_number}} +'名までです',) ;
                     submit_flag = false;
@@ -1574,7 +1571,7 @@
                         }, 1000);
                 }else{
                     if(number != parseInt($("input[name='limit_number']").val())){
-                    alert("参加人数と予約数が一致しません。");
+                        alert("参加人数と予約数が一致しません。");
                         submit_flag = false;
                         $('html, body').animate({
                             scrollTop:  350
@@ -1585,6 +1582,19 @@
 
                     }
                 }
+                @else
+                    if(number != parseInt($("input[name='limit_number']").val())){
+                        alert("参加人数と予約数が一致しません。");
+                        submit_flag = false;
+                        $('html, body').animate({
+                            scrollTop:  350
+                        }, 1000);
+                    }
+                    else{
+                        submit_flag = true;
+
+                    }
+                @endif
              
             }
 

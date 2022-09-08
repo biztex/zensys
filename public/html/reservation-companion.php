@@ -54,7 +54,7 @@
             <td>
                 <div>
                     <div class="dateP">
-                        <select name="birth_year_representative[]" required><option value="">選択してください</option><?php for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) {?><option value="<?php echo $i; ?>"><?php echo $i; ?></option> <?php }?></select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 12 ; $i++){?> <option value="<?php echo $i;?>"><?php echo $i; ?></option> <?php }?></select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 31 ; $i++) {?><option value="<?php echo $i; ?>"  ><?php echo $i ;?></option> <?php }?></select> 日
+                        <select name="birth_year_representative[]" required><?php for ($i = (date('Y') - 150) ; $i <= (date('Y')) ; $i++) { if($i == (date('Y') - 60)) {?><option value="" selected disabled>選択してください</option><?php }?><option value="<?php echo $i; ?>"><?php echo $i; ?></option> <?php }?></select> 年　<select name="birth_month_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 12 ; $i++){?> <option value="<?php echo $i;?>"><?php echo $i; ?></option> <?php }?></select> 月　<select name="birth_day_representative[]" required><option value="">選択してください</option><?php for ($i = 1 ; $i <= 31 ; $i++) {?><option value="<?php echo $i; ?>"  ><?php echo $i ;?></option> <?php }?></select> 日
                     </div>
                     <span class="errorMessage"></span>
                 </div>
