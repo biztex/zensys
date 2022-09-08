@@ -86,8 +86,8 @@ class PlansController extends Controller
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
             // 'res_limit_number' => ['required', 'numeric'],
-            // 'min_number' => ['required', 'numeric'],
-            // 'max_number' => ['required', 'numeric'],
+            'min_number' => ['required', 'numeric'],
+            'max_number' => ['nullable', 'numeric'],
             //'payment_method' => ['required', 'numeric'],
             'etc_card_name' => ['nullable', 'string', 'max:50'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
@@ -851,6 +851,8 @@ class PlansController extends Controller
             'req_before_day' => ['nullable', 'numeric'],
             'req_before_time' => ['nullable', 'numeric'],
             'payment_plus_day' => ['nullable', 'numeric'],
+            'min_number' => ['nullable', 'numeric'],
+            'max_number' => ['nullable', 'numeric'],
 
         ];
 
@@ -1883,7 +1885,7 @@ class PlansController extends Controller
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
-            'min_number' => ['nullable', 'numeric'],
+            'min_number' => ['required', 'numeric'],
             'max_number' => ['nullable', 'numeric'],
             //'payment_method' => ['required', 'numeric'],
             'etc_card_name' => ['nullable', 'string', 'max:50'],
