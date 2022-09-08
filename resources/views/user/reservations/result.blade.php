@@ -14,7 +14,7 @@
     <table class="table table-striped" style="margin: 40px 0;">
         <tbody>
         <tr>
-            <td>予約確定メールを送信しました。決済エラー時やキャンセルなどのお問い合わせは直接実施会社へご連絡ください。</td>
+            <td>予約確定メールを送信しました。決済エラー時やキャンセルなどのお問い合わせは直接当社へご連絡ください。</td>
         </tr>
         </tbody>
     </table>

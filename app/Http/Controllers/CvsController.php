@@ -152,7 +152,7 @@ class CvsController extends Controller
                     ->to($reservation->user->email)
                     ->bcc(['test@toebisu.jp'])
                     ->from('info@zenryo-ec.com')
-                    ->subject("【入金依頼】長野電鉄株式会社");
+                    ->subject("【コンビニ受付番号のお知らせ】長野電鉄株式会社");
 	        }
             });
             // ベリトランスオーダーIDをDBへ格納
