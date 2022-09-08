@@ -27,7 +27,7 @@ class StocksController extends Controller
     {
         $company_id = auth()->user()->company_id;
         $plans = Plan::where('company_id', $company_id)
-        ->orderBy('sort', 'asc')
+        ->orderBy('id', 'DESC')
         ->where('sort', '!=', '')
         ->get();
 
@@ -35,7 +35,7 @@ class StocksController extends Controller
         
         if (!$plan_id) {
             $plan = Plan::where('company_id', $company_id)
-            ->orderBy('sort')
+            ->orderBy('id','DESC')
             ->where('sort', '!=', '')
             ->first();
             $plan_id = $plan->id;
