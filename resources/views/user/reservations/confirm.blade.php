@@ -310,7 +310,7 @@
                                     <tr>
                                         <th>お支払方法</th>
                                          <td>
-                                            @if($info['payment_method']==0)
+                                            @if($info['payment_method']==4)
                                             現地払い
                                             @elseif($info['payment_method']==1)
                                             銀行振込

@@ -1,3 +1,4 @@
+    <span class="requiredRed">同行者がいない場合は×で入力枠を閉じて、確認画面へ進んでください。</span>
     <table class="reserveTable">
         <tr class="nameTr">
             <th>同行者氏名(漢字)<span class="requiredRed">※</span></th>

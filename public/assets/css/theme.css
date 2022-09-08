@@ -4167,7 +4167,7 @@ textarea:focus {
 .reserveDelete {
     position: absolute;
     right: 0px;
-    top: 0px;
+    top: 20px;
     z-index: 2;
     cursor: pointer;
     font-weight: bold;

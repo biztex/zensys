@@ -652,7 +652,7 @@
                                 <input type="hidden" name="limit_number" value="1" />
                                 <input type="hidden" name="companion_flag" value="{{$plan->companion_type}}" />
 
-                                <p class="reserveAdd"><a href="#" class="grayBtn" onclick="addJoin()">同行者情報を追加</a></p>
+                                <p class="reserveAdd"><a href="#" class="grayBtn">同行者情報を追加</a></p>
                             </div>
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">料金決済</h4>
@@ -666,7 +666,7 @@
                                                         <option value="3" @if (old('payment_method') == 3) selected @endif>クレジットカード決済</option>
                                                 @endif
                                                 @if ($plan->spot == 1)
-                                                        <option value="0" @if (old('payment_method') == 0) selected @endif>現地払い</option>
+                                                        <option value="4" @if (old('payment_method') == 4) selected @endif>現地払い</option>
                                                 @endif
                                                 @if ($plan->prepay == 1)
                                                         <option value="1" @if (old('payment_method') == 1) selected @endif>銀行振込</option>

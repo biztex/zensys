@@ -567,7 +567,7 @@ class ReservationsController extends Controller
                     }
                 }
                 return view('user.reservations.result' , compact('req_result'));
-            } elseif ($reservation->payment_method == 0) {
+            } elseif ($reservation->payment_method == 4) {
                 // 現地支払い
                 // 予約者へメール通知
                 Mail::send(
@@ -862,7 +862,6 @@ class ReservationsController extends Controller
         $info['address_representative']     = $request->address_representative;
         $info['boarding']                   = $request->boarding;
         $info['drop']                       = $request->drop;
-        $info['payment_method']             = $request->payment_method;
         $info['answer']                     = $request->answer;
         $info['price_type']                 = $request->price_type;
         // 料金区分２０以上対応
@@ -1732,7 +1731,7 @@ class ReservationsController extends Controller
             $row[] = $reservation->plan->question_content;
             $row[] = $reservation->answer;
 
-            if ($reservation->payment_method == '0') {
+            if ($reservation->payment_method == '4') {
                 $row[] = '現地払い';
             } elseif ($reservation->payment_method == '1') {
                 $row[] = '銀行振込';
