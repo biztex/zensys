@@ -105,7 +105,7 @@
                                 </dl>
                             </div>
                             <div class="reserveItem">
-                                <h4 class="reserveItemHd">予約数</h4>
+                                <h4 class="reserveItemHd">予約数 <span class="requiredRed">※こちらのプランは{{$plan->min_number}}名様からお申し込み可能です。</span></h4>
                                 <table class="reserveTable">
                                     <tr>
                                         <th rowspan="0">料金</th></tr>
