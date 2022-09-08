@@ -421,7 +421,7 @@
                                 var count = 1; 
 
                                
-                                $(document).on('click','.grayBtn',function(e){
+                                $(document).on('click','.companion_member',function(e){
                                     e.preventDefault();
                             
                                     count++;
@@ -652,7 +652,7 @@
                                 <input type="hidden" name="limit_number" value="1" />
                                 <input type="hidden" name="companion_flag" value="{{$plan->companion_type}}" />
 
-                                <p class="reserveAdd"><a href="#" class="grayBtn">同行者情報を追加</a></p>
+                                <p class="reserveAdd"><a href="#" class="grayBtn companion_member">同行者情報を追加</a></p>
                             </div>
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">料金決済</h4>
