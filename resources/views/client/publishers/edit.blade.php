@@ -33,7 +33,7 @@
                     <form action="/admin/publishers/update/{{ $publishers->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="form-group row">
+                       <div class="form-group row">
                             <label for="id" class="col-md-2 col-form-label text-md-right">{{ __('ID') }}</label>
                             <div class="col-md-6">
                                 <input id="id" class="input-group-text text-md-left" type="text" name="id" value="{{ old('$publishers->id', $publishers->id) }}" disabled>

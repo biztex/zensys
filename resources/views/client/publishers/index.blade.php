@@ -64,7 +64,7 @@ new gridjs.Grid ({
         </div>
       `),
     },
-    { 
+       { 
       name: 'ID',
       sort: {
         enabled: true

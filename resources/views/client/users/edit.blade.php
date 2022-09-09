@@ -36,7 +36,7 @@
                     <form action="{{config('app.url')}}client/users/update/{{ $users->id }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="form-group row">
+                       <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('ID') }}</label>
                             <div class="col-md-6">
                                 <input id="id" class="input-group-text text-md-left" type="text" name="id" value="{{ old('$users->id', $users->id) }}" disabled>
