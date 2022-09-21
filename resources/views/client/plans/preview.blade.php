@@ -166,7 +166,7 @@ $stocks_next = json_decode($json_stocks_next, true);
 
 <header class="page-header">
      <div class="header-inner">
-         <a href="/" class="logo"><img src="{{asset('assets/img/logo3.png'}}" alt="" /></a>
+         <a href="/" class="logo"><img src="{{asset('assets/img/logo3.png')}}" alt="" /></a>
          <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
          <div class="nav-wrapper">
              <ul class="nav">
