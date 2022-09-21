@@ -701,7 +701,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                  
                                  <p>お申込みの際には、必ず<b>
                                      @if($plan["file_path11"] != null)
-                                         <a href="{{asset('upload')}}/{{$plan["file_path11"]}}" target="_blank">
+                                         <a href="{{asset('uploads')}}/{{$plan["file_path11"]}}" target="_blank">
                                      @elseif($plan["notice"] != null)
                                          <a href="<?=$plan["notice"]?>" target="_blank">
                                      @endif ご旅行条件書</a></b>をお読みください。</p>
