@@ -35,11 +35,20 @@
 
       </select>件表示
       <input type="hidden" name="ids">
-      <button type="submit" id="delete-selected" class="btn btn-secondary float-right" onClick="('#form1').prop('action',action='{{config('app.url')}}client/reservations/destroy-selected');return confirmDeleteSelected()" >選択データを削除</button><button type="button" id="csv-selected" class="btn btn-warning float-right" onClick="return confirmCsvelected()" >CSV DL</button>
+      <button type="button" id="delete-selected" class="btn btn-secondary float-right">選択データを削除</button><button type="button" id="csv-selected" class="btn btn-warning float-right" onClick="return confirmCsvelected()" >CSV DL</button>
     </form>
   </div>
 </div>
 <script>
+
+document.getElementById("delete-selected").addEventListener("click", function(event){
+  var ids = $('input[type="checkbox"]:checked').map(function(){
+        return $(this).val();
+    }).get();
+  $('input[name="ids"]').val(ids); 
+  console.log(ids);
+  $('#form1').submit();
+});
 
 function confirmCsvelected(){
     var ids = $('input[type="checkbox"]:checked').map(function(){
