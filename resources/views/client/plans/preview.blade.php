@@ -203,14 +203,14 @@ $stocks_next = json_decode($json_stocks_next, true);
                                  </div>
                                  <div class="dtNav">
                                  <div class="dtSlist"><img src="{{asset('upload')}}/<?=$plan["file_path1"] ?>" alt=""></div>
-                                     @if($plan["file_path2"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path2"] }}" alt=""></div>@endif
-                                     @if($plan["file_path3"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path3"] }}" alt=""></div>@endif
-                                     @if($plan["file_path4"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path4"] }}" alt=""></div>@endif
-                                     @if($plan["file_path5"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path5"] }}" alt=""></div>@endif
-                                     @if($plan["file_path6"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path6"] }}" alt=""></div>@endif
-                                     @if($plan["file_path7"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path7"] }}" alt=""></div>@endif
-                                     @if($plan["file_path8"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path8"] }}" alt=""></div>@endif
-                                     @if($plan["file_path9"])<div class="dtSlist"><img src="{{asset('uploads')/{{$plan["file_path9"] }}" alt=""></div>@endif
+                                     @if($plan["file_path2"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path2"] }}" alt=""></div>@endif
+                                     @if($plan["file_path3"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path3"] }}" alt=""></div>@endif
+                                     @if($plan["file_path4"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path4"] }}" alt=""></div>@endif
+                                     @if($plan["file_path5"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path5"] }}" alt=""></div>@endif
+                                     @if($plan["file_path6"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path6"] }}" alt=""></div>@endif
+                                     @if($plan["file_path7"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path7"] }}" alt=""></div>@endif
+                                     @if($plan["file_path8"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path8"] }}" alt=""></div>@endif
+                                     @if($plan["file_path9"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path9"] }}" alt=""></div>@endif
                                  </div>
                              </div>
                              <div class="leftP">
