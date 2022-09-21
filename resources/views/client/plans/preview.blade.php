@@ -114,7 +114,7 @@ $stocks_next = json_decode($json_stocks_next, true);
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="{{asset'assets/img/favicon2_2.ico')}}" />
+    <link rel="shortcut icon" href="{{asset('assets/img/favicon2_2.ico')}}" />
     <title>{{htmlspecialchars($plan["name"])}}</title>
     <!-- css -->
     <link rel="stylesheet" href="{{asset('libs/slick/slick.css')}}">
