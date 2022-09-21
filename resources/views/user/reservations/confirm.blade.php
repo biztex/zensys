@@ -7,28 +7,28 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info/assets/img/favicon2_2.ico" />
+    <link rel="shortcut icon" href="https://nagaden-kanko.com/plan/assets/img/favicon2_2.ico" />
 
     <!-- css -->
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/libs/slick/slick.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/libs/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/assets/css/theme.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/assets/css/add.css">
 
     <!-- javascript -->
-    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://nagaden-kanko.com/plan/libs/jquery/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
     <header class="page-header">
         <div class="header-inner">
-            <a href="/" class="logo"><img src="assets/img/logo3.png" alt="" /></a>
+            <a href="/" class="logo"><img src="https://nagaden-kanko.com/plan/assets/img/logo3.png" alt="" /></a>
             <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
             <div class="nav-wrapper">
                 <ul class="nav">
                     <li><a href="/">トップ</a></li>
                     <li><a href="/category/news">新着情報</a></li>
-                    <li><a href="/category/tour">ツアー紹介</a></li>
+                    <li><a href="/plan/list.php">ツアー紹介</a></li>
                     <li><a href="/company">会社概要</a></li>
                     <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
@@ -391,8 +391,11 @@
                                 <div class="reserveTxt">
                                     <p>{!! $plan->cancel !!}</p>
                                 </div>
+                                
+                                <p align="center" class="kyoka">※当社からのメールが受信できるようにドメイン指定受信で「@ nagaden-kanko.com」を許可するように設定してください。</p>
 
                             </div>
+                            
                             <ul class="reserveButton">
                                 <li><button class="btnLink01" type="submit">@if(request('is_request') == 0)予約する@else リクエスト受付する @endif</button></li>
                             </ul>
@@ -438,7 +441,7 @@
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>
                     <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                    <span class="menu"><a href="/category/tour">ツアー紹介</a></span>
+                    <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
                     <span class="menu"><a href="/agreement">旅行業約款</a></span>
                 </div>
             </div>
@@ -448,7 +451,7 @@
         </div>
     </footer>
 
-    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
-    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
+    <script src="https://nagaden-kanko.com/plan/libs/slick/slick.min.js"></script>
+    <script src="https://nagaden-kanko.com/plan/assets/js/theme.js"></script>
 </body>
 </html>

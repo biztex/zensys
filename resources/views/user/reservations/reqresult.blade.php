@@ -10,13 +10,13 @@
     <link rel="shortcut icon" href="assets/img/favicon2_2.ico" />
 
     <!-- css -->
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/libs/slick/slick.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/libs/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/assets/css/theme.css">
+    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/assets/css/add.css">
 
     <!-- javascript -->
-    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://nagaden-kanko.com/plan/libs/jquery/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
                 <ul class="nav">
                     <li><a href="/">トップ</a></li>
                     <li><a href="/category/news">新着情報</a></li>
-                    <li><a href="/category/tour">ツアー紹介</a></li>
+                    <li><a href="/plan/list.php">ツアー紹介</a></li>
                     <li><a href="/company">会社概要</a></li>
                     <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
@@ -48,9 +48,9 @@
                         <h3 class="reserveBoxHd">@if($req_result == 0)予約完了@elseリクエスト受付完了@endif </h3>
                         <div class="reserveCont thanksCont">
                             <p class="thanksHd">@if($req_result == 0)予約@elseリクエスト受付@endifが完了しました。</p>
-                            <p class="thanksTxt">@if($req_result == 0)予約完了@elseリクエスト受付完了@endifメールをお送りしましたので、ご確認ください。</p>
+                            <p class="thanksTxt">@if($req_result == 0)予約完了@elseリクエスト受付完了@endifメールをお送りしました。届いていない場合は、念の為迷惑メールフォルダ等もご確認下さい。</p>
                             <ul class="reserveButton">
-                                <li><a href="index.html" class="btnLink01">トップへ戻る</a></li>
+                                <li><a href="../list.php" class="btnLink01">トップへ戻る</a></li>
                             </ul>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>
                     <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                    <span class="menu"><a href="/category/tour">ツアー紹介</a></span>
+                    <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
                     <span class="menu"><a href="/agreement">旅行業約款</a></span>
                 </div>
             </div>
@@ -104,7 +104,7 @@
         </div>
     </footer>
 
-    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
-    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
+    <script src="https://nagaden-kanko.com/plan/libs/slick/slick.min.js"></script>
+    <script src="https://nagaden-kanko.com/plan/assets/js/theme.js"></script>
 </body>
 </html>

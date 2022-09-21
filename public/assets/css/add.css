@@ -205,3 +205,111 @@ input[type='checkbox'].error{
         background: #00B900;
         border-radius: 0.26vw;
 }
+
+/* 2022-09-12 */
+.reserveAgree .checkBox01 {
+    margin-bottom: 1em;
+}
+.reserveAgree .checkBox01 p {
+    margin-bottom: 0;
+}
+
+.section.section_calendar .reserveTxt a {
+    color: #007bff;
+}
+
+
+@media screen and (max-width: 768px) {
+    .section.section--detail .rightP .slick-list.draggable {
+        height: auto;
+    }
+    .section.section--detail .rightP .slick-list.draggable .dtSlist.slick-slide {
+        height: auto;
+    }
+
+    .reserveTable input[type=text], .reserveTable input[type=email], .reserveTable select {
+        width: 100%;
+        min-width: 120px;
+    }
+    .errorMessage.error {
+        flex-wrap: wrap;
+        white-space: initial;
+        width: auto;
+    }
+    .section.section--reserve .reserveTable .numberP input[type=text] {
+        min-width: auto;
+    }
+
+    .section.section--reserve .reserveTable .numberP {
+        margin-bottom: 15px;
+        align-items: flex-start;
+    }
+    .section.section--reserve .reserveTable .numberP p{
+        margin-bottom: 0;
+    }
+    .section.section--reserve .reserveTable .numberP:nth-last-child(1) {
+        margin-bottom: 0px;
+    }
+    .section.section--reserve .reserveTable .zipTr.h-adr p{
+        margin-bottom: 0;
+    }
+    .section.section--reserve .reserveTable .zipP02 p {
+        margin-bottom: 0;
+    }
+
+
+    .section.section--reserve .reserveList .requiredRed.if-non-member {
+        padding-top: 20px;
+        display: block;
+    }
+    .section.section--reserve .reserveTable .sp-pt-20 {
+        padding-top: 0;
+    }
+    .page-footer .tel-mail a {
+        color: #333333;
+    }
+}
+
+.reserveItem .kyoka {
+    font-size: 13px;
+}
+
+/* .section--detail .rightP .slick-list.draggable {
+    height: auto !important;
+} */
+.section--detail .rightP .dtNav .dtSlist {
+    height: auto;
+}
+/* .section--detail .rightP .dtFor .dtSlist img {
+    height: auto;
+} */
+.section--detail .rightP .slick-list.draggable .slick-slide{
+    height: auto;
+}
+
+.reserveTxt p {
+    font-size: 15px !important;
+}
+.reserveTxt span{
+    font-size: 15px !important;
+}
+.section_detail .reserveTxt p {
+    font-size: 15px !important;
+}
+.section_detail .reserveTxt span{
+    font-size: 15px !important;
+}
+@media screen and (max-width: 768px) {
+.reserveTxt p {
+        font-size: 12px !important;
+    }
+.reserveTxt span{
+        font-size: 12px !important;
+    }
+    .section_detail .reserveTxt p {
+        font-size: 12px !important;
+    }
+    .section_detail .reserveTxt span{
+        font-size: 12px !important;
+    }
+}

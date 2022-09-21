@@ -237,6 +237,7 @@
 
                             </div>
                         </div>
+                       <p class="text-danger helper-pl-7-per">※乗車地、降車地を必須にした場合は同行者情報も必須になります。</p>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('乗車地　設定') }}</label>
                             <div class="col-md-4">
@@ -410,6 +411,7 @@
                         <hr />
                         <div class="form-group row mt-4 insert-res-point">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 受付締切日時</label>
+                            <p class="text-danger pl-4">※予約受付タイプで選択したほうの受付締切日時をご記入ください。</p>
                         </div>
                         
                         <div class="form-group row ml-5 res-section2">
@@ -1153,6 +1155,7 @@
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真設定</span></label>
                         </div>
+                        <p class="text-danger pl-4">※推奨サイズは横1200px、縦800pxです。画像アップロード容量は一枚1MBとなります</p>                        
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイン画像') }}</label>
                             <div id="div-img1" class="col-md-4">
