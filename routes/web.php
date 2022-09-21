@@ -39,6 +39,15 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->name('dashboard');
 
 /**
+ * Preview
+ */
+
+Route::get(
+    'preview',
+    '\App\Http\Controllers\PlansController@preview'
+);
+
+/**
  * API
  */
 

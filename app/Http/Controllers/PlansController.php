@@ -1833,9 +1833,23 @@ class PlansController extends Controller
         );
     }
 
+    
     // 詳細画面
-    public function show($id)
+    public function preview(Request $request)
     {
+
+        if($request->id == null){
+            abort(404);
+        }
+        else{
+            $plans = Plan::find($request->id);
+
+            return view(
+                'client.plans.preview',
+                compact('plans')
+            );
+        }
+       
     }
 
     // 編集画面
@@ -2841,6 +2855,7 @@ class PlansController extends Controller
     // JSON返却 API 個別プラン情報
     public function apiSpecifyJson($id = null)
     {
+
         try {
             if ($id > 0) {
                 $result = Plan::select()

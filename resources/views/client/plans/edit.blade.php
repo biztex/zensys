@@ -30,6 +30,9 @@
                         {{ session('message') }}
                     </div>
                     @endif
+                    <div class="col-md-12 mt-2">
+                        <a href="{{config('app.url')}}preview?id={{$plans->id}}" target="_blank">プレビュー</a>
+                    </div>
                     @if ($errors->any())
                     <div class="alert alert-danger">
                     <ul>
