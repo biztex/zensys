@@ -642,7 +642,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                         @if ($plan["cvs"] == 1) 
                                             コンビニ決済<br />
                                         @endif
-                                        @if ($plan["card"] == 1) {
+                                        @if ($plan["card"] == 1) 
                                            クレジットカード決済<br />
                                         @endif
                                     </td>
@@ -683,7 +683,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                          <div class="detailItem">
                              <p class="detailItemHd">キャンセル規定</p>
                              <div class="reserveTxt">
-                                 {{$plan['cancel']}}
+                                 {!! $plan['cancel'] !!}
                              </div>
                              @if($plan['cancel_date']) 
                              <table class="reserveTable">
