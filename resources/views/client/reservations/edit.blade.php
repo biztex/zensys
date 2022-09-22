@@ -127,6 +127,15 @@
                             @endif
                         @endif
 
+                        @if($reservations->remark != null)
+                            <div class="form-group row">
+                                <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('備考欄') }}</label>
+                                <div class="col-md-6">
+                                    <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ $reservations->remark }}</textarea>
+                                </div>
+                            </div>
+                        @endif
+
 
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('支払方法') }}</label>
