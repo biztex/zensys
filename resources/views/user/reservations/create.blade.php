@@ -702,16 +702,26 @@
                             </div>
 
                             @if($plan->question_flag != 0)
+                            @if($plans->question_content != null)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">予約者への質問</h4>
-                                @foreach(json_decode($plans->question_content , true) as $content)
-                                <div class="reserveTxt">
-                                    <p>@if($plan->answer_flag == 1)<span class="requiredRed">※</span>@endif {{$content}}</p>
-                                    <textarea name="answer[]" class="reserveTextarea" @if($plan->answer_flag == 1) required @endif >{{ old('answer[]') }}</textarea>
-                                    <span class="errorMessage"></span>
-                                </div>
-                                @endforeach
+                                @if(json_decode($plans->question_content , true) == null)
+                                    <div class="reserveTxt">
+                                        <p>@if($plan->answer_flag == 1)<span class="requiredRed">※</span>@endif {{$plans->question_content}}</p>
+                                        <textarea name="answer[]" class="reserveTextarea" @if($plan->answer_flag == 1) required @endif >{{ old('answer[]') }}</textarea>
+                                        <span class="errorMessage"></span>
+                                    </div>
+                                @else
+                                    @foreach(json_decode($plans->question_content , true) as $content)
+                                    <div class="reserveTxt">
+                                        <p>@if($plan->answer_flag == 1)<span class="requiredRed">※</span>@endif {{$content}}</p>
+                                        <textarea name="answer[]" class="reserveTextarea" @if($plan->answer_flag == 1) required @endif >{{ old('answer[]') }}</textarea>
+                                        <span class="errorMessage"></span>
+                                    </div>
+                                     @endforeach
+                                @endif
                             </div>
+                            @endif
                             @endif
                             @if($plan->caution_content)
                             <div class="reserveItem">
