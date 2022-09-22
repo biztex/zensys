@@ -1098,8 +1098,17 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control question_content" name="question_content" rows="10" maxlength="1200" placeholder="※最大1200文字まで">{{ old('question_content') }}</textarea>
-                                <span id="plan_question_count" class="d-block text-lg-right">1200/1200</span>
+                                <textarea id="name" type="textarea" class="form-control question_content" name="question_content[]" rows="10" maxlength="1200" placeholder="※最大1200文字まで">{{ old('question_content[]') }}</textarea>
+                                <span class="d-block text-lg-right plan_question_count">1200/1200</span>
+                            </div>
+                        </div>
+                        <div class="after-question-section-1"></div>
+                        <div class="form-group row mb-4">
+                            <div class="col-md-6 offset-md-4">
+                                <div type="" class="btn btn-default" name="add-question">
+                                    + 質問を追加する
+                                    <input type="hidden" name="add-question" value="1">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -1301,10 +1310,15 @@ $('input[name="question_flag"]').change(function() {
     $(this).prop('checked', true);
     var val = $(this).val();
     if(val == '0') {
-        $('textarea[name="question_content"]').prop('disabled', true);
+        $('div[name="add-question"]').hide();
+        $('textarea[name="question_content[]"]').prop('disabled', true);
         $('select[name="answer_flag"]').prop('disabled', true);
     } else {
-        $('textarea[name="question_content"]').prop('disabled', false);
+        if(Number($('div[name="add-question"]').children('input').val()) < 6){
+            $('div[name="add-question"]').show()
+        }
+
+        $('textarea[name="question_content[]"]').prop('disabled', false);
         $('select[name="answer_flag"]').prop('disabled', false);
     }
 });
@@ -1863,6 +1877,35 @@ $('div[name="add-price"]').click(function(e) {
 });
 
 
+$('div[name="add-question"]').click(function(e) {
+    e.stopPropagation();
+    var val = Number($(this).children('input[type="hidden"]').val());
+    if (val == 5) {
+        $(this).hide();
+    }
+    $(this).children('input[name="add-question"]').val(val + 1);
+    $(".after-question-section-" + (val)).load('{{config('app.url')}}html/plan-question.php', function() {
+        $(".after-question-section-" + (val - 1)).find(".delete-plan").hide();   
+        $(".delete-plan").click(function(){
+            $(".after-question-section-" + (val)).remove();
+            $(".after-question-section-" + (val - 1)).find(".delete-plan").show();  
+            let valInput = Number($('input[name="add-question"]').val());
+            if(valInput < 2){
+               valInput = 2 ; 
+            }
+
+            $('input[name="add-question"]').val(valInput - 1);
+            $(".after-question-section-" + (val + 1)).attr("class" , "after-question-section-" + (val))
+        })
+        
+    
+    });
+
+
+    $(".after-question-section-" + val).after('<div class="after-question-section-' + (val + 1) + '"></div>');
+
+
+})
 $('div[name="add-road"]').click(function(e) {
     e.stopPropagation();
     var val = Number($(this).children('input[type="hidden"]').val());
@@ -1870,7 +1913,6 @@ $('div[name="add-road"]').click(function(e) {
         $(this).hide();
     }
     $(this).children('input[name="add-road"]').val(val + 1);
-    console.log(val);
 
     $(".after-road-section-" + (val)).load('{{config('app.url')}}html/plan-road.php', function() {
 
@@ -2001,8 +2043,10 @@ $(document).ready(function(){
         if (genrecategory == '観光施設・名所巡り') {$('select[name="genre_category"] option[value="13"]').prop('selected', true);}
     }
     if ($('input[name="question_flag"]:checked').val() == 0) {
-        $('textarea[name="question_content"]').prop('disabled', true);
+        $('textarea[name="question_content[]"]').prop('disabled', true);
         $('select[name="answer_flag"]').prop('disabled', true);
+        $('div[name="add-question"]').hide();
+
     }
     if ($('input[name="caution_flag"]:checked').val() == 0) {
         $('textarea[name="caution_content"]').prop('disabled', true);
@@ -2198,7 +2242,7 @@ let institutionArea = document.querySelector('.institution');
 let transportationArea = document.querySelector('.transportation');
 let commentArea = document.querySelector('.payment_comment');
 let includeArea = document.querySelector('.included_item');
-let questionArea = document.querySelector('.question_content');
+let questionArea = document.querySelectorAll('.question_content');
 let cautionArea = document.querySelector('.caution_content');
 
 
@@ -2208,7 +2252,7 @@ let plan_institution_count = document.getElementById('plan_institution_count');
 let plan_transportation_count = document.getElementById('plan_transportation_count');
 let plan_comment_count = document.getElementById('plan_comment_count');
 let plan_include_count = document.getElementById('plan_include_count');
-let plan_question_count = document.getElementById('plan_question_count');
+let plan_question_count = document.querySelectorAll('plan_question_count');
 let plan_caution_count = document.getElementById('plan_caution_count');
 
 const maxNumOfChars = 100;
@@ -2308,17 +2352,18 @@ const planIncludeCountCharacters = () => {
 };
 //予約者への質問
 
-const planQuestionCountCharacters = () => {
+const planQuestionCountCharacters = (element) => {
 
-    let question_numOfEnteredChars = questionArea.value.length;
+    let question_numOfEnteredChars = element.value.length;
     let question_counter = plan_maxNumOfChars - question_numOfEnteredChars;
-    plan_question_count.textContent = question_counter + "/1200";
+    console.log(element);
+    element.nextElementSibling.textContent = question_counter + "/1200";
     if (question_counter < 0) {
-        plan_question_count.style.color = "red";
+        element.nextElementSibling.style.color = "red";
     } else if (question_counter < 20) {
-        plan_question_count.style.color = "orange";
+        element.nextElementSibling.style.color = "orange";
     } else {
-        plan_question_count.style.color = "black";
+        element.nextElementSibling.style.color = "black";
     }
 
 };
@@ -2345,7 +2390,15 @@ institutionArea.addEventListener("input", planInstitutionCountCharacters);
 transportationArea.addEventListener("input", planTransportationCountCharacters);
 commentArea.addEventListener("input", planCommentCountCharacters);
 includeArea.addEventListener("input", planIncludeCountCharacters);
-questionArea.addEventListener("input", planQuestionCountCharacters);
+
+
+document.addEventListener('input', function(e) {
+    e = e || window.event;
+    if(e.target.classList.contains('question_content')){
+        planQuestionCountCharacters(e.target);
+    }
+}, false);
+
 cautionArea.addEventListener("input", planCautionCountCharacters);
 
 var css_count = 0;

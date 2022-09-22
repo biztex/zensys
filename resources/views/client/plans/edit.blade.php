@@ -916,13 +916,16 @@
                               <input class="ml-5" type="radio" name="question_flag" value="1" @if ($plans->question_flag == 1) checked @endif> <span> 設定する</span>
                             </label>
                         </div>
+
+                        @foreach(json_decode($plans->question_content , true) as $content)
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control question_content" maxlength="1200" name="question_content" rows="10" placeholder="※最大1200文字まで">{{ old('question_content',$plans->question_content) }}</textarea>
-                                <span id="plan_question_count" class="d-block text-lg-right">1200/1200</span>
+                                <textarea id="name" type="textarea" class="form-control question_content" maxlength="1200" name="question_content[]" rows="10" placeholder="※最大1200文字まで">{{ old('question_content[]',$content ) }}</textarea>
+                                <span class="d-block text-lg-right plan_question_count" class="d-block text-lg-right">1200/1200</span>
                             </div>
                         </div>
+                        @endforeach 
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 予約者からの回答</label>
                             <div class="col-md-6">
@@ -1224,7 +1227,7 @@ let institutionArea = document.querySelector('.institution');
 let transportationArea = document.querySelector('.transportation');
 let commentArea = document.querySelector('.payment_comment');
 let includeArea = document.querySelector('.included_item');
-let questionArea = document.querySelector('.question_content');
+let questionArea = document.querySelectorAll('.question_content');
 let cautionArea = document.querySelector('.caution_content');
 
 
@@ -1234,7 +1237,7 @@ let plan_institution_count = document.getElementById('plan_institution_count');
 let plan_transportation_count = document.getElementById('plan_transportation_count');
 let plan_comment_count = document.getElementById('plan_comment_count');
 let plan_include_count = document.getElementById('plan_include_count');
-let plan_question_count = document.getElementById('plan_question_count');
+let plan_question_count = document.querySelectorAll('.plan_question_count');
 let plan_caution_count = document.getElementById('plan_caution_count');
 
 const maxNumOfChars = 100;
@@ -1334,21 +1337,23 @@ const planIncludeCountCharacters = () => {
 };
 //予約者への質問
 
-const planQuestionCountCharacters = () => {
+//予約者への質問
 
-    let question_numOfEnteredChars = questionArea.value.length;
-    let question_counter = plan_maxNumOfChars - question_numOfEnteredChars;
-    plan_question_count.textContent = question_counter + "/1200";
-    if (question_counter < 0) {
-        plan_question_count.style.color = "red";
-    } else if (question_counter < 20) {
-        plan_question_count.style.color = "orange";
-    } else {
-        plan_question_count.style.color = "black";
-    }
+const planQuestionCountCharacters = (element) => {
+
+let question_numOfEnteredChars = element.value.length;
+let question_counter = plan_maxNumOfChars - question_numOfEnteredChars;
+console.log(element);
+element.nextElementSibling.textContent = question_counter + "/1200";
+if (question_counter < 0) {
+    element.nextElementSibling.style.color = "red";
+} else if (question_counter < 20) {
+    element.nextElementSibling.style.color = "orange";
+} else {
+    element.nextElementSibling.style.color = "black";
+}
 
 };
-
 //注意事項・その他
 
 const planCautionCountCharacters = () => {
@@ -1372,7 +1377,6 @@ planInstitutionCountCharacters();
 planTransportationCountCharacters();
 planCommentCountCharacters();
 planIncludeCountCharacters();
-planQuestionCountCharacters();
 planCautionCountCharacters();
 textArea.addEventListener("input", countCharacters);
 planArea.addEventListener("input", plancountCharacters);
@@ -1380,8 +1384,13 @@ institutionArea.addEventListener("input", planInstitutionCountCharacters);
 transportationArea.addEventListener("input", planTransportationCountCharacters);
 commentArea.addEventListener("input", planCommentCountCharacters);
 includeArea.addEventListener("input", planIncludeCountCharacters);
-questionArea.addEventListener("input", planQuestionCountCharacters);
 cautionArea.addEventListener("input", planCautionCountCharacters);
+document.addEventListener('input', function(e) {
+    e = e || window.event;
+    if(e.target.classList.contains('question_content')){
+        planQuestionCountCharacters(e.target);
+    }
+}, false);
 
 
 // イベント

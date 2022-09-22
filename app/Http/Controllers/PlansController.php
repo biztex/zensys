@@ -103,7 +103,7 @@ class PlansController extends Controller
             // 'place_longitude' => ['required', 'string', 'max:50'],
             // 'meeting_point_flag' => ['required', 'numeric'],
             'question_flag' => ['required'],
-            'question_content' => ['nullable', 'string', 'max:1200'],
+            'question_content[]' => ['nullable', 'string','max:12000'],
             'caution_flag' => ['required'],
             'caution_content' => ['nullable', 'string', 'max:5000'],
             // 'item' => ['nullable', 'string', 'max:1000'],
@@ -173,11 +173,15 @@ class PlansController extends Controller
             $res_type_rule = [
                 'res_limit_number' => ['required', 'numeric'],
                 'res_end_day' => ['required', 'numeric'],
+                'req_before_day' => ['nullable', 'numeric'],
+
             ];
             $rules = array_merge($rules, $res_type_rule);
         }
         else{
             $req = [
+                'res_limit_number' => ['nullable', 'numeric'],
+                'res_end_day' => ['nullable', 'numeric'],
                 'req_before_day' => ['required', 'numeric'],
             ];
 
@@ -571,7 +575,8 @@ class PlansController extends Controller
         // $plans->meeting_point_latitude = $request->meeting_point_latitude;
         // $plans->meeting_point_longitude = $request->meeting_point_longitude;
         $plans->question_flag = $request->question_flag;
-        $plans->question_content = $request->question_content;
+        $plans->question_content = json_encode($request->question_content);
+
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
@@ -834,6 +839,8 @@ class PlansController extends Controller
     public function storeTmp(Request $request)
     {
 
+
+
         ini_set('memory_limit', '256M');
         $rules = [
             'is_listed' => ['required'],
@@ -844,7 +851,7 @@ class PlansController extends Controller
             'description' => ['nullable', 'string', 'max:1200'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
             'included_item' => ['nullable', 'string', 'max:100'],
-            'question_content' => ['nullable', 'string', 'max:1200'],
+            'question_content' => ['nullable', 'string','max:12000'],
             'caution_content' => ['nullable', 'string', 'max:5000'],
             'res_end_day' => ['nullable', 'numeric'],
             'res_end_time' => ['nullable', 'numeric'],
@@ -868,11 +875,12 @@ class PlansController extends Controller
 
         if($request->old_file_path1 == null){
             $img_rule = [
-                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:2048',
+                'file_path1' =>'mimes:jpeg,jpg,png,gif|max:2048',
             ];
             $rules = array_merge($rules, $img_rule);
         }
         $this->validate($request, $rules);
+
 
         // 画像トリミング処理（forのループ分）
         $image_count = 0;
@@ -1070,7 +1078,9 @@ class PlansController extends Controller
         // $plans->meeting_point_latitude = $request->meeting_point_latitude;
         // $plans->meeting_point_longitude = $request->meeting_point_longitude;
         $plans->question_flag = $request->question_flag;
-        $plans->question_content = $request->question_content;
+
+
+        $plans->question_content = json_encode($request->question_content);
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
@@ -1369,7 +1379,8 @@ class PlansController extends Controller
             'description' => ['nullable', 'string', 'max:1200'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
             'included_item' => ['nullable', 'string', 'max:100'],
-            'question_content' => ['nullable', 'string', 'max:1200'],
+            'question_content' => ['nullable', 'string','max:12000'],
+
             'caution_content' => ['nullable', 'string', 'max:5000'],
             'file_path11' =>  'mimes:pdf|max:10000',
             'res_end_day' => ['nullable', 'numeric'],
@@ -1397,7 +1408,7 @@ class PlansController extends Controller
 
         if($request->old_file_path1 == null){
             $img_rule = [
-                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:2048',
+                'file_path1' =>'mimes:jpeg,jpg,png,gif|max:2048',
             ];
             $rules = array_merge($rules, $img_rule);
         }
@@ -1601,7 +1612,8 @@ class PlansController extends Controller
         // $plans->meeting_point_latitude = $request->meeting_point_latitude;
         // $plans->meeting_point_longitude = $request->meeting_point_longitude;
         $plans->question_flag = $request->question_flag;
-        $plans->question_content = $request->question_content;
+        $plans->question_content = json_encode($request->question_content);
+
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
@@ -1903,6 +1915,7 @@ class PlansController extends Controller
     // 更新処理
     public function update(Request $request, $id)
     {
+
         ini_set('memory_limit', '256M');
         $rules = [
             'code' => ['nullable'],
@@ -1947,7 +1960,8 @@ class PlansController extends Controller
             // 'place_latitude' => ['required', 'string', 'max:50'],
             // 'place_longitude' => ['required', 'string', 'max:50'],
             'question_flag' => ['required'],
-            'question_content' => ['nullable', 'string', 'max:1200'],
+            'question_content' => ['nullable', 'string','max:12000'],
+
             'caution_flag' => ['required'],
             'caution_content' => ['nullable', 'string', 'max:5000'],
             // 'item' => ['nullable', 'string', 'max:1000'],
@@ -2541,7 +2555,8 @@ class PlansController extends Controller
         // $plans->meeting_point_latitude = $request->meeting_point_latitude;
         // $plans->meeting_point_longitude = $request->meeting_point_longitude;
         $plans->question_flag = $request->question_flag;
-        $plans->question_content = $request->question_content;
+        $plans->question_content = json_encode($request->question_content);
+        
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
