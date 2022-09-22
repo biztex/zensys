@@ -980,7 +980,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label text-md-right"></label>
                                         <div class="col-md-6">
-                                            <textarea id="name" type="textarea" class="form-control question_content" maxlength="1200" name="question_content[]" rows="10" placeholder="※最大1200文字まで">{{ old('question_content[]',$plans->question_content ) }}</textarea>
+                                            <textarea id="name" type="textarea" class="form-control question_content" maxlength="1200" name="question_content[]" rows="10" placeholder="※最大1200文字まで" disabled="">{{ old('question_content[]') }}</textarea>
                                             <span class="d-block text-lg-right plan_question_count" class="d-block text-lg-right">1200/1200</span>
                                         </div>
                                     </div>
