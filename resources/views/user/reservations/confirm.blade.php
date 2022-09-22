@@ -369,12 +369,22 @@
                                     </tr>
                                 </table>
                             </div>
+
                             @if($plan->question_flag != 0)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">予約者への質問</h4>
                                 <div class="reserveTxt">
-                                    <p>{{json_decode($plan->question_content , true)}}</p>
-                                    <p>{{json_decode($info['answer'] , true)}}</p>
+                                    <p>@foreach(json_decode($plan->question_content , true) as $content){{$content}}@endforeach</p>
+                                    <p>@foreach(json_decode($info['answer'] , true) as $answer){{$answer}}@endforeach</p>
+                                </div>
+                            </div>
+                            @endif
+
+                            @if($info['remark'] != null)
+                            <div class="reserveItem">
+                                <h4 class="reserveItemHd">備考欄</h4>
+                                <div class="reserveTxt">
+                                    <p>{{$info['remark']}}</p>
                                 </div>
                             </div>
                             @endif
