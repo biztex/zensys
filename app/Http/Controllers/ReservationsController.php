@@ -156,7 +156,7 @@ class ReservationsController extends Controller
         $plan = Plan::find($request->plan_id);
         if ($plan->answer_flag == 1) {
             $a_rules = [
-                'answer' => ['required', 'string', 'max:500'],
+                'answer[]' => ['required', 'string', 'max:500'],
             ];
             $rules = array_merge($rules, $a_rules);
         }
@@ -277,7 +277,7 @@ class ReservationsController extends Controller
         $reservation->number = $reservation_number;
         $reservation->activity_date = $request->selected_activity;
         $reservation->fixed_datetime = $request->date;
-        $reservation->answer = $request->answer;
+        $reservation->answer = json_encode($request->answer);
         $reservation->price_type = $request->price_type;
 
 
@@ -708,7 +708,7 @@ class ReservationsController extends Controller
         $plan = Plan::find($request->plan_id);
         if ($plan->answer_flag == 1) {
             $a_rules = [
-                'answer' => ['required', 'string', 'max:500'],
+                'answer[]' => ['required', 'string', 'max:500'],
             ];
             $rules = array_merge($rules, $a_rules);
         }
@@ -862,7 +862,7 @@ class ReservationsController extends Controller
         $info['address_representative']     = $request->address_representative;
         $info['boarding']                   = $request->boarding;
         $info['drop']                       = $request->drop;
-        $info['answer']                     = $request->answer;
+        $info['answer']                     = json_encode($request->answer);
         $info['price_type']                 = $request->price_type;
         // 料金区分２０以上対応
         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];

@@ -107,18 +107,27 @@
                                 <a target="_blank" class="font-weight-bold" style="line-height: 2.4;" href="{{config('app.url')}}client/users/edit/{{ $reservations->user->id }}">{{ $reservations->user->name_last }} {{ $reservations->user->name_first }} <small>（別ページで開く）</small></i></a>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約者への質問') }}</label>
-                            <div class="col-md-6">
-                                <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ $reservations->plan->question_content }}</textarea>
+
+                        @if($reservations->plan->question_content != "null")
+                            @if(json_decode($reservations->plan->question_content, true) != null)
+                            @foreach(json_decode($reservations->plan->question_content, true) as $content)
+                            <div class="form-group row">
+                                <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約者への質問') }}</label>
+                                <div class="col-md-6">
+                                    <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ $content }}</textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約者からの回答') }}</label>
-                            <div class="col-md-6">
-                                <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ $reservations->answer }}</textarea>
+                            <div class="form-group row">
+                                <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約者からの回答') }}</label>
+                                <div class="col-md-6">
+                                    <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ json_decode($reservations->answer, true)[$loop->index] }}</textarea>
+                                </div>
                             </div>
-                        </div>
+                            @endforeach
+                            @endif
+                        @endif
+
+
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('支払方法') }}</label>
                             <div class="col-md-3">
