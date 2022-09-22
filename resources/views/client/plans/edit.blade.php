@@ -1046,7 +1046,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
-                                <textarea id="name" type="textarea" class="form-control caution_content" name="caution_content" maxlength="5000" rows="10" placeholder="※最大5000文字まで">{{ old('caution_content',$plans->caution_content) }}</textarea>
+                                <textarea id="name" type="textarea" class="form-control caution_content" name="caution_content" maxlength="5000" rows="10" placeholder="※最大5000文字まで">{!! old('caution_content',$plans->caution_content) !!}</textarea>
                                 <span id="plan_caution_count" class="d-block text-lg-right">5000/5000</span>
 
                             </div>
@@ -1540,9 +1540,11 @@ $('input[name="caution_flag"]').change(function() {
     $(this).prop('checked', true);
     var val = $(this).val();
     if(val == '0') {
-        $('textarea[name="caution_content"]').prop('disabled', true);
+        // $('textarea[name="caution_content"]').prop('disabled', true);
+        $('textarea[name="caution_content"]').summernote('disable');
     } else {
-        $('textarea[name="caution_content"]').prop('disabled', false);
+        // $('textarea[name="caution_content"]').prop('disabled', false);
+        $('textarea[name="caution_content"]').summernote('enable');
     }
 });
 $('input[name="meeting_point_flag"]').change(function() {
@@ -2071,7 +2073,7 @@ $(document).ready(function(){
         $('select[name="answer_flag"]').prop('disabled', true);
     }
     if ($('input[name="caution_flag"]:checked').val() == 0) {
-        $('textarea[name="caution_content"]').prop('disabled', true);
+        $('textarea[name="caution_content"]').summernote('disable');
     }
     if ($('input[name="meeting_point_flag"]:checked').val() != 1) {
         $('.meeting_point_section').hide();
@@ -2421,6 +2423,10 @@ $('#cancel').summernote({
     tabsize: 2,
     minHeight: 250
 });
+$('textarea[name="caution_content"]').summernote({
+    tabsize: 2,
+    minHeight: 250
+});
 
 
 
@@ -2440,8 +2446,6 @@ $("body").click(function(e) {
         if(css_count < 2){
             $(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top", cs + 'px')
         }
-
-        console.log(css_count);
     } 
    
   });

@@ -727,7 +727,7 @@
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">注意事項・その他</h4>
                                 <div class="reserveTxt">
-                                    <p>{{ $plan->caution_content }}</p>
+                                    <p>{!! $plan->caution_content !!}</p>
                                 </div>
                             </div>
                             @endif

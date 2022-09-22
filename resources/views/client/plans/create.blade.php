@@ -1333,9 +1333,11 @@ $('input[name="caution_flag"]').change(function() {
     $(this).prop('checked', true);
     var val = $(this).val();
     if(val == '0') {
-        $('textarea[name="caution_content"]').prop('disabled', true);
+        $('textarea[name="caution_content"]').summernote('disable');
+
     } else {
-        $('textarea[name="caution_content"]').prop('disabled', false);
+        $('textarea[name="caution_content"]').summernote('enable');
+
     }
 });
 $('input[name="meeting_point_flag"]').change(function() {
@@ -2049,7 +2051,7 @@ $(document).ready(function(){
 
     }
     if ($('input[name="caution_flag"]:checked').val() == 0) {
-        $('textarea[name="caution_content"]').prop('disabled', true);
+        $('textarea[name="caution_content"]').summernote('disable');
     }
     if ($('input[name="meeting_point_flag"]:checked').val() != 1) {
         $('.meeting_point_section').hide();
@@ -2234,6 +2236,10 @@ function ajaxGenres(name) {
     $('#cancel').summernote({
     tabsize: 2,
     minHeight: 250
+    });
+    $('textarea[name="caution_content"]').summernote({
+        tabsize: 2,
+        minHeight: 250
     });
 
 let textArea = document.querySelector(".catchphrase");
