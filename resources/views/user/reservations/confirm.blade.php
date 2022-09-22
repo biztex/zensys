@@ -373,7 +373,7 @@
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">予約者への質問</h4>
                                 <div class="reserveTxt">
-                                    <p>{{json_decode($plan->question_content , true}}</p>
+                                    <p>{{json_decode($plan->question_content , true)}}</p>
                                     <p>{{json_decode($info['answer'] , true)}}</p>
                                 </div>
                             </div>
