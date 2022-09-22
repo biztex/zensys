@@ -918,14 +918,39 @@
                         </div>
 
                         @foreach(json_decode($plans->question_content , true) as $content)
+                        <div class="after-question-section-{{$loop->index }}">
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"></label>
                             <div class="col-md-6">
+                                @if ($loop->last && $loop->count != 1)
+                                <div class="col-md-6 mb-2">
+                                    <div type="" class="btn btn-default delete-plan" name='delete-plan' value=''>
+                                        <i class="fas fa-fw fa-window-close"></i> この質問を削除
+                                    </div>
+                                </div>
+                                @elseif (!$loop->first && $loop->count != 1)
+                                <div class="col-md-6 mb-2">
+                                    <div type="" class="btn btn-default delete-plan" name='delete-plan' style="display: none;" value=''>
+                                        <i class="fas fa-fw fa-window-close"></i> この質問を削除
+                                    </div>
+                                </div>
+                                @endif
+
                                 <textarea id="name" type="textarea" class="form-control question_content" maxlength="1200" name="question_content[]" rows="10" placeholder="※最大1200文字まで">{{ old('question_content[]',$content ) }}</textarea>
                                 <span class="d-block text-lg-right plan_question_count" class="d-block text-lg-right">1200/1200</span>
                             </div>
                         </div>
+                        </div>
                         @endforeach 
+                        <div class="after-question-section-{{ count(json_decode($plans->question_content , true)) }}"></div>
+                        <div class="form-group row mb-4">
+                            <div class="col-md-6 offset-md-4">
+                                <div type="" class="btn btn-default" name="add-question">
+                                    + 質問を追加する
+                                    <input type="hidden" name="add-question" value="{{ count(json_decode($plans->question_content , true))}}">
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 予約者からの回答</label>
                             <div class="col-md-6">
@@ -1418,10 +1443,15 @@ $('input[name="question_flag"]').change(function() {
     $(this).prop('checked', true);
     var val = $(this).val();
     if(val == '0') {
-        $('textarea[name="question_content"]').prop('disabled', true);
+        $('div[name="add-question"]').hide();
+        $('textarea[name="question_content[]"]').prop('disabled', true);
         $('select[name="answer_flag"]').prop('disabled', true);
     } else {
-        $('textarea[name="question_content"]').prop('disabled', false);
+        if(Number($('div[name="add-question"]').children('input').val()) < 6){
+            $('div[name="add-question"]').show()
+        }
+
+        $('textarea[name="question_content[]"]').prop('disabled', false);
         $('select[name="answer_flag"]').prop('disabled', false);
     }
 });
@@ -2142,6 +2172,35 @@ function ajaxGenres(name) {
         alert(errorThrown);
     });
 }
+
+$('div[name="add-question"]').click(function(e) {
+    e.stopPropagation();
+    var val = Number($(this).children('input[type="hidden"]').val());
+    if (val == 5) {
+        $(this).hide();
+    }
+    $(this).children('input[name="add-question"]').val(val + 1);
+    $(".after-question-section-" + (val)).load('{{config('app.url')}}html/plan-question.php', function() {
+        $(".after-question-section-" + (val - 1)).find(".delete-plan").hide();   
+        $(".delete-plan").click(function(){
+            $(".after-question-section-" + (val)).remove();
+            $(".after-question-section-" + (val - 1)).find(".delete-plan").show();  
+            let valInput = Number($('input[name="add-question"]').val());
+            if(valInput < 2){
+               valInput = 2 ; 
+            }
+            $('input[name="add-question"]').val(valInput - 1);
+            $('input[name="add-question"]').show();
+
+            $(".after-question-section-" + (val + 1)).attr("class" , "after-question-section-" + (val))
+        })
+    });
+
+    $(".after-question-section-" + val).after('<div class="after-question-section-' + (val + 1) + '"></div>');
+
+
+})
+
 
 $('div[name="add-road"]').click(function(e) {
     e.stopPropagation();
