@@ -990,7 +990,7 @@
                                 <div class="after-question-section-1"></div>
                                 <div class="form-group row mb-4">
                                     <div class="col-md-6 offset-md-4">
-                                        <div type="" class="btn btn-default" name="add-question">
+                                        <div type="" class="btn btn-default" name="add-question" style="display: none">
                                             + 質問を追加する
                                             <input type="hidden" name="add-question" value="1">
                                         </div>
