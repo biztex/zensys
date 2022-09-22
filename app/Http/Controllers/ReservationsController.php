@@ -278,6 +278,7 @@ class ReservationsController extends Controller
         $reservation->activity_date = $request->selected_activity;
         $reservation->fixed_datetime = $request->date;
         $reservation->answer = json_encode($request->answer);
+        $reservation->remark = $request->remark;
         $reservation->price_type = $request->price_type;
 
 
@@ -704,6 +705,7 @@ class ReservationsController extends Controller
             'is_member' => ['nullable'],
             'is_request' => ['nullable'],
             'payment_method' => ['required', 'numeric'],
+            'remark' => ['nullable', 'string','max:2000'],
         ];
         $plan = Plan::find($request->plan_id);
         if ($plan->answer_flag == 1) {
@@ -863,6 +865,7 @@ class ReservationsController extends Controller
         $info['boarding']                   = $request->boarding;
         $info['drop']                       = $request->drop;
         $info['answer']                     = json_encode($request->answer);
+        $info['remark']                     = $request->remark;
         $info['price_type']                 = $request->price_type;
         // 料金区分２０以上対応
         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
