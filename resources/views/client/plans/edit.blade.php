@@ -916,7 +916,8 @@
                               <input class="ml-5" type="radio" name="question_flag" value="1" @if ($plans->question_flag == 1) checked @endif> <span> 設定する</span>
                             </label>
                         </div>
-                        @if($plans->question_content != null)
+
+                        @if( $plans->question_content != "null" )
                             @if(json_decode($plans->question_content , true) == null)
                                 <div class="after-question-section-0">
                                     <div class="form-group row">
