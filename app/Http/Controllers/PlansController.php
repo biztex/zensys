@@ -109,19 +109,19 @@ class PlansController extends Controller
             // 'item' => ['nullable', 'string', 'max:1000'],
             // 'wear' => ['nullable', 'string', 'max:1000'],
             // 'old_file_path1' => 'required_without:file_path1|string|max:1000',
-            'file_path2' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path3' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path4' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path5' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path6' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path7' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path8' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path9' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
+            'file_path2' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path3' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path4' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path5' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path6' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path7' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
         ];
         if($request->old_file_path1 == null){
             $img_rule = [
-                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:500000',
+                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:2048',
             ];
             $rules = array_merge($rules, $img_rule);
         }
@@ -853,9 +853,25 @@ class PlansController extends Controller
             'payment_plus_day' => ['nullable', 'numeric'],
             'min_number' => ['nullable', 'numeric'],
             'max_number' => ['nullable', 'numeric'],
+            'file_path2' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path3' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path4' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path5' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path6' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path7' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            
 
         ];
 
+        if($request->old_file_path1 == null){
+            $img_rule = [
+                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:2048',
+            ];
+            $rules = array_merge($rules, $img_rule);
+        }
         $this->validate($request, $rules);
 
         // 画像トリミング処理（forのループ分）
@@ -1367,9 +1383,24 @@ class PlansController extends Controller
             'min_number' => ['nullable', 'numeric'],
             'max_number' => ['nullable', 'numeric'],
             'payment_plus_day' => ['nullable', 'numeric'],
+            'file_path2' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path3' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path4' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path5' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path6' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path7' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
 
         ];
 
+        if($request->old_file_path1 == null){
+            $img_rule = [
+                'file_path1' =>'required|mimes:jpeg,jpg,png,gif|max:2048',
+            ];
+            $rules = array_merge($rules, $img_rule);
+        }
         $this->validate($request, $rules);
         $image_count = 0;
         for ($i = 1; $i <= 11; $i++) {
@@ -1922,15 +1953,15 @@ class PlansController extends Controller
             // 'item' => ['nullable', 'string', 'max:1000'],
             // 'wear' => ['nullable', 'string', 'max:1000'],
             // 'old_file_path1' => 'required_without:file_path1|string|max:1000',
-            'file_path2' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path3' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path4' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path5' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path6' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path7' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path8' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path9' => 'mimes:jpeg,jpg,png,gif|max:500000',
-            'file_path10' => 'mimes:jpeg,jpg,png,gif|max:500000',
+            'file_path2' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path3' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path4' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path5' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path6' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path7' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
         ];
         if($request->old_file_path1 == null){
             $img_rule = [
