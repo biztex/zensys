@@ -731,13 +731,24 @@
                                 </div>
                             </div>
                             @endif
+
+                            <div class="reserveItem">
+                                <h4 class="reserveItemHd">備考欄</h4>
+                                <div class="reserveTxt">
+                                    <p>その他、何かございましたらご記入ください</p>
+                                    <textarea name="remark" class="reserveTextarea">{{ old('remark') }}</textarea>
+                                </div>
+                            </div>
+
+
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">キャンセル規定</h4>
                                 <div class="reserveTxt">
                                     <p>{!! $plan->cancel !!}</p>
                                 </div>
-
                             </div>
+
+                         
                             <div class="reserveAgree">
                               <label for="agree01" class="checkBox01">
                                 <input type="checkbox" name="agree" id="agree01" required>
