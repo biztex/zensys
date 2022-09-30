@@ -851,7 +851,7 @@ class PlansController extends Controller
             'description' => ['nullable', 'string', 'max:1200'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
             'included_item' => ['nullable', 'string', 'max:100'],
-            'question_content[]' => ['nullable', 'string','max:12000'],
+            'question_content.*' => ['nullable', 'string','max:12000'],
             'caution_content' => ['nullable', 'string', 'max:5000'],
             'res_end_day' => ['nullable', 'numeric'],
             'res_end_time' => ['nullable', 'numeric'],
@@ -1379,7 +1379,7 @@ class PlansController extends Controller
             'description' => ['nullable', 'string', 'max:1200'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
             'included_item' => ['nullable', 'string', 'max:100'],
-            'question_content[]' => ['nullable', 'string','max:12000'],
+            'question_content.*' => ['nullable', 'string','max:12000'],
 
             'caution_content' => ['nullable', 'string', 'max:5000'],
             'file_path11' =>  'mimes:pdf|max:10000',
@@ -1960,7 +1960,7 @@ class PlansController extends Controller
             // 'place_latitude' => ['required', 'string', 'max:50'],
             // 'place_longitude' => ['required', 'string', 'max:50'],
             'question_flag' => ['required'],
-            'question_content[]' => ['nullable', 'string','max:12000'],
+            'question_content.*' => ['required', 'string','max:12000'],
 
             'caution_flag' => ['required'],
             'caution_content' => ['nullable', 'string', 'max:5000'],
