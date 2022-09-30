@@ -156,7 +156,7 @@ class ReservationsController extends Controller
         $plan = Plan::find($request->plan_id);
         if ($plan->answer_flag == 1) {
             $a_rules = [
-                'answer[]' => ['required', 'string', 'max:500'],
+                'answer.*' => ['required', 'string', 'max:500'],
             ];
             $rules = array_merge($rules, $a_rules);
         }
@@ -710,7 +710,7 @@ class ReservationsController extends Controller
         $plan = Plan::find($request->plan_id);
         if ($plan->answer_flag == 1) {
             $a_rules = [
-                'answer[]' => ['required', 'string', 'max:500'],
+                'answer.*' => ['required', 'string', 'max:500'],
             ];
             $rules = array_merge($rules, $a_rules);
         }

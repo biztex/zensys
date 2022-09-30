@@ -755,7 +755,7 @@
                                 <p><b>@if($plan->notice)
                                     <a href="{{$plan->notice}}" target="_blank">「旅行条件書」</a>
                                     @elseif($plan->file_path11)
-                                    <a href="https://zenryo.zenryo-ec.info/uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
+                                    <a href="https://nagaden-kanko.com/plan/uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
                                     @endif
                                     「注意事項」
                                     <a href="{{$companies[0]->url2}}" target="_blank">「個人情報の取扱に関する基本方針」</a>を確認しました</b></p>
@@ -779,7 +779,7 @@
                                 <div class="warning">
                                     <div class="">
                                         <h2>この予約は終了しました。</h2>
-                                        <a class="col-md-2 d-block offset-md-5 mt-4 px-4 py-2 bg-warning" href="https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}">戻る</a>
+                                        <a class="col-md-2 d-block offset-md-5 mt-4 px-4 py-2 bg-warning" href="https://nagaden-kanko.com/plan/detail.php?plan_id={{ request('plan_id')}}">戻る</a>
                                     </div>
                                 </div>
                             </div>
@@ -788,7 +788,7 @@
                     
                 </div>
 
-               <script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}';</script>
+               <script type='text/javascript'>window.top.location='https://nagaden-kanko.com/plan/detail.php?plan_id={{ request('plan_id')}}';</script>
               
                 @endif
             </div>
@@ -801,7 +801,7 @@
             <div class="footer-top">
                 <div class="container">
                     <p class="syamei_footer">長野電鉄株式会社</p>
-                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                    <a href="/" class="logo syamei_footer_logo"><img src="https://nagaden-kanko.com/plan/assets/img/logo3.png" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
                         <p class="post">〒380-0823</p>
@@ -1337,7 +1337,7 @@
                     $("select[name='planDrop']").next().addClass("error");
                     $("select[name='planDrop']").next().text("※降車地を入力してください。");
                     if(top_pos == null){
-                        top_pos = $("input[name='planDrop']").offset().top;
+                        top_pos = $("select[name='planDrop']").offset().top;
                     }
                 }
                 else{
@@ -1539,22 +1539,53 @@
                 
             }
 
-            //予約者への質問
 
-            if($("textarea[name='answer']").attr('required') != null){
-                if($("textarea[name='answer']").val() == ''){
-                    $("textarea[name='answer']").addClass('error');
-                    $("textarea[name='answer']").next().addClass('error');
-                    $("textarea[name='answer']").next().text('※予約者への質問を入力してください。');
+
+            $("select[name='birth_year_representative[]']").each(function(){
+                let year = $(this).val();
+                let month = $(this).next().val();
+                let day = $(this).next().next().val();
+
+                if(year !== "" && month !== "" && day !== "" ){
+                    $(this).removeClass("error");
+                    $(this).next().removeClass("error");
+                    $(this).next().next().removeClass("error");
+                    $(this).parent().next().removeClass("error");
+                }
+                    
+                else {
+                    $(this).addClass("error");
+                    $(this).next().addClass("error");
+                    $(this).next().next().addClass("error");
+                    $(this).parent().next().text("※生年月日を入力してください。");
+                    $(this).parent().next().addClass("error");
                     if(top_pos == null){
-                        top_pos = $("textarea[name='answer']").offset().top;
+                        top_pos =$(this).offset().top;
                     }
                 }
-                else{
-                    $("textarea[name='answer']").removeClass('error');
-                    $("textarea[name='answer']").next().removeClass('error');
+            })
+
+           
+
+            //予約者への質問
+
+           $("textarea[name='answer[]']").each(function(){
+
+                if($(this).attr('required') != null){
+                    if($(this).val() == ''){
+                        $(this).addClass('error');
+                        $(this).next().addClass('error');
+                        $(this).next().text('※予約者への質問を入力してください。');
+                        if(top_pos == null){
+                            top_pos = $(this).offset().top;
+                        }
+                    }
+                    else{
+                        $(this).removeClass('error');
+                        $(this).next().removeClass('error');
+                    }
                 }
-            }
+            });
 
             if($("input[name='agree']").is(':checked') == false){
                 $("input[name='agree']").addClass("error");
