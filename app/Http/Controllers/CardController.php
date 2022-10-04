@@ -62,8 +62,8 @@ class CardController extends Controller
         /*
          * マーチャントIDとマーチャント認証鍵を動的に設定する場合はexecuteメソッドの第2引数に以下のようにセットする
          */
-         /*$props["merchant_ccid"] = "A100000800000001100002cc";
-         $props["merchant_secret_key"] = "5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9";*/
+         /*$props["merchant_ccid"] = "";
+         $props["merchant_secret_key"] = "";*/
          $response_data = $transaction->execute($request_data);
 
         if ($response_data instanceof CardAuthorizeResponseDto) {
@@ -152,8 +152,8 @@ class CardController extends Controller
                     if ($reservation->user->email) {
                         $message
                         ->to($reservation->user->email)
-                        ->bcc(['test@toebisu.jp'])
-                        ->from('info@zenryo-ec.com')
+                        ->bcc(['goontrip@nagaden-kanko.com'])
+                        ->from('goontrip@nagaden-kanko.com')
                         ->subject("【予約確認】長野電鉄株式会社");
                 }
                 });

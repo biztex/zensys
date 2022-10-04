@@ -639,7 +639,7 @@ $i++;
 			</div>
 						<div class="elementor-icon-box-content">
 				<p class="elementor-icon-box-title">
-					<span ><a href="mailto:info@zenryo-ec.com">info@zenryo-ec.com</a></span>
+					<span ><a href="mailto:goontrip@nagaden-kanko.com">goontrip@nagaden-kanko.com</a></span>
 				</p>
 				<p class="elementor-icon-box-description">お気軽にお問い合わせください</p>
 			</div>

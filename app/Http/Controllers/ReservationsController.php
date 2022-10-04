@@ -540,8 +540,8 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['test@toebisu.jp'])
-                                ->from('test@toebisu.jp')
+                                ->bcc(['goontrip@nagaden-kanko.com'])
+                                ->from('goontrip@nagaden-kanko.com')
                                 ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
@@ -607,8 +607,8 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['test@toebisu.jp'])
-                                ->from('test@toebisu.jp')
+                                ->bcc(['goontrip@nagaden-kanko.com'])
+                                ->from('goontrip@nagaden-kanko.com')
                                 ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
@@ -670,8 +670,8 @@ class ReservationsController extends Controller
                     if ($request->email) {
                         $message
                             ->to($request->email)
-                            ->bcc(['test@toebisu.jp'])
-                            ->from('test@toebisu.jp')
+                            ->bcc(['goontrip@nagaden-kanko.com'])
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【リクエスト】長野電鉄株式会社');
                     }
                 }
@@ -1126,8 +1126,8 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->bcc(['test@toebisu.jp'])
-                            ->from('test@toebisu.jp')
+                            ->bcc(['goontrip@nagaden-kanko.com'])
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【予約確定】長野電鉄株式会社');
                     }
                 }
@@ -1170,8 +1170,8 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->bcc(['test@toebisu.jp'])
-                            ->from('test@toebisu.jp')
+                            ->bcc(['goontrip@nagaden-kanko.com'])
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【予約確定】長野電鉄株式会社');
                     }
                 }
@@ -1181,7 +1181,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cvsemail'],
                 [
                     'url_cvs' =>
-                        'https://zenryo.zenryo-ec.info/pay?prm=' .
+                        'https://nagaden-kanko.com/plan/pay?prm=' .
                         encrypt($param_cvs),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1206,8 +1206,8 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->bcc(['test@toebisu.jp'])
-                            ->from('test@toebisu.jp')
+                            ->bcc(['goontrip@nagaden-kanko.com'])
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【入金依頼】長野電鉄株式会社');
                     }
                 }
@@ -1217,7 +1217,7 @@ class ReservationsController extends Controller
                 ['text' => 'user.reservations.cardemail'],
                 [
                     'url_card' =>
-                        'https://zenryo.zenryo-ec.info/pay?prm=' .
+                        'https://nagaden-kanko.com/plan/pay?prm=' .
                         encrypt($param_card),
                     'number' => $reservation->order_id,
                     'plan' => $reservation->plan->name,
@@ -1242,8 +1242,8 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->bcc(['test@toebisu.jp'])
-                            ->from('test@toebisu.jp')
+                            ->bcc(['goontrip@nagaden-kanko.com'])
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【決済依頼】長野電鉄株式会社');
                     }
                 }
@@ -2030,7 +2030,7 @@ class ReservationsController extends Controller
                 )
             );
         } else {
-            return redirect('https://zenryo.zenryo-ec.info/list.php');
+            return redirect('https://nagaden-kanko.com/plan/list.php');
         }
     }
 
@@ -2083,9 +2083,9 @@ class ReservationsController extends Controller
         /*
          * マーチャントIDとマーチャント認証鍵を動的に設定する場合はexecuteメソッドの第2引数に以下のようにセットする
          */
-        /*$props['merchant_ccid'] = 'A100000800000001100002cc';
+        /*$props['merchant_ccid'] = '';
         $props['merchant_secret_key'] =
-            '5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9';*/
+            '';*/
         $response_data = $transaction->execute($request_data);
         if ($response_data instanceof CardCancelResponseDto) {
             $mstatus = $response_data->getMstatus();
@@ -2130,7 +2130,7 @@ class ReservationsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('info@zenryo-ec.com')
+                    ->from('goontrip@nagaden-kanko.com')
                     ->subject("【長野電鉄株式会社】予約確定メール");
 	        }
             });
@@ -2200,9 +2200,9 @@ class ReservationsController extends Controller
         /*
          * マーチャントIDとマーチャント認証鍵を動的に設定する場合はexecuteメソッドの第2引数に以下のようにセットする
          */
-        /*$props['merchant_ccid'] = 'A100000800000001100002cc';
+        /*$props['merchant_ccid'] = '';
         $props['merchant_secret_key'] =
-            '5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9';*/
+            '';*/
         $response_data = $transaction->execute($request_data);
         if ($response_data instanceof CvsCancelResponseDto) {
             $mstatus = $response_data->getMstatus();
@@ -2247,7 +2247,7 @@ class ReservationsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('info@zenryo-ec.com')
+                    ->from('goontrip@nagaden-kanko.com')
                     ->subject("【長野電鉄株式会社】予約確定メール");
 	        }
             });
@@ -2454,8 +2454,8 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->bcc(['test@toebisu.jp'])
-                            ->from('test@toebisu.jp')
+                            ->bcc(['goontrip@nagaden-kanko.com'])
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【長野電鉄株式会社】決済金額変更メール');
                     }
                 }
@@ -2657,7 +2657,7 @@ class ReservationsController extends Controller
             );
         } elseif ($pm == 2) {
             $payment    = 'コンビニ決済';
-            $url_cvs    = 'https://zenryo.zenryo-ec.info/pay?prm=' . encrypt($param_cvs);
+            $url_cvs    = 'https://nagaden-kanko.com/plan/pay?prm=' . encrypt($param_cvs);
             return view(
                 'user.reservations.cvsemail_pv',
                 compact('url_cvs', 'number','plan','date' ,'activity', 'name_last', 'name_first',
@@ -2666,7 +2666,7 @@ class ReservationsController extends Controller
             );
         } elseif ($pm == 3) {
             $payment    = 'クレジットカード決済';
-            $url_card    = 'https://zenryo.zenryo-ec.info/pay?prm=' . encrypt($param_card);
+            $url_card    = 'https://nagaden-kanko.com/plan/pay?prm=' . encrypt($param_card);
             return view(
                 'user.reservations.cardemail_pv',
                 compact('url_card', 'number','plan','date' ,'activity', 'name_last', 'name_first',

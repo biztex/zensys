@@ -100,7 +100,7 @@ class CvsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('info@zenryo-ec.com')
+                    ->from('goontrip@nagaden-kanko.com')
                     ->subject("【全旅】予約確定メール");
 	        }
             });

@@ -52,7 +52,7 @@ class CvsController extends Controller
         $request_data->setPayLimit($payLimit->format('Y/m/d'));
         $request_data->setPayLimitHhmm('23:59');
         //$request_data->setPushUrl($request->request->get("pushUrl"));
-        $request_data->setPushUrl('https://zenryo.zenryo-ec.info/push/mpi');
+        $request_data->setPushUrl('https://nagaden-kanko.com/plan/push/mpi');
         $request_data->setPaymentType("0");
 
         TGMDK_Config::getInstance();
@@ -60,8 +60,8 @@ class CvsController extends Controller
         /*
         $response_data = $transaction->execute($request_data);
         */ 
-        /*$props["merchant_ccid"] = "A100000800000001100002cc";
-        $props["merchant_secret_key"] = "5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9";*/
+        /*$props["merchant_ccid"] = "";
+        $props["merchant_secret_key"] = "";*/
         $response_data = $transaction->execute($request_data);
 
         if ($response_data instanceof CvsAuthorizeResponseDto) {
@@ -150,8 +150,8 @@ class CvsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->bcc(['test@toebisu.jp'])
-                    ->from('info@zenryo-ec.com')
+                    ->bcc(['goontrip@nagaden-kanko.com'])
+                    ->from('goontrip@nagaden-kanko.com')
                     ->subject("【コンビニ受付番号のお知らせ】長野電鉄株式会社");
 	        }
             });

@@ -569,8 +569,8 @@ class ReservationsController extends Controller
                     if ($request->email) {
                         $message
                             //->to('clgeneral015@gmail.com')
-                            ->to('info@zenryo-ec.com')
-                            ->from('info@zenryo-ec.com')
+                            ->to('goontrip@nagaden-kanko.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】本予約が入りました');
                     }
                 }
@@ -603,8 +603,8 @@ class ReservationsController extends Controller
                     if ($request->email) {
                         $message
                             //->to('clgeneral015@gmail.com')
-                            ->to('info@zenryo-ec.com')
-                            ->from('info@zenryo-ec.com')
+                            ->to('goontrip@nagaden-kanko.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】リクエスト予約が入りました');
                     }
                 }
@@ -675,7 +675,7 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->from('info@zenryo-ec.com')
+                                ->from('goontrip@nagaden-kanko.com')
                                 ->subject('【全旅】予約確定メール');
                         }
                     }
@@ -746,7 +746,7 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->from('info@zenryo-ec.com')
+                                ->from('goontrip@nagaden-kanko.com')
                                 ->subject('【全旅】予約確定メール');
                         }
                     }
@@ -814,7 +814,7 @@ class ReservationsController extends Controller
                     if ($request->email) {
                         $message
                             ->to($request->email)
-                            ->from('info@zenryo-ec.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】リクエスト予約確認メール');
                     }
                 }
@@ -1350,7 +1350,7 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->from('info@zenryo-ec.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】予約確定通知メール');
                     }
                 }
@@ -1392,7 +1392,7 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->from('info@zenryo-ec.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】予約確定通知メール');
                     }
                 }
@@ -1426,7 +1426,7 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->from('info@zenryo-ec.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】予約確定通知メール');
                     }
                 }
@@ -1460,7 +1460,7 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->from('info@zenryo-ec.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】予約確定通知メール');
                     }
                 }
@@ -2147,7 +2147,7 @@ class ReservationsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('info@zenryo-ec.com')
+                    ->from('goontrip@nagaden-kanko.com')
                     ->subject("【全旅】予約確定メール");
 	        }
             });
@@ -2266,7 +2266,7 @@ class ReservationsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('info@zenryo-ec.com')
+                    ->from('goontrip@nagaden-kanko.com')
                     ->subject("【全旅】予約確定メール");
 	        }
             });
@@ -2424,7 +2424,7 @@ class ReservationsController extends Controller
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->from('info@zenryo-ec.com')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject('【全旅】決済金額変更メール');
                     }
                 }

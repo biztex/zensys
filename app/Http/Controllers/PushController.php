@@ -125,9 +125,9 @@ class PushController extends Controller
                                 ->to($reservation->user->email)
                                 //->bcc(['blue@quality-t.com', 'test.zenryo@gmail.com'])
                                 //->bcc(['test.zenryo@gmail.com'])
-                                ->bcc(['kaname-n@magokorobin.com', 'test@toebisu.jp'])
+                                ->bcc(['kaname-n@magokorobin.com', 'goontrip@nagaden-kanko.com'])
                                 //->from('no-reply@blue-tourism-hokkaido.website')
-                                ->from('test@toebisu.jp')
+                                ->from('goontrip@nagaden-kanko.com')
                                 ->subject("【長野電鉄株式会社】予約確定メール");
                         }
                         });
@@ -138,9 +138,9 @@ class PushController extends Controller
                             $message
                             //->to(['blue@quality-t.com', 'test.zenryo@gmail.com'])
                             //->from('blue@quality-t.com')
-                            ->to('test@toebisu.jp')
+                            ->to('goontrip@nagaden-kanko.com')
                             ->bcc('kaname-n@magokorobin.com')
-                            ->from('test@toebisu.jp')
+                            ->from('goontrip@nagaden-kanko.com')
                             ->subject("【長野電鉄株式会社】コンビニ決済完了メール");
                         });
                     }

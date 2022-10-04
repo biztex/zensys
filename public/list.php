@@ -39,7 +39,7 @@
                 <ul class="nav">
                     <li><a href="/">トップ</a></li>
                     <li><a href="/category/news">新着情報</a></li>
-                    <li><a href="/category/tour">ツアー紹介</a></li>
+                    <li><a href="/plan/list.php">ツアー紹介</a></li>
                     <li><a href="/company">会社概要</a></li>
                     <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
@@ -266,7 +266,7 @@
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>
                     <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                    <span class="menu"><a href="/category/tour">ツアー紹介</a></span>
+                    <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
                     <span class="menu"><a href="/agreement">旅行業約款</a></span>
                 </div>
             </div>
