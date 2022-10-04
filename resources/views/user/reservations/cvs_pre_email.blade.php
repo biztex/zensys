@@ -15,7 +15,7 @@
 @if ($receiptNo)
 受付番号 ：　{{ $receiptNo }}
 お客様番号 ： {{ $tel2 }}
-お支払い期限 ：  {{ $payLimit->format('Y年m月d日') }} 23:59
+お支払い期限 ：  {{ $payment_limit }} 23:59
 @endif
 
 【お申込情報】

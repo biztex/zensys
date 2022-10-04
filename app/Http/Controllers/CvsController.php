@@ -119,6 +119,23 @@ class CvsController extends Controller
                     }
                 }
             }
+
+            $payment_final = date('Y年m月d日' , strtotime($reservations->plan->payment_final_deadline));
+        
+            $addDay = $reservations->plan->payment_plus_day;
+            if($reservations->plan->payment_plus_day == null){
+                $addDay = 0;
+            }
+            
+            $paymentLimit = date('Y年m月d日' , strtotime($reservations->created_at->modify('+' . $addDay . ' day')));
+            
+            if($payment_final < $paymentLimit){
+                $payment_limit = $payment_final;
+            }
+            else{
+                $payment_limit = $paymentLimit;
+            }
+
             $prices = Price::select()
             ->where('plan_id' , $reservation->plan_id)
             ->where('type' , $typeid)
@@ -145,7 +162,7 @@ class CvsController extends Controller
                 'prices'        => $prices,
                 'priceName'     => $priceName,
                 'type_id'   => $typeid,
-                'payLimit' => $payLimit
+                'payLimit' => $payment_limit
             ], function($message) use($reservation) {
                 if ($reservation->user->email) {
                     $message

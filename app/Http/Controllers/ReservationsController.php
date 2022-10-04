@@ -908,6 +908,7 @@ class ReservationsController extends Controller
     public function edit($id)
     {
         $reservations = Reservation::find($id);
+        
         $categories = Genre::select('category', DB::raw('count(*) as total'))
             ->groupBy('category')
             ->orderBy('id')
@@ -2617,6 +2618,25 @@ class ReservationsController extends Controller
         $number = $reservation->order_id;
         $plan = $reservation->plan->name;
         $date = date('Y年m月d日',strtotime($reservation->fixed_datetime));
+        
+
+        $payment_final = date('Y年m月d日' , strtotime($reservations->plan->payment_final_deadline));
+        
+        $addDay = $reservations->plan->payment_plus_day;
+        if($reservations->plan->payment_plus_day == null){
+            $addDay = 0;
+        }
+        
+        $paymentLimit = date('Y年m月d日' , strtotime($reservations->created_at->modify('+' . $addDay . ' day')));
+        
+        if($payment_final < $paymentLimit){
+            $payment_limit = $payment_final;
+        }
+        else{
+            $payment_limit = $paymentLimit;
+        }
+
+        
         $activity      = $reservation->activity_date;
         $name_last     = $reservation->user->name_last;
         $kana_last     = $reservation->user->kana_last;
@@ -2638,13 +2658,14 @@ class ReservationsController extends Controller
         $prices        = $prices;
         $priceName     = $priceName;
         $type_id   = $typeid;
+        
 
         if ($pm == 0) {
             $payment       = '現地払い';
             return view(
                 'user.reservations.spotemail_pv',
                 compact('number','plan','date' ,'activity', 'name_last', 'kana_last', 'name_first','kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id'
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id','payment_limit'
                 )
             );
         } elseif ($pm == 1) {
@@ -2652,7 +2673,7 @@ class ReservationsController extends Controller
             return view(
                 'user.reservations.prepayemail_pv',
                 compact('number','plan','date' ,'activity', 'name_last', 'kana_last', 'name_first','kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id'
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id','payment_limit'
                 )
             );
         } elseif ($pm == 2) {
@@ -2661,7 +2682,7 @@ class ReservationsController extends Controller
             return view(
                 'user.reservations.cvsemail_pv',
                 compact('url_cvs', 'number','plan','date' ,'activity', 'name_last', 'name_first',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id'
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id','payment_limit'
                 )
             );
         } elseif ($pm == 3) {
@@ -2670,7 +2691,7 @@ class ReservationsController extends Controller
             return view(
                 'user.reservations.cardemail_pv',
                 compact('url_card', 'number','plan','date' ,'activity', 'name_last', 'name_first',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id'
+                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id','payment_limit'
                 )
             );
         }
