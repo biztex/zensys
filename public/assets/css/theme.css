@@ -67,6 +67,20 @@ select {
     line-height: 1.33;
 }
 
+.slideItem{
+    max-height: 400px;
+}
+.slideItem .caption{
+    position: absolute;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    width: 100%;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
 @media screen and (max-width: 768px) {
     input[type=text],
     input[type=email],
@@ -4935,7 +4949,7 @@ ul {
 }
 
 .dtFor .dtSlist img {
-    height: 400px;
+    /* height: 400px; */
     /* object-fit: cover; */
     object-fit: contain;
 }
