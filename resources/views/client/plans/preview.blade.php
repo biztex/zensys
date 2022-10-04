@@ -191,15 +191,16 @@ $stocks_next = json_decode($json_stocks_next, true);
                          <div class="listItemInfo">
                              <div class="rightP">
                                  <div class="dtFor">
-                                     <div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path1"]}}" alt=""></div>
-                                     @if($plan["file_path2"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path2"] }}" alt=""></div>@endif
-                                     @if($plan["file_path3"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path3"] }}" alt=""></div>@endif
-                                     @if($plan["file_path4"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path4"] }}" alt=""></div>@endif
-                                     @if($plan["file_path5"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path5"] }}" alt=""></div>@endif
-                                     @if($plan["file_path6"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path6"] }}" alt=""></div>@endif
-                                     @if($plan["file_path7"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path7"] }}" alt=""></div>@endif
-                                     @if($plan["file_path8"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path8"] }}" alt=""></div>@endif
-                                     @if($plan["file_path9"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path9"] }}" alt=""></div>@endif
+                                     <div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path1"]}}" alt=""> @if($plan["caption"] != null  && json_decode($plan["caption"] , true)[0] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[0]}}</p>@endif</div></div>
+                                     @if($plan["file_path2"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path2"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[1] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[1]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path3"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path3"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[2] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[2]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path4"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path4"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[3] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[3]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path5"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path5"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[4] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[4]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path6"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path6"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[5] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[5]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path7"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path7"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[6] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[6]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path8"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path8"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[7] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[7]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path9"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path9"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[8] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[8]}}</p>@endif</div></div>@endif
+                                     @if($plan["file_path10"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path10"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[9] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[9]}}</p>@endif</div></div>@endif
                                  </div>
                                  <div class="dtNav">
                                  <div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path1"]}}" alt=""></div>
@@ -211,6 +212,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                      @if($plan["file_path7"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path7"] }}" alt=""></div>@endif
                                      @if($plan["file_path8"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path8"] }}" alt=""></div>@endif
                                      @if($plan["file_path9"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path9"] }}" alt=""></div>@endif
+                                     @if($plan["file_path10"])<div class="dtSlist"><img src="{{asset('uploads')}}/{{$plan["file_path10"] }}" alt=""></div>@endif
                                  </div>
                              </div>
                              <div class="leftP">
