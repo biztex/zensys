@@ -118,6 +118,8 @@ class PlansController extends Controller
             'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'caption.*' => ['nullable', 'string', 'max:40']
+
         ];
         if($request->old_file_path1 == null){
             $img_rule = [
@@ -580,6 +582,7 @@ class PlansController extends Controller
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
+        $plans->caption = json_encode($request->caption);
         // $plans->item = $request->item;
         // $plans->wear = $request->wear;
 
@@ -869,7 +872,7 @@ class PlansController extends Controller
             'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
-            
+            'caption.*' => ['nullable', 'string', 'max:40']
 
         ];
 
@@ -1090,6 +1093,10 @@ class PlansController extends Controller
         $plans->company_number = $request->company_number;
         $plans->company_address = $request->company_address;
         $plans->company_url = $request->company_url;
+
+        $plans->caption = json_encode($request->caption);
+
+
         $target_path = public_path('/uploads');
 
         if ($request->del_url_path) {
@@ -1403,6 +1410,7 @@ class PlansController extends Controller
             'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'caption.*' => ['nullable', 'string', 'max:40']
 
         ];
 
@@ -1623,6 +1631,9 @@ class PlansController extends Controller
         $plans->company_number = $request->company_number;
         $plans->company_address = $request->company_address;
         $plans->company_url = $request->company_url;
+
+        $plans->caption = json_encode($request->caption);
+
         $target_path = public_path('/uploads');
 
         if ($request->del_url_path) {
@@ -1976,6 +1987,8 @@ class PlansController extends Controller
             'file_path8' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path9' => 'mimes:jpeg,jpg,png,gif|max:2048',
             'file_path10' => 'mimes:jpeg,jpg,png,gif|max:2048',
+            'caption.*' => ['nullable', 'string', 'max:40']
+
         ];
         if($request->old_file_path1 == null){
             $img_rule = [
@@ -2566,6 +2579,9 @@ class PlansController extends Controller
         $plans->company_number = $request->company_number;
         $plans->company_address = $request->company_address;
         $plans->company_url = $request->company_url;
+
+        $plans->caption = json_encode($request->caption);
+
         $target_path = public_path('/uploads');
 
         if ($request->del_url_path) {

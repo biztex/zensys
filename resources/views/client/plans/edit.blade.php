@@ -1271,6 +1271,79 @@
 
 
                         <hr />
+
+                        <div class="form-group row mt-5 bg-dark">
+                            <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真キャプション</span></label>
+                        </div>
+
+                        <p class="text-danger pl-4">※キャプションは40文字以内でご入力してください。</p>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right ml-4">{{ __('メインキャプション') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                             <input type="text" name="caption[]" class="form-control" value="{{ old('caption.0',json_decode($plans->caption,true)[0]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション①') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.1',json_decode($plans->caption,true)[1]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション②') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.2',json_decode($plans->caption,true)[2]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション③') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.3',json_decode($plans->caption,true)[3]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション④') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.4',json_decode($plans->caption,true)[4]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション⑤') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.5',json_decode($plans->caption,true)[5]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション⑥') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.6',json_decode($plans->caption,true)[6]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション⑦') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.7',json_decode($plans->caption,true)[7]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション⑧') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.8',json_decode($plans->caption,true)[8]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right  ml-4">{{ __('サブキャプション⑨') }}</label>
+                            <div id="div-img10" class="col-md-6">
+                              <input type="text" name="caption[]" class="form-control" value="{{ old('caption.9',json_decode($plans->caption,true)[9]) }}" maxlength="40">
+                            </div>
+                        </div>
+                        
+                        <hr />
+
+
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
 <!--
