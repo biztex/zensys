@@ -2657,15 +2657,18 @@ class PlansController extends Controller
 
             }
 
-            foreach ($old_stocks_data as $key => $value) {
-                Stock::where('res_date', $value->res_date)
-                    ->where('price_type_id', $value->price_type_id)
-                    ->update([
-                        'limit_number'  => $value->limit_number,
-                        'rank'          => $value->rank
-                    ]);
-            }
+           
         }
+        foreach ($old_stocks_data as $key => $value) {
+			Stock::where('plan_id', $value->plan_id)
+				->whereDate('res_date', $value->res_date)
+				->where('price_type_id', $value->price_type_id)
+				->update([
+					'limit_number'  => $value->limit_number,
+				   'rank'          => $value->rank
+				]);
+		}
+		  
         // if ($plans->repetition_flag == 0) {
         //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
         //         if (
