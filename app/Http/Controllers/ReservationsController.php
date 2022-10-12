@@ -1672,8 +1672,9 @@ class ReservationsController extends Controller
         return redirect()->back();
     }
 
-    public function csvSelected(Request $request)
+    public function csvSelected(Request $request , $id = null)
     {
+
         $ids = explode(',', $request->ids);
         $reservations = Reservation::whereIn('id', $ids)->get();
         //        // コールバック関数に１行ずつ書き込んでいく処理を記述
@@ -1699,42 +1700,112 @@ class ReservationsController extends Controller
         //        };
 
         //        // 保存するファイル名
-        $fp = fopen('php://output', 'w');
 
-        // UTF-8からSJIS-winへ変換するフィルター
-        //stream_filter_append($fp, 'convert.iconv.UTF-8/CP932//TRANSLIT', STREAM_FILTER_WRITE);
-        fputcsv(
-            $fp,
-            [
-                'ID',
-                'プラン名',
-                '予約番号',
-                '受付タイプ',
-                '予約ステータス',
-                '予約者への質問',
-                '予約者からの回答',
-                '支払方法',
-                'その他 備考・特記事項',
-            ],
-            ',',
-            '"'
-        );
+
+
+        // Laravel export csv
+
+        // $headers = array(
+        //     "Content-type"        => "text/csv",
+        //     "Content-Disposition" => "attachment; filename=reservation.csv",
+        //     "Pragma"              => "no-cache",
+        //     "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+        //     "Expires"             => "0"
+        // );
+
+
+        // $columns = array(
+        //     'ID',
+        //     'プラン名',
+        //     '予約番号',
+        //     '受付タイプ',
+        //     '予約ステータス',
+        //     '予約者への質問',
+        //     '予約者からの回答',
+        //     '支払方法',
+        //     'その他 備考・特記事項',
+        // );
+
+        // $callback = function() use($reservations, $columns) {
+        //     $file = fopen('php://output', 'w');
+        //     fputcsv($file, $columns);
+
+        //     foreach ($reservations as $reservation) {
+        //         $row['ID']  = $reservation->id;
+        //         $row['プラン名'] = $reservation->plan->name;
+        //         $row['予約番号'] = $reservation->order_id;
+        //         if ($reservation->plan->res_type == '0') {
+        //             $row['受付タイプ']  = '即時';
+        //         } elseif ($reservation->plan->res_type == '1') {
+        //             $row['受付タイプ']  = '即時・リクエスト併用';
+        //         } else {
+        //             $row['受付タイプ']  = 'リクエスト予約';
+        //         }
+        //         $row['予約ステータス'] = $reservation->status;
+        //         $row['予約者への質問'] = json_decode($reservation->plan->question_content , true)[0];
+        //         $row['予約者からの回答'] = json_decode($reservation->plan->question_content , true)[0];
+        //         if ($reservation->payment_method == '4') {
+        //             $row['支払方法'] = '現地払い';
+        //         } elseif ($reservation->payment_method == '1') {
+        //             $row['支払方法'] = '銀行振込';
+        //         } elseif ($reservation->payment_method == '2') {
+        //             $row['支払方法'] = '事前コンビニ決済';
+        //         } elseif ($reservation->payment_method == '3') {
+        //             $row['支払方法'] = '事前クレジットカード決済';
+        //         } else {
+        //             $row['支払方法'] = '';
+        //         }
+                
+        //         $row['その他 備考・特記事項']  = $reservation->memo;
+
+        //         fputcsv($file, array($row['ID'], $row['プラン名'], $row['予約番号'], $row['受付タイプ'], $row['予約ステータス'],$row['予約者への質問'],$row['予約者からの回答'],$row['支払方法'],$row['その他 備考・特記事項']));
+        //     }
+        //     fclose($file);
+        // };
+
+        // return response()->stream($callback, 200, $headers);
+
+        $header_args = array( 
+			'プランID',
+			'プラン名',
+			'予約番号',
+			'受付タイプ',
+			'予約ステータス',
+			'予約者への質問',
+			'予約者からの回答',
+			'支払方法',
+			'その他 備考・特記事項',);
+	    header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=reservation.csv');
+		
+		$fp = fopen('php://output', 'w');
+		ob_end_clean();
+		fputcsv($fp,$header_args);
         foreach ($reservations as $reservation) {
             $row = [];
             $row[] = $reservation->id;
             $row[] = $reservation->plan->name;
             $row[] = $reservation->order_id;
-            if ($reservation->plan->res_type == '0') {
+           if ($reservation->plan->res_type == '0') {
                 $row[] = '即時';
             } elseif ($reservation->plan->res_type == '1') {
                 $row[] = '即時・リクエスト併用';
             } else {
                 $row[] = 'リクエスト予約';
-            }
+            } 
             $row[] = $reservation->status;
-            $row[] = $reservation->plan->question_content;
-            $row[] = $reservation->answer;
-
+            if(json_decode($reservation->plan->question_content , true) == null){
+                $row[] = $reservation->plan->question_content;
+            }
+            else{
+                $row[] = json_decode($reservation->plan->question_content , true)[0];
+            }
+            if(json_decode($reservation->answer , true) == null){
+                $row[] = $reservation->answer;
+            }
+            else{
+                $row[] = json_decode($reservation->answer , true)[0];
+            }
             if ($reservation->payment_method == '4') {
                 $row[] = '現地払い';
             } elseif ($reservation->payment_method == '1') {
@@ -1747,13 +1818,9 @@ class ReservationsController extends Controller
                 $row[] = '';
             }
             $row[] = $reservation->memo;
-            fputcsv($fp, $row, ',', '"');
+            fputcsv($fp, $row);
         }
         fclose($fp);
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename=reservation.csv');
-        header('Content-Transfer-Encoding: binary');
-        exit();
     }
 
     // JSON返却

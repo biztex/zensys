@@ -51,7 +51,7 @@ document.getElementById("delete-selected").addEventListener("click", function(ev
 });
 
 function confirmCsvelected(){
-    var ids = $('input[type="checkbox"]:checked').map(function(){
+    var ids = $('input[type="checkbox"][name="row-data"]:checked').map(function(){
             return $(this).val();
         }).get()
     $('input[name="ids"]').val(ids); 
@@ -88,7 +88,11 @@ function chgSelect(){
   } 
 
   }).forceRender();
+
+
+
 }
+
 
 var num =10;
 const mygrid = new gridjs.Grid ({
@@ -120,12 +124,13 @@ const mygrid = new gridjs.Grid ({
   columns: [
     { 
       id: 'id',
-      name: gridjs.html('<span class="select-items">全選択/解除</span>'),
+      name: gridjs.html('<label>全選択/解除 <input type="checkbox" class="select-items-check" onchange="onSelect()" style="display: none"></label>'),
       width: '0px',
       sort: false,
+    
       formatter: (_, row) => gridjs.html(`
         <div class="text-center">
-          <input id="row-data" type="checkbox" name="row-data" value="${row.cells[1].data}">
+          <input id="row-data" type="checkbox" name="row-data" value="${row.cells[1].data}" >
         </div>
       `),
     },
@@ -164,7 +169,15 @@ const mygrid = new gridjs.Grid ({
   } 
 }).render(document.getElementById('result'));
 
-
+function onSelect(){
+  var allBoxNum = $('input[type="checkbox"][name="row-data"]').length,
+    checkedBoxNum = $('input[type="checkbox"][name="row-data"]:checked').length;
+    if(checkedBoxNum == allBoxNum) {
+        $('input[name="row-data"]').prop('checked',false);
+    } else {
+        $('input[name="row-data"]').prop('checked',true);
+    }
+}
 </script>
 
 @stop
@@ -176,6 +189,7 @@ const mygrid = new gridjs.Grid ({
 <script type="text/javascript" src="{{asset('js/default.js')}}"></script>
 
 <script>
+
 function displayPaymentMethod(val) {
   var name = '';
   switch (val){

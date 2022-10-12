@@ -718,7 +718,7 @@ function goCreditCancel1() {
     if (checked == true) {
         $('select[name="status"]').val("キャンセル");
         $('#credit_cancel_flg').val(1);
-        $('.submit').parents('form').attr('action', '/client/reservations/update/{{ $reservations->id }}');
+        $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
         $('.submit').parents('form').submit();
         return true;
     } else {
@@ -728,7 +728,7 @@ function goCreditCancel1() {
 function goCreditCancel2() {
     $('select[name="status"]').val("キャンセル");
     $('#credit_cancel_flg').val(1);
-    $('.submit').parents('form').attr('action', '/client/reservations/update/{{ $reservations->id }}');
+    $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
     $('.submit').parents('form').submit();
       return true;
 }
@@ -738,7 +738,7 @@ $(".close, .popup-overlay").on("click", function(){
 });
 $('.custom-table').click(function() {
     $('#custom_flg').val(1);
-    $('.submit').parents('form').attr('action', '/client/reservations/update/{{ $reservations->id }}');
+    $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
     $('.submit').parents('form').submit();
     return true;
 });
