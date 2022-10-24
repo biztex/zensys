@@ -168,7 +168,7 @@
                                                         <?php }?>
                                                     </dl>
                                                 </div>
-                                                <p class="priceP">旅行代金（お一人様<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
+                                                <p class="priceP">旅行代金（お一人様）<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
                                                 <?php
                                                     date_default_timezone_set('Asia/Tokyo');
 

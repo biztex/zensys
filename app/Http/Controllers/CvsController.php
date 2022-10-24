@@ -40,8 +40,9 @@ class CvsController extends Controller
             TGMDK_Logger::setLogger($logger);
         }
 
-        $payLimit = new DateTime();
-        $payLimit->modify('+14 day');
+        $reservation = Reservation::find($request->reservation_id);
+        $payment_limit = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
+
         $request_data = new CvsAuthorizeRequestDto();
         $request_data->setServiceOptionType($request->request->get("serviceOptionType"));
         $request_data->setAmount($request->request->get("amount"));
@@ -49,8 +50,8 @@ class CvsController extends Controller
         $request_data->setName1($request->request->get("name1"));
         $request_data->setName2($request->request->get("name2"));
         $request_data->setTelNo($request->request->get("telNo"));
-        $request_data->setPayLimit($payLimit->format('Y/m/d'));
-        $request_data->setPayLimitHhmm('23:59');
+        $request_data->setPayLimit($payment_limit->format('Y/m/d'));
+        $request_data->setPayLimitHhmm($payment_limit->format('H:i'));
         //$request_data->setPushUrl($request->request->get("pushUrl"));
         $request_data->setPushUrl('https://nagaden-kanko.com/plan/push/mpi');
         $request_data->setPaymentType("0");
@@ -59,7 +60,7 @@ class CvsController extends Controller
         $transaction = new TGMDK_Transaction();
         /*
         $response_data = $transaction->execute($request_data);
-        */ 
+        */
         /*$props["merchant_ccid"] = "";
         $props["merchant_secret_key"] = "";*/
         $response_data = $transaction->execute($request_data);
@@ -67,7 +68,6 @@ class CvsController extends Controller
         if ($response_data instanceof CvsAuthorizeResponseDto) {
             $request->session()->put($request->request->get("orderId"), $response_data);
             // 予約者へメール通知
-            $reservation = Reservation::find($request->reservation_id);
             $dt = new Carbon($reservation->fixed_datetime);
             $week_map = [
                 0 => 'sunday',
@@ -120,22 +120,6 @@ class CvsController extends Controller
                 }
             }
 
-            $payment_final = date('Y年m月d日' , strtotime($reservations->plan->payment_final_deadline));
-        
-            $addDay = $reservations->plan->payment_plus_day;
-            if($reservations->plan->payment_plus_day == null){
-                $addDay = 0;
-            }
-            
-            $paymentLimit = date('Y年m月d日' , strtotime($reservations->created_at->modify('+' . $addDay . ' day')));
-            
-            if($payment_final < $paymentLimit){
-                $payment_limit = $payment_final;
-            }
-            else{
-                $payment_limit = $paymentLimit;
-            }
-
             $prices = Price::select()
             ->where('plan_id' , $reservation->plan_id)
             ->where('type' , $typeid)
@@ -159,10 +143,10 @@ class CvsController extends Controller
                 "receiptNo" => $response_data->getReceiptNo(),
                 "weekday" => $weekday,
                 "amount" => $request->amount,
-                'prices'        => $prices,
-                'priceName'     => $priceName,
-                'type_id'   => $typeid,
-                'payLimit' => $payment_limit
+                'prices' => $prices,
+                'priceName' => $priceName,
+                'type_id' => $typeid,
+                'payment_limit' => $payment_limit,
             ], function($message) use($reservation) {
                 if ($reservation->user->email) {
                     $message
@@ -186,7 +170,7 @@ class CvsController extends Controller
             if ($stock) {
                 if ($reservation->plan->res_limit_flag == 0) {
                     // 予約人数をカウント
-                    $count_member = 0; 
+                    $count_member = 0;
                     for ($i = 0; $i <= 20 ; $i++) {
                         $count = $reservation->{'type'. $i . '_number'};
                         if ($count > 0) {

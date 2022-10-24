@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\PaymentMethodConstants;
+use Exception;
 use InterventionImage;
 use App\Models\Reservation;
 use App\Models\Genre;
@@ -15,6 +17,8 @@ use App\Models\PriceType;
 use App\Models\StockPriceType;
 use App\Helpers;
 use Auth;
+use LogicException;
+use RuntimeException;
 use Yasumi\Yasumi;
 use Carbon\Carbon;
 use DateTime;
@@ -125,7 +129,7 @@ class ReservationsController extends Controller
                 ->where('type',$data['price_type_id'])
                 ->get();
 
-        
+
         return view(
             'user.reservations.create',
             compact('plan','pieces','drops' ,'companies', 'date', 'weekday', 'stock','priceType', 'stock_price_types')
@@ -264,7 +268,7 @@ class ReservationsController extends Controller
         // 予約番号作成
         $price_name = PriceType::select()
                         ->where('number' , $request->price_type)->first();
-       
+
         $count = Reservation::whereDate('created_at', Carbon::today())->count();
         $date = date('Ymd');
         $zeropadding = sprintf('%05d', $count);
@@ -300,8 +304,8 @@ class ReservationsController extends Controller
         if(isset($request->add_drop)){
             $reservation->add_drop = $request->drop[0];
         }
-       
-       
+
+
         $temp_companion_name_first = [];
         $temp_companion_name_last = [];
         $temp_companion_kana_first = [];
@@ -326,10 +330,10 @@ class ReservationsController extends Controller
             if(isset($request->drop[$i])){
                 $temp_companion_drop[$i-1]  = $request->drop[0];
             }
-          
+
         }
 
-        
+
 
         $reservation->companion_name_first  = json_encode($temp_companion_name_first);
         $reservation->companion_name_last   = json_encode($temp_companion_name_last);
@@ -340,7 +344,7 @@ class ReservationsController extends Controller
         $reservation->companion_birth       = json_encode($temp_companion_birth);
         $reservation->companion_boarding    = json_encode($temp_companion_boarding);
         $reservation->companion_drop        = json_encode($temp_companion_drop);
-      
+
 
 
         $reservation->type0_number = $request->type0;
@@ -465,7 +469,7 @@ class ReservationsController extends Controller
 
         // ここまで
         if ($request->is_request == 0) {
-            if ($reservation->payment_method == 3) {
+            if ($reservation->payment_method == PaymentMethodConstants::CARD) {
                 $reservation->status = '決済処理中';
                 $reservation->save();
                 return view(
@@ -482,7 +486,7 @@ class ReservationsController extends Controller
                         'type_id'
                     )
                 );
-            } elseif ($reservation->payment_method == 2) {
+            } elseif ($reservation->payment_method == PaymentMethodConstants::CVS) {
                 $reservation->status = '決済処理中';
                 $reservation->save();
                 return view(
@@ -499,7 +503,7 @@ class ReservationsController extends Controller
                         'type_id'
                     )
                 );
-            } elseif ($reservation->payment_method == 1) {
+            } elseif ($reservation->payment_method == PaymentMethodConstants::PREPAY) {
                 // 事前支払い
                 $bank = Bankaccount::find($reservation->plan->company->id);
                 // 予約者へメール通知
@@ -568,7 +572,7 @@ class ReservationsController extends Controller
                     }
                 }
                 return view('user.reservations.result' , compact('req_result'));
-            } elseif ($reservation->payment_method == 4) {
+            } elseif ($reservation->payment_method == PaymentMethodConstants::SPOT) {
                 // 現地支払い
                 // 予約者へメール通知
                 Mail::send(
@@ -716,7 +720,7 @@ class ReservationsController extends Controller
         }
 
         $count_member = 0;
-       
+
         // 在庫をチェック
         $stock_before_minus = Stock::select()
             ->where('plan_id', $request->plan_id)
@@ -730,7 +734,7 @@ class ReservationsController extends Controller
             ]);
         }
         //参加可能人数をチェック
-       
+
         $rank = ['a','b','c','d','e','f','g','h','i','j','k','l'];
 
         for($j=0; $j<count($rank); $j++){
@@ -743,7 +747,7 @@ class ReservationsController extends Controller
         }
 
         $real_number = $request->limit_number;
-        
+
         // if ($real_number != $count_member) {
         //     throw ValidationException::withMessages([
         //         'count_member' => '参加人数と予約数が一致しません',
@@ -768,10 +772,10 @@ class ReservationsController extends Controller
                     '名までです',
             ]);
         }
-      
+
 
         $this->validate($request, $rules);
-        
+
         $companies = Company::all();
         $date = $request->date;
         $dt = new Carbon($date);
@@ -827,7 +831,7 @@ class ReservationsController extends Controller
         //     $types = $type;
         // }
 
-        // 
+        //
 
 
         $info = [];
@@ -908,10 +912,10 @@ class ReservationsController extends Controller
     public function edit($id)
     {
         $reservations = Reservation::find($id);
-        
+
         $categories = Genre::select('category', DB::raw('count(*) as total'))
             ->groupBy('category')
-            ->orderBy('id')
+            ->orderByRaw('MIN(id)')
             ->get();
         $genres = Genre::all();
         $dt = new Carbon($reservations->fixed_datetime);
@@ -1085,170 +1089,178 @@ class ReservationsController extends Controller
             'reservation_id' => $reservation->id,
         ];
         $bank = Bankaccount::find($reservation->plan->company->id);
+        $payment_limit = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
+
         // 決済方法ごとにメールテンプレートを分岐
-        $pm = $reservation->payment_method;
-        if ($pm == 0) {
-            // 現地前払い
-            Mail::send(
-                ['text' => 'user.reservations.spotemail'],
-                [
-                    'number' => $reservation->order_id,
-                    'plan' => $reservation->plan->name,
-                    'date' => date(
-                        'Y年m月d日',
-                        strtotime($reservation->fixed_datetime)
-                    ),
-                    'activity'      => $reservation->activity_date,
-                    'name_last'     => $reservation->user->name_last,
-                    'kana_last'     => $reservation->user->kana_last,
-                    'name_first'    => $reservation->user->name_first,
-                    'kana_first'    => $reservation->user->kana_first,
-                    'postalcode'    => $reservation->user->postalcode,
-                    'prefecture'    => $reservation->user->prefecture,
-                    'address'       => $reservation->user->address,
-                    'birth_year'    => $reservation->user->birth_year,
-                    'birth_month'   => $reservation->user->birth_month,
-                    'birth_day'     => $reservation->user->birth_day,
-
-
-                    'email'         => $reservation->user->email,
-                    'tel'           => $reservation->user->tel,
-                    'tel2'          => $reservation->user->tel2,
-                    'reservation'   => $reservation,
-                    'amount'        => $amount,
-                    'weekday'       => $weekday,
-                    'bank'          => $bank,
-                    'payment'       => '現地払い',
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'type_id'   => $typeid
-                ],
-                function ($message) use ($reservation) {
-                    if ($reservation->user->email) {
-                        $message
-                            ->to($reservation->user->email)
-                            ->bcc(['goontrip@nagaden-kanko.com'])
-                            ->from('goontrip@nagaden-kanko.com')
-                            ->subject('【予約確定】長野電鉄株式会社');
+        switch ($reservation->payment_method) {
+            case PaymentMethodConstants::SPOT:
+                Mail::send(
+                    ['text' => 'user.reservations.spotemail'],
+                    [
+                        'number' => $reservation->order_id,
+                        'plan' => $reservation->plan->name,
+                        'date' => date(
+                            'Y年m月d日',
+                            strtotime($reservation->fixed_datetime)
+                        ),
+                        'activity' => $reservation->activity_date,
+                        'name_last' => $reservation->user->name_last,
+                        'kana_last' => $reservation->user->kana_last,
+                        'name_first' => $reservation->user->name_first,
+                        'kana_first' => $reservation->user->kana_first,
+                        'postalcode' => $reservation->user->postalcode,
+                        'prefecture' => $reservation->user->prefecture,
+                        'address' => $reservation->user->address,
+                        'birth_year' => $reservation->user->birth_year,
+                        'birth_month' => $reservation->user->birth_month,
+                        'birth_day' => $reservation->user->birth_day,
+                        'email' => $reservation->user->email,
+                        'tel' => $reservation->user->tel,
+                        'tel2' => $reservation->user->tel2,
+                        'reservation' => $reservation,
+                        'amount' => $amount,
+                        'weekday' => $weekday,
+                        'bank' => $bank,
+                        'payment' => '現地払い',
+                        'prices' => $prices,
+                        'priceName' => $priceName,
+                        'type_id' => $typeid,
+                        'payment_limit' => $payment_limit,
+                    ],
+                    function ($message) use ($reservation) {
+                        if ($reservation->user->email) {
+                            $message
+                                ->to($reservation->user->email)
+                                ->bcc(['goontrip@nagaden-kanko.com'])
+                                ->from('goontrip@nagaden-kanko.com')
+                                ->subject('【予約確定】長野電鉄株式会社');
+                        }
                     }
-                }
-            );
-        } elseif ($pm == 1) {
-            // 銀行振込
-            Mail::send(
-                ['text' => 'user.reservations.prepayemail'],
-                [
-                    'number' => $reservation->order_id,
-                    'plan' => $reservation->plan->name,
-                    'date' => date(
-                        'Y年m月d日',
-                        strtotime($reservation->fixed_datetime)
-                    ),
-                    'activity'      => $reservation->activity_date,
-                    'name_last'     => $reservation->user->name_last,
-                    'kana_last'     => $reservation->user->kana_last,
-                    'name_first'    => $reservation->user->name_first,
-                    'kana_first'    => $reservation->user->kana_first,
-                    'postalcode'    => $reservation->user->postalcode,
-                    'prefecture'    => $reservation->user->prefecture,
-                    'address'       => $reservation->user->address,
-                    'email'         => $reservation->user->email,
-                    'tel'           => $reservation->user->tel,
-                    'tel2'          => $reservation->user->tel2,
-                    'birth_year'    => $reservation->user->birth_year,
-                    'birth_month'   => $reservation->user->birth_month,
-                    'birth_day'     => $reservation->user->birth_day,
-                    'reservation'   => $reservation,
-                    'amount'        => $amount,
-                    'weekday'       => $weekday,
-                    'bank'          => $bank,
-                    'payment'       => '銀行振込',
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'type_id'   => $typeid
-                ],
-                function ($message) use ($reservation) {
-                    if ($reservation->user->email) {
-                        $message
-                            ->to($reservation->user->email)
-                            ->bcc(['goontrip@nagaden-kanko.com'])
-                            ->from('goontrip@nagaden-kanko.com')
-                            ->subject('【予約確定】長野電鉄株式会社');
+                );
+                break;
+            case PaymentMethodConstants::PREPAY:
+                Mail::send(
+                    ['text' => 'user.reservations.prepayemail'],
+                    [
+                        'number' => $reservation->order_id,
+                        'plan' => $reservation->plan->name,
+                        'date' => date(
+                            'Y年m月d日',
+                            strtotime($reservation->fixed_datetime)
+                        ),
+                        'activity' => $reservation->activity_date,
+                        'name_last' => $reservation->user->name_last,
+                        'kana_last' => $reservation->user->kana_last,
+                        'name_first' => $reservation->user->name_first,
+                        'kana_first' => $reservation->user->kana_first,
+                        'postalcode' => $reservation->user->postalcode,
+                        'prefecture' => $reservation->user->prefecture,
+                        'address' => $reservation->user->address,
+                        'email' => $reservation->user->email,
+                        'tel' => $reservation->user->tel,
+                        'tel2' => $reservation->user->tel2,
+                        'birth_year' => $reservation->user->birth_year,
+                        'birth_month' => $reservation->user->birth_month,
+                        'birth_day' => $reservation->user->birth_day,
+                        'reservation' => $reservation,
+                        'amount' => $amount,
+                        'weekday' => $weekday,
+                        'bank' => $bank,
+                        'payment' => '銀行振込',
+                        'prices' => $prices,
+                        'priceName' => $priceName,
+                        'type_id' => $typeid,
+                        'payment_limit' => $payment_limit,
+                    ],
+                    function ($message) use ($reservation) {
+                        if ($reservation->user->email) {
+                            $message
+                                ->to($reservation->user->email)
+                                ->bcc(['goontrip@nagaden-kanko.com'])
+                                ->from('goontrip@nagaden-kanko.com')
+                                ->subject('【予約確定】長野電鉄株式会社');
+                        }
                     }
-                }
-            );
-        } elseif ($pm == 2) {
-            Mail::send(
-                ['text' => 'user.reservations.cvsemail'],
-                [
-                    'url_cvs' =>
-                        'https://nagaden-kanko.com/plan/pay?prm=' .
-                        encrypt($param_cvs),
-                    'number' => $reservation->order_id,
-                    'plan' => $reservation->plan->name,
-                    'date' => date(
-                        'Y年m月d日',
-                        strtotime($reservation->fixed_datetime)
-                    ),
-                    'activity' => $reservation->activity_date,
-                    'name_last' => $reservation->user->name_last,
-                    'name_first' => $reservation->user->name_first,
-                    'email' => $reservation->user->email,
-                    'tel' => $reservation->user->tel,
-                    'tel2' => $reservation->user->tel2,
-                    'reservation' => $reservation,
-                    'amount' => $amount,
-                    'weekday' => $weekday,
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'type_id'   => $typeid
-                ],
-                function ($message) use ($reservation) {
-                    if ($reservation->user->email) {
-                        $message
-                            ->to($reservation->user->email)
-                            ->bcc(['goontrip@nagaden-kanko.com'])
-                            ->from('goontrip@nagaden-kanko.com')
-                            ->subject('【入金依頼】長野電鉄株式会社');
+                );
+                break;
+            case PaymentMethodConstants::CVS:
+                Mail::send(
+                    ['text' => 'user.reservations.cvsemail'],
+                    [
+                        'url_cvs' =>
+                            'https://nagaden-kanko.com/plan/pay?prm='.
+                            encrypt($param_cvs),
+                        'number' => $reservation->order_id,
+                        'plan' => $reservation->plan->name,
+                        'date' => date(
+                            'Y年m月d日',
+                            strtotime($reservation->fixed_datetime)
+                        ),
+                        'activity' => $reservation->activity_date,
+                        'name_last' => $reservation->user->name_last,
+                        'name_first' => $reservation->user->name_first,
+                        'email' => $reservation->user->email,
+                        'tel' => $reservation->user->tel,
+                        'tel2' => $reservation->user->tel2,
+                        'reservation' => $reservation,
+                        'amount' => $amount,
+                        'weekday' => $weekday,
+                        'prices' => $prices,
+                        'priceName' => $priceName,
+                        'type_id' => $typeid,
+                        'payment_limit' => $payment_limit,
+                    ],
+                    function ($message) use ($reservation) {
+                        if ($reservation->user->email) {
+                            $message
+                                ->to($reservation->user->email)
+                                ->bcc(['goontrip@nagaden-kanko.com'])
+                                ->from('goontrip@nagaden-kanko.com')
+                                ->subject('【入金依頼】長野電鉄株式会社');
+                        }
                     }
-                }
-            );
-        } elseif ($pm == 3) {
-            Mail::send(
-                ['text' => 'user.reservations.cardemail'],
-                [
-                    'url_card' =>
-                        'https://nagaden-kanko.com/plan/pay?prm=' .
-                        encrypt($param_card),
-                    'number' => $reservation->order_id,
-                    'plan' => $reservation->plan->name,
-                    'date' => date(
-                        'Y年m月d日',
-                        strtotime($reservation->fixed_datetime)
-                    ),
-                    'activity' => $reservation->activity_date,
-                    'name_last' => $reservation->user->name_last,
-                    'name_first' => $reservation->user->name_first,
-                    'email' => $reservation->user->email,
-                    'tel' => $reservation->user->tel,
-                    'tel2' => $reservation->user->tel2,
-                    'reservation' => $reservation,
-                    'amount' => $amount,
-                    'weekday' => $weekday,
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'type_id'   => $typeid
-                ],
-                function ($message) use ($reservation) {
-                    if ($reservation->user->email) {
-                        $message
-                            ->to($reservation->user->email)
-                            ->bcc(['goontrip@nagaden-kanko.com'])
-                            ->from('goontrip@nagaden-kanko.com')
-                            ->subject('【決済依頼】長野電鉄株式会社');
+                );
+                break;
+            case PaymentMethodConstants::CARD:
+                Mail::send(
+                    ['text' => 'user.reservations.cardemail'],
+                    [
+                        'url_card' =>
+                            'https://nagaden-kanko.com/plan/pay?prm='.
+                            encrypt($param_card),
+                        'number' => $reservation->order_id,
+                        'plan' => $reservation->plan->name,
+                        'date' => date(
+                            'Y年m月d日',
+                            strtotime($reservation->fixed_datetime)
+                        ),
+                        'activity' => $reservation->activity_date,
+                        'name_last' => $reservation->user->name_last,
+                        'name_first' => $reservation->user->name_first,
+                        'email' => $reservation->user->email,
+                        'tel' => $reservation->user->tel,
+                        'tel2' => $reservation->user->tel2,
+                        'reservation' => $reservation,
+                        'amount' => $amount,
+                        'weekday' => $weekday,
+                        'prices' => $prices,
+                        'priceName' => $priceName,
+                        'type_id' => $typeid,
+                        'payment_limit' => $payment_limit,
+                    ],
+                    function ($message) use ($reservation) {
+                        if ($reservation->user->email) {
+                            $message
+                                ->to($reservation->user->email)
+                                ->bcc(['goontrip@nagaden-kanko.com'])
+                                ->from('goontrip@nagaden-kanko.com')
+                                ->subject('【決済依頼】長野電鉄株式会社');
+                        }
                     }
-                }
-            );
+                );
+                break;
+            default:
+                throw new LogicException();
         }
         return redirect()
             ->back()
@@ -1377,8 +1389,8 @@ class ReservationsController extends Controller
 
         $reservation->add_boarding      = $request->add_boarding;
         $reservation->add_drop          = $request->add_drop;
-       
-       
+
+
         $reservation->companion_name_first  = json_encode($request->companion_name_first);
         $reservation->companion_name_last   = json_encode($request->companion_name_last);
         $reservation->companion_kana_first  = json_encode($request->companion_kana_first);
@@ -1478,7 +1490,7 @@ class ReservationsController extends Controller
                 }
             }
             $reservation->Number_of_reservations = json_encode($Number_of_reservations);
-            if ($reservation->payment_method == 3 && $reservation->status == '予約確定') {
+            if ($reservation->payment_method == PaymentMethodConstants::CARD && $reservation->status == '予約確定') {
                 $mstatus = $this->cardReAuthorize(
                     $reservation,
                     $request,
@@ -1515,7 +1527,7 @@ class ReservationsController extends Controller
         // コンビニ決済キャンセルの場合
         if (
             $request->status == 'キャンセル' &&
-            $reservation->payment_method == 2 &&
+            $reservation->payment_method == PaymentMethodConstants::CVS &&
             $reservation->order_id
         ) {
             $mstatus = $this->cvsCancel($reservation->order_id);
@@ -1530,7 +1542,7 @@ class ReservationsController extends Controller
         // クレジットカード決済キャンセルの場合
         if (
             $request->status == 'キャンセル' &&
-            $reservation->payment_method == 3 &&
+            $reservation->payment_method == PaymentMethodConstants::CARD &&
             $reservation->order_id
         ) {
             if ($request->credit_cancel_flg != 1){
@@ -1672,11 +1684,12 @@ class ReservationsController extends Controller
         return redirect()->back();
     }
 
-    public function csvSelected(Request $request , $id = null)
+    public function csvSelected(Request $request)
     {
 
         $ids = explode(',', $request->ids);
         $reservations = Reservation::whereIn('id', $ids)->get();
+
         //        // コールバック関数に１行ずつ書き込んでいく処理を記述
         //        $callback = function () use ($reservations) {
         //            // 出力バッファをopen
@@ -1703,69 +1716,14 @@ class ReservationsController extends Controller
 
 
 
-        // Laravel export csv
 
-        // $headers = array(
-        //     "Content-type"        => "text/csv",
-        //     "Content-Disposition" => "attachment; filename=reservation.csv",
-        //     "Pragma"              => "no-cache",
-        //     "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-        //     "Expires"             => "0"
-        // );
+        // UTF-8からSJIS-winへ変換するフィルター
+        //stream_filter_append($fp, 'convert.iconv.UTF-8/CP932//TRANSLIT', STREAM_FILTER_WRITE);
 
-
-        // $columns = array(
-        //     'ID',
-        //     'プラン名',
-        //     '予約番号',
-        //     '受付タイプ',
-        //     '予約ステータス',
-        //     '予約者への質問',
-        //     '予約者からの回答',
-        //     '支払方法',
-        //     'その他 備考・特記事項',
-        // );
-
-        // $callback = function() use($reservations, $columns) {
-        //     $file = fopen('php://output', 'w');
-        //     fputcsv($file, $columns);
-
-        //     foreach ($reservations as $reservation) {
-        //         $row['ID']  = $reservation->id;
-        //         $row['プラン名'] = $reservation->plan->name;
-        //         $row['予約番号'] = $reservation->order_id;
-        //         if ($reservation->plan->res_type == '0') {
-        //             $row['受付タイプ']  = '即時';
-        //         } elseif ($reservation->plan->res_type == '1') {
-        //             $row['受付タイプ']  = '即時・リクエスト併用';
-        //         } else {
-        //             $row['受付タイプ']  = 'リクエスト予約';
-        //         }
-        //         $row['予約ステータス'] = $reservation->status;
-        //         $row['予約者への質問'] = json_decode($reservation->plan->question_content , true)[0];
-        //         $row['予約者からの回答'] = json_decode($reservation->plan->question_content , true)[0];
-        //         if ($reservation->payment_method == '4') {
-        //             $row['支払方法'] = '現地払い';
-        //         } elseif ($reservation->payment_method == '1') {
-        //             $row['支払方法'] = '銀行振込';
-        //         } elseif ($reservation->payment_method == '2') {
-        //             $row['支払方法'] = '事前コンビニ決済';
-        //         } elseif ($reservation->payment_method == '3') {
-        //             $row['支払方法'] = '事前クレジットカード決済';
-        //         } else {
-        //             $row['支払方法'] = '';
-        //         }
-                
-        //         $row['その他 備考・特記事項']  = $reservation->memo;
-
-        //         fputcsv($file, array($row['ID'], $row['プラン名'], $row['予約番号'], $row['受付タイプ'], $row['予約ステータス'],$row['予約者への質問'],$row['予約者からの回答'],$row['支払方法'],$row['その他 備考・特記事項']));
-        //     }
-        //     fclose($file);
-        // };
-
-        // return response()->stream($callback, 200, $headers);
-
-        $header_args = array( 
+		header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=reservation.csv');
+        header('Content-Transfer-Encoding: binary');
+		$header_args = array(
 			'プランID',
 			'プラン名',
 			'予約番号',
@@ -1775,97 +1733,98 @@ class ReservationsController extends Controller
 			'予約者からの回答',
 			'支払方法',
 			'その他 備考・特記事項',);
-	    header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=reservation.csv');
-		
+
+
+		foreach($header_args as $key => $header){
+			$header_args[$key] = mb_convert_encoding($header , 'SJIS-win', 'UTF-8');
+		}
+
 		$fp = fopen('php://output', 'w');
 		ob_end_clean();
-		fputcsv($fp,$header_args);
+		fputcsv($fp,$header_args,',','"');
         foreach ($reservations as $reservation) {
             $row = [];
             $row[] = $reservation->id;
-            $row[] = $reservation->plan->name;
+            $row[] = mb_convert_encoding($reservation->plan->name, 'SJIS-win', 'UTF-8');
             $row[] = $reservation->order_id;
-           if ($reservation->plan->res_type == '0') {
-                $row[] = '即時';
+            if ($reservation->plan->res_type == '0') {
+                $row[] = mb_convert_encoding('即時', 'SJIS-win', 'UTF-8');
             } elseif ($reservation->plan->res_type == '1') {
-                $row[] = '即時・リクエスト併用';
+                $row[] = mb_convert_encoding('即時・リクエスト併用', 'SJIS-win', 'UTF-8');
             } else {
-                $row[] = 'リクエスト予約';
-            } 
-            $row[] = $reservation->status;
-            if(json_decode($reservation->plan->question_content , true) == null){
-                $row[] = $reservation->plan->question_content;
+                $row[] = mb_convert_encoding('リクエスト予約', 'SJIS-win', 'UTF-8');
             }
-            else{
-                $row[] = json_decode($reservation->plan->question_content , true)[0];
-            }
+            $row[] = mb_convert_encoding($reservation->status ,'SJIS-win', 'UTF-8');
+			if(json_decode($reservation->plan->question_content , true) == null){
+				$row[] = '';
+			}
+			else{
+				$row[] = mb_convert_encoding(json_decode($reservation->plan->question_content , true)[0], 'SJIS-win', 'UTF-8');
+			}
+
             if(json_decode($reservation->answer , true) == null){
-                $row[] = $reservation->answer;
+                $row[] = '';
             }
             else{
-                $row[] = json_decode($reservation->answer , true)[0];
+                $row[] =  mb_convert_encoding(json_decode($reservation->answer , true)[0], 'SJIS-win', 'UTF-8');
             }
-            if ($reservation->payment_method == '4') {
-                $row[] = '現地払い';
-            } elseif ($reservation->payment_method == '1') {
-                $row[] = '銀行振込';
-            } elseif ($reservation->payment_method == '2') {
-                $row[] = '事前コンビニ決済';
-            } elseif ($reservation->payment_method == '3') {
-                $row[] = '事前クレジットカード決済';
+            if ($reservation->payment_method == PaymentMethodConstants::SPOT) {
+                $row[] = mb_convert_encoding('現地払い', 'SJIS-win', 'UTF-8');
+            } elseif ($reservation->payment_method == PaymentMethodConstants::PREPAY) {
+                $row[] = mb_convert_encoding('銀行振込', 'SJIS-win', 'UTF-8');
+            } elseif ($reservation->payment_method == PaymentMethodConstants::CVS) {
+                $row[] = mb_convert_encoding('事前コンビニ決済', 'SJIS-win', 'UTF-8');
+            } elseif ($reservation->payment_method == PaymentMethodConstants::CARD) {
+                $row[] = mb_convert_encoding('事前クレジットカード決済', 'SJIS-win', 'UTF-8');
             } else {
                 $row[] = '';
             }
-            $row[] = $reservation->memo;
-            fputcsv($fp, $row);
+            $row[] = mb_convert_encoding($reservation->memo,'SJIS-win', 'UTF-8');
+            fputcsv($fp, $row ,',','"');
         }
+
         fclose($fp);
+
+
+
+
+        exit();
     }
 
     // JSON返却
     public function json($user_id = null)
     {
         try {
-            $query = null;
-            if ($user_id == null) {
-                $query = Reservation::with(['user', 'plan'])->where(
-                    'number',
-                    '!=',
-                    null
-                );
-                if (isset($_GET['status']) && $_GET['status']) {
-                    $query = $query->where('status', $_GET['status']);
+            $query = Reservation::with([
+                'user' => function ($q) {
+                    $q->select(['id', 'name_last', 'name_first']);
+                },
+                'plan' => function ($q) {
+                    $q->select(['id', 'name']);
                 }
-                if (isset($_GET['date']) && $_GET['date']) {
-                    $query = $query->whereDate('created_at', $_GET['date']);
-                }
-                if (isset($_GET['startDay']) && $_GET['startDay']){
-                    $query = $query->whereDate('fixed_datetime', $_GET['startDay']);
-                }
- 
-                $query = $query->orderBy('id', 'desc');
+            ]);
+            $query = $query->whereNotNull('number');
+            if ($_GET['status'] ?? null) {
+                $query = $query->where('status', $_GET['status']);
+            }
+            if ($_GET['date'] ?? null) {
+                $query = $query->whereDate('created_at', $_GET['date']);
+            }
+            if ($_GET['startDay'] ?? null) {
+                $query = $query->whereDate('fixed_datetime', $_GET['startDay']);
+            }
+            if (!$user_id) {
                 $query = $query->where('status', '<>', '決済処理中');
             } else {
-                $query = Reservation::with(['user', 'plan']);
-                if (isset($_GET['status']) && $_GET['status']) {
-                    $query = $query->where('status', $_GET['status']);
-                }
-                if (isset($_GET['date']) && $_GET['date']) {
-                    $query = $query->whereDate('created_at', $_GET['date']);
-                }
-                if (isset($_GET['startDay']) && $_GET['startDay']){
-                    $query = $query->whereDate('fixed_datetime', $_GET['startDay']);
-                }
-                $query = $query
-                    ->where('user_id', $user_id)
-                    ->where('number', '!=', null)
-                    ->orderBy('id', 'desc')
-                    ->get();
+                $query = $query->where('user_id', $user_id);
             }
-
-            $result = $query->get();
-        } catch (\Exception $e) {
+            $query = $query->orderBy('id', 'desc');
+            $query = $query->select(['plan_id', 'user_id', 'order_id', 'id', 'status', 'fixed_datetime', 'payment_method', 'created_at']);
+            $result = $query->get()->each(function (Reservation $reservation) {
+                $reservation->user->setAppends([]);
+            });
+            return $this->resConversionJson($result);
+        } catch (Exception $e) {
             $result = [
                 'result' => false,
                 'error' => [
@@ -1874,7 +1833,6 @@ class ReservationsController extends Controller
             ];
             return $this->resConversionJson($result, $e->getCode());
         }
-        return $this->resConversionJson($result);
     }
 
     // 上記メソッド内ファンクション
@@ -1896,9 +1854,8 @@ class ReservationsController extends Controller
     {
         $parameters = decrypt(request('prm'));
         $reservation_id = $parameters['reservation_id'];
-        $payment_method = $parameters['payment_method'];
+        $payment_method_prm = $parameters['payment_method'];
         $reservation = Reservation::find($reservation_id);
-        //$reservation->payment_method = $payment_method;
         $reservation->save();
         //$tokenApiKey = Config::get('sample_setting.token.token_api_key');
         $tokenApiKey = config('adminlte.TOKEN_API_KEY');
@@ -2002,27 +1959,9 @@ class ReservationsController extends Controller
                 }
             }
         }
-        // 期限チェック
-        $deadlineStr = $reservation->plan->payment_final_deadline; //最終締め切り日
-        $payment_plus_day = $reservation->plan->payment_plus_day; //申込日＋○日
-        if(is_null($payment_plus_day) | !isset($payment_plus_day)){
-            $payment_plus_day = 14;
-        }
-        if(!is_null($deadlineStr) & strlen($deadlineStr) >= 8){
-            $deadline = new DateTime(substr($deadlineStr,0,4) .'-'. substr($deadlineStr,5,2) .'-'. substr($deadlineStr,8,2));
-        }else{
-            $deadline = $reservation->created_at;
-            $deadline->modify('+' . $payment_plus_day+1 . ' day');
-        }
-        $limit = $reservation->created_at;
-        $limit->modify('+' . $payment_plus_day . ' day');
-        if($limit < $deadline){
-            $deadline = $limit;
-        }
-        $deadline->setTime(23,59);
-        $now = new Datetime();
+
         $payment_method_str = null;
-        switch ($payment_method) {
+        switch ($payment_method_prm) {
             case 0:
                 $payment_method_str = 'クレジットカード決済';
                 break;
@@ -2033,7 +1972,10 @@ class ReservationsController extends Controller
                 # code...
                 break;
         }
-        if($now > $deadline){
+
+        // 期限チェック
+        $deadline = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
+        if(Carbon::now() > $deadline){
             return view(
                 'over.index',
                 compact(
@@ -2067,7 +2009,7 @@ class ReservationsController extends Controller
                 $weekday = 'holiday';
             }
         }
-        if ($payment_method == 0) {
+        if ($payment_method_prm == 0) {
             return view(
                 'card.index',
                 compact(
@@ -2082,7 +2024,7 @@ class ReservationsController extends Controller
                     'type_id'
                 )
             );
-        } elseif ($payment_method == 1) {
+        } elseif ($payment_method_prm == 1) {
             return view(
                 'cvs.index',
                 compact(
@@ -2215,7 +2157,7 @@ class ReservationsController extends Controller
             if ($stock) {
                 if ($reservation->plan->res_limit_flag == 0) {
                     // 予約人数をカウント
-                    $count_member = 0; 
+                    $count_member = 0;
                     for ($i = 0; $i <= 20 ; $i++) {
                         $count = $reservation->{'type'. $i . '_number'};
                         if ($count > 0) {
@@ -2332,7 +2274,7 @@ class ReservationsController extends Controller
             if ($stock) {
                 if ($reservation->plan->res_limit_flag == 0) {
                     // 予約人数をカウント
-                    $count_member = 0; 
+                    $count_member = 0;
                     for ($i = 0; $i <= 20 ; $i++) {
                         $count = $reservation->{'type'. $i . '_number'};
                         if ($count > 0) {
@@ -2436,12 +2378,6 @@ class ReservationsController extends Controller
         $transaction = new TGMDK_Transaction();
         //$response_data = $transaction->execute($request_data);
 
-        /*
-         * マーチャントIDとマーチャント認証鍵を動的に設定する場合はexecuteメソッドの第2引数に以下のようにセットする
-         */
-        /*$props['merchant_ccid'] = 'A100000800000001100002cc';
-        $props['merchant_secret_key'] =
-            '5102fdcd8ddc7dd40673d04b2d91fb411f1efe69a573057382549b3cd5d076c9';*/
         $response_data = $transaction->execute($request_data);
         if ($response_data instanceof CardReAuthorizeResponseDto) {
             $mstatus = $response_data->getMstatus();
@@ -2679,31 +2615,12 @@ class ReservationsController extends Controller
             'reservation_id' => $reservation->id,
         ];
         $bank = Bankaccount::find($reservation->plan->company->id);
-        // 決済方法ごとにメールテンプレートを分岐
-        $pm = $reservation->payment_method;
         // 各項目設定
         $number = $reservation->order_id;
         $plan = $reservation->plan->name;
         $date = date('Y年m月d日',strtotime($reservation->fixed_datetime));
-        
+        $payment_limit = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
 
-        $payment_final = date('Y年m月d日' , strtotime($reservations->plan->payment_final_deadline));
-        
-        $addDay = $reservations->plan->payment_plus_day;
-        if($reservations->plan->payment_plus_day == null){
-            $addDay = 0;
-        }
-        
-        $paymentLimit = date('Y年m月d日' , strtotime($reservations->created_at->modify('+' . $addDay . ' day')));
-        
-        if($payment_final < $paymentLimit){
-            $payment_limit = $payment_final;
-        }
-        else{
-            $payment_limit = $paymentLimit;
-        }
-
-        
         $activity      = $reservation->activity_date;
         $name_last     = $reservation->user->name_last;
         $kana_last     = $reservation->user->kana_last;
@@ -2725,42 +2642,42 @@ class ReservationsController extends Controller
         $prices        = $prices;
         $priceName     = $priceName;
         $type_id   = $typeid;
-        
 
-        if ($pm == 0) {
-            $payment       = '現地払い';
-            return view(
-                'user.reservations.spotemail_pv',
-                compact('number','plan','date' ,'activity', 'name_last', 'kana_last', 'name_first','kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id','payment_limit'
-                )
-            );
-        } elseif ($pm == 1) {
-            $payment       = '銀行振込';
-            return view(
-                'user.reservations.prepayemail_pv',
-                compact('number','plan','date' ,'activity', 'name_last', 'kana_last', 'name_first','kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id','payment_limit'
-                )
-            );
-        } elseif ($pm == 2) {
-            $payment    = 'コンビニ決済';
-            $url_cvs    = 'https://nagaden-kanko.com/plan/pay?prm=' . encrypt($param_cvs);
-            return view(
-                'user.reservations.cvsemail_pv',
-                compact('url_cvs', 'number','plan','date' ,'activity', 'name_last', 'name_first',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id','payment_limit'
-                )
-            );
-        } elseif ($pm == 3) {
-            $payment    = 'クレジットカード決済';
-            $url_card    = 'https://nagaden-kanko.com/plan/pay?prm=' . encrypt($param_card);
-            return view(
-                'user.reservations.cardemail_pv',
-                compact('url_card', 'number','plan','date' ,'activity', 'name_last', 'name_first',
-                'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id','payment_limit'
-                )
-            );
+        switch ($reservation->payment_method) {
+            case PaymentMethodConstants::PREPAY:
+                $payment = '銀行振込';
+                return view(
+                    'user.reservations.prepayemail_pv',
+                    compact('number', 'plan', 'date', 'activity', 'name_last', 'kana_last', 'name_first', 'kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
+                        'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id', 'payment_limit'
+                    )
+                );
+            case PaymentMethodConstants::CVS:
+                $url_cvs = 'https://nagaden-kanko.com/plan/pay?prm='.encrypt($param_cvs);
+                return view(
+                    'user.reservations.cvsemail_pv',
+                    compact('url_cvs', 'number', 'plan', 'date', 'activity', 'name_last', 'name_first',
+                        'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id', 'payment_limit'
+                    )
+                );
+            case PaymentMethodConstants::CARD:
+                $url_card = 'https://nagaden-kanko.com/plan/pay?prm='.encrypt($param_card);
+                return view(
+                    'user.reservations.cardemail_pv',
+                    compact('url_card', 'number', 'plan', 'date', 'activity', 'name_last', 'name_first',
+                        'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'prices', 'priceName', 'type_id', 'payment_limit'
+                    )
+                );
+            case PaymentMethodConstants::SPOT:
+                $payment = '現地払い';
+                return view(
+                    'user.reservations.spotemail_pv',
+                    compact('number', 'plan', 'date', 'activity', 'name_last', 'kana_last', 'name_first', 'kana_first', 'postalcode', 'prefecture', 'address', 'birth_year', 'birth_month', 'birth_day',
+                        'email', 'tel', 'tel2', 'reservation', 'amount', 'weekday', 'bank', 'payment', 'prices', 'priceName', 'type_id', 'payment_limit'
+                    )
+                );
+            default:
+                throw new LogicException();
         }
     }
 }

@@ -54,13 +54,13 @@ function confirmCsvelected(){
     var ids = $('input[type="checkbox"][name="row-data"]:checked').map(function(){
             return $(this).val();
         }).get()
-    $('input[name="ids"]').val(ids); 
+    $('input[name="ids"]').val(ids);
 
     $('#form1').prop('action',action='{{config('app.url')}}client/reservations/csv-selected')
     $("#form1").submit();
 
     return true;
-    
+
 }
 
 function chgNum(){
@@ -68,7 +68,7 @@ function chgNum(){
   //$("#result").html("");
   mygrid.updateConfig({
     pagination: {
-      limit:  num 
+      limit:  num
     },
 
   }).forceRender();
@@ -82,10 +82,10 @@ function chgSelect(){
   mygrid.updateConfig({
     server: {
     url: '{{config('app.url')}}client/reservations/json?date='+date+'&status='+status+'&startDay='+startDate,
-    then: data => data.map(data => 
+    then: data => data.map(data =>
       ['', data.id, data.order_id, data.status, data.user.name_last + ' ' + data.user.name_first, data.plan.name.slice(0, 10),data.fixed_datetime.slice(0, 10) , data.created_at.slice(0, 10), displayPaymentMethod(data.payment_method)]
     )
-  } 
+  }
 
   }).forceRender();
 
@@ -122,19 +122,19 @@ const mygrid = new gridjs.Grid ({
     }
   },
   columns: [
-    { 
+    {
       id: 'id',
       name: gridjs.html('<label>全選択/解除 <input type="checkbox" class="select-items-check" onchange="onSelect()" style="display: none"></label>'),
       width: '0px',
       sort: false,
-    
+
       formatter: (_, row) => gridjs.html(`
         <div class="text-center">
           <input id="row-data" type="checkbox" name="row-data" value="${row.cells[1].data}" >
         </div>
       `),
     },
-    { 
+    {
       name: 'ID',
       sort: {
         enabled: true
@@ -147,7 +147,7 @@ const mygrid = new gridjs.Grid ({
       `)
     },
     '予約番号','予約状況',' 名前','プラン名','出発日','予約受付日時', '決済方法',
-    { 
+    {
       name: 'データ操作',
       sort: false,
         formatter: (_, row) => gridjs.html(`
@@ -163,10 +163,10 @@ const mygrid = new gridjs.Grid ({
   ],
   server: {
     url: '{{config('app.url')}}client/reservations/json',
-    then: data => data.map(data => 
+    then: data => data.map(data =>
       ['', data.id, data.order_id, data.status, data.user.name_last + ' ' + data.user.name_first, data.plan.name.slice(0, 10),data.fixed_datetime.slice(0, 10), data.created_at.slice(0, 10), displayPaymentMethod(data.payment_method)]
     )
-  } 
+  }
 }).render(document.getElementById('result'));
 
 function onSelect(){
@@ -189,25 +189,20 @@ function onSelect(){
 <script type="text/javascript" src="{{asset('js/default.js')}}"></script>
 
 <script>
-
-function displayPaymentMethod(val) {
-  var name = '';
-  switch (val){
-  case 0:
-    name = '現地払い';
-    break;
-  case 1:
-    name = '銀行振込';
-    break;
-  case 2:
-    name = 'コンビニ決済';
-    break;
-  case 3:
-    name = 'クレジット決済';
-    break;
-  }
-  return name;
-}
+    function displayPaymentMethod(val) {
+        switch (val) {
+            case {{ \App\Constants\PaymentMethodConstants::PREPAY }}:
+                return '銀行振込';
+            case {{ \App\Constants\PaymentMethodConstants::CVS }}:
+                return 'コンビニ決済';
+            case {{ \App\Constants\PaymentMethodConstants::CARD }}:
+                return 'クレジット決済';
+            case {{ \App\Constants\PaymentMethodConstants::SPOT }}:
+                return '現地払い';
+            default:
+                return '';
+        }
+    }
 </script>
 @stop
 

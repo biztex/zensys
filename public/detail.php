@@ -89,6 +89,7 @@ if (isset($_GET["year"]) && isset($_GET["month"])) {
 $next_y = $next_m_date->format('Y');
 $next_m = $next_m_date->format('m');
 
+echo $current_m;
 
 $url_stocks = "http://153.127.31.62/zenryo/public/api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id.'/'.$priceType ;
 $ch = curl_init();
@@ -460,8 +461,9 @@ $stocks_next = json_decode($json_stocks_next, true);
                                     <div class="listItemCont">
                                         <p class="listItemTxt"><?=nl2br(htmlspecialchars($plan["catchphrase"])) ?></p>
                                         <div class="listItemInfo">
+										
                                             <div class="rightP">
-                                            <div class="dtFor">
+                                                <div class="dtFor">
                                                     <div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[0] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[0] ?></p><?php } ?></div></div>
                                                     <?php if($plan["file_path2"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[1] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[1] ?></p><?php } ?></div></div><?php } ?>
                                                     <?php if($plan["file_path3"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[2] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[2] ?></p><?php } ?></div></div><?php } ?>
@@ -538,7 +540,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                         <dd><?=htmlspecialchars($plan["code"]) ?></dd>
                                                     </dl>
                                                     <dl>
-                                                        <dt>最小催行人員</dt>
+                                                        <dt>最少催行人員</dt>
                                                         <dd><?=htmlspecialchars($plan["min_cnt"]) ?></dd>
                                                     </dl>
                                                     <?php if($plan["institution"]){ ?>
@@ -554,7 +556,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                     </dl>
                                                     <?php } ?>
                                                 </div>
-                                                <p class="priceP">旅行代金（お一人様<span>¥<?=number_format($min_value) ?>〜¥<?=number_format($max_value) ?></span></p>
+                                                <p class="priceP">旅行代金（お一人様）<span>¥<?=number_format($min_value) ?>〜¥<?=number_format($max_value) ?></span></p>
                                                 <p class="btnP"><a href="#calendar_area" class="scroll btnLink01">旅行代金カレンダーを見る</a></p>
                                             </div>
                                         </div>
@@ -586,16 +588,16 @@ $stocks_next = json_decode($json_stocks_next, true);
                                             <p class="detailItemHd">行程表 <a href="javascript:;" onclick="window.print();" class="printBtn">印刷する</a></p>
                                             <table class="detailTable">
                                                 <colgroup class="pc">
-                                                    <col width="11.2%">
-                                                    <col width="50%">
-                                                    <col width="14.5%">
-                                                    <col width="22.4%">
+                                                    <col width="">
+                                                    <col width="">
+                                                    <col width="">
+                                                    <col width="">
                                                 </colgroup>
                                                 <tbody><tr>
-                                                    <th>日程</th>
-                                                    <th>予定</th>
-                                                    <th>食事</th>
-                                                    <th>宿泊</th>
+                                                    <th class="koutei-table-nittei">日程</th>
+                                                    <th class="koutei-table-yotei">予定</th>
+                                                    <th class="koutei-table-shokuji">食事</th>
+                                                    <th class="koutei-table-shukuhaku">宿泊</th>
                                                 </tr>
                                                 <?php 
                                                 foreach ($roadmaps as $key => $value) {
@@ -932,17 +934,18 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                 <tr>
                                                     <th>お支払方法</th>
                                                     <td><?php if ($plan["spot"] == 1) {
-                                echo '現地払い<br />';
-                            }
-                    if ($plan["prepay"] == 1) {
-                                echo '銀行振込<br />';
-                            }
-                    if ($plan["cvs"] == 1) {
-                                echo 'コンビニ決済<br />';
-                            }
-                    if ($plan["card"] == 1) {
-                                echo 'クレジットカード決済<br/ >';
-                            } ?></td>
+														echo '現地払い<br />';
+														}
+														if ($plan["prepay"] == 1) {
+															echo '銀行振込<br />';
+														}
+														if ($plan["cvs"] == 1) {
+															echo 'コンビニ決済<br />';
+														}
+														if ($plan["card"] == 1) {
+															echo 'クレジットカード決済<br/ >';
+														} ?>
+													</td>
                                                 </tr>
                                                 <tr>
                                                     <th>お支払方法の補足、詳細</th>
@@ -974,7 +977,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                         <div class="detailItem">
                                             <p class="detailItemHd">注意事項・その他</p>
                                             <div class="reserveTxt">
-                                                <p><?=nl2br(htmlspecialchars($plan['caution_content'])) ?></p>
+                                                <p><?= $plan['caution_content'] ?></p>
                                             </div>
                                         </div>
                                         <div class="detailItem">
@@ -1111,8 +1114,10 @@ $stocks_next = json_decode($json_stocks_next, true);
                                     <div class="listItemCont">
                                         <p class="listItemTxt"><?=nl2br(htmlspecialchars($plan["catchphrase"])) ?></p>
                                         <div class="listItemInfo">
+										
                                             <div class="rightP">
-                                            <div class="dtFor">
+										
+                                                <div class="dtFor">
                                                     <div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[0] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[0] ?></p><?php } ?></div></div>
                                                     <?php if($plan["file_path2"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[1] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[1] ?></p><?php } ?></div></div><?php } ?>
                                                     <?php if($plan["file_path3"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[2] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[2] ?></p><?php } ?></div></div><?php } ?>
@@ -1189,7 +1194,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                         <dd><?=htmlspecialchars($plan["code"]) ?></dd>
                                                     </dl>
                                                     <dl>
-                                                        <dt>最小催行人員</dt>
+                                                        <dt>最少催行人員</dt>
                                                         <dd><?=htmlspecialchars($plan["min_cnt"]) ?></dd>
                                                     </dl>
                                                     <?php if($plan["institution"]){ ?>
@@ -1205,7 +1210,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                                     </dl>
                                                     <?php } ?>
                                                 </div>
-                                                <p class="priceP">旅行代金（お一人様<span>¥<?=number_format($min_value) ?>〜¥<?=number_format($max_value) ?></span></p>
+                                                <p class="priceP">旅行代金（お一人様）<span>¥<?=number_format($min_value) ?>〜¥<?=number_format($max_value) ?></span></p>
                                                 <p class="btnP"><a href="#calendar_area" class="scroll btnLink01">旅行代金カレンダーを見る</a></p>
                                             </div>
                                         </div>
@@ -1624,7 +1629,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                                         <div class="detailItem">
                                             <p class="detailItemHd">注意事項・その他</p>
                                             <div class="reserveTxt">
-                                                <p><?=nl2br(htmlspecialchars($plan['caution_content'])) ?></p>
+                                                <p><?= $plan['caution_content'] ?></p>
                                             </div>
                                         </div>
                                         <div class="detailItem">
@@ -1820,7 +1825,7 @@ $(function() {
         date.setMonth(date.getMonth() - 2); // ここで1ヶ月前をセット
         let prevMonthYear = date.getFullYear();
         let prevMonth = date.getMonth() + 1;
-        location.href = 'https://zenryo.zenryo-ec.info/detail.php/?plan_id=' + planId + '&year=' + prevMonthYear + '&month=' + prevMonth + '#anchor-calendar';
+        location.href = 'https://zenryo.zenryo-ec.info/detail.php?plan_id=' + planId + '&year=' + prevMonthYear + '&month=' + prevMonth + '#anchor-calendar';
     });
     $('.next-month').click(function () {
         let year = "<?= $current_y ?>",
@@ -1830,7 +1835,7 @@ $(function() {
         date.setMonth(date.getMonth() + 1); // ここで1ヶ月後をセット
         let nextMonthYear = date.getFullYear();
         let nextMonth = date.getMonth();
-        location.href = 'https://zenryo.zenryo-ec.info/detail.php/?plan_id=' + planId + '&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = 'https://zenryo.zenryo-ec.info/detail.php?plan_id=' + planId + '&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
 });
 

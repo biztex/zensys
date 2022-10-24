@@ -50,7 +50,6 @@ $(document).ready(function(){
         }
     });
 });
-
 // 表示順変更
 $(document).on('click', '.sort-ajax', function(){
     $(this).css('display', 'none');

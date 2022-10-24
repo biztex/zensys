@@ -74,9 +74,9 @@
             <div class="row">
                 <div class="col-1 col-sm-1 h2"><i class="fab fa-cc-visa"></i></div>
                 <div class="col-1 col-sm-1 h2"><i class="fab fa-cc-mastercard"></i></div>
-                <div class="col-1 col-sm-1 h2"><i class="fab fa-cc-jcb"></i></div>
+                <!-- <div class="col-1 col-sm-1 h2"><i class="fab fa-cc-jcb"></i></div>
                 <div class="col-1 col-sm-1 h2"><i class="fab fa-cc-diners-club"></i></div>
-                <div class="col-1 col-sm-1 h2"><i class="fab fa-cc-amex"></i></div>
+                <div class="col-1 col-sm-1 h2"><i class="fab fa-cc-amex"></i></div> -->
             </div>
             <hr class="mb-4">
             <form method="post" action="{{ url('/card') }}" class="needs-validation" onclick="return false;"

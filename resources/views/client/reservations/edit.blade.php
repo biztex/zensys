@@ -140,13 +140,13 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('支払方法') }}</label>
                             <div class="col-md-3">
-                            <select name="payment_method" class="form-control">
-                                <option value="" selected>選択してください</option>
-                                <option value="3" @if(old('payment_method', $reservations->payment_method)=='3') selected @endif>クレジットカード決済</option>
-                                <option value="4" @if(old('payment_method', $reservations->payment_method)=='4') selected @endif>現地払い</option>
-                                <option value="1" @if(old('payment_method', $reservations->payment_method)=='1') selected @endif>銀行振込</option>
-                                <option value="2" @if(old('payment_method', $reservations->payment_method)=='2') selected @endif>コンビニ決済</option>
-                            </select>
+                                <select name="payment_method" class="form-control">
+                                    <option value="" selected>選択してください</option>
+                                    <option value="{{ \App\Constants\PaymentMethodConstants::CARD }}" @if(old('payment_method', $reservations->payment_method) == \App\Constants\PaymentMethodConstants::CARD) selected @endif>クレジットカード決済</option>
+                                    <option value="{{ \App\Constants\PaymentMethodConstants::SPOT }}" @if(old('payment_method', $reservations->payment_method) == \App\Constants\PaymentMethodConstants::SPOT) selected @endif>現地払い</option>
+                                    <option value="{{ \App\Constants\PaymentMethodConstants::PREPAY }}" @if(old('payment_method', $reservations->payment_method) == \App\Constants\PaymentMethodConstants::PREPAY) selected @endif>銀行振込</option>
+                                    <option value="{{ \App\Constants\PaymentMethodConstants::CVS }}" @if(old('payment_method', $reservations->payment_method) == \App\Constants\PaymentMethodConstants::CVS) selected @endif>コンビニ決済</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -550,7 +550,7 @@
                       <td id="total-number" style="text-align: center;" class="font-weight-bold"></td>
                       <td id="total-price" style="text-align: right;" class="font-weight-bold"></td>
                     </tr>
-                    @if ($reservations->payment_method == 3 & ($reservations->status == '予約確定' | $reservations->status == '一部返金' | $reservations->status == 'キャンセル'))
+                    @if (($reservations->payment_method == \App\Constants\PaymentMethodConstants::CARD) && ($reservations->status == '予約確定' || $reservations->status == '一部返金' || $reservations->status == 'キャンセル'))
                     <?php $Possible_refund_amount = $Sumpt - $Sum_refund_amount; ?>
                       @if (count($Credit_Cancels) > 0)
                         <?php $cancnt = 0; ?>

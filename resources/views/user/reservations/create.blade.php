@@ -45,9 +45,9 @@
                     $com_date = new DateTime(date('Y-m-d'));
                     $end =  new DateTime($date);
                     $time = date('H');
-                    
+
                     $interval = $end->diff($com_date);
-                    
+
                     if($plan['res_type'] == 0){
                         $compare = intval($interval->format('%R%a')) + intval($plan['res_end_day']);
                     }
@@ -124,7 +124,7 @@
 
                                                         echo $arr[$i-1] . $priceType['name'] . " / " . number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) ." 円";
                                                         echo '<input type="hidden" name="price_table_name[]" value="'. $arr[$i-1] . $priceType['name'] . '">';
-                                  
+
                                                         echo '<input type="hidden" name="price_table_price[]" value="'. number_format($stock_price_type[strtolower($stock['rank']) . '_'. $i]) . '">';
                                                         $str = "type" . $priceType['number'] ."_". strtolower($stock['rank']) ."_" . $i . "_number";
                                                         @endphp
@@ -235,7 +235,7 @@
                                             <th>年齢<span class="requiredRed">※</span></th>
                                             <td>
                                                 <div>
-                                                    <div class="ageP"> 
+                                                    <div class="ageP">
                                                         <input class="midIpt" type="text" name="age" value="{{ old('age')}}" required placeholder="半角数字"> <span>才</span>
                                                     </div>
                                                     <span class="errorMessage"></span>
@@ -418,12 +418,12 @@
                                    // $(".reserveItem").append($("#reserveList"),html())
                                 }
 
-                                var count = 1; 
+                                var count = 1;
 
-                               
+
                                 $(document).on('click','.companion_member',function(e){
                                     e.preventDefault();
-                            
+
                                     count++;
                                     $("input[name='limit_number']").val(count);
 
@@ -435,7 +435,7 @@
                                             $(".reserveAdd").css("visibility" , "hidden");
                                         }
                                     @endif
-                                    
+
                                     $(".reserveAdd").before('<div class="reserveList helperNone'+ count +'" id="reserveList"></div>')
                                     $(".reserveList.helperNone"+count).load('{{config('app.url')}}html/reservation-companion.php' , function(e){
 
@@ -459,7 +459,7 @@
                                     @endif
                                 });
 
-                              
+
                             </script>
                             <div class="reserveItem helperMarginTop">
                                 <h4 class="reserveItemHd">旅行参加者情報</h4>
@@ -550,7 +550,7 @@
                                                     </div>
                                                     <span class="errorMessage"></span>
                                                 </div>
-                                              
+
                                                 <select  id="contact_address_pref" name="prefecture_representative" required class="p-region midIpt">
                                                 <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
                                                     <option value="青森県" @if(old('prefecture')=='青森県') selected @endif>青森県</option>
@@ -630,7 +630,7 @@
                                             </td>
                                         </tr>
                                         @endif
-                                        @if( isset($pieces) && count($drops) > 0)
+                                        @if( isset($drops) && count($drops) > 0)
                                         <tr  class="par_drop">
                                             <th>降車地@if($plan->drop_type == 1)<span class="requiredRed">※</span>@endif</th>
                                             <td>
@@ -660,24 +660,22 @@
                                     <tr>
                                         <th>お支払方法<span class="requiredRed">※</span></th>
                                         <td>
-                                            <select name="payment_method" class="midSelect" required >
+                                            <select name="payment_method" class="midSelect" required>
                                                 <option value="" selected>選択してください</option>
                                                 @if ($plan->card == 1)
-                                                        <option value="3" @if (old('payment_method') == 3) selected @endif>クレジットカード決済</option>
+                                                    <option value="{{ \App\Constants\PaymentMethodConstants::CARD }}" @if (old('payment_method') == \App\Constants\PaymentMethodConstants::CARD) selected @endif>クレジットカード決済</option>
                                                 @endif
                                                 @if ($plan->spot == 1)
-                                                        <option value="4" @if (old('payment_method') == 4) selected @endif>現地払い</option>
+                                                    <option value="{{ \App\Constants\PaymentMethodConstants::SPOT }}" @if (old('payment_method') == \App\Constants\PaymentMethodConstants::SPOT) selected @endif>現地払い</option>
                                                 @endif
                                                 @if ($plan->prepay == 1)
-                                                        <option value="1" @if (old('payment_method') == 1) selected @endif>銀行振込</option>
+                                                    <option value="{{ \App\Constants\PaymentMethodConstants::PREPAY }}" @if (old('payment_method') == \App\Constants\PaymentMethodConstants::PREPAY) selected @endif>銀行振込</option>
                                                 @endif
                                                 @if ($plan->cvs == 1)
-                                                        <option value="2" @if (old('payment_method') == 2) selected @endif>コンビニ決済</option>
+                                                    <option value="{{ \App\Constants\PaymentMethodConstants::CVS }}" @if (old('payment_method') == \App\Constants\PaymentMethodConstants::CVS) selected @endif>コンビニ決済</option>
                                                 @endif
-                                               
-                                             </select>
-                                             <span class="errorMessage"></span>
-
+                                            </select>
+                                            <span class="errorMessage"></span>
                                         </td>
                                     </tr>
                                 </table>
@@ -748,7 +746,7 @@
                                 </div>
                             </div>
 
-                         
+
                             <div class="reserveAgree">
                               <label for="agree01" class="checkBox01">
                                 <input type="checkbox" name="agree" id="agree01" required>
@@ -785,11 +783,11 @@
                             </div>
                          </div>
                     </div>
-                    
+
                 </div>
 
                <script type='text/javascript'>window.top.location='https://nagaden-kanko.com/plan/detail.php?plan_id={{ request('plan_id')}}';</script>
-              
+
                 @endif
             </div>
         </section>
@@ -849,7 +847,7 @@
             $(".reserveAdd").css("opacity" , "0");
             $(".reserveAdd").css("visibility" , "hidden");
         }
-       
+
 
         $(".reserveAdd a").click(function(e){
             e.preventDefault();
@@ -873,7 +871,7 @@
                 if(theEvent.preventDefault) theEvent.preventDefault();
             }
         }
-      
+
         $(".btnLink01").click(function(e){
             e.preventDefault();
             let top_pos = null;
@@ -901,7 +899,7 @@
                     $(this).removeClass("error");
                     $(this).next().removeClass("error");
                 }
-                
+
             });
             if(num_flag == false){
                 $(".number").addClass("error");
@@ -911,7 +909,7 @@
                     top_pos = $(".number").first().offset().top;
                 }
             }
-            
+
             //姓
             if($("input[name='name_last']").val() === ''){
                 $("input[name='name_last']").addClass("error");
@@ -965,7 +963,7 @@
                         top_pos = $("input[name='kana_last']").offset().top;
                     }
                 }
-              
+
             }
 
             //メイ
@@ -990,7 +988,7 @@
                         top_pos = $("input[name='kana_first']").offset().top;
                     }
                 }
-              
+
             }
 
             //年齢
@@ -1010,7 +1008,7 @@
                     }
                 }
             }
-                
+
             else {
                 $("input[name='age']").addClass("error");
                 $("input[name='age']").parent().next().text("※年齢を入力してください。");
@@ -1031,7 +1029,7 @@
                 $("select[name='birth_day']").removeClass("error");
                 $("select[name='birth_year']").parent().next().removeClass("error");
             }
-                
+
             else {
                 $("select[name='birth_year']").addClass("error");
                 $("select[name='birth_month']").addClass("error");
@@ -1070,7 +1068,7 @@
                         top_pos = $("input[name='email']").offset().top;
                     }
                 }
-              
+
             }
 
              //確認メールアドレス
@@ -1096,9 +1094,9 @@
                             top_pos = $("input[name='email_confirmation']").offset().top;
                         }
                     }
-     
 
-                    
+
+
                 }
                 else{
                     $("input[name='email_confirmation']").addClass("error");
@@ -1108,18 +1106,18 @@
                         top_pos = $("input[name='email_confirmation']").offset().top;
                     }
                 }
-              
+
             }
 
 
 
 
-            
-            
-            
+
+
+
             //郵便番号
             let regexpZip = /^\d{7}$/;
-            
+
             if($("input[name='postalcode']").val() == ''){
                 $("input[name='postalcode']").addClass("error");
                 $("input[name='postalcode']").parent().next().addClass("error");
@@ -1141,7 +1139,7 @@
                         top_pos = $("input[name='postalcode']").offset().top;
                     }
                 }
-            
+
             }
 
             if($("input[name='postalcode_representative']").val() == ''){
@@ -1165,7 +1163,7 @@
                         top_pos = $("input[name='postalcode_representative']").offset().top;
                     }
                 }
-            
+
             }
 
             //市区郡町村
@@ -1173,7 +1171,7 @@
             if($("input[name='address']").val() !== "" ){
                 $("input[name='address']").removeClass("error");
             }
-                
+
             else {
                 $("input[name='address']").addClass("error");
                 if(top_pos == null){
@@ -1183,7 +1181,7 @@
             if($("input[name='address_representative']").val() !== "" ){
                 $("input[name='address_representative']").removeClass("error");
             }
-                
+
             else {
                 $("input[name='address_representative']").addClass("error");
                 if(top_pos == null){
@@ -1195,7 +1193,7 @@
             if($("input[name='extended']").val() !== "" ){
                 $("input[name='extended']").removeClass("error");
             }
-                
+
             else {
                 $("input[name='extended']").addClass("error");
                 if(top_pos == null){
@@ -1206,7 +1204,7 @@
             if($("input[name='extended_representative']").val() !== "" ){
                 $("input[name='extended_representative']").removeClass("error");
             }
-                
+
             else {
                 $("input[name='extended_representative']").addClass("error");
                 if(top_pos == null){
@@ -1217,7 +1215,7 @@
 
             //電話番号
             let regexpPhone = /^\d{2,4}-?\d{2,4}-\d{3,4}$/;
-            
+
             if($("input[name='tel']").val() == ''){
                 $("input[name='tel']").addClass("error");
                 $("input[name='tel']").next().addClass("error");
@@ -1239,7 +1237,7 @@
                         top_pos = $("input[name='tel']").offset().top;
                     }
                 }
-            
+
             }
 
             if($("input[name='tel_representative']").val() == ''){
@@ -1263,7 +1261,7 @@
                         top_pos = $("input[name='tel_representative']").offset().top;
                     }
                 }
-            
+
             }
 
 
@@ -1289,7 +1287,7 @@
                         top_pos = $("input[name='tel2']").offset().top;
                     }
                 }
-            
+
             }
 
             //乗車地
@@ -1327,7 +1325,7 @@
                     };
                 });
             }
-           
+
 
             //降車地
 
@@ -1381,7 +1379,7 @@
                 else{
                     $(this).removeClass("error");
                     $(this).next().removeClass("error");
-                }   
+                }
 
             })
 
@@ -1398,13 +1396,13 @@
                 else{
                     $(this).removeClass("error");
                     $(this).next().removeClass("error");
-                }   
+                }
 
             })
 
 
             $("input[name='join_kana1[]']").each(function(){
-            
+
                 if($(this).val() === ''){
                     $(this).addClass("error");
                     $(this).next().addClass("error");
@@ -1426,7 +1424,7 @@
                             top_pos = $(this).offset().top;
                         }
                     }
-                
+
                 }
 
             });
@@ -1456,7 +1454,7 @@
                             top_pos = $(this).offset().top;
                         }
                     }
-                
+
                 }
             })
 
@@ -1479,7 +1477,7 @@
                         }
                     }
                 }
-                    
+
                 else {
                     $(this).addClass("error");
                     $(this).parent().next().text("※年齢を入力してください。");
@@ -1490,10 +1488,10 @@
                 }
             })
 
-           
+
 
             //生年月日
-           
+
             $("select[name='birth_year_representative[]']").each(function(){
                 let year = $(this).val();
                 let month = $(this).next().val();
@@ -1505,7 +1503,7 @@
                     $(this).next().next().removeClass("error");
                     $(this).parent().next().removeClass("error");
                 }
-                    
+
                 else {
                     $(this).addClass("error");
                     $(this).next().addClass("error");
@@ -1518,8 +1516,8 @@
                 }
             })
 
-           
-          
+
+
 
 
             //お支払方法
@@ -1536,7 +1534,7 @@
                 $("select[name='payment_method']").removeClass('error');
                 $("select[name='payment_method']").next().removeClass('error');
 
-                
+
             }
 
 
@@ -1552,7 +1550,7 @@
                     $(this).next().next().removeClass("error");
                     $(this).parent().next().removeClass("error");
                 }
-                    
+
                 else {
                     $(this).addClass("error");
                     $(this).next().addClass("error");
@@ -1565,7 +1563,7 @@
                 }
             })
 
-           
+
 
             //予約者への質問
 
@@ -1648,16 +1646,16 @@
 
                     }
                 @endif
-             
+
             }
 
             if(submit_flag == true){
                 $('form.reserveCont').submit();
             }
 
-        
+
         })  ;
-        
+
     </script>
 </body>
 </html>

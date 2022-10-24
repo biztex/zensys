@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\PaymentMethodConstants;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage;
@@ -33,7 +34,7 @@ class PlansController extends Controller
         $plans = Plan::all();
         $categories = Genre::select('category', DB::raw('count(*) as total'))
             ->groupBy('category')
-            ->orderBy('id')
+            ->orderByRaw('MIN(id)')
             ->get();
         $genres = Genre::all();
         $price_types = PriceType::all();
@@ -81,7 +82,7 @@ class PlansController extends Controller
             // 'res_before_time' => ['required', 'numeric'],
             'res_end_type' => ['required'],
             'res_end_time' => ['required', 'numeric'],
-           
+
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
@@ -91,7 +92,7 @@ class PlansController extends Controller
             //'payment_method' => ['required', 'numeric'],
             'etc_card_name' => ['nullable', 'string', 'max:50'],
             'payment_comment' => ['nullable', 'string', 'max:200'],
-            
+
             // 'is_discount' => ['required'],
             'included_item' => ['nullable', 'string', 'max:100'],
             // 'place_name' => ['required', 'string', 'max:120'],
@@ -128,7 +129,7 @@ class PlansController extends Controller
             $rules = array_merge($rules, $img_rule);
         }
         /*
-            if ($request->payment_method == 0 || $request->payment_method == 3) {
+            if ($request->payment_method == PaymentMethodConstants::SPOT || $request->payment_method == PaymentMethodConstants::CARD) {
                 $p_rules = [
                     'cache_flag' => ['required_without:card_flag'],
                     'card_flag' => ['required_without:cache_flag'],
@@ -154,7 +155,7 @@ class PlansController extends Controller
             ];
             $rules = array_merge($rules, $notice_rule);
         }
-        
+
         else if($request->file_path11 == null && $request->notice != null){
             $notice_rule_1 = [
                 'notice' =>  ['required'],
@@ -189,7 +190,7 @@ class PlansController extends Controller
 
             $rules = array_merge($rules, $req);
         }
-        
+
         $a_rules1 = [
             // 体験時間join
             'activity_name1' => ['nullable'],
@@ -521,7 +522,7 @@ class PlansController extends Controller
         $plans->age_to = $request->age_to;
         $plans->res_type = $request->res_type;
         //$plans->res_end_flag = $request->res_end_flag;
-     
+
         $plans->res_before_day =  $request->res_before_day;
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
@@ -536,7 +537,7 @@ class PlansController extends Controller
         $plans->payment_plus_day = $request->payment_plus_day;
         $plans->payment_final_deadline = $request->payment_final_deadline;
 
-        
+
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
             $plans->res_limit_number = $request->res_limit_number;
@@ -1302,7 +1303,7 @@ class PlansController extends Controller
                  $stock->save();
              }
          }
-         
+
         // if ($plans->repetition_flag == 0) {
         //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
         //         if (
@@ -1586,7 +1587,7 @@ class PlansController extends Controller
         $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
-        
+
         //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
@@ -1786,7 +1787,7 @@ class PlansController extends Controller
             $roadMap->save();
         }
 
-        
+
         // stocks
 
         $start_day = new Carbon($plans->start_day);
@@ -1817,7 +1818,7 @@ class PlansController extends Controller
                 $stock->save();
             }
         }
-        
+
         // if ($plans->repetition_flag == 0) {
         //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
         //         if (
@@ -1887,7 +1888,7 @@ class PlansController extends Controller
         );
     }
 
-    
+
     // 詳細画面
     public function preview(Request $request)
     {
@@ -1903,7 +1904,7 @@ class PlansController extends Controller
                 compact('plans')
             );
         }
-       
+
     }
 
     // 編集画面
@@ -1912,7 +1913,7 @@ class PlansController extends Controller
         $plans = Plan::find($id);
         $categories = Genre::select('category', DB::raw('count(*) as total'))
             ->groupBy('category')
-            ->orderBy('id')
+            ->orderByRaw('MIN(id)')
             ->get();
         $genres = Genre::all();
         $price_types = PriceType::all();
@@ -1928,6 +1929,8 @@ class PlansController extends Controller
     {
 
         ini_set('memory_limit', '256M');
+
+
         $rules = [
             'code' => ['nullable'],
             'kind' => ['required'],
@@ -1947,10 +1950,10 @@ class PlansController extends Controller
             'age_from' => ['nullable', 'numeric'],
             'age_to' => ['nullable', 'numeric'],
             'res_type' => ['required'],
-            
+
             'res_end_type' => ['required'],
             'res_end_time' => ['required', 'numeric'],
-           
+
             'req_before_type' => ['required'],
             'req_before_time' => ['required', 'numeric'],
             // 'res_limit_flag' => ['required'],
@@ -1997,7 +2000,7 @@ class PlansController extends Controller
             $rules = array_merge($rules, $img_rule);
         }
         /*
-                if ($request->payment_method == 0 || $request->payment_method == 3) {
+                if ($request->payment_method == PaymentMethodConstants::SPOT || $request->payment_method == PaymentMethodConstants::CARD) {
                     $p_rules = [
                         'cache_flag' => ['required_without:card_flag'],
                         'card_flag' => ['required_without:cache_flag'],
@@ -2023,7 +2026,7 @@ class PlansController extends Controller
             ];
             $rules = array_merge($rules, $notice_rule);
         }
-        
+
         else if($request->file_path11 == null && $request->notice != null){
             $notice_rule_1 = [
                 'notice' =>  ['required'],
@@ -2038,7 +2041,7 @@ class PlansController extends Controller
                 ];
                 $rules = array_merge($rules, $arr_rules);
             }
-         
+
 
         }
         if($request->res_type == 0){
@@ -2242,6 +2245,7 @@ class PlansController extends Controller
                 'non_payment_method' => '支払方法は最低1つ必須です',
             ]);
         }
+
         $pdf_path = null;
         $path_flag = false;
         if(gettype($request->file_path11) == "object"){
@@ -2251,7 +2255,7 @@ class PlansController extends Controller
         }
         else if(gettype($request->file_path11) == 'string'){
             $pdf_path = $request->file_path11;
-            $path_flag = false; 
+            $path_flag = false;
         }
 
         // 画像トリミング処理（forのループ分）
@@ -2264,7 +2268,7 @@ class PlansController extends Controller
                 else{
                     $fileName11 = $pdf_path ;
                 }
-               
+
 
                 copy(
                     '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
@@ -2342,6 +2346,8 @@ class PlansController extends Controller
         // データ保存
         $plans = Plan::find($id);
         // activities
+
+
         Activity::where('plan_id', $id)->delete();
         $ac = 0;
         for ($i = 1; $i <= 4; $i++) {
@@ -2525,7 +2531,7 @@ class PlansController extends Controller
         $plans->req_before_day = $request->req_before_day ;
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
-        
+
         // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
             $plans->res_limit_number = $request->res_limit_number;
@@ -2569,7 +2575,7 @@ class PlansController extends Controller
         // $plans->meeting_point_longitude = $request->meeting_point_longitude;
         $plans->question_flag = $request->question_flag;
         $plans->question_content = json_encode($request->question_content);
-        
+
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
@@ -2625,7 +2631,7 @@ class PlansController extends Controller
 
         $plans->save();
         // stocks
-        
+
         $old_stocks_data = Stock::where('plan_id', $id)->get();
         Stock::where('plan_id', $id)->delete(); //既存の販売在庫をすべて削除
 
@@ -2634,6 +2640,7 @@ class PlansController extends Controller
         $diff_days = $start_day->diffInDays($end_day);
 
         $loop_count = $diff_days + 1;
+
         for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
             $pc = 0;
             for ($ii = 1; $ii <= 6; $ii++) {
@@ -2642,7 +2649,7 @@ class PlansController extends Controller
                 }
             }
             for ($ii = 1; $ii <= $pc; $ii++) {
-                
+
                 $price_type_id = $request->{'price_type' . $ii};
                 $stock = new Stock();
                 $stock->plan_id = $plans->id;
@@ -2657,9 +2664,9 @@ class PlansController extends Controller
 
             }
 
-           
+
         }
-        foreach ($old_stocks_data as $key => $value) {
+		foreach ($old_stocks_data as $key => $value) {
 			Stock::where('plan_id', $value->plan_id)
 				->whereDate('res_date', $value->res_date)
 				->where('price_type_id', $value->price_type_id)
@@ -2668,78 +2675,8 @@ class PlansController extends Controller
 				   'rank'          => $value->rank
 				]);
 		}
-		  
-        // if ($plans->repetition_flag == 0) {
-        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-        //         if (
-        //             ($plans->monday == 1 && $start_day->isMonday()) ||
-        //             ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-        //             ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-        //             ($plans->thursday == 1 && $start_day->isThursday()) ||
-        //             ($plans->friday == 1 && $start_day->isFriday()) ||
-        //             ($plans->saturday == 1 && $start_day->isSaturday()) ||
-        //             ($plans->sunday == 1 && $start_day->isSunday())
-        //         ) {
-        //             $pc = 0;
-        //             for ($ii = 1; $ii <= 6; $ii++) {
-        //                 if (($request->{'price_type' . $ii} == '0' || $request->{'price_type' . $ii}) || $request->{'price_monday' . $ii} ) {
-        //                     $pc++;
-        //                 }
-        //             }
-        //             for ($ii = 1; $ii <= $pc; $ii++) {
-                        
-        //                 $price_type_id = $request->{'price_type' . $ii};
-        //                 $stock = new Stock();
-        //                 $stock->plan_id = $plans->id;
-        //                 $stock->price_type_id = $price_type_id;
-        //                 $stock->res_date = $start_day;
-        //                 $stock->is_active = 1;
-        //                 $stock->res_type = $plans->res_type;
-        //                 $stock->limit_number = $plans->res_limit_number
-        //                     ? $plans->res_limit_number
-        //                     : '0';
-        //                 $stock->save();
 
-        //             }
 
-        //             foreach ($old_stocks_data as $key => $value) {
-        //                 Stock::where('res_date', $value->res_date)
-        //                     ->where('price_type_id', $value->price_type_id)
-        //                     ->update([
-        //                         'limit_number'  => $value->limit_number,
-        //                         'rank'          => $value->rank
-        //                     ]);
-        //             }
-        //         }
-        //     }
-        // } else {
-        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-        //         if ($plans->repetition_day == $start_day->day) {
-        //             $pc = 0;
-        //             for ($ii = 1; $ii <= 6; $ii++) {
-        //                 if (
-        //                     $request->{'price_type' . $ii} ||
-        //                     $request->{'price_monday' . $ii}
-        //                 ) {
-        //                     $pc++;
-        //                 }
-        //             }
-        //             for ($ii = 1; $ii <= $pc; $ii++) {
-        //                 $price_type_id = $request->{'price_type' . $ii};
-        //                 $stock = new Stock();
-        //                 $stock->plan_id = $plans->id;
-        //                 $stock->price_type_id = $price_type_id;
-        //                 $stock->res_date = $start_day;
-        //                 $stock->is_active = 1;
-        //                 $stock->res_type = $plans->res_type;
-        //                 // $stock->limit_number = $plans->res_limit_number
-        //                 //     ? $plans->res_limit_number
-        //                 //     : '0';
-        //                 $stock->save();
-        //             }
-        //         }
-        //     }
-        // }
         return redirect()
             ->back()
             ->with('message', '変更が完了しました');

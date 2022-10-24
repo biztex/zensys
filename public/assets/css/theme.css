@@ -4728,7 +4728,7 @@ ul {
 
 .listItemInfo .leftP img {
     width: 100%;
-    height: 240px;
+    max-height: 240px;
     object-fit: contain;
 }
 
@@ -4949,7 +4949,7 @@ ul {
 }
 
 .dtFor .dtSlist img {
-    /* height: 400px; */
+    height: 400px;
     /* object-fit: cover; */
     object-fit: contain;
 }
@@ -5025,6 +5025,10 @@ ul {
     text-align: center;
     padding: 15px 20px;
 }
+.detailTable th:nth-of-type(1),
+.detailTable td:nth-of-type(1) {
+    width: 9%;
+}
 
 .detailTable th:nth-of-type(2),
 .detailTable td:nth-of-type(2) {
@@ -5036,6 +5040,11 @@ ul {
     width: 9%;
 }
 
+.detailTable td table th:nth-of-type(1),
+.detailTable td table td:nth-of-type(1) {
+    width: auto;
+}
+
 .detailTable td table th:nth-of-type(2),
 .detailTable td table td:nth-of-type(2) {
     width: auto;
@@ -5043,6 +5052,13 @@ ul {
 .detailTable td table th:nth-of-type(3),
 .detailTable td table td:nth-of-type(3) {
     width: auto;
+}
+
+.detailTable td:nth-of-type(1) table,
+.detailTable td:nth-of-type(2) table, 
+.detailTable td:nth-of-type(3) table, 
+.detailTable td:nth-of-type(4) table{
+    width: 100%;
 }
 
 .calendarHd {
@@ -5345,7 +5361,8 @@ ul {
         width: 100%;
     }
     .dtFor .dtSlist img {
-        height: 320px;
+        /* height: 320px; */
+        height: 300px;
     }
     .dtNav .dtSlist img {
         height: 96px;

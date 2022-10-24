@@ -965,7 +965,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                    @endforeach 
+                                    @endforeach
                                     <div class="after-question-section-{{ count(json_decode($plans->question_content , true)) }}"></div>
                                     <div class="form-group row mb-4">
                                         <div class="col-md-6 offset-md-4">
@@ -978,7 +978,7 @@
                                 @endif
                             @else
 
-                                
+
 
                                 <div class="after-question-section-0">
                                         <div class="form-group row">
@@ -999,7 +999,7 @@
                                             </div>
                                         </div>
                                     </div>
-                            
+
                             @endif
                         @else
                                 <div class="after-question-section-0">
@@ -1023,8 +1023,8 @@
                                     </div>
                         @endif
 
-                        
-                      
+
+
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 予約者からの回答</label>
                             <div class="col-md-6">
@@ -1082,7 +1082,7 @@
                         </div>
 
 
-                            
+
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真設定</span></label>
                         </div>
@@ -1275,14 +1275,14 @@
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真キャプション</span></label>
                         </div>
+						<p class="text-danger pl-4">※キャプションは40文字以内でご入力してください。</p>
 
-                        <p class="text-danger pl-4">※キャプションは40文字以内でご入力してください。</p>
-						
 						@php
-						
+
 							$image_captions = ['メインキャプション','サブキャプション①','サブキャプション②','サブキャプション③','サブキャプション④','サブキャプション⑤','サブキャプション⑥','サブキャプション⑦','サブキャプション⑧','サブキャプション⑨'];
-					
+
 						@endphp
+
                         @if($plans->caption == null)
 							@foreach($image_captions as $key => $image_caption)
 							<div class="form-group row">
@@ -1303,10 +1303,9 @@
 								</div>
 							</div>
 							@endforeach
-                        
+
                         @endif
-                       
-                        
+
                         <hr />
 
 
@@ -1601,7 +1600,7 @@ $('select[name="payment_method"]').change(function() {
     var val = $(this).val();
     $('.spot_payment_section').hide();
 /*
-    if(val != 0 && val != 3) {
+    if(val != {{ \App\Constants\PaymentMethodConstants::SPOT }} && val != {{ \App\Constants\PaymentMethodConstants::CARD }}) {
         $('.spot_payment_section').hide();
         $('.card_section').hide();
     } else {
@@ -2120,7 +2119,7 @@ $(document).ready(function(){
     }
     $('.spot_payment_section').hide();
 /*
-    if ($('select[name="payment_method"]').val() != 0 && $('select[name="payment_method"]').val() != 3) {
+    if ($('select[name="payment_method"]').val() != {{ \App\Constants\PaymentMethodConstants::SPOT }} && $('select[name="payment_method"]').val() != {{ \App\Constants\PaymentMethodConstants::CARD }}) {
         $('.spot_payment_section').hide();
     }
 */
@@ -2297,13 +2296,13 @@ $('div[name="add-question"]').click(function(e) {
     }
     $(this).children('input[name="add-question"]').val(val + 1);
     $(".after-question-section-" + (val)).load('{{config('app.url')}}html/plan-question.php', function() {
-        $(".after-question-section-" + (val - 1)).find(".delete-plan").hide();   
+        $(".after-question-section-" + (val - 1)).find(".delete-plan").hide();
         $(".delete-plan").click(function(){
             $(".after-question-section-" + (val)).remove();
-            $(".after-question-section-" + (val - 1)).find(".delete-plan").show();  
+            $(".after-question-section-" + (val - 1)).find(".delete-plan").show();
             let valInput = Number($('input[name="add-question"]').val());
             if(valInput < 2){
-               valInput = 2 ; 
+               valInput = 2 ;
             }
             $('input[name="add-question"]').val(valInput - 1);
             $('input[name="add-question"]').show();
@@ -2473,7 +2472,7 @@ $('textarea[name="caution_content"]').summernote({
 var css_count = 0;
 
 $("body").click(function(e) {
-   
+
     if ( $(e.target).parents(".note-editor.note-frame.card").length ) {
         let cs = parseInt($(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top")) - 100;
         if($(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("display") == 'block'){
@@ -2482,12 +2481,12 @@ $("body").click(function(e) {
         else{
             css_count = 0;
         }
-        
+
         if(css_count < 2){
             $(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top", cs + 'px')
         }
-    } 
-   
+    }
+
   });
 
 </script>

@@ -52,7 +52,7 @@
                                   <option value="{{$kind->number}}" @if(old('kind')==$kind->number) selected  @endif>{{$kind->name}}</option>
 
                                 @endforeach
-                                 
+
                                 </select>
                             </div>
                         </div>
@@ -172,7 +172,7 @@
                                 <input id="destination" type="text" class="form-control" name="destination" value="{{ old('destination') }}">
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('お食事') }}</label>
                             <div class="col-md-6">
@@ -215,8 +215,8 @@
                                 <div class="col-md-12 mt-2">
                                     or<input type="file" class="col-md-6" name="file_path11" id="file_path11">
                                 </div>
-                               
-                                
+
+
 
 
                             </div>
@@ -227,7 +227,7 @@
                                 <textarea id="institution" type="textarea" class="form-control institution" name="institution" rows="5" maxlength="100" placeholder="※最大100文字まで">{{ old('institution') }}</textarea>
                                 <span id="plan_institution_count" class="d-block text-lg-right">100/100</span>
                             </div>
-                           
+
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right">{{ __('利用交通機関') }}</label>
@@ -275,7 +275,7 @@
 
 
                         <hr />
-  
+
                         <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
@@ -332,7 +332,7 @@
                                     <input id="road_eat3_0" type="radio"  name="road_eat3_1" value="0" @if(!old('road_eat3')) checked @endif>
                                     <span class="custom-control-description" th:text="#{bool.true}">なし</span>
                                 </label >
-                                
+
                             </div>
                         </div>
                         <div class="form-group row">
@@ -340,7 +340,7 @@
                             <div class="col-md-6">
                                 <textarea id="road_map" class="form-control"  name="road_map1" rows="10" >{!! old('road_map1') !!}</textarea>
                             <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map1" id="road_map" rows="10" >{{ old('road_map1') }}</textarea>-->
-                            </div> 
+                            </div>
                         </div>
                         <div class="after-road-section-1"></div>
                                                 <div class="form-group row mb-0">
@@ -365,7 +365,7 @@
 <!--                             <label class="checkbox-inline">
                               <input class="ml-5" type="radio" name="res_type" value="1" @if(old('res_type')=='1') checked @endif> <span> 併用</span>
                             </label> -->
-                            
+
                         </div>
                         <!-- <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 受付開始日時</label>
@@ -413,7 +413,7 @@
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 受付締切日時</label>
                             <p class="text-danger pl-4">※予約受付タイプで選択したほうの受付締切日時をご記入ください。</p>
                         </div>
-                        
+
                         <div class="form-group row ml-5 res-section2">
                             <div class="col-md-2">
                                 <label class="col-form-label text-md-right" style="padding: 0 0 3px 0;">【予約】</label>
@@ -457,7 +457,7 @@
                             </div>
                             <label class="col-md-3 col-form-label text-md-left">時まで受付する</label>
                         </div>
-                       
+
                         <div class="form-group row ml-5 req-section">
 
                             <div class="col-md-2">
@@ -509,7 +509,7 @@
                             <div class="col-md-1">
                                 <input id="name" type="text" class="form-control" name="res_limit_number" value="{{ old('res_limit_number') }}">
                             </div>
-                            
+
                         </div>
 
                         <div class="form-group row mt-4">
@@ -537,7 +537,7 @@
                             <label class="checkbox-inline">
                               <input class="ml-5" type="checkbox" name="cvs" value="1" @if (old('cvs') == 1) checked @endif> <span> コンビニ決済</span>
                             </label>
-    
+
                             <label class="checkbox-inline">
                               <input class="ml-5" type="checkbox" name="prepay" value="1" @if (old('prepay') == 1) checked @endif> <span> 銀行振込</span>
                             </label>
@@ -546,11 +546,11 @@
                               <input class="ml-5" type="checkbox" name="spot" value="1" @if (old('spot') == 1) checked @endif> <span> 現地払い</span>
                             </label>
 
-                            
-                            
+
+
                         </div>
 
-                    
+
                         <div class="form-group row spot_payment_section">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 現地での支払方法</label>
                             <label class="radio-inline">
@@ -561,7 +561,7 @@
                             </label>
                         </div>
 
-                       
+
                         <div class="form-group row card_section">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"><span class="badge badge-danger">必須</span> 現地での利用可能な<br />カード</label>
                             <label class="radio-inline">
@@ -729,8 +729,8 @@
                                             <td><input type="number" name="price_l_3_1" value="{{ old('price_l_3_1') }}"></td>
                                         </tr>
                                     </table>
-                             </div> 
-                             
+                             </div>
+
                              <div class="after-price-section-1"></div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
@@ -751,7 +751,7 @@
                             </div>
                         </div>
 
-<!-- 
+<!--
 
                             <div class="form-group row">
                                 <label class="col-md-2 col-form-label text-md-right discount-price" style="padding: 0 0 3px 0;">【割引前の料金】</label>
@@ -945,7 +945,7 @@
                                 <input type="hidden" name="place_longitude" value="{{ old('place_longitude') }}">
                             </div>
                         </div>
-                  
+
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;">集合場所</label>
                             <label class="radio-inline">
@@ -1151,7 +1151,7 @@
                                 <textarea id="name" type="textarea" class="form-control" name="wear" rows="4" placeholder="※最大1000文字まで">{{ old('wear') }}</textarea>
                             </div>
                         </div> -->
-                        
+
                         <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> キャンセル規定</span></label>
                         </div>
@@ -1164,7 +1164,7 @@
                         <div class="form-group row mt-5 bg-dark">
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真設定</span></label>
                         </div>
-                        <p class="text-danger pl-4">※推奨サイズは横1200px、縦800pxです。画像アップロード容量は一枚1MBとなります</p>                        
+                        <p class="text-danger pl-4">※推奨サイズは横1200px、縦800pxです。画像アップロード容量は一枚1MBとなります</p>
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイン画像') }}</label>
                             <div id="div-img1" class="col-md-4">
@@ -1260,9 +1260,7 @@
                             <label for="" class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 写真キャプション</span></label>
                         </div>
 
-                        
                         <p class="text-danger pl-4">※キャプションは40文字以内でご入力してください。</p>
-						
 						@php
 							$image_captions = ['メインキャプション','サブキャプション①','サブキャプション②','サブキャプション③','サブキャプション④','サブキャプション⑤','サブキャプション⑥','サブキャプション⑦','サブキャプション⑧','サブキャプション⑨'];
 						@endphp
@@ -1275,9 +1273,7 @@
                         </div>
                         @endforeach
 
-							
-                        
-                        
+
                         <hr />
 
 
@@ -1289,9 +1285,9 @@
                                 </button>
 -->
                                 <input type="submit" class="btn btn-primary submit" data-action="{{config('app.url')}}client/plans/store" value="追加する">
-			
+
 				<input type="submit" class="btn btn-warning submit" data-action="{{config('app.url')}}client/plans/store-tmp" value="下書き保存">
-				
+
                                 <a href="{{config('app.url')}}client/plans" class="btn btn-secondary">戻る</a>
                             </div>
                         </div>
@@ -1379,7 +1375,7 @@ $('select[name="payment_method"]').change(function() {
     var val = $(this).val();
     $('.spot_payment_section').hide();
 /*
-    if(val != 0 && val != 3) {
+    if(val != {{ \App\Constants\PaymentMethodConstants::SPOT }} && val != {{ \App\Constants\PaymentMethodConstants::CARD }}) {
         $('.spot_payment_section').hide();
         $('.card_section').hide();
     } else {
@@ -1399,7 +1395,7 @@ $('input[name="res_limit_flag"]').change(function() {
     var val = $(this).val();
     if (val == 0) {
         $('.switch-limit-number').html('人');
-    } else { 
+    } else {
         $('.switch-limit-number').html('件');
     }
 });
@@ -1410,7 +1406,7 @@ $('input[name="res_type"]').change(function() {
         $('.res-limit-section').hide();
         $('.res-section2').insertBefore('.req-section');
         $('.res-section1').insertBefore('.req-section');
-    } else { 
+    } else {
         $('.res-limit-section').show();
         $('.res-section2').insertAfter('.insert-res-point');
         $('.res-section1').insertAfter('.insert-res-point');
@@ -1419,42 +1415,42 @@ $('input[name="res_type"]').change(function() {
 $('input[name="price_week_flag1"]').change(function() {
     if ($('input[name="price_week_flag1"]').prop('checked')) {
         $('.week-price-section-1').show();
-    } else { 
+    } else {
         $('.week-price-section-1').hide();
     }
 });
 $('input[name="price_week_flag2"]').change(function() {
     if ($('input[name="price_week_flag2"]').prop('checked')) {
         $('.week-price-section-2').show();
-    } else { 
+    } else {
         $('.week-price-section-2').hide();
     }
 });
 $('input[name="price_week_flag3"]').change(function() {
     if ($('input[name="price_week_flag3"]').prop('checked')) {
         $('.week-price-section-3').show();
-    } else { 
+    } else {
         $('.week-price-section-3').hide();
     }
 });
 $('input[name="price_week_flag4"]').change(function() {
     if ($('input[name="price_week_flag4"]').prop('checked')) {
         $('.week-price-section-4').show();
-    } else { 
+    } else {
         $('.week-price-section-4').hide();
     }
 });
 $('input[name="price_week_flag5"]').change(function() {
     if ($('input[name="price_week_flag5"]').prop('checked')) {
         $('.week-price-section-5').show();
-    } else { 
+    } else {
         $('.week-price-section-5').hide();
     }
 });
 $('input[name="price_week_flag6"]').change(function() {
     if ($('input[name="price_week_flag6"]').prop('checked')) {
         $('.week-price-section-6').show();
-    } else { 
+    } else {
         $('.week-price-section-6').hide();
     }
 });
@@ -1773,7 +1769,7 @@ $('div[name="add-price"]').click(function(e) {
           $('select[name="price_type"]').append($('<option>').html(val.name).val(val.number));
         });
         if ($('input[name="is_discount"]:checked').val() == 1) {
-	    $('.discount-price').show();   
+	    $('.discount-price').show();
         }
         $(".added-price-number-").attr('class', 'added-price-number-' + val);
         $(".added-price-number-" + val).text(val + 1);
@@ -1867,35 +1863,35 @@ $('div[name="add-price"]').click(function(e) {
         $('input[name="price_week_flag2"]').change(function() {
             if ($('input[name="price_week_flag2"]').prop('checked')) {
                 $('.week-price-section-2').show();
-            } else { 
+            } else {
                 $('.week-price-section-2').hide();
             }
         });
         $('input[name="price_week_flag3"]').change(function() {
             if ($('input[name="price_week_flag3"]').prop('checked')) {
                 $('.week-price-section-3').show();
-            } else { 
+            } else {
                 $('.week-price-section-3').hide();
             }
         });
         $('input[name="price_week_flag4"]').change(function() {
             if ($('input[name="price_week_flag4"]').prop('checked')) {
                 $('.week-price-section-4').show();
-            } else { 
+            } else {
                 $('.week-price-section-4').hide();
             }
         });
         $('input[name="price_week_flag5"]').change(function() {
             if ($('input[name="price_week_flag5"]').prop('checked')) {
                 $('.week-price-section-5').show();
-            } else { 
+            } else {
                 $('.week-price-section-5').hide();
             }
         });
         $('input[name="price_week_flag6"]').change(function() {
             if ($('input[name="price_week_flag6"]').prop('checked')) {
                 $('.week-price-section-6').show();
-            } else { 
+            } else {
                 $('.week-price-section-6').hide();
             }
         });
@@ -1912,20 +1908,20 @@ $('div[name="add-question"]').click(function(e) {
     }
     $(this).children('input[name="add-question"]').val(val + 1);
     $(".after-question-section-" + (val)).load('{{config('app.url')}}html/plan-question.php', function() {
-        $(".after-question-section-" + (val - 1)).find(".delete-plan").hide();   
+        $(".after-question-section-" + (val - 1)).find(".delete-plan").hide();
         $(".delete-plan").click(function(){
             $(".after-question-section-" + (val)).remove();
-            $(".after-question-section-" + (val - 1)).find(".delete-plan").show();  
+            $(".after-question-section-" + (val - 1)).find(".delete-plan").show();
             let valInput = Number($('input[name="add-question"]').val());
             if(valInput < 2){
-               valInput = 2 ; 
+               valInput = 2 ;
             }
 
             $('input[name="add-question"]').val(valInput - 1);
             $(".after-question-section-" + (val + 1)).attr("class" , "after-question-section-" + (val))
         })
-        
-    
+
+
     });
 
 
@@ -1944,7 +1940,7 @@ $('div[name="add-road"]').click(function(e) {
     $(".after-road-section-" + (val)).load('{{config('app.url')}}html/plan-road.php', function() {
 
         if ($('input[name="is_discount"]:checked').val() == 1) {
-	    $('.discount-road').show();   
+	    $('.discount-road').show();
         }
         $(".added-road-number-").attr('class', 'added-road-number-' + val);
         $(".added-road-number-" + val).text(val + 1);
@@ -2000,35 +1996,35 @@ $('div[name="add-road"]').click(function(e) {
         $('input[name="price_week_flag2"]').change(function() {
             if ($('input[name="price_week_flag2"]').prop('checked')) {
                 $('.week-price-section-2').show();
-            } else { 
+            } else {
                 $('.week-price-section-2').hide();
             }
         });
         $('input[name="price_week_flag3"]').change(function() {
             if ($('input[name="price_week_flag3"]').prop('checked')) {
                 $('.week-price-section-3').show();
-            } else { 
+            } else {
                 $('.week-price-section-3').hide();
             }
         });
         $('input[name="price_week_flag4"]').change(function() {
             if ($('input[name="price_week_flag4"]').prop('checked')) {
                 $('.week-price-section-4').show();
-            } else { 
+            } else {
                 $('.week-price-section-4').hide();
             }
         });
         $('input[name="price_week_flag5"]').change(function() {
             if ($('input[name="price_week_flag5"]').prop('checked')) {
                 $('.week-price-section-5').show();
-            } else { 
+            } else {
                 $('.week-price-section-5').hide();
             }
         });
         $('input[name="price_week_flag6"]').change(function() {
             if ($('input[name="price_week_flag6"]').prop('checked')) {
                 $('.week-price-section-6').show();
-            } else { 
+            } else {
                 $('.week-price-section-6').hide();
             }
         });
@@ -2083,7 +2079,7 @@ $(document).ready(function(){
     }
     $('.spot_payment_section').hide();
 /*
-    if ($('select[name="payment_method"]').val() != 0 && $('select[name="payment_method"]').val() != 3) {
+    if ($('select[name="payment_method"]').val() != {{ \App\Constants\PaymentMethodConstants::SPOT }} && $('select[name="payment_method"]').val() != {{ \App\Constants\PaymentMethodConstants::CARD }}) {
         $('.spot_payment_section').hide();
     }
 */
@@ -2184,8 +2180,8 @@ $(document).ready(function(){
     });
     $(".cboxElement").colorbox({
         inline:true,
-        width:"60%",      
-    });   
+        width:"60%",
+    });
     $('#map2').colorbox({
         inline: true,
         transition: 'none',
@@ -2197,8 +2193,8 @@ $(document).ready(function(){
     });
     $(".cboxElement").colorbox({
         inline:true,
-        width:"60%",      
-    });   
+        width:"60%",
+    });
 
     // 送信ボタン切り分け
     $('.submit').click(function() {
@@ -2217,8 +2213,8 @@ function deleteFile(i) {
     $('#img' + i).remove();
     $('#deletebtn' + i).remove();
     $('#hidden' + i).remove();
-    $('#div-img' + i).append('<input type="file" name="file_path' + i + '">');    
-    $('#div-button' + i).append('<input type="button" id="clearbtn' + i + '" class="btn btn-light btn-sm" value="画像選択を解除" onClick="clearFile(' + i + ')"/>');    
+    $('#div-img' + i).append('<input type="file" name="file_path' + i + '">');
+    $('#div-button' + i).append('<input type="button" id="clearbtn' + i + '" class="btn btn-light btn-sm" value="画像選択を解除" onClick="clearFile(' + i + ')"/>');
 }
 
 function ajaxGenres(name) {
@@ -2234,7 +2230,7 @@ function ajaxGenres(name) {
         if ($('#genre_id').val() > 0) {
             var genreid = $('#genre_id').val();
             $('select[name="genre_name"] option[value="' + genreid + '"]').prop('selected', true);
-        } 
+        }
     })
     .fail(function(XMLHttpRequest, textStatus, errorThrown){
         alert(errorThrown);
@@ -2435,7 +2431,7 @@ cautionArea.addEventListener("input", planCautionCountCharacters);
 var css_count = 0;
 
 $("body").click(function(e) {
-   
+
     if ( $(e.target).parents(".note-editor.note-frame.card").length ) {
         let cs = parseInt($(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top")) - 100;
         if($(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("display") == 'block'){
@@ -2444,13 +2440,13 @@ $("body").click(function(e) {
         else{
             css_count = 0;
         }
-        
+
         if(css_count < 2){
             $(e.target).parents(".note-editor.note-frame.card").find(".note-popover.popover.in.note-image-popover.bottom").css("top", cs + 'px')
         }
 
-    } 
-   
+    }
+
   });
 </script>
 

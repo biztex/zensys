@@ -81,7 +81,7 @@
                                         >料金</th>
                                         @php
                                         $byDay = ['a','b','c','d','e','f','g','h','i','j','k','l'];
-                                            
+
 
 
                                         if(isset($prices)){
@@ -151,7 +151,7 @@
                                         <th class="topTh">住所</th>
                                         <td>
                                             <p>〒{{$info['postalcode']}}</p>
-                                            <p>{{$info['prefecture']}} 市区{{$info['address']}}</p>
+                                            <p>{{$info['prefecture']}} {{$info['address']}}</p>
                                             <p>{{$info['extended']}}</p>
                                         </td>
                                     </tr>
@@ -309,18 +309,17 @@
                                 <table class="reserveTable">
                                     <tr>
                                         <th>お支払方法</th>
-                                         <td>
-                                            @if($info['payment_method']==4)
-                                            現地払い
-                                            @elseif($info['payment_method']==1)
-                                            銀行振込
-                                            @elseif($info['payment_method']==2)
-                                            コンビニ決済
-                                            @elseif($info['payment_method']==3)
-                                            クレジットカード決済
+                                        <td>
+                                            @if($info['payment_method'] == \App\Constants\PaymentMethodConstants::SPOT)
+                                                現地払い
+                                            @elseif($info['payment_method'] == \App\Constants\PaymentMethodConstants::PREPAY)
+                                                銀行振込
+                                            @elseif($info['payment_method'] == \App\Constants\PaymentMethodConstants::CVS)
+                                                コンビニ決済
+                                            @elseif($info['payment_method'] == \App\Constants\PaymentMethodConstants::CARD)
+                                                クレジットカード決済
                                             @endif
                                         </td>
-
                                     </tr>
                                 </table>
                             </div>
@@ -369,6 +368,9 @@
                                     </tr>
                                 </table>
                             </div>
+
+
+
                             @if($plan->question_flag != 0)
 							@php
 								$contents = json_decode($plan->question_content , true);
@@ -384,6 +386,9 @@
                                 </div>
                             </div>
                             @endif
+
+
+
                             @if($info['remark'] != null)
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">備考欄</h4>
@@ -396,7 +401,7 @@
                             <div class="reserveItem">
                                 <h4 class="reserveItemHd">注意事項・その他</h4>
                                 <div class="reserveTxt">
-                                    <p>{{ $plan->caution_content }}</p>
+                                    <p>{!! $plan->caution_content !!}</p>
                                 </div>
                             </div>
                             @endif
@@ -405,11 +410,11 @@
                                 <div class="reserveTxt">
                                     <p>{!! $plan->cancel !!}</p>
                                 </div>
-                                
+
                                 <p align="center" class="kyoka">※当社からのメールが受信できるようにドメイン指定受信で「@ nagaden-kanko.com」を許可するように設定してください。</p>
 
                             </div>
-                            
+
                             <ul class="reserveButton">
                                 <li><button class="btnLink01" type="submit">@if(request('is_request') == 0)予約する@else リクエスト受付する @endif</button></li>
                             </ul>

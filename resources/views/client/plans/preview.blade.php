@@ -8,8 +8,8 @@ curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $array = curl_exec($ch);
 $plan = json_decode($array,true);
-$plan = $plan[0];
 
+$plan = $plan[0];
 
 
 
@@ -87,8 +87,10 @@ if (isset($_GET["year"]) && isset($_GET["month"])) {
 $next_y = $next_m_date->format('Y');
 $next_m = $next_m_date->format('m');
 
+echo $current_m;
 
-$url_stocks = config('app.url') . "api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id.'/'.$priceType ;
+
+$url_stocks = config('app.url')."api/stocks/json/" . $current_y . '/' . $current_m . '/' . $plan_id.'/'.$priceType ;
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_POST, false);
 curl_setopt($ch, CURLOPT_URL, $url_stocks);
@@ -97,13 +99,15 @@ $json_stocks = curl_exec($ch);
 $stocks = json_decode($json_stocks, true);
 
 
-$url_stocks_next = config('app.url') . "api/stocks/json/" . $next_y . '/' . $next_m . '/' . $plan_id.'/'.$priceType;
+$url_stocks_next = config('app.url')."api/stocks/json/" . $next_y . '/' . $next_m . '/' . $plan_id.'/'.$priceType;
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_POST, false);
 curl_setopt($ch, CURLOPT_URL, $url_stocks_next);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $json_stocks_next = curl_exec($ch);
 $stocks_next = json_decode($json_stocks_next, true);
+
+
 @endphp
 <!-- HTMLコード -->
 <!DOCTYPE html>
@@ -190,7 +194,7 @@ $stocks_next = json_decode($json_stocks_next, true);
                          <p class="listItemTxt"><?=nl2br(htmlspecialchars($plan["catchphrase"])) ?></p>
                          <div class="listItemInfo">
                              <div class="rightP">
-                                 <div class="dtFor">
+                                  <div class="dtFor">
                                      <div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path1"]}}" alt=""> @if($plan["caption"] != null  && json_decode($plan["caption"] , true)[0] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[0]}}</p>@endif</div></div>
                                      @if($plan["file_path2"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path2"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[1] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[1]}}</p>@endif</div></div>@endif
                                      @if($plan["file_path3"])<div class="dtSlist"><div class="slideItem"><img src="{{asset('uploads')}}/{{$plan["file_path3"] }}" alt="">@if($plan["caption"] != null  && json_decode($plan["caption"] , true)[2] != null ) <p class="caption">{{json_decode($plan["caption"] , true)[2]}}</p>@endif</div></div>@endif
