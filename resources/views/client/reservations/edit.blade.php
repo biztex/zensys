@@ -120,7 +120,11 @@
                             <div class="form-group row">
                                 <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約者からの回答') }}</label>
                                 <div class="col-md-6">
-                                    <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ json_decode($reservations->answer, true)[$loop->index] }}</textarea>
+                                    @if(isset(json_decode($reservations->answer, true)[$loop->index]) )
+                                        <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ json_decode($reservations->answer, true)[$loop->index] }}</textarea>
+                                    @else
+                                        <textarea id="name" type="text" class="form-control" name="" rows="5" disabled></textarea>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
@@ -478,7 +482,7 @@
                                     <input type="text" id="price_name{{$i + 1}}" name="price_name{{$i + 1}}" value="{{ $arr[$i] . $priceName->name }}">
                                 </td>
                                 @for($j=0; $j<count($tmp_arr); $j++)
-                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations))
+                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],2), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],3), (array)$Number_of_reservations) )
                                         @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                             <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$i + 1}}" name="typec_{{$i+1}}_price" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}" style="width: 80%;">円</td>
                                             <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$i + 1}}" name="typec_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp">名</td>
@@ -516,7 +520,7 @@
                                 {{ $arr[$i] . $priceName->name }}
                             </td>
                             @for($j=0; $j<count($tmp_arr); $j++)
-                                @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations))
+                                @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],2), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],3), (array)$Number_of_reservations))
                                     @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                         <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
                                         <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
