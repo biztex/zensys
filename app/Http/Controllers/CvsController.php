@@ -147,14 +147,14 @@ class CvsController extends Controller
                 'priceName' => $priceName,
                 'type_id' => $typeid,
                 'payment_limit' => $payment_limit,
-            ], function($message) use($reservation) {
+            ], function ($message) use ($reservation) {
                 if ($reservation->user->email) {
                     $message
-                    ->to($reservation->user->email)
-                    ->bcc(['goontrip@nagaden-kanko.com'])
-                    ->from('goontrip@nagaden-kanko.com')
-                    ->subject("【コンビニ受付番号のお知らせ】長野電鉄株式会社");
-	        }
+                        ->to($reservation->user->email)
+                        ->bcc([config('mail.custom.addresses.main')])
+                        ->from(config('mail.custom.addresses.main'))
+                        ->subject("【コンビニ受付番号のお知らせ】長野電鉄株式会社");
+                }
             });
             // ベリトランスオーダーIDをDBへ格納
             $reservation->order_id = $request->request->get("orderId");

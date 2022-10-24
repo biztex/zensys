@@ -68,7 +68,7 @@ class PushController extends Controller
                         $holidays = Yasumi::create('Japan', $dt->format('Y'));
                         foreach ($holidays->getHolidayDates() as $holiday) {
                             if ($holiday == $dt->format('Y-m-d')) {
-                        $weekday = 'holiday';
+                                $weekday = 'holiday';
                             }
                         }
                         // 料金区分２０以上対応
@@ -103,7 +103,7 @@ class PushController extends Controller
                                 }
                             }
                         }
-                        Mail::send(['text' => 'user.reservations.email'], [
+                        Mail::send(['text' => 'user.reservations.cvs_fin_email'], [
                             "number" => $reservation->number,
                             "plan" => $reservation->plan->name,
                             "date" => date('Y年m月d日', strtotime($reservation->fixed_datetime)),
@@ -119,29 +119,24 @@ class PushController extends Controller
                             "receiptNo" => null,
                             "weekday" => $weekday,
                             "amount" => $amount
-                        ], function($message) use($reservation) {
+                        ], function ($message) use ($reservation) {
                             if ($reservation->user->email) {
                                 $message
-                                ->to($reservation->user->email)
-                                //->bcc(['blue@quality-t.com', 'test.zenryo@gmail.com'])
-                                //->bcc(['test.zenryo@gmail.com'])
-                                ->bcc(['kaname-n@magokorobin.com', 'goontrip@nagaden-kanko.com'])
-                                //->from('no-reply@blue-tourism-hokkaido.website')
-                                ->from('goontrip@nagaden-kanko.com')
-                                ->subject("【長野電鉄株式会社】予約確定メール");
-                        }
+                                    ->to($reservation->user->email)
+                                    ->bcc(['kaname-n@magokorobin.com', config('mail.custom.addresses.main')])
+                                    ->from(config('mail.custom.addresses.main'))
+                                    ->subject("【予約確認】長野電鉄株式会社");
+                            }
                         });
                         // メール送信タイミング変更
                         Mail::send(['text' => 'user.reservations.cvs_complete_email'], [
                             "number" => $reservation->number,
-                        ], function($message) use($reservation) {
+                        ], function ($message) use ($reservation) {
                             $message
-                            //->to(['blue@quality-t.com', 'test.zenryo@gmail.com'])
-                            //->from('blue@quality-t.com')
-                            ->to('goontrip@nagaden-kanko.com')
-                            ->bcc('kaname-n@magokorobin.com')
-                            ->from('goontrip@nagaden-kanko.com')
-                            ->subject("【長野電鉄株式会社】コンビニ決済完了メール");
+                                ->to(config('mail.custom.addresses.main'))
+                                ->bcc('kaname-n@magokorobin.com')
+                                ->from(config('mail.custom.addresses.main'))
+                                ->subject("【長野電鉄株式会社】コンビニ決済完了メール");
                         });
                     }
                 }
