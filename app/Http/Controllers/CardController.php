@@ -145,17 +145,17 @@ class CardController extends Controller
                     "receiptNo" => null,
                     "weekday" => $weekday,
                     "amount" => $request->amount,
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'type_id'   => $typeid
-                ], function($message) use($reservation) {
+                    'prices' => $prices,
+                    'priceName' => $priceName,
+                    'type_id' => $typeid
+                ], function ($message) use ($reservation) {
                     if ($reservation->user->email) {
                         $message
-                        ->to($reservation->user->email)
-                        ->bcc(['goontrip@nagaden-kanko.com'])
-                        ->from('goontrip@nagaden-kanko.com')
-                        ->subject("【予約確認】長野電鉄株式会社");
-                }
+                            ->to($reservation->user->email)
+                            ->bcc([config('mail.custom.addresses.main')])
+                            ->from(config('mail.custom.addresses.main'))
+                            ->subject("【予約確認】長野電鉄株式会社");
+                    }
                 });
                 // ベリトランスオーダーIDをDBへ格納
                 $reservation->order_id = $request->request->get("orderId");
@@ -176,7 +176,7 @@ class CardController extends Controller
                     if ($stock) {
                         if ($reservation->plan->res_limit_flag == 0) {
                             // 予約人数をカウント
-                            $count_member = 0; 
+                            $count_member = 0;
                             for ($i = 0; $i <= 20 ; $i++) {
                                 $count = $reservation->{'type'. $i . '_number'};
                                 if ($count > 0) {

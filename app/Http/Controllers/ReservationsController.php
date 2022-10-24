@@ -536,16 +536,16 @@ class ReservationsController extends Controller
                         'amount' => $amount,
                         'weekday' => $weekday,
                         'bank' => $bank,
-                        'prices'        => $prices,
-                        'priceName'     => $priceName,
-                        'type_id'   => $typeid
+                        'prices' => $prices,
+                        'priceName' => $priceName,
+                        'type_id' => $typeid
                     ],
                     function ($message) use ($reservation) {
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['goontrip@nagaden-kanko.com'])
-                                ->from('goontrip@nagaden-kanko.com')
+                                ->bcc([config('mail.custom.addresses.main')])
+                                ->from(config('mail.custom.addresses.main'))
                                 ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
@@ -603,16 +603,16 @@ class ReservationsController extends Controller
                         'haraikomiUrl' => null,
                         'weekday' => $weekday,
                         'amount' => $amount,
-                        'prices'        => $prices,
-                        'priceName'     => $priceName,
-                        'type_id'   => $typeid
+                        'prices' => $prices,
+                        'priceName' => $priceName,
+                        'type_id' => $typeid
                     ],
                     function ($message) use ($reservation) {
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['goontrip@nagaden-kanko.com'])
-                                ->from('goontrip@nagaden-kanko.com')
+                                ->bcc([config('mail.custom.addresses.main')])
+                                ->from(config('mail.custom.addresses.main'))
                                 ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
@@ -665,17 +665,17 @@ class ReservationsController extends Controller
                     'reservation' => $reservation,
                     'weekday' => $weekday,
                     'amount' => $amount,
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'type_id'   => $typeid,
+                    'prices' => $prices,
+                    'priceName' => $priceName,
+                    'type_id' => $typeid,
                     'pType' => $pType,
                 ],
                 function ($message) use ($request) {
                     if ($request->email) {
                         $message
                             ->to($request->email)
-                            ->bcc(['goontrip@nagaden-kanko.com'])
-                            ->from('goontrip@nagaden-kanko.com')
+                            ->bcc([config('mail.custom.addresses.main')])
+                            ->from(config('mail.custom.addresses.main'))
                             ->subject('【リクエスト】長野電鉄株式会社');
                     }
                 }
@@ -1131,8 +1131,8 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['goontrip@nagaden-kanko.com'])
-                                ->from('goontrip@nagaden-kanko.com')
+                                ->bcc([config('mail.custom.addresses.main')])
+                                ->from(config('mail.custom.addresses.main'))
                                 ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
@@ -1176,8 +1176,8 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['goontrip@nagaden-kanko.com'])
-                                ->from('goontrip@nagaden-kanko.com')
+                                ->bcc([config('mail.custom.addresses.main')])
+                                ->from(config('mail.custom.addresses.main'))
                                 ->subject('【予約確定】長野電鉄株式会社');
                         }
                     }
@@ -1214,8 +1214,8 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['goontrip@nagaden-kanko.com'])
-                                ->from('goontrip@nagaden-kanko.com')
+                                ->bcc([config('mail.custom.addresses.main')])
+                                ->from(config('mail.custom.addresses.main'))
                                 ->subject('【入金依頼】長野電鉄株式会社');
                         }
                     }
@@ -1252,8 +1252,8 @@ class ReservationsController extends Controller
                         if ($reservation->user->email) {
                             $message
                                 ->to($reservation->user->email)
-                                ->bcc(['goontrip@nagaden-kanko.com'])
-                                ->from('goontrip@nagaden-kanko.com')
+                                ->bcc([config('mail.custom.addresses.main')])
+                                ->from(config('mail.custom.addresses.main'))
                                 ->subject('【決済依頼】長野電鉄株式会社');
                         }
                     }
@@ -2140,7 +2140,7 @@ class ReservationsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('goontrip@nagaden-kanko.com')
+                    ->from(config('mail.custom.addresses.main'))
                     ->subject("【長野電鉄株式会社】予約確定メール");
 	        }
             });
@@ -2257,7 +2257,7 @@ class ReservationsController extends Controller
                 if ($reservation->user->email) {
                     $message
                     ->to($reservation->user->email)
-                    ->from('goontrip@nagaden-kanko.com')
+                    ->from(config('mail.custom.addresses.main'))
                     ->subject("【長野電鉄株式会社】予約確定メール");
 	        }
             });
@@ -2450,16 +2450,16 @@ class ReservationsController extends Controller
                     'weekday' => $weekday,
                     'amount' => $amount,
                     'receiptNo' => null,
-                    'prices'        => $prices,
-                    'priceName'     => $priceName,
-                    'type_id'   => $typeid
+                    'prices' => $prices,
+                    'priceName' => $priceName,
+                    'type_id' => $typeid
                 ],
                 function ($message) use ($reservation) {
                     if ($reservation->user->email) {
                         $message
                             ->to($reservation->user->email)
-                            ->bcc(['goontrip@nagaden-kanko.com'])
-                            ->from('goontrip@nagaden-kanko.com')
+                            ->bcc([config('mail.custom.addresses.main')])
+                            ->from(config('mail.custom.addresses.main'))
                             ->subject('【長野電鉄株式会社】決済金額変更メール');
                     }
                 }
