@@ -120,7 +120,11 @@
                             <div class="form-group row">
                                 <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約者からの回答') }}</label>
                                 <div class="col-md-6">
-                                    <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ json_decode($reservations->answer, true)[$loop->index] }}</textarea>
+                                    @if(isset(json_decode($reservations->answer, true)[$loop->index]) )
+                                        <textarea id="name" type="text" class="form-control" name="" rows="5" disabled>{{ json_decode($reservations->answer, true)[$loop->index] }}</textarea>
+                                    @else
+                                        <textarea id="name" type="text" class="form-control" name="" rows="5" disabled></textarea>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
