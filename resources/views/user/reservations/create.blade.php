@@ -753,7 +753,7 @@
                                 <p><b>@if($plan->notice)
                                     <a href="{{$plan->notice}}" target="_blank">「旅行条件書」</a>
                                     @elseif($plan->file_path11)
-                                    <a href="https://nagaden-kanko.com/plan/uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
+                                    <a href="https://zenryo.zenryo-ec.info/uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
                                     @endif
                                     「注意事項」
                                     <a href="{{$companies[0]->url2}}" target="_blank">「個人情報の取扱に関する基本方針」</a>を確認しました</b></p>
@@ -777,7 +777,7 @@
                                 <div class="warning">
                                     <div class="">
                                         <h2>この予約は終了しました。</h2>
-                                        <a class="col-md-2 d-block offset-md-5 mt-4 px-4 py-2 bg-warning" href="https://nagaden-kanko.com/plan/detail.php?plan_id={{ request('plan_id')}}">戻る</a>
+                                        <a class="col-md-2 d-block offset-md-5 mt-4 px-4 py-2 bg-warning" href="https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}">戻る</a>
                                     </div>
                                 </div>
                             </div>
@@ -786,7 +786,7 @@
 
                 </div>
 
-               <script type='text/javascript'>window.top.location='https://nagaden-kanko.com/plan/detail.php?plan_id={{ request('plan_id')}}';</script>
+               <script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}';</script>
 
                 @endif
             </div>
@@ -799,7 +799,7 @@
             <div class="footer-top">
                 <div class="container">
                     <p class="syamei_footer">長野電鉄株式会社</p>
-                    <a href="/" class="logo syamei_footer_logo"><img src="https://nagaden-kanko.com/plan/assets/img/logo3.png" alt="" /></a>
+                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
                         <p class="post">〒380-0823</p>

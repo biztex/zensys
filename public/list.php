@@ -1,13 +1,7 @@
 <?php
 
-    $url = "http://153.127.31.62/zenryo/public/api/kinds/json";
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_POST, false);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $array = curl_exec($ch);
-    $kinds = json_decode($array,true);
-
+require_once './common.php';
+$kinds = ndCurlExecJson('api/kinds/json');
 ?>
 
 <!-- HTMLコード -->
@@ -46,7 +40,7 @@
             </div>
         </div>
     </header>
-    
+
     <main class="page-wrapper">
         <section class="section section--list section--with-top-margin">
             <div class="inner">
@@ -55,7 +49,7 @@
                         <div class="listSide">
                             <p class="listSideHd">カテゴリ</p>
 
-                        
+
                             <ul class="listSideUl">
                                 <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=all">すべて</a></li>
                                 <?php
@@ -66,7 +60,7 @@
                             </ul>
                         </div>
 
-                     
+
                         <div class="listMain">
 
                         <?php
@@ -81,26 +75,20 @@
                      }
 
 
-                     $url = "http://153.127.31.62/zenryo/public/api/plans/json/" . $params;
-                     $ch = curl_init();
-                     curl_setopt($ch, CURLOPT_POST, false);
-                     curl_setopt($ch, CURLOPT_URL, $url);
-                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                     $json = curl_exec($ch);
-                     $plans = json_decode($json,true);
+                    $plans = ndCurlExecJson("api/plans/json/$params");
 
 
                     $j = 0;
 
-                    
+
 
                     if(count($plans) > 0){
                         for ($i = 0 ; $i < count($plans) ; $i++) {
                             $plan = $plans[$i];
-                            
+
 
                             $min_value = $plan["prices"][0]['a_1'];
-                            $max_value = $plan["prices"][0]['a_1']; 
+                            $max_value = $plan["prices"][0]['a_1'];
 
                             for($k=0; $k<count($plan["prices"]); $k++){
                                 $price_t = $plan["prices"][$k];
@@ -108,19 +96,19 @@
                                 for($j=0; $j<count($alphas); $j++ ){
                                     $com_val =  $alphas[$j].'_1';
                                     if($max_value < $price_t[$com_val]  && $price_t[$com_val] != null ){
-                                        $max_value = $price_t[$com_val]; 
+                                        $max_value = $price_t[$com_val];
                                     }
                                     else if($min_value > $price_t[$com_val] && $price_t[$com_val] != null){
                                         $min_value = $price_t[$com_val];
                                     }
-                                
+
                                 }
                             }
-                            
-                                
+
+
                             ?>
-    
-    
+
+
                                 <div class="listItem">
                                     <p class="listItemHd"><?=htmlspecialchars($plan["name"])?></p>
                                     <div class="listItemCont">
@@ -142,7 +130,7 @@
                                                         <dt>出発日</dt>
                                                         <dd>
                                                         <?php if($plan["start_day"] == $plan["end_day"])
-                                                            { 
+                                                            {
                                                                 echo htmlspecialchars($plan["start_day"]);
                                                             }
                                                             else{
@@ -199,7 +187,7 @@
                                                                 echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
                                                             }
                                                         }
-                                                      
+
                                                     }
                                                     else{
                                                         echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
@@ -209,27 +197,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                <?php      
+                                <?php
                             }
-                            
+
                         }
-                        
+
                     else{
                         ?>
                         <p class="emptyCategory">coming soon</p>
                         <?php
                     }?>
-                   
 
-                   
-               
+
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
     </main>
 
     <footer class="page-footer">
@@ -261,7 +249,7 @@
                 </div>
             </div>
             <div class="footer-middle">
-                <div class="menu-list"> 
+                <div class="menu-list">
                     <span class="menu"><a href="/">トップ</a></span>
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>

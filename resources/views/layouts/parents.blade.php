@@ -9,13 +9,8 @@
     <link rel="stylesheet" href="{{config('app.url')}}css/template.css">
 </head>
 @php
-    $url =  "http://153.127.31.62/zenryo/public/api/company/json";
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_POST, false);
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $company_array = curl_exec($ch);
-    $companies = json_decode($company_array, true);
+    require_once public_path() . '/common.php';
+    $companies = ndCurlExecJson('api/company/json', config('app.url'));
     $company = $companies[0];
 @endphp
 
@@ -29,7 +24,7 @@
 
     @yield('content')
     </div>
-    
+
     <footer class="footer_wrap">
         <!-- <a href="company.php">会社概要</a> -->
         <!-- <a href="tradelaw.php">特定商取引法に基づく表記</a> -->

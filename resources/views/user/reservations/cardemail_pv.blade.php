@@ -96,6 +96,6 @@ $custom_view = true;
 </br>
 〒380-0823 長野県長野市南千歳長電長野パーキング1F</br>
 TEL.026-227-3535</br>
-URL. https://nagaden-kanko.com/</br>
+URL. {{ config('mail.custom.website') }}<br/>
 =====================================</br>
 </body>

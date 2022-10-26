@@ -47,6 +47,12 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
+        'tgmdk' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/tgmdk.log'),
+            'level' => 'debug',
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
