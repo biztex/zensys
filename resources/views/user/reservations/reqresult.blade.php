@@ -10,13 +10,13 @@
     <link rel="shortcut icon" href="assets/img/favicon2_2.ico" />
 
     <!-- css -->
-    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/libs/slick/slick.css">
-    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/assets/css/theme.css">
-    <link rel="stylesheet" href="https://nagaden-kanko.com/plan/assets/css/add.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
+    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
 
     <!-- javascript -->
-    <script src="https://nagaden-kanko.com/plan/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </section>
-        
+
     </main>
 
     <footer class="page-footer">
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="footer-middle">
-                <div class="menu-list"> 
+                <div class="menu-list">
                     <span class="menu"><a href="/">トップ</a></span>
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>
@@ -104,7 +104,7 @@
         </div>
     </footer>
 
-    <script src="https://nagaden-kanko.com/plan/libs/slick/slick.min.js"></script>
-    <script src="https://nagaden-kanko.com/plan/assets/js/theme.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
+    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
 </body>
 </html>

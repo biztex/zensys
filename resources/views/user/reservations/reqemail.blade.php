@@ -28,7 +28,7 @@
         echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$p]."_". ((int)$i + 1)]  . " 円 × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$p],$i+1)} . "=" . number_format((int)$prices[0][$tmp_arr[$p]."_". ((int)$i + 1)]  * (int)$Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$p],$i+1)}) . " 円" . "\n";
       }
     }
-  
+
   }
 @endphp
 
@@ -44,5 +44,5 @@ https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}
 
 〒380-0823 長野県長野市南千歳長電長野パーキング1F
 TEL.026-227-3535
-URL. https://nagaden-kanko.com/
+URL. {{ config('mail.custom.website') }}
 =====================================

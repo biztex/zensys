@@ -68,5 +68,5 @@ https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}
 
 〒380-0823 長野県長野市南千歳長電長野パーキング1F
 TEL.026-227-3535
-URL. https://nagaden-kanko.com/
+URL. {{ config('mail.custom.website') }}
 =====================================
