@@ -562,9 +562,6 @@ foreach (config('fortify.users') as $user) {
                         'cars/json',
                         '\App\Http\Controllers\CarsController@json'
                     );
-                    Route::get('create_vehicle_listings', function () {
-                        return view('user.create_vehicle_listings');
-                    });
                     /**
                      * Userルーティング
                      */

@@ -41,7 +41,7 @@
             echo '<div>';
             echo '<h6 class="my-0">';
             for($j=0; $j<count($tmp_arr); $j++){
-                if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],1), $Number_of_reservations)){
+                if(\App\Helpers::isInNumberOfReservations((array)$Number_of_reservations, $type_id, $tmp_arr[$j])) {
                     if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1), $Number_of_reservations)){
                         echo $arr[$i] . $priceName->name . " / &yen;" . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)};
                         echo '</h6>';

@@ -85,14 +85,14 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info/assets/img/favicon2_2.ico" />
+    <link rel="shortcut icon" href="<?= ndAppUrl('assets/img/favicon2_2.ico') ?>" />
     <title><?=htmlspecialchars($plan["name"]) ?></title>
     <!-- css -->
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/print.css" media="print">
+    <link rel="stylesheet" href="<?= ndAppUrl('libs/slick/slick.css') ?>">
+    <link rel="stylesheet" href="<?= ndAppUrl('libs/slick/slick-theme.css') ?>">
+    <link rel="stylesheet" href="<?= ndAppUrl('assets/css/theme.css') ?>">
+    <link rel="stylesheet" href="<?= ndAppUrl('assets/css/add.css') ?>">
+    <link rel="stylesheet" href="<?= ndAppUrl('assets/css/print.css') ?>" media="print">
 
     <!-- javascript -->
 
@@ -137,7 +137,9 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
 <?php
     date_default_timezone_set('Asia/Tokyo');
 
+    /** @noinspection PhpUnhandledExceptionInspection */
     $date = new DateTimeImmutable(date('Y-m-d'));
+    /** @noinspection PhpUnhandledExceptionInspection */
     $end =  new DateTimeImmutable($plan['end_day']);
     $time = date('H');
     $interval = date_diff($end, $date);
@@ -156,13 +158,13 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
         ?>
         <header class="page-header">
             <div class="header-inner">
-                <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                <a href="/" class="logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                 <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
                 <div class="nav-wrapper">
                     <ul class="nav">
                         <li><a href="/">トップ</a></li>
                         <li><a href="/category/news">新着情報</a></li>
-                        <li><a href="/plan/list.php">ツアー紹介</a></li>
+                        <li><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></li>
                         <li><a href="/company">会社概要</a></li>
                         <li><a href="/contact">お問い合わせ</a></li>
                     </ul>
@@ -177,7 +179,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                         <div class="warning">
                             <div class="">
                                 <h2>このプランは終了しました。</h2>
-                                <a href="https://zenryo.zenryo-ec.info/list.php">戻る</a>
+                                <a href="<?= ndAppUrl('list.php') ?>">戻る</a>
                             </div>
                         </div>
                     </div>
@@ -191,7 +193,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                 <div class="footer-top">
                     <div class="container">
                         <p class="syamei_footer">長野電鉄株式会社</p>
-                        <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                        <a href="/" class="logo syamei_footer_logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                         <div class="company-info">
                             <!-- <p class="company-name">長野電鉄株式会社</p> -->
                             <p class="post">〒380-0823</p>
@@ -220,7 +222,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                         <span class="menu"><a href="/company">会社概要</a></span>
                         <span class="menu"><a href="/category/news">新着情報</a></span>
                         <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                        <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
+                        <span class="menu"><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></span>
                         <span class="menu"><a href="/agreement">旅行業約款</a></span>
                     </div>
                 </div>
@@ -233,20 +235,20 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
 
         <?php
         sleep(4);
-        echo "<script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/list.php';</script>"; exit;
+        echo "<script type='text/javascript'>window.top.location='".ndAppUrl('list.php')."';</script>"; exit;
     }
     else{
         if( $compare > 0 ){
             ?>
             <header class="page-header">
                     <div class="header-inner">
-                        <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                        <a href="/" class="logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                         <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
                         <div class="nav-wrapper">
                             <ul class="nav">
                                 <li><a href="/">トップ</a></li>
                                 <li><a href="/category/news">新着情報</a></li>
-                                <li><a href="/plan/list.php">ツアー紹介</a></li>
+                                <li><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></li>
                                 <li><a href="/company">会社概要</a></li>
                                 <li><a href="/contact">お問い合わせ</a></li>
                             </ul>
@@ -261,7 +263,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                             <div class="warning">
                                 <div class="">
                                     <h2>このプランは終了しました。</h2>
-                                    <a href="https://zenryo.zenryo-ec.info/list.php">戻る</a>
+                                    <a href="<?= ndAppUrl('list.php') ?>">戻る</a>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +277,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                     <div class="footer-top">
                         <div class="container">
                             <p class="syamei_footer">長野電鉄株式会社</p>
-                            <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                            <a href="/" class="logo syamei_footer_logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                             <div class="company-info">
                                 <!-- <p class="company-name">長野電鉄株式会社</p> -->
                                 <p class="post">〒380-0823</p>
@@ -304,7 +306,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                             <span class="menu"><a href="/company">会社概要</a></span>
                             <span class="menu"><a href="/category/news">新着情報</a></span>
                             <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                            <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
+                            <span class="menu"><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></span>
                             <span class="menu"><a href="/agreement">旅行業約款</a></span>
                         </div>
                     </div>
@@ -317,7 +319,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
 
             <?php
             sleep(4);
-            echo "<script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/list.php';</script>"; exit;
+            echo "<script type='text/javascript'>window.top.location='".ndAppUrl('list.php')."';</script>"; exit;
 
         }
         else if($compare == 0){
@@ -325,13 +327,13 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                 ?>
                 <header class="page-header">
                     <div class="header-inner">
-                        <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                        <a href="/" class="logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                         <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
                         <div class="nav-wrapper">
                             <ul class="nav">
                                 <li><a href="/">トップ</a></li>
                                 <li><a href="/category/news">新着情報</a></li>
-                                <li><a href="/plan/list.php">ツアー紹介</a></li>
+                                <li><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></li>
                                 <li><a href="/company">会社概要</a></li>
                                 <li><a href="/contact">お問い合わせ</a></li>
                             </ul>
@@ -346,7 +348,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                 <div class="warning">
                                     <div class="">
                                         <h2>このプランは終了しました。</h2>
-                                        <a href="https://zenryo.zenryo-ec.info/list.php">戻る</a>
+                                        <a href="<?= ndAppUrl('list.php') ?>">戻る</a>
                                     </div>
                                 </div>
                             </div>
@@ -360,7 +362,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                         <div class="footer-top">
                             <div class="container">
                                 <p class="syamei_footer">長野電鉄株式会社</p>
-                                <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                                <a href="/" class="logo syamei_footer_logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                                 <div class="company-info">
                                     <!-- <p class="company-name">長野電鉄株式会社</p> -->
                                     <p class="post">〒380-0823</p>
@@ -389,7 +391,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                 <span class="menu"><a href="/company">会社概要</a></span>
                                 <span class="menu"><a href="/category/news">新着情報</a></span>
                                 <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                                <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
+                                <span class="menu"><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></span>
                                 <span class="menu"><a href="/agreement">旅行業約款</a></span>
                             </div>
                         </div>
@@ -400,19 +402,19 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                 </footer>
             <?php
             sleep(4);
-            echo "<script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/list.php';</script>"; exit;
+            echo "<script type='text/javascript'>window.top.location='".ndAppUrl('list.php')."';</script>"; exit;
             }
             else{
                 ?>
                 <header class="page-header">
                     <div class="header-inner">
-                        <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                        <a href="/" class="logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                         <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
                         <div class="nav-wrapper">
                             <ul class="nav">
                                 <li><a href="/">トップ</a></li>
                                 <li><a href="/category/news">新着情報</a></li>
-                                <li><a href="/plan/list.php">ツアー紹介</a></li>
+                                <li><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></li>
                                 <li><a href="/company">会社概要</a></li>
                                 <li><a href="/contact">お問い合わせ</a></li>
                             </ul>
@@ -432,28 +434,28 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
 
                                             <div class="rightP">
                                                 <div class="dtFor">
-                                                    <div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[0] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[0] ?></p><?php } ?></div></div>
-                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[1] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[1] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[2] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[2] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path4"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[3] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[3] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[4] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[4] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[5] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[5] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[6] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[6] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[7] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[7] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[8] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[8] ?></p><?php } ?></div></div><?php } ?>
-													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path10"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[9] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[9] ?></p><?php } ?></div></div><?php } ?>
+                                                    <div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path1']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[0] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[0] ?></p><?php } ?></div></div>
+                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path2']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[1] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[1] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path3']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[2] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[2] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path4']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[3] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[3] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path5']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[4] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[4] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path6']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[5] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[5] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path7']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[6] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[6] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path8']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[7] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[7] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path9']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[8] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[8] ?></p><?php } ?></div></div><?php } ?>
+													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path10']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[9] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[9] ?></p><?php } ?></div></div><?php } ?>
                                                 </div>
                                                 <div class="dtNav">
-                                                <div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
-                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path4"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
-													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path10"] ?>" alt=""></div><?php } ?>
+                                                <div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path1']}") ?>" alt=""></div>
+                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path2']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path3']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path4']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path5']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path6']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path7']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path8']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path9']}") ?>" alt=""></div><?php } ?>
+													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path10']}") ?>" alt=""></div><?php } ?>
                                                 </div>
                                             </div>
                                             <div class="leftP">
@@ -973,7 +975,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                             <p>お申込みの際には、必ず<b>
                                                                 <?php if($plan["file_path11"] != null)
                                                                     {?>
-                                                                    <a href="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path11"]?>" target="_blank">
+                                                                    <a href="<?= ndAppUrl("uploads/{$plan['file_path11']}") ?>" target="_blank">
                                                                 <?php }elseif($plan["notice"] != null)
                                                                     {?>
                                                                     <a href="<?=$plan["notice"]?>" target="_blank">
@@ -1014,7 +1016,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                         <div class="footer-top">
                             <div class="container">
                                 <p class="syamei_footer">長野電鉄株式会社</p>
-                                <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                                <a href="/" class="logo syamei_footer_logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                                 <div class="company-info">
                                     <!-- <p class="company-name">長野電鉄株式会社</p> -->
                                     <p class="post">〒380-0823</p>
@@ -1043,7 +1045,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                 <span class="menu"><a href="/company">会社概要</a></span>
                                 <span class="menu"><a href="/category/news">新着情報</a></span>
                                 <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                                <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
+                                <span class="menu"><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></span>
                                 <span class="menu"><a href="/agreement">旅行業約款</a></span>
                             </div>
                         </div>
@@ -1059,13 +1061,13 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
         ?>
             <header class="page-header">
                     <div class="header-inner">
-                        <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                        <a href="/" class="logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                         <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
                         <div class="nav-wrapper">
                             <ul class="nav">
                                 <li><a href="/">トップ</a></li>
                                 <li><a href="/category/news">新着情報</a></li>
-                                <li><a href="/plan/list.php">ツアー紹介</a></li>
+                                <li><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></li>
                                 <li><a href="/company">会社概要</a></li>
                                 <li><a href="/contact">お問い合わせ</a></li>
                             </ul>
@@ -1086,28 +1088,28 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                             <div class="rightP">
 
                                                 <div class="dtFor">
-                                                    <div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[0] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[0] ?></p><?php } ?></div></div>
-                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[1] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[1] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[2] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[2] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path4"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[3] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[3] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[4] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[4] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[5] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[5] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[6] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[6] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[7] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[7] ?></p><?php } ?></div></div><?php } ?>
-                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[8] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[8] ?></p><?php } ?></div></div><?php } ?>
-													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><div class="slideItem"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path10"] ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[9] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[9] ?></p><?php } ?></div></div><?php } ?>
+                                                    <div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path1']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[0] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[0] ?></p><?php } ?></div></div>
+                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path2']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[1] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[1] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path3']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[2] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[2] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path4']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[3] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[3] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path5']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[4] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[4] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path6']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[5] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[5] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path7']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[6] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[6] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path8']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[7] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[7] ?></p><?php } ?></div></div><?php } ?>
+                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path9']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[8] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[8] ?></p><?php } ?></div></div><?php } ?>
+													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><div class="slideItem"><img src="<?= ndAppUrl("uploads/{$plan['file_path10']}") ?>" alt=""><?php if($plan["caption"] != null && json_decode($plan["caption"] , true)[9] != null ){?><p class="caption"><?=json_decode($plan["caption"] , true)[9] ?></p><?php } ?></div></div><?php } ?>
                                                 </div>
                                                 <div class="dtNav">
-                                                <div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
-                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path2"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path3"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path4"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path5"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path6"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path7"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path8"] ?>" alt=""></div><?php } ?>
-                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path9"] ?>" alt=""></div><?php } ?>
-													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path10"] ?>" alt=""></div><?php } ?>
+                                                <div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path1']}") ?>" alt=""></div>
+                                                    <?php if($plan["file_path2"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path2']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path3"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path3']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path4"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path4']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path5"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path5']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path6"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path6']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path7"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path7']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path8"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path8']}") ?>" alt=""></div><?php } ?>
+                                                    <?php if($plan["file_path9"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path9']}") ?>" alt=""></div><?php } ?>
+													<?php if($plan["file_path10"]){ ?><div class="dtSlist"><img src="<?= ndAppUrl("uploads/{$plan['file_path10']}") ?>" alt=""></div><?php } ?>
                                                 </div>
                                             </div>
                                             <div class="leftP">
@@ -1625,7 +1627,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                             <p>お申込みの際には、必ず<b>
                                                                 <?php if($plan["file_path11"] != null)
                                                                     {?>
-                                                                    <a href="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path11"]?>" target="_blank">
+                                                                    <a href="<?= ndAppUrl("uploads/{$plan['file_path11']}") ?>" target="_blank">
                                                                 <?php }elseif($plan["notice"] != null)
                                                                     {?>
                                                                     <a href="<?=$plan["notice"]?>" target="_blank">
@@ -1666,7 +1668,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                         <div class="footer-top">
                             <div class="container">
                                 <p class="syamei_footer">長野電鉄株式会社</p>
-                                <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                                <a href="/" class="logo syamei_footer_logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                                 <div class="company-info">
                                     <!-- <p class="company-name">長野電鉄株式会社</p> -->
                                     <p class="post">〒380-0823</p>
@@ -1695,7 +1697,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                 <span class="menu"><a href="/company">会社概要</a></span>
                                 <span class="menu"><a href="/category/news">新着情報</a></span>
                                 <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                                <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
+                                <span class="menu"><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></span>
                                 <span class="menu"><a href="/agreement">旅行業約款</a></span>
                             </div>
                         </div>
@@ -1711,8 +1713,8 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
 ?>
 
 
-    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
-    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
+    <script src="<?= ndAppUrl('libs/slick/slick.min.js') ?>"></script>
+    <script src="<?= ndAppUrl('assets/js/theme.js') ?>"></script>
 
     <script src='https://maps.google.com/maps/api/js?key=AIzaSyCG9SfPt8adGSdlgWkq8jdbt64mYaPRkaM' type="text/javascript"></script>
 <script>
@@ -1793,7 +1795,7 @@ $(function() {
         date.setMonth(date.getMonth() - 2); // ここで1ヶ月前をセット
         let prevMonthYear = date.getFullYear();
         let prevMonth = date.getMonth() + 1;
-        location.href = 'https://zenryo.zenryo-ec.info/detail.php?plan_id=' + planId + '&year=' + prevMonthYear + '&month=' + prevMonth + '#anchor-calendar';
+        location.href = '<?= ndAppUrl('detail.php?plan_id=') ?>' + planId + '&year=' + prevMonthYear + '&month=' + prevMonth + '#anchor-calendar';
     });
     $('.next-month').click(function () {
         let year = "<?= $current_y ?>",
@@ -1803,7 +1805,7 @@ $(function() {
         date.setMonth(date.getMonth() + 1); // ここで1ヶ月後をセット
         let nextMonthYear = date.getFullYear();
         let nextMonth = date.getMonth();
-        location.href = 'https://zenryo.zenryo-ec.info/detail.php?plan_id=' + planId + '&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
+        location.href = '<?= ndAppUrl('detail.php?plan_id=') ?>' + planId + '&year=' + nextMonthYear + '&month=' + nextMonth + '&plan_id=' + planId + '#anchor-calendar';
     });
 });
 
@@ -1905,7 +1907,7 @@ $('.reserve-button').click(function () {
         resType = 1;
     }
     price_type_id = $('select[name="price_type_id"]').val();
-    open("https://zenryo.zenryo-ec.info/reservations/create?plan_id=" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id, +"_blank");
+    open("<?= ndAppUrl('reservations/create?plan_id=') ?>" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id, +"_blank");
 });
 
 </script>

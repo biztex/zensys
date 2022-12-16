@@ -86,7 +86,7 @@ new gridjs.Grid ({
       sort: {
         enabled: true
       },
-      width: '80px',
+      width: '90px',
       formatter: (_, row) => gridjs.html(`
         <div class="text-center">
           ${row.cells[1].data}

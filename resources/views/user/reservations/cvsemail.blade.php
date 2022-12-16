@@ -42,7 +42,7 @@ $custom_view = true;
     $tmp_arr=['a','b','c','d','e','f','g','h','i','j','k','l'];
     for($i=0; $i<count($arr); $i++){
       for($j=0; $j<count($tmp_arr); $j++){
-        if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],1), $Number_of_reservations)){
+        if(\App\Helpers::isInNumberOfReservations((array)$Number_of_reservations, $type_id, $tmp_arr[$j])) {
           if(array_key_exists(sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1), $Number_of_reservations)){
             echo $arr[$i] . $priceName->name . " / " . $prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  . " 円 × " . $Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)} . "=" . number_format((int)$prices[0][$tmp_arr[$j]."_". ((int)$i + 1)]  * (int)$Number_of_reservations->{sprintf('type%d_%s_%d_number', $type_id,$tmp_arr[$j],$i+1)}) . " 円" . "\n";
           }else{
@@ -60,7 +60,7 @@ $custom_view = true;
 【予約内容の確認やキャンセル規定について】
 予約内容の確認やキャンセル規定につきましては、以下ページよりご確認下さい。
 尚、キャンセルをご希望の場合は直接当社へご連絡ください。
-https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}
+{{ url("detail.php?plan_id={$reservation->plan->id}") }}
 =====================================
 長野電鉄株式会社
 

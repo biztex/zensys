@@ -41,7 +41,13 @@ class CvsController extends Controller
         }
 
         $reservation = Reservation::find($request->reservation_id);
-        $payment_limit = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
+        if(is_null($reservation->send_mail_at)){
+            $SendMailDate = $reservation->created_at;
+        }else{
+            $SendMailDate = new Carbon($reservation->send_mail_at);
+        }
+        
+        $payment_limit = Helpers::calcPaymentDeadline($SendMailDate, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
 
         $request_data = new CvsAuthorizeRequestDto();
         $request_data->setServiceOptionType($request->request->get("serviceOptionType"));
@@ -52,8 +58,7 @@ class CvsController extends Controller
         $request_data->setTelNo($request->request->get("telNo"));
         $request_data->setPayLimit($payment_limit->format('Y/m/d'));
         $request_data->setPayLimitHhmm($payment_limit->format('H:i'));
-        //$request_data->setPushUrl($request->request->get("pushUrl"));
-        $request_data->setPushUrl('https://nagaden-kanko.com/plan/push/mpi');
+        $request_data->setPushUrl(config('setting.mdk.push_url'));
         $request_data->setPaymentType("0");
 
         TGMDK_Config::getInstance();

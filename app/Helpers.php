@@ -56,4 +56,20 @@ class Helpers
         }
         return $deadline->setTime(23, 59);
     }
+
+    /**
+     * @param  array  $numberOfReservations
+     * @param  int  $typeId
+     * @param  string  $s
+     * @return bool
+     */
+    public static function isInNumberOfReservations(array $numberOfReservations, int $typeId, string $s): bool
+    {
+        foreach (range(1, 3) as $i) {
+            if (array_key_exists(sprintf('type%d_%s_%d_number', $typeId, $s, $i), $numberOfReservations)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

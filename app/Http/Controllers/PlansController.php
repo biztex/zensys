@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\PaymentMethodConstants;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage;
 use App\Models\Plan;
@@ -387,10 +388,7 @@ class PlansController extends Controller
                     ->getClientOriginalName();
 
                 $request->file('file_path11')->storeAs('uploads', $fileName11);
-                copy(
-                    '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
-                    '/var/www/html/zenryo/public/uploads/' . $fileName11
-                );
+                File::copy(Storage::disk('local')->path("uploads/$fileName11"), public_path("uploads/$fileName11"));
                 // オリジナルサイズで保存
             } elseif (
                 $i <= 10 &&
@@ -591,7 +589,6 @@ class PlansController extends Controller
         $plans->company_number = $request->company_number;
         $plans->company_address = $request->company_address;
         $plans->company_url = $request->company_url;
-        $target_path = public_path('/uploads');
 
         if ($request->del_url_path) {
             $plans->url_path = null;
@@ -601,10 +598,7 @@ class PlansController extends Controller
                 $request->file('url_path')->getClientOriginalName();
 
             $request->file('url_path')->storeAs('uploads/public', $file_name);
-            copy(
-                '/var/www/html/zenryo/storage/app/uploads/public/' . $file_name,
-                $target_path . '/' . $file_name
-            );
+            File::copy(Storage::disk('local')->path("uploads/public/$file_name"), public_path("uploads/$file_name"));
             $plans->url_path = $file_name;
         }
 
@@ -895,10 +889,7 @@ class PlansController extends Controller
                     ->getClientOriginalName();
 
                 $request->file('file_path11')->storeAs('uploads', $fileName11);
-                copy(
-                    '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
-                    '/var/www/html/zenryo/public/uploads/' . $fileName11
-                );
+                File::copy(Storage::disk('local')->path("uploads/$fileName11"), public_path("uploads/$fileName11"));
                 // オリジナルサイズで保存
             } elseif (
                 $i <= 10 &&
@@ -1098,7 +1089,6 @@ class PlansController extends Controller
         $plans->caption = json_encode($request->caption);
 
 
-        $target_path = public_path('/uploads');
 
         if ($request->del_url_path) {
             $plans->url_path = null;
@@ -1108,10 +1098,7 @@ class PlansController extends Controller
                 $request->file('url_path')->getClientOriginalName();
 
             $request->file('url_path')->storeAs('uploads/public', $file_name);
-            copy(
-                '/var/www/html/zenryo/storage/app/uploads/public/' . $file_name,
-                $target_path . '/' . $file_name
-            );
+            File::copy(Storage::disk('local')->path("uploads/public/$file_name"), public_path("uploads/$file_name"));
             $plans->url_path = $file_name;
         }
         $plans->spot = $request->spot;
@@ -1430,10 +1417,6 @@ class PlansController extends Controller
                     ->getClientOriginalName();
 
                 $request->file('file_path11')->storeAs('uploads', $fileName11);
-                // copy(
-                //     '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
-                //     '/var/www/html/zenryo/public/uploads/' . $fileName11
-                // );
                 // オリジナルサイズで保存
             } elseif (
                 $i <= 10 &&
@@ -1635,7 +1618,6 @@ class PlansController extends Controller
 
         $plans->caption = json_encode($request->caption);
 
-        $target_path = public_path('/uploads');
 
         if ($request->del_url_path) {
             $plans->url_path = null;
@@ -1645,10 +1627,7 @@ class PlansController extends Controller
                 $request->file('url_path')->getClientOriginalName();
 
             $request->file('url_path')->storeAs('uploads/public', $file_name);
-            copy(
-                '/var/www/html/zenryo/storage/app/uploads/public/' . $file_name,
-                $target_path . '/' . $file_name
-            );
+            File::copy(Storage::disk('local')->path("uploads/public/$file_name"), public_path("uploads/$file_name"));
             $plans->url_path = $file_name;
         }
         $plans->spot = $request->spot;
@@ -2269,11 +2248,7 @@ class PlansController extends Controller
                     $fileName11 = $pdf_path ;
                 }
 
-
-                copy(
-                    '/var/www/html/zenryo/storage/app/uploads/' . $fileName11,
-                    '/var/www/html/zenryo/public/uploads/' . $fileName11
-                );
+                File::copy(Storage::disk('local')->path("uploads/$fileName11"), public_path("uploads/$fileName11"));
                 // オリジナルサイズで保存
             } elseif (
                 $i <= 10 &&
@@ -2588,8 +2563,6 @@ class PlansController extends Controller
 
         $plans->caption = json_encode($request->caption);
 
-        $target_path = public_path('/uploads');
-
         if ($request->del_url_path) {
             $plans->url_path = null;
         } elseif ($request->has('url_path')) {
@@ -2598,10 +2571,7 @@ class PlansController extends Controller
                 $request->file('url_path')->getClientOriginalName();
 
             $request->file('url_path')->storeAs('uploads/public', $file_name);
-            copy(
-                '/var/www/html/zenryo/storage/app/uploads/public/' . $file_name,
-                $target_path . '/' . $file_name
-            );
+            File::copy(Storage::disk('local')->path("uploads/public/$file_name"), public_path("uploads/$file_name"));
             $plans->url_path = $file_name;
         }
         $plans->spot = $request->spot;

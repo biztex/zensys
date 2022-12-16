@@ -3,48 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Constants\PaymentMethodConstants;
-use Exception;
-use InterventionImage;
-use App\Models\Reservation;
-use App\Models\Genre;
-use App\Models\Activity;
-use App\Models\Price;
-use App\Models\Plan;
-use App\Models\User;
-use App\Models\Stock;
-use App\Models\Bankaccount;
-use App\Models\PriceType;
-use App\Models\StockPriceType;
 use App\Helpers;
-use Auth;
-use LogicException;
-use RuntimeException;
-use Yasumi\Yasumi;
+use App\Models\Bankaccount;
+use App\Models\Company;
+use App\Models\CreditCancel;
+use App\Models\Genre;
+use App\Models\Plan;
+use App\Models\Price;
+use App\Models\PriceType;
+use App\Models\Reservation;
+use App\Models\Sequence;
+use App\Models\Stock;
+use App\Models\StockPriceType;
+use App\Models\User;
+use App\Rules\ZipcodeRule;
 use Carbon\Carbon;
-use DateTime;
+use DateTimeInterface;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Hash;
+use LogicException;
 use Psr\Log\LoggerInterface;
-use tgMdk\dto\CardAuthorizeRequestDto;
-use tgMdk\dto\CardAuthorizeResponseDto;
-use tgMdk\dto\CardReAuthorizeRequestDto;
-use tgMdk\dto\CardReAuthorizeResponseDto;
+use RuntimeException;
 use tgMdk\dto\CardCancelRequestDto;
 use tgMdk\dto\CardCancelResponseDto;
+use tgMdk\dto\CardReAuthorizeRequestDto;
+use tgMdk\dto\CardReAuthorizeResponseDto;
 use tgMdk\dto\CvsCancelRequestDto;
 use tgMdk\dto\CvsCancelResponseDto;
 use tgMdk\TGMDK_Config;
 use tgMdk\TGMDK_Logger;
 use tgMdk\TGMDK_Transaction;
-use App\Models\Company;
-use App\Models\CreditCancel;
-use App\Rules\ZipcodeRule;
+use Yasumi\Yasumi;
 
 class ReservationsController extends Controller
 {
@@ -266,13 +260,7 @@ class ReservationsController extends Controller
 
         //}
         // 予約番号作成
-        $price_name = PriceType::select()
-                        ->where('number' , $request->price_type)->first();
-
-        $count = Reservation::whereDate('created_at', Carbon::today())->count();
-        $date = date('Ymd');
-        $zeropadding = sprintf('%05d', $count);
-        $reservation_number = 'ZR' . $date . $zeropadding;
+        $reservation_number = $this->getNewOrderIdByDate(Carbon::today());
         // 予約追加
         $reservation = new Reservation();
         $reservation->plan_id = $request->plan_id;
@@ -305,6 +293,16 @@ class ReservationsController extends Controller
             $reservation->add_drop = $request->drop[0];
         }
 
+        // add_age、全角スペース除去
+        $reservation->add_age = preg_replace('/\A[\x00\s]++|[\x00\s]++\z/u', '', $reservation->add_age);
+        // 数値型以外混在の場合、誕生日から年齢を算出し、再設定
+        if(!is_int($reservation->add_age) | $reservation->add_age < 0){
+            $birth_day = new Carbon(now()->format('Y').'/'.$request->birth_month_representative[0].'/'.$request->birth_day_representative[0]);
+            $reservation->add_age = now()->format('Y') - $request->birth_year_representative[0];
+            if(now() < $birth_day){
+                $reservation->add_age = $reservation->add_age -1;
+            }
+        }
 
         $temp_companion_name_first = [];
         $temp_companion_name_last = [];
@@ -412,9 +410,6 @@ class ReservationsController extends Controller
         $reservation->Number_of_reservations = json_encode($Number_of_reservations);
 
         $reservation->save();
-        // 決済情報をセット
-        //$tokenApiKey = Config::get('sample_setting.token.token_api_key');
-        $tokenApiKey = config('adminlte.TOKEN_API_KEY');
         //$orderId = Helpers::generateOrderId();
         // 合計金額セット
         $amount = 0;
@@ -461,8 +456,7 @@ class ReservationsController extends Controller
             }
         }
 
-        //$tokenApiKey = 'cd76ca65-7f54-4dec-8ba3-11c12e36a548';
-        $tokenApiKey = config('adminlte.TOKEN_API_KEY');
+        $tokenApiKey = config('setting.mdk.token_api_key');
         $orderId = $reservation_number;
 
         $req_result = $request->is_request;
@@ -997,6 +991,10 @@ class ReservationsController extends Controller
         ini_set('memory_limit', '256M');
         $reservation = Reservation::find($id);
 
+        $SendMailDate = new Carbon();
+        $reservation->send_mail_at = $SendMailDate;
+        $reservation->save();
+
         $prices = Price::select()
         ->where('plan_id' , $reservation->plan_id)
         ->where('type' , $reservation->price_type)
@@ -1089,7 +1087,7 @@ class ReservationsController extends Controller
             'reservation_id' => $reservation->id,
         ];
         $bank = Bankaccount::find($reservation->plan->company->id);
-        $payment_limit = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
+        $payment_limit = Helpers::calcPaymentDeadline($SendMailDate, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
 
         // 決済方法ごとにメールテンプレートを分岐
         switch ($reservation->payment_method) {
@@ -1187,9 +1185,7 @@ class ReservationsController extends Controller
                 Mail::send(
                     ['text' => 'user.reservations.cvsemail'],
                     [
-                        'url_cvs' =>
-                            'https://nagaden-kanko.com/plan/pay?prm='.
-                            encrypt($param_cvs),
+                        'url_cvs' => secure_url('pay?prm='.encrypt($param_cvs)),
                         'number' => $reservation->order_id,
                         'plan' => $reservation->plan->name,
                         'date' => date(
@@ -1225,9 +1221,7 @@ class ReservationsController extends Controller
                 Mail::send(
                     ['text' => 'user.reservations.cardemail'],
                     [
-                        'url_card' =>
-                            'https://nagaden-kanko.com/plan/pay?prm='.
-                            encrypt($param_card),
+                        'url_card' => secure_url('pay?prm='.encrypt($param_card)),
                         'number' => $reservation->order_id,
                         'plan' => $reservation->plan->name,
                         'date' => date(
@@ -1303,6 +1297,10 @@ class ReservationsController extends Controller
             }
         }
         $reservation = Reservation::find($id);
+        // ステータス：キャンセルからステータスを変更しようとした場合、実態の整合性が取れなくなる恐れがあるため、エラーとする
+        if ($reservation->status == 'キャンセル' && $reservation->status != $request->status){
+            throw ValidationException::withMessages(['status_error' => 'キャンセル済の為、他ステータスに変更できません。']);
+        }
         $old_ccrec = CreditCancel::where('reservation_id', $id)->latest()->first();
         if (!is_null($old_ccrec)){
             if ($old_ccrec->cancel_status != 'OK'){
@@ -1663,25 +1661,31 @@ class ReservationsController extends Controller
     // 削除処理
     public function destroy($id)
     {
-        $reservations = Reservation::destroy($id);
-        // リレーションレコード削除1
-        Activity::where('plan_id', $id)->delete();
-        // リレーションレコード削除2
-        Price::where('plan_id', $id)->delete();
-        return redirect()->back();
+        // TODO: NAGADEN-13
+        throw new RuntimeException();
+
+//        $reservations = Reservation::destroy($id);
+//        // リレーションレコード削除1
+//        Activity::where('plan_id', $id)->delete();
+//        // リレーションレコード削除2
+//        Price::where('plan_id', $id)->delete();
+//        return redirect()->back();
     }
 
     // 選択削除処理
     public function destroySelected(Request $request)
     {
-        $ids = explode(',', $request->ids);
-        $reservations = Reservation::destroy($ids);
-        // リレーションレコード削除
-        foreach ($ids as $id) {
-            Activity::where('plan_id', $id)->delete();
-            Price::where('plan_id', $id)->delete();
-        }
-        return redirect()->back();
+        // TODO: NAGADEN-13
+        throw new RuntimeException();
+
+//        $ids = explode(',', $request->ids);
+//        $reservations = Reservation::destroy($ids);
+//        // リレーションレコード削除
+//        foreach ($ids as $id) {
+//            Activity::where('plan_id', $id)->delete();
+//            Price::where('plan_id', $id)->delete();
+//        }
+//        return redirect()->back();
     }
 
     public function csvSelected(Request $request)
@@ -1857,8 +1861,7 @@ class ReservationsController extends Controller
         $payment_method_prm = $parameters['payment_method'];
         $reservation = Reservation::find($reservation_id);
         $reservation->save();
-        //$tokenApiKey = Config::get('sample_setting.token.token_api_key');
-        $tokenApiKey = config('adminlte.TOKEN_API_KEY');
+        $tokenApiKey = config('setting.mdk.token_api_key');
         $user = $reservation->user;
         $orderId = $reservation->number;
         // 合計金額セット
@@ -1973,8 +1976,14 @@ class ReservationsController extends Controller
                 break;
         }
 
+        $dt = new Carbon($reservation->fixed_datetime);
         // 期限チェック
-        $deadline = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
+        if(is_null($reservation->send_mail_at)){
+            $SendMailDate = $reservation->created_at;
+        }else{
+            $SendMailDate = new Carbon($reservation->send_mail_at);
+        }
+        $deadline = Helpers::calcPaymentDeadline($SendMailDate, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
         if(Carbon::now() > $deadline){
             return view(
                 'over.index',
@@ -2040,7 +2049,7 @@ class ReservationsController extends Controller
                 )
             );
         } else {
-            return redirect('https://nagaden-kanko.com/plan/list.php');
+            return redirect('list.php');
         }
     }
 
@@ -2348,19 +2357,7 @@ class ReservationsController extends Controller
             $dummy_reservation->save();
         }
         // 新予約番号作成
-        $count = Reservation::whereDate('created_at', Carbon::today())->count();
-        $date = date('Ymd');
-        $zeropadding = sprintf('%05d', $count);
-        $new_order_id = 'ZR' . $date . $zeropadding;
-        /*
-        if ($new_order_id == $reservation->order_id && $reservation->order_id !=  $reservation->number) {
-            $count = Reservation::whereDate('created_at', Carbon::today())->count();
-            $date = date("Ymd");
-            $count++;
-            $zeropadding = sprintf('%05d', $count);
-            $new_order_id = 'ZR' . $date . $zeropadding;
-        }
-*/
+        $new_order_id = $this->getNewOrderIdByDate(Carbon::today());
         Log::info('new_order_id is : ' . $new_order_id);
         //
         $request_data = new CardReAuthorizeRequestDto();
@@ -2619,7 +2616,7 @@ class ReservationsController extends Controller
         $number = $reservation->order_id;
         $plan = $reservation->plan->name;
         $date = date('Y年m月d日',strtotime($reservation->fixed_datetime));
-        $payment_limit = Helpers::calcPaymentDeadline($reservation->created_at, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
+        $payment_limit = Helpers::calcPaymentDeadline(Carbon::today(), $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
 
         $activity      = $reservation->activity_date;
         $name_last     = $reservation->user->name_last;
@@ -2653,7 +2650,7 @@ class ReservationsController extends Controller
                     )
                 );
             case PaymentMethodConstants::CVS:
-                $url_cvs = 'https://nagaden-kanko.com/plan/pay?prm='.encrypt($param_cvs);
+                $url_cvs = secure_url('pay?prm='.encrypt($param_cvs));
                 return view(
                     'user.reservations.cvsemail_pv',
                     compact('url_cvs', 'number', 'plan', 'date', 'activity', 'name_last', 'name_first',
@@ -2661,7 +2658,7 @@ class ReservationsController extends Controller
                     )
                 );
             case PaymentMethodConstants::CARD:
-                $url_card = 'https://nagaden-kanko.com/plan/pay?prm='.encrypt($param_card);
+                $url_card = secure_url('pay?prm='.encrypt($param_card));
                 return view(
                     'user.reservations.cardemail_pv',
                     compact('url_card', 'number', 'plan', 'date', 'activity', 'name_last', 'name_first',
@@ -2679,5 +2676,35 @@ class ReservationsController extends Controller
             default:
                 throw new LogicException();
         }
+    }
+
+    /**
+     * @param  DateTimeInterface  $date
+     * @return string
+     */
+    private function getNewOrderIdByDate(DateTimeInterface $date): string
+    {
+        $code = config('setting.order_id_prefix').$date->format('Ymd');
+        return $code.str_pad($this->increaseOrderId($code), 5, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * @param  string  $code
+     * @return int
+     */
+    private function increaseOrderId(string $code): int
+    {
+        $callable = function () use ($code) {
+            $sequence = Sequence::where('code', $code)->lockForUpdate()->first(['id', 'seq']);
+            if (!$sequence) {
+                $sequence = new Sequence;
+                $sequence->code = $code;
+                $sequence->seq = -1;
+            }
+            $sequence->seq += 1;
+            $sequence->save();
+            return $sequence->seq;
+        };
+        return DB::transactionLevel() ? $callable() : DB::transaction($callable);
     }
 }

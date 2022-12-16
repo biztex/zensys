@@ -62,6 +62,11 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約ステータス') }}</label>
                             <div class="col-md-3">
+                            @if ($reservations->status == 'キャンセル')
+                                <select class="form-control" name="status" readonly="readonly">
+                                    <option value="キャンセル" @if(old('status',$reservations->status)=='キャンセル') selected  @endif>キャンセル</option>
+                                </select>
+                            @else
                                 <select class="form-control" name="status">
                                   <option disabled selected>選択してください</option>
                                   <option value="予約確定" @if(old('status',$reservations->status)=='予約確定') selected  @endif>予約確定</option>
@@ -70,6 +75,7 @@
                                   <option value="キャンセル" @if(old('status',$reservations->status)=='キャンセル') selected  @endif>キャンセル</option>
                                   <option value="一部返金" @if(old('status',$reservations->status)=='一部返金') selected  @endif>一部返金</option>
                                 </select>
+                            @endif
                             </div>
                             <div class="col-md-4">
 			        <small class="text-red">※クレジットカード決済の場合、決済日から60日を超えるとDGFT側の決済をキャンセルすることはできません</small>
@@ -99,6 +105,12 @@
                             <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('予約確定日時') }}</label>
                             <div class="col-md-3">
                                 <input id="name" type="text" class="form-control" name="" value="{{ substr($reservations->fixed_datetime,0, 16) }}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('決済メール送信日時') }}</label>
+                            <div class="col-md-3">
+                                <input id="name" type="text" class="form-control" name="" value="{{ substr($reservations->send_mail_at,0, 16) }}" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -408,12 +420,16 @@
                     </div>
                     <div class="form-group row mb-2 float-right">
                         <div class="col-md-2">
-		    	<input type="button" class="custom-table btn btn-sm btn-primary" value="価格表カスタマイズ">
+                        @if ($reservations->status != '一部返金' && $reservations->status != 'キャンセル')
+                            <input type="button" class="custom-table btn btn-sm btn-primary" value="価格表カスタマイズ">
+                        @else
+                            <input type="button" class="custom-table btn btn-sm btn-secondary" value="価格表カスタマイズ" disabled="disabled">
+                        @endif
                         </div>
                     </div>
                     <div class="form-group row mb-2 float-right">
                         <div class="col-md-2">
-		    	<input type="button" class="update-price btn btn-sm btn-secondary" value="価格表更新">
+		    	<input type="button" class="update-price btn btn-sm btn-danger" value="価格表更新">
                         </div>
                     </div>
                 <table class="table table-bordered">
@@ -482,7 +498,7 @@
                                     <input type="text" id="price_name{{$i + 1}}" name="price_name{{$i + 1}}" value="{{ $arr[$i] . $priceName->name }}">
                                 </td>
                                 @for($j=0; $j<count($tmp_arr); $j++)
-                                    @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],2), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],3), (array)$Number_of_reservations) )
+                                    @if(\App\Helpers::isInNumberOfReservations((array)$Number_of_reservations, $typeid, $tmp_arr[$j]))
                                         @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                             <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$i + 1}}" name="typec_{{$i+1}}_price" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}" style="width: 80%;">円</td>
                                             <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$i + 1}}" name="typec_{{$i+1}}_number" value="@php echo $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};@endphp">名</td>
@@ -491,7 +507,7 @@
                                             <?php $Sumpt += $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] * $Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};$Number_req[$i+1]=$Number_of_reservations->{sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1)};?>
                                         @else
                                             <td style="text-align: right; padding-left: 50px;"><input type="number" id="price{{$i + 1}}" name="typec_{{$i+1}}_price" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}" style="width: 80%;">円</td>
-                                            <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="number{{$i + 1}}" name="typec_{{$i+1}}_number" value="0">名</td>
+                                            <td style="text-align: right; padding-left: 50px;"><input type="number" class="col-md-6 text-right" id="per-number{{$i + 1}}" name="typec_{{$i+1}}_number" value="0">名</td>
                                             <td id="per-text-price{{ ($i + 1) }}" style="text-align: right;">0円</td>
                                             <input type="hidden" id="per-price{{ $i + 1 }}" value="0">
                                         @endif
@@ -520,7 +536,7 @@
                                 {{ $arr[$i] . $priceName->name }}
                             </td>
                             @for($j=0; $j<count($tmp_arr); $j++)
-                                @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],1), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],2), (array)$Number_of_reservations) || array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],3), (array)$Number_of_reservations))
+                                @if(\App\Helpers::isInNumberOfReservations((array)$Number_of_reservations, $typeid, $tmp_arr[$j]))
                                     @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                         <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
                                         <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
@@ -597,6 +613,14 @@
                       @endif
                       <input type="hidden" id="credit_cancel_flg" name="credit_cancel_flg" value="0">
                     @else
+                        <tr>
+                            <td colspan="3" class="bg-light font-weight-bold" style="vertical-align: middle;"></td>
+                            @if ($reservations->status == 'キャンセル')
+                                <td><input type="button" class="btn btn-secondary float-right" value="キャンセル" onClick="goCancel()" disabled="disabled"></td><td></td>
+                            @else
+                                <td><input type="button" class="btn btn-danger float-right" value="キャンセル" onClick="goCancel()"></td><td></td>
+                            @endif
+                        </tr>
                         <input type="hidden" id="credit_cancel_price" name="credit_cancel_price" value="0">
                         <input type="hidden" id="credit_cancel_flg" name="credit_cancel_flg" value="0">
                     @endif
@@ -722,6 +746,18 @@ function goCreditCancel1() {
     if (checked == true) {
         $('select[name="status"]').val("キャンセル");
         $('#credit_cancel_flg').val(1);
+        $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
+        $('.submit').parents('form').submit();
+        return true;
+    } else {
+        return false;
+    }
+}
+function goCancel() {
+    var checked = confirm("【確認】キャンセル処理を実行してよろしいですか？");
+    if (checked == true) {
+        $('select[name="status"]').val("キャンセル");
+        $('#credit_cancel_flg').val(0);
         $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
         $('.submit').parents('form').submit();
         return true;

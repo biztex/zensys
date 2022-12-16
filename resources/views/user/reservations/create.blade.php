@@ -29,7 +29,7 @@
                 <ul class="nav">
                     <li><a href="/">トップ</a></li>
                     <li><a href="/category/news">新着情報</a></li>
-                    <li><a href="/plan/list.php">ツアー紹介</a></li>
+                    <li><a href="{{ url('list.php') }}">ツアー紹介</a></li>
                     <li><a href="/company">会社概要</a></li>
                     <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
@@ -536,6 +536,7 @@
                                                         男性
                                                     <option value="1">
                                                         女性
+                                                    </select>
                                                 </div>
                                             </td>
                                         </tr>
@@ -753,7 +754,7 @@
                                 <p><b>@if($plan->notice)
                                     <a href="{{$plan->notice}}" target="_blank">「旅行条件書」</a>
                                     @elseif($plan->file_path11)
-                                    <a href="https://zenryo.zenryo-ec.info/uploads/{{$plan->file_path11}}" target="_blank">「旅行条件書」</a>
+                                    <a href="{{ url("uploads/$plan->file_path11") }}" target="_blank">「旅行条件書」</a>
                                     @endif
                                     「注意事項」
                                     <a href="{{$companies[0]->url2}}" target="_blank">「個人情報の取扱に関する基本方針」</a>を確認しました</b></p>
@@ -777,7 +778,7 @@
                                 <div class="warning">
                                     <div class="">
                                         <h2>この予約は終了しました。</h2>
-                                        <a class="col-md-2 d-block offset-md-5 mt-4 px-4 py-2 bg-warning" href="https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}">戻る</a>
+                                        <a class="col-md-2 d-block offset-md-5 mt-4 px-4 py-2 bg-warning" href="{{ url('detail.php?plan_id='.request('plan_id')) }}">戻る</a>
                                     </div>
                                 </div>
                             </div>
@@ -786,7 +787,7 @@
 
                 </div>
 
-               <script type='text/javascript'>window.top.location='https://zenryo.zenryo-ec.info/detail.php?plan_id={{ request('plan_id')}}';</script>
+               <script type='text/javascript'>window.top.location='{{ url('detail.php?plan_id='.request('plan_id')) }}';</script>
 
                 @endif
             </div>
@@ -799,7 +800,7 @@
             <div class="footer-top">
                 <div class="container">
                     <p class="syamei_footer">長野電鉄株式会社</p>
-                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                    <a href="/" class="logo syamei_footer_logo"><img src="{{ asset('assets/img/logo3.png') }}" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
                         <p class="post">〒380-0823</p>
@@ -828,7 +829,7 @@
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>
                     <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                    <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
+                    <span class="menu"><a href="{{ url('list.php') }}">ツアー紹介</a></span>
                     <span class="menu"><a href="/agreement">旅行業約款</a></span>
                 </div>
             </div>

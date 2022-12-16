@@ -23,7 +23,7 @@
 
         <div class="col-md-12">
             <!-- <hr class="mb-4"> -->
-            <a class="btn btn-primary btn" href="../list.php">TOPに戻る</a>
+            <a class="btn btn-primary btn" href="{{ url('list.php') }}">TOPに戻る</a>
         </div>
     </div>
 

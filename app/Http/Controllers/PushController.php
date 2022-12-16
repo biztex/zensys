@@ -123,7 +123,7 @@ class PushController extends Controller
                             if ($reservation->user->email) {
                                 $message
                                     ->to($reservation->user->email)
-                                    ->bcc(['kaname-n@magokorobin.com', config('mail.custom.addresses.main')])
+                                    ->bcc(['system000@toebisu.jp', config('mail.custom.addresses.main')])
                                     ->from(config('mail.custom.addresses.main'))
                                     ->subject("【予約確認】長野電鉄株式会社");
                             }
@@ -134,7 +134,7 @@ class PushController extends Controller
                         ], function ($message) use ($reservation) {
                             $message
                                 ->to(config('mail.custom.addresses.main'))
-                                ->bcc('kaname-n@magokorobin.com')
+                                ->bcc('system000@toebisu.jp')
                                 ->from(config('mail.custom.addresses.main'))
                                 ->subject("【長野電鉄株式会社】コンビニ決済完了メール");
                         });

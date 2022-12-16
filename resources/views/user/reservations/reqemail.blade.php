@@ -38,7 +38,7 @@
 【予約内容の確認やキャンセル規定について】
 予約内容の確認やキャンセル規定につきましては、以下ページよりご確認下さい。
 尚、キャンセルをご希望の場合は直接当社へご連絡ください。
-https://zenryo.zenryo-ec.info/detail.php?plan_id={{ $reservation->plan->id }}
+{{ url("detail.php?plan_id={$reservation->plan->id}") }}
 =====================================
 長野電鉄株式会社
 

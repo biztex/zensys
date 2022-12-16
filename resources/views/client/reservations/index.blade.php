@@ -35,20 +35,23 @@
 
       </select>件表示
       <input type="hidden" name="ids">
-      <button type="button" id="delete-selected" class="btn btn-secondary float-right">選択データを削除</button><button type="button" id="csv-selected" class="btn btn-warning float-right" onClick="return confirmCsvelected()" >CSV DL</button>
+{{-- TODO: NAGADEN-13 --}}
+{{--      <button type="button" id="delete-selected" class="btn btn-secondary float-right">選択データを削除</button>--}}
+      <button type="button" id="csv-selected" class="btn btn-warning float-right" onClick="return confirmCsvelected()" >CSV DL</button>
     </form>
   </div>
 </div>
 <script>
 
-document.getElementById("delete-selected").addEventListener("click", function(event){
-  var ids = $('input[type="checkbox"]:checked').map(function(){
-        return $(this).val();
-    }).get();
-  $('input[name="ids"]').val(ids); 
-  console.log(ids);
-  $('#form1').submit();
-});
+{{-- TODO: NAGADEN-13 --}}
+// document.getElementById("delete-selected").addEventListener("click", function(event){
+//   var ids = $('input[type="checkbox"]:checked').map(function(){
+//         return $(this).val();
+//     }).get();
+//   $('input[name="ids"]').val(ids);
+//   console.log(ids);
+//   $('#form1').submit();
+// });
 
 function confirmCsvelected(){
     var ids = $('input[type="checkbox"][name="row-data"]:checked').map(function(){
@@ -139,7 +142,7 @@ const mygrid = new gridjs.Grid ({
       sort: {
         enabled: true
       },
-      width: '80px',
+      width: '90px',
       formatter: (_, row) => gridjs.html(`
         <div class="text-center">
           ${row.cells[1].data}
@@ -153,10 +156,11 @@ const mygrid = new gridjs.Grid ({
         formatter: (_, row) => gridjs.html(`
           <div class="row">
             <a href="{{config('app.url')}}client/reservations/edit/${row.cells[1].data}" class="btn btn-warning btn-sm">編集</a>　
-            <form method="post" name="form" action="{{config('app.url')}}client/reservations/destroy/${row.cells[1].data}">
-              @csrf
-              <button type="submit" class="btn btn-danger btn-sm" onClick="return confirmDelete()">削除</button>
-            </form>
+            {{--TODO: NAGADEN-13--}}
+            {{--<form method="post" name="form" action="{{config('app.url')}}client/reservations/destroy/${row.cells[1].data}">--}}
+            {{--  @csrf--}}
+            {{--  <button type="submit" class="btn btn-danger btn-sm" onClick="return confirmDelete()">削除</button>--}}
+            {{--</form>--}}
           </div>
         `)
     }

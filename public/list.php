@@ -12,28 +12,28 @@ $kinds = ndCurlExecJson('api/kinds/json');
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://zenryo.zenryo-ec.info/assets/img/favicon2_2.ico" />
+    <link rel="shortcut icon" href="<?= ndAppUrl('assets/img/favicon2_2.ico') ?>" />
 
     <!-- css -->
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/libs/slick/slick-theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/theme.css">
-    <link rel="stylesheet" href="https://zenryo.zenryo-ec.info/assets/css/add.css">
+    <link rel="stylesheet" href="<?= ndAppUrl('libs/slick/slick.css') ?>">
+    <link rel="stylesheet" href="<?= ndAppUrl('libs/slick/slick-theme.css') ?>">
+    <link rel="stylesheet" href="<?= ndAppUrl('assets/css/theme.css') ?>">
+    <link rel="stylesheet" href="<?= ndAppUrl('assets/css/add.css') ?>">
 
     <!-- javascript -->
-    <script src="https://zenryo.zenryo-ec.info/libs/jquery/jquery-3.4.1.min.js"></script>
+    <script src="<?= ndAppUrl('libs/jquery/jquery-3.4.1.min.js') ?>"></script>
 </head>
 
 <body>
     <header class="page-header">
         <div class="header-inner">
-            <a href="/" class="logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+            <a href="/" class="logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
             <a href="javascript:void(0)" class="nav-open"><i></i><span></span></a>
             <div class="nav-wrapper">
                 <ul class="nav">
                     <li><a href="/">トップ</a></li>
                     <li><a href="/category/news">新着情報</a></li>
-                    <li><a href="/plan/list.php">ツアー紹介</a></li>
+                    <li><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></li>
                     <li><a href="/company">会社概要</a></li>
                     <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
@@ -51,12 +51,10 @@ $kinds = ndCurlExecJson('api/kinds/json');
 
 
                             <ul class="listSideUl">
-                                <li><a href="https://zenryo.zenryo-ec.info/list.php?kind=all">すべて</a></li>
-                                <?php
-                                    foreach($kinds as $kind){
-                                      echo '<li><a href="https://zenryo.zenryo-ec.info/list.php?kind='. $kind["number"] .'">'.$kind["name"] .'</a></li>';
-                                    }
-                                ?>
+                                <li><a href="<?= ndAppUrl('list.php?kind=all') ?>">すべて</a></li>
+                                <?php foreach ($kinds as $kind): ?>
+                                    <li><a href="<?= ndAppUrl("list.php?kind={$kind['number']}") ?>"><?= $kind['name'] ?></a></li>
+                                <?php endforeach; ?>
                             </ul>
                         </div>
 
@@ -64,8 +62,6 @@ $kinds = ndCurlExecJson('api/kinds/json');
                         <div class="listMain">
 
                         <?php
-                     $actual_link = "$_SERVER[REQUEST_URI]";
-
                      $params = '';
                      if(!isset($_GET['kind'])){
                         $params = 'all';
@@ -114,7 +110,7 @@ $kinds = ndCurlExecJson('api/kinds/json');
                                     <div class="listItemCont">
                                         <p class="listItemTxt"><?=nl2br(htmlspecialchars($plan["catchphrase"]))?></p>
                                         <div class="listItemInfo">
-                                            <div class="leftP"><img src="https://zenryo.zenryo-ec.info/uploads/<?=$plan["file_path1"] ?>" alt=""></div>
+                                            <div class="leftP"><img src="<?= ndAppUrl("uploads/{$plan['file_path1']}") ?>" alt=""></div>
                                             <div class="rightP">
                                                 <div class="messageP">
                                                     <dl>
@@ -158,41 +154,37 @@ $kinds = ndCurlExecJson('api/kinds/json');
                                                 </div>
                                                 <p class="priceP">旅行代金（お一人様）<span>¥<?php echo number_format($min_value)?>〜¥<?php echo number_format($max_value)?></span></p>
                                                 <?php
-                                                    date_default_timezone_set('Asia/Tokyo');
+                                                date_default_timezone_set('Asia/Tokyo');
 
-                                                    $date = new DateTimeImmutable(date('Y-m-d'));
-                                                    $end =  new DateTimeImmutable($plan['end_day']);
-                                                    $time = date('H');
-                                                    $interval = date_diff($end, $date);
+                                                /** @noinspection PhpUnhandledExceptionInspection */
+                                                $date = new DateTimeImmutable(date('Y-m-d'));
+                                                /** @noinspection PhpUnhandledExceptionInspection */
+                                                $end = new DateTimeImmutable($plan['end_day']);
+                                                $time = date('H');
+                                                $interval = date_diff($end, $date);
 
-                                                    $compare = intval($interval->format('%R%a'));
+                                                $compare = intval($interval->format('%R%a'));
 
-                                                    if( $compare > 0 ){
-                                                       echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
-                                                    }
-                                                    else if($compare == 0){
-                                                        if($plan["res_type"] == 0){
-                                                            if(intval($time) > intval($plan['res_end_time'])){
-                                                                echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
-                                                            }
-                                                            else{
-                                                                echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
-                                                            }
+                                                if ($compare > 0) {
+                                                    echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                } elseif ($compare == 0) {
+                                                    if ($plan["res_type"] == 0) {
+                                                        if (intval($time) > intval($plan['res_end_time'])) {
+                                                            echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                        } else {
+                                                            echo '<p class="btnP"><a href="'.ndAppUrl("detail.php?plan_id={$plan['id']}").'" class="btnLink01">プラン詳細をみる</a></p>';
                                                         }
-                                                        else{
-                                                            if(intval($time) > intval($plan['req_before_time'])){
-                                                                echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
-                                                            }
-                                                            else{
-                                                                echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
-                                                            }
+                                                    } else {
+                                                        if (intval($time) > intval($plan['req_before_time'])) {
+                                                            echo '<p class="btnP btnLink01" style="background:#777">プラン終了</p>';
+                                                        } else {
+                                                            echo '<p class="btnP"><a href="'.ndAppUrl("detail.php?plan_id={$plan['id']}").'" class="btnLink01">プラン詳細をみる</a></p>';
                                                         }
-
                                                     }
-                                                    else{
-                                                        echo '<p class="btnP"><a href="https://zenryo.zenryo-ec.info/detail.php?plan_id='. htmlspecialchars($plan["id"]) .'" class="btnLink01">プラン詳細をみる</a></p>';
-                                                    }
-                                                    ?>
+                                                } else {
+                                                    echo '<p class="btnP"><a href="'.ndAppUrl("detail.php?plan_id={$plan['id']}").'" class="btnLink01">プラン詳細をみる</a></p>';
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
@@ -225,7 +217,7 @@ $kinds = ndCurlExecJson('api/kinds/json');
             <div class="footer-top">
                 <div class="container">
                     <p class="syamei_footer">長野電鉄株式会社</p>
-                    <a href="/" class="logo syamei_footer_logo"><img src="https://zenryo.zenryo-ec.info/assets/img/logo3.png" alt="" /></a>
+                    <a href="/" class="logo syamei_footer_logo"><img src="<?= ndAppUrl('assets/img/logo3.png') ?>" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
                         <p class="post">〒380-0823</p>
@@ -254,7 +246,7 @@ $kinds = ndCurlExecJson('api/kinds/json');
                     <span class="menu"><a href="/company">会社概要</a></span>
                     <span class="menu"><a href="/category/news">新着情報</a></span>
                     <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                    <span class="menu"><a href="/plan/list.php">ツアー紹介</a></span>
+                    <span class="menu"><a href="<?= ndAppUrl('list.php') ?>">ツアー紹介</a></span>
                     <span class="menu"><a href="/agreement">旅行業約款</a></span>
                 </div>
             </div>
@@ -264,7 +256,7 @@ $kinds = ndCurlExecJson('api/kinds/json');
         </div>
     </footer>
 
-    <script src="https://zenryo.zenryo-ec.info/libs/slick/slick.min.js"></script>
-    <script src="https://zenryo.zenryo-ec.info/assets/js/theme.js"></script>
+    <script src="<?= ndAppUrl('libs/slick/slick.min.js') ?>"></script>
+    <script src="<?= ndAppUrl('assets/js/theme.js') ?>"></script>
 </body>
 </html>
