@@ -78,7 +78,7 @@
                             @endif
                             </div>
                             <div class="col-md-4">
-			        <small class="text-red">※クレジットカード決済の場合、決済日から60日を超えるとDGFT側の決済をキャンセルすることはできません</small>
+			                    <small class="text-red">※クレジットカード決済の場合、決済日から60日を超えるとDGFT側の決済をキャンセルすることはできません</small>
                             </div>
                         </div>
                         @foreach ($reservations->plan->activities as $activity)
@@ -219,7 +219,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('郵便番号') }}</label>
                         <div class="col-md-3">
-                            <input id="" type="text" class="form-control" name="add_postalcode" value="{{ old('add_postalcode',$reservations->add_postalcode) }}" onKeyUp="AjaxZip3.zip2addr(this,'','prefecture','address');" required>
+                            <input id="" type="text" class="form-control" name="add_postalcode" value="{{ old('add_postalcode',$reservations->add_postalcode) }}" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -328,6 +328,7 @@
 
                     @if($reservations->companion_name_last != "null")
                         @foreach( json_decode($reservations->companion_name_last) as $key=>$custom)
+                        <div class="companionAddress">
                             <div class="form-group row border-top pt-1">
                                 <label for="" class="col-md-3 col-form-label text-md-right">同行者氏名(漢字)</label>
                                 <div class="row align-items-center col-md-3">
@@ -354,7 +355,7 @@
                                 <div class="row align-items-center col-md-3">
                                     <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイ') }}</label>
                                     <div class="col ml-2">
-                                    <input id="" type="text" class="for/m-control" name="companion_kana_first[]" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required>
+                                    <input id="" type="text" class="form-control" name="companion_kana_first[]" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required>
                                     </div>
                                 </div>
                             </div>
@@ -381,6 +382,82 @@
                                     </select>
                                 </div>
                             </div>
+
+                            @if (isset($reservations->companion_postalCode) && count(json_decode($reservations->companion_postalCode)) > 0)
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('郵便番号') }}</label>
+                                <div class="col-md-3">
+                                    <input id="" type="text" class="form-control" name="companion_postalCode[]" value="{{ old('companion_postalCode',json_decode($reservations->companion_postalCode)[$key]) }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 都道府県</label>
+                                <div class="col-md-3">
+                                    <select class="form-control" name="companion_prefecture[]">
+                                        <option value="">選択してください</option>
+                                         <option value="北海道" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='北海道') selected @endif>北海道</option>
+                                        <option value="青森県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='青森県') selected @endif>青森県</option>
+                                        <option value="岩手県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='岩手県') selected @endif>岩手県</option>
+                                        <option value="宮城県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='宮城県') selected @endif>宮城県</option>
+                                        <option value="秋田県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='秋田県') selected @endif>秋田県</option>
+                                        <option value="山形県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='山形県') selected @endif>山形県</option>
+                                        <option value="福島県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='福島県') selected @endif>福島県</option>
+                                        <option value="茨城県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='茨城県') selected @endif>茨城県</option>
+                                        <option value="栃木県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='栃木県') selected @endif>栃木県</option>
+                                        <option value="群馬県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='群馬県') selected @endif>群馬県</option>
+                                        <option value="埼玉県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='埼玉県') selected @endif>埼玉県</option>
+                                        <option value="千葉県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='千葉県') selected @endif>千葉県</option>
+                                        <option value="東京都" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='東京都') selected @endif>東京都</option>
+                                        <option value="神奈川県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='神奈川県') selected @endif>神奈川県</option>
+                                        <option value="新潟県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='新潟県') selected @endif>新潟県</option>
+                                        <option value="富山県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='富山県') selected @endif>富山県</option>
+                                        <option value="石川県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='石川県') selected @endif>石川県</option>
+                                        <option value="福井県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='福井県') selected @endif>福井県</option>
+                                        <option value="山梨県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='山梨県') selected @endif>山梨県</option>
+                                        <option value="長野県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='長野県') selected @endif>長野県</option>
+                                        <option value="岐阜県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='岐阜県') selected @endif>岐阜県</option>
+                                        <option value="静岡県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='静岡県') selected @endif>静岡県</option>
+                                        <option value="愛知県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='愛知県') selected @endif>愛知県</option>
+                                        <option value="三重県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='三重県') selected @endif>三重県</option>
+                                        <option value="滋賀県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='滋賀県') selected @endif>滋賀県</option>
+                                        <option value="京都府" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='京都府') selected @endif>京都府</option>
+                                        <option value="大阪府" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='大阪府') selected @endif>大阪府</option>
+                                        <option value="兵庫県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='兵庫県') selected @endif>兵庫県</option>
+                                        <option value="奈良県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='奈良県') selected @endif>奈良県</option>
+                                        <option value="和歌山県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='和歌山県') selected @endif>和歌山県</option>
+                                        <option value="鳥取県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='鳥取県') selected @endif>鳥取県</option>
+                                        <option value="島根県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='島根県') selected @endif>島根県</option>
+                                        <option value="岡山県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='岡山県') selected @endif>岡山県</option>
+                                        <option value="広島県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='広島県') selected @endif>広島県</option>
+                                        <option value="山口県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='山口県') selected @endif>山口県</option>
+                                        <option value="徳島県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='徳島県') selected @endif>徳島県</option>
+                                        <option value="香川県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='香川県') selected @endif>香川県</option>
+                                        <option value="愛媛県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='愛媛県') selected @endif>愛媛県</option>
+                                        <option value="高知県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='高知県') selected @endif>高知県</option>
+                                        <option value="福岡県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='福岡県') selected @endif>福岡県</option>
+                                        <option value="佐賀県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='佐賀県') selected @endif>佐賀県</option>
+                                        <option value="長崎県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='長崎県') selected @endif>長崎県</option>
+                                        <option value="熊本県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='熊本県') selected @endif>熊本県</option>
+                                        <option value="大分県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='大分県') selected @endif>大分県</option>
+                                        <option value="宮崎県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='宮崎県') selected @endif>宮崎県</option>
+                                        <option value="鹿児島県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='鹿児島県') selected @endif>鹿児島県</option>
+                                        <option value="沖縄県" @if(old('companion_prefecture',json_decode($reservations->companion_prefecture)[$key])=='沖縄県') selected @endif>沖縄県</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('住所') }}</label>
+                                <div class="col-md-6">
+                                    <input id="" type="text" class="form-control" name="companion_address[]" value="{{ old('companion_address',json_decode($reservations->companion_address)[$key]) }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right"> {{ __('マンション・ビル名') }}</label>
+                                <div class="col-md-6">
+                                    <input id="" type="text" class="form-control" name="companion_extended[]" @if (count(json_decode($reservations->companion_extended))>0) value="{{ old('companion_extended',json_decode($reservations->companion_extended)[$key]) }}" @endif required>
+                                </div>
+                            </div>
+                            @endif
                             @if (isset($pieces) && count($pieces) > 0)
 
                             <div class="form-group row">
@@ -409,9 +486,12 @@
                             </div>
                             @endif
 
-
+                        </div>
                         @endforeach
                     @endif
+
+
+
 
 
 
@@ -647,43 +727,44 @@
 @stop
 
 @section('js')
+<script src="{{asset('libs/jquery/jquery-3.4.1.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/default.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/featherlight.js')}}"></script>
 <script>
-$(document).ready(function(){
-    var totalNumber = 0,
-        totalPrice = 0;
-@if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations))
-    @if($Number_of_reservations->custom_flg == 1)
+    $(document).ready(function(){
+        var totalNumber = 0,
+            totalPrice = 0;
+        @if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations))
+        @if($Number_of_reservations->custom_flg == 1)
         for (var i = 1 ; i <= 20 ; i++) {
-    @endif
-@else
-    for (var i = 1 ; i <= 6 ; i++) {
-@endif
-        if ($('#per-number' + i).val()) {
-            var tmpPerNumber = $.trim($('#per-number' + i).val()),
-                perNumber = parseInt(tmpPerNumber);
-                totalNumber += perNumber;
+        @endif
+        @else
+        for (var i = 1 ; i <= 6 ; i++) {
+        @endif
+            if ($('#per-number' + i).val()) {
+                var tmpPerNumber = $.trim($('#per-number' + i).val()),
+                    perNumber = parseInt(tmpPerNumber);
+                    totalNumber += perNumber;
+            }
+            if ($('#per-price' + i).val()) {
+                var tmpPerPrice = $.trim($('#per-price' + i).val()),
+                    perPrice = parseInt(tmpPerPrice);
+                    totalPrice += perPrice;
+            }
         }
-        if ($('#per-price' + i).val()) {
-            var tmpPerPrice = $.trim($('#per-price' + i).val()),
-                perPrice = parseInt(tmpPerPrice);
-                totalPrice += perPrice;
-        }
-    }
-    $('#total-number').text(totalNumber + ' 名');
-    $('#total-price').text(totalPrice.toLocaleString() + ' 円');
-});
-$('.update-price').click(function() {
-    var totalNumber = 0,
-        totalPrice = 0;
-@if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations))
-    @if($Number_of_reservations->custom_flg == 1)
-        for (var i = 1 ; i <= 20 ; i++) {
-    @endif
-@else
-    for (var i = 1 ; i <= 6 ; i++) {
-@endif
+        $('#total-number').text(totalNumber + ' 名');
+        $('#total-price').text(totalPrice.toLocaleString() + ' 円');
+    });
+    $('.update-price').click(function() {
+        var totalNumber = 0,
+            totalPrice = 0;
+        @if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations))
+            @if($Number_of_reservations->custom_flg == 1)
+                for (var i = 1 ; i <= 20 ; i++) {
+            @endif
+        @else
+            for (var i = 1 ; i <= 6 ; i++) {
+        @endif
         if ($('#per-number' + i).val()) {
             var tmpPerNumber = $.trim($('#per-number' + i).val()),
                 perNumber = parseInt(tmpPerNumber);
@@ -694,121 +775,172 @@ $('.update-price').click(function() {
             $('#per-text-price' + i).text(price.toLocaleString() + " 円");
                 totalPrice += price;
         }
-    }
-    $('#total-number').text(totalNumber + ' 名');
-    $('#total-price').text(totalPrice.toLocaleString() + ' 円');
-});
+        }
+        $('#total-number').text(totalNumber + ' 名');
+        $('#total-price').text(totalPrice.toLocaleString() + ' 円');
+    });
 
-// 送信ボタン切り分け
-$('.submit').click(function(event) {
-    $(this).parents('form').attr('action', $(this).data('action'));
-    $(this).click();
-});
-$('.submit-send').click(function() {
-    $flag = true;
-    @php
-    if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations)){
-        if($Number_of_reservations->custom_flg == 1){
-            for($i=1;$i<=20;$i++){
-                if(array_key_exists($i, $Number_req)){
-                    if(!is_null($Number_req[$i])){
-                        echo "if($('#per-number" . $i . "').length){\nif($('#per-number" . $i . "').val() != " . $Number_req[$i] . "){\$flag = false;\n}\n}";
+    // 送信ボタン切り分け
+    $('.submit').click(function(event) {
+        $(this).parents('form').attr('action', $(this).data('action'));
+        $(this).click();
+    });
+    $('.submit-send').click(function() {
+        $flag = true;
+        @php
+        if(array_key_exists('custom_flg', (array)$Number_of_reservations) && array_key_exists('price_name', (array)$Number_of_reservations)){
+            if($Number_of_reservations->custom_flg == 1){
+                for($i=1;$i<=20;$i++){
+                    if(array_key_exists($i, $Number_req)){
+                        if(!is_null($Number_req[$i])){
+                            echo "if($('#per-number" . $i . "').length){\nif($('#per-number" . $i . "').val() != " . $Number_req[$i] . "){\$flag = false;\n}\n}";
+                        }
                     }
                 }
             }
-        }
-    }else{
-        for($i=1;$i<=6;$i++){
-            if(array_key_exists($i, $Number_req)){
-                echo "if($('#per-number" . $i . "').length){\nif($('#per-number" . $i . "').val() != " . $Number_req[$i] . "){\$flag = false;\n}\n}";
+        }else{
+            for($i=1;$i<=6;$i++){
+                if(array_key_exists($i, $Number_req)){
+                    echo "if($('#per-number" . $i . "').length){\nif($('#per-number" . $i . "').val() != " . $Number_req[$i] . "){\$flag = false;\n}\n}";
+                }
             }
         }
-    }
-    @endphp
-    if($flag){
-        var checked = confirm("【確認】送信してよろしいですか？");
+        @endphp
+        if($flag){
+            var checked = confirm("【確認】送信してよろしいですか？");
+            if (checked == true) {
+                $(this).parents('form').attr('action', $(this).data('action'));
+                $(this).parents('form').submit();
+                return true;
+            } else {
+                return false;
+            }
+        }else{
+            confirm("価格表を更新した後は「変更する」ボタンをクリック");
+            return false;
+        }
+
+    });
+    function goCreditCancel1() {
+        //$(".popup-overlay, .popup-content").addClass("active");
+        var checked = confirm("【確認】返金処理を実行してよろしいですか？");
         if (checked == true) {
-            $(this).parents('form').attr('action', $(this).data('action'));
-            $(this).parents('form').submit();
+            $('select[name="status"]').val("キャンセル");
+            $('#credit_cancel_flg').val(1);
+            $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
+            $('.submit').parents('form').submit();
             return true;
         } else {
             return false;
         }
-    }else{
-        confirm("価格表を更新した後は「変更する」ボタンをクリック");
-        return false;
     }
-
-});
-function goCreditCancel1() {
-    //$(".popup-overlay, .popup-content").addClass("active");
-    var checked = confirm("【確認】返金処理を実行してよろしいですか？");
-    if (checked == true) {
+    function goCancel() {
+        var checked = confirm("【確認】キャンセル処理を実行してよろしいですか？");
+        if (checked == true) {
+            $('select[name="status"]').val("キャンセル");
+            $('#credit_cancel_flg').val(0);
+            $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
+            $('.submit').parents('form').submit();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function goCreditCancel2() {
         $('select[name="status"]').val("キャンセル");
         $('#credit_cancel_flg').val(1);
         $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
         $('.submit').parents('form').submit();
         return true;
-    } else {
-        return false;
     }
-}
-function goCancel() {
-    var checked = confirm("【確認】キャンセル処理を実行してよろしいですか？");
-    if (checked == true) {
-        $('select[name="status"]').val("キャンセル");
-        $('#credit_cancel_flg').val(0);
+    $(".close, .popup-overlay").on("click", function(){
+        $(".popup-overlay, .popup-content").removeClass("active");
+        return false;
+    });
+    $('.custom-table').click(function() {
+        $('#custom_flg').val(1);
         $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
         $('.submit').parents('form').submit();
         return true;
-    } else {
+    });
+    function addLine($line) {
+        $linecount = parseInt($('#linecount').val());
+        $('#addline' + ($line - 1)).attr('style', 'display: none;');
+        $('#addline' + $line).attr('style', '');
+        $('#line' + $line).attr('style', '');
+        if($linecount<20){
+            $linecount = $linecount +1;
+            $('#linecount').val($linecount);
+        }
         return false;
     }
-}
-function goCreditCancel2() {
-    $('select[name="status"]').val("キャンセル");
-    $('#credit_cancel_flg').val(1);
-    $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
-    $('.submit').parents('form').submit();
-      return true;
-}
-$(".close, .popup-overlay").on("click", function(){
-  $(".popup-overlay, .popup-content").removeClass("active");
-  return false;
-});
-$('.custom-table').click(function() {
-    $('#custom_flg').val(1);
-    $('.submit').parents('form').attr('action', '{{config('app.url')}}client/reservations/update/{{ $reservations->id }}');
-    $('.submit').parents('form').submit();
-    return true;
-});
-function addLine($line) {
-    $linecount = parseInt($('#linecount').val());
-    $('#addline' + ($line - 1)).attr('style', 'display: none;');
-    $('#addline' + $line).attr('style', '');
-    $('#line' + $line).attr('style', '');
-    if($linecount<20){
-        $linecount = $linecount +1;
-        $('#linecount').val($linecount);
+    function delLine($line) {
+        $linecount = parseInt($('#linecount').val());
+        for($i=$line;$i<=$linecount;$i++){
+            $('#price_name' + $i).val($('#price_name' + ($i+1)).val());
+            $('#price' + $i).val($('#price' + ($i+1)).val());
+            $('#per-number' + $i).val($('#per-number' + ($i+1)).val());
+        }
+        if($linecount>6){
+            $('#addline' + ($linecount - 1)).attr('style', '');
+            $('#addline' + $linecount).attr('style', 'display: none;');
+            $('#line' + ($linecount - 1)).attr('style', '');
+            $('#line' + $linecount).attr('style', 'display: none;');
+            $linecount = $linecount -1;
+            $('#linecount').val($linecount);
+        }
+        return false;
     }
-    return false;
-}
-function delLine($line) {
-    $linecount = parseInt($('#linecount').val());
-    for($i=$line;$i<=$linecount;$i++){
-        $('#price_name' + $i).val($('#price_name' + ($i+1)).val());
-        $('#price' + $i).val($('#price' + ($i+1)).val());
-        $('#per-number' + $i).val($('#per-number' + ($i+1)).val());
-    }
-    if($linecount>6){
-        $('#addline' + ($linecount - 1)).attr('style', '');
-        $('#addline' + $linecount).attr('style', 'display: none;');
-        $('#line' + ($linecount - 1)).attr('style', '');
-        $('#line' + $linecount).attr('style', 'display: none;');
-        $linecount = $linecount -1;
-        $('#linecount').val($linecount);
-    }
-    return false;
-}
+
+    $("input[name='add_postalcode']").on("input", function() {
+        let zipcode = $(this).val();
+        let getUrl = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+
+        if(zipcode.length > 6 && zipcode.length < 9){
+            $.ajax({
+                method: "POST",
+                url: getUrl,
+                success: function(data) {
+                    if(JSON.parse(data).results){
+                        let pref = JSON.parse(data).results[0].address1;
+                        let address = JSON.parse(data).results[0].address2 + JSON.parse(data).results[0].address3
+                        $('select[name="add_prefecture"]').val(pref);
+                        $('input[name="add_address"]').val(address);
+                    }
+                },
+                error: function (data) {
+                }
+            })
+        }
+
+    })
+
+    $(".companionAddress").each(function () {
+        $this = $(this);
+        let eventTag = $(this).find('input[name="companion_postalCode[]"]');
+        eventTag.on("input", function() {
+            let zipcode = $(this).val();
+            let getUrl = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+
+            if(zipcode.length > 6 && zipcode.length < 9){
+                $.ajax({
+                    method: "POST",
+                    url: getUrl,
+                    success: function(data) {
+                        if(JSON.parse(data).results){
+                            let pref = JSON.parse(data).results[0].address1;
+                            let address = JSON.parse(data).results[0].address2 + JSON.parse(data).results[0].address3
+                            $this.find('select[name="companion_prefecture[]"]').val(pref);
+                            $this.find('input[name="companion_address[]"]').val(address);
+                        }
+                    },
+                    error: function (data) {
+                    }
+                })
+            }
+
+        })
+    })
 </script>
+
 @stop

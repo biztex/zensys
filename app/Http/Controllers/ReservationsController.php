@@ -141,6 +141,7 @@ class ReservationsController extends Controller
             'kana_first' => ['required', 'regex:/^[ァ-ヾ　〜ー]+$/u', 'max:50'],
             'email' => ['required', 'email', 'max:100'],
             'postalcode' => ['required', 'string', 'max:8'],
+            'companion_postalCode.*' => ['required', 'string', 'max:8', new ZipcodeRule],
             'prefecture' => ['required', 'string', 'max:5'],
             'tel' => ['required', 'string', 'max:50'],
             'birth_year' => ['required', 'numeric'],
@@ -310,6 +311,10 @@ class ReservationsController extends Controller
         $temp_companion_kana_last = [];
         $temp_companion_age = [];
         $temp_companion_gender = [];
+        $temp_companion_postalCode = [];
+        $temp_companion_prefecture = [];
+        $temp_companion_address = [];
+        $temp_companion_extended = [];
         $temp_companion_birth = [];
         $temp_companion_boarding = [];
         $temp_companion_drop = [];
@@ -321,6 +326,10 @@ class ReservationsController extends Controller
             $temp_companion_kana_last[$i-1]     = $request->join_kana2[$i];
             $temp_companion_age[$i-1]           = $request->join_age[$i];
             $temp_companion_gender[$i-1]        = $request->join_sex[$i];
+            $temp_companion_postalCode[$i-1]    = $request->companion_postalCode[$i-1];
+            $temp_companion_prefecture[$i-1]    = $request->companion_prefecture[$i-1];
+            $temp_companion_address[$i-1]       = $request->companion_address[$i-1];
+            $temp_companion_extended[$i-1]      = $request->companion_extended[$i-1];
             $temp_companion_birth[$i-1]         = $request->birth_year_representative[$i] .'-'.  $request->birth_month_representative[$i].'-' . $request->birth_day_representative[$i];
             if(isset($request->boarding[$i])){
                 $temp_companion_boarding[$i-1] = $request->boarding[$i];
@@ -339,6 +348,10 @@ class ReservationsController extends Controller
         $reservation->companion_kana_last   = json_encode($temp_companion_kana_last);
         $reservation->companion_age         = json_encode($temp_companion_age);
         $reservation->companion_gender      = json_encode($temp_companion_gender);
+        $reservation->companion_postalCode  = json_encode($temp_companion_postalCode);
+        $reservation->companion_prefecture  = json_encode($temp_companion_prefecture);
+        $reservation->companion_address     = json_encode($temp_companion_address);
+        $reservation->companion_extended    = json_encode($temp_companion_extended);
         $reservation->companion_birth       = json_encode($temp_companion_birth);
         $reservation->companion_boarding    = json_encode($temp_companion_boarding);
         $reservation->companion_drop        = json_encode($temp_companion_drop);
@@ -682,7 +695,6 @@ class ReservationsController extends Controller
     public function confirmForUser(Request $request)
     {
 
-
         $rules = [
             'plan_id' => ['required', 'numeric'],
             'date' => ['required', 'date'],
@@ -694,6 +706,7 @@ class ReservationsController extends Controller
             'email' => 'required|string|email|max:255|confirmed',
             'postalcode' => ['required', 'string', 'max:8', new ZipcodeRule],
             'postalcode_representative' => ['required', 'string', 'max:8', new ZipcodeRule],
+            'companion_postalCode.*' => ['required', 'string', 'max:8', new ZipcodeRule],
             'prefecture' => ['required', 'string', 'max:5'],
             'tel' => ['required', 'string', 'max:50'],
             'birth_year' => ['required', 'numeric'],
@@ -850,6 +863,10 @@ class ReservationsController extends Controller
         $info['join_kana2']                 = $request->join_kana2;
         $info['join_age']                   = $request->join_age;
         $info['join_sex']                   = $request->join_sex;
+        $info['companion_postalCode']       = $request->companion_postalCode;
+        $info['companion_prefecture']       = $request->companion_prefecture;
+        $info['companion_address']          = $request->companion_address;
+        $info['companion_extended']         = $request->companion_extended;
         $info['birth_year_representative']  = $request->birth_year_representative;
         $info['birth_month_representative'] = $request->birth_month_representative;
         $info['birth_day_representative']   = $request->birth_day_representative;
@@ -878,6 +895,7 @@ class ReservationsController extends Controller
                 }
             }
         }
+
 
         return view(
             'user.reservations.confirm',
@@ -1395,6 +1413,10 @@ class ReservationsController extends Controller
         $reservation->companion_kana_last   = json_encode($request->companion_kana_last);
         $reservation->companion_age         = json_encode($request->companion_age);
         $reservation->companion_gender      = json_encode($request->companion_gender);
+        $reservation->companion_postalCode  = json_encode($request->companion_postalCode);
+        $reservation->companion_prefecture  = json_encode($request->companion_prefecture);
+        $reservation->companion_address     = json_encode($request->companion_address);
+        $reservation->companion_extended    = json_encode($request->companion_extended);
         $reservation->companion_birth       = json_encode($request->companion_birth);
         $reservation->companion_boarding    = json_encode($request->companion_boarding);
         $reservation->companion_drop        = json_encode($request->companion_drop);

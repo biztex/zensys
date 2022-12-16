@@ -4291,6 +4291,10 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+button{
+    cursor: pointer;
 }
 
 .thanksCont {
@@ -5055,8 +5059,8 @@ ul {
 }
 
 .detailTable td:nth-of-type(1) table,
-.detailTable td:nth-of-type(2) table, 
-.detailTable td:nth-of-type(3) table, 
+.detailTable td:nth-of-type(2) table,
+.detailTable td:nth-of-type(3) table,
 .detailTable td:nth-of-type(4) table{
     width: 100%;
 }
