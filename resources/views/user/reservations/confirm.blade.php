@@ -280,6 +280,15 @@
                                                 @endif
                                             </td>
                                         </tr>
+
+                                        <tr class="zipTr">
+                                            <th class="topTh">住所</th>
+                                            <td>
+                                                <p>〒{{$info['companion_postalCode'][$i-1]}}</p>
+                                                <p>{{$info['companion_prefecture'][$i-1]}}</p>
+                                                <p>{{$info['companion_address'][$i-1]}} {{$info['companion_extended'][$i-1]}}</p>
+                                            </td>
+                                        </tr>
                                         @if( isset($info['drop'][$i]) && $info['boarding'][$i] != null)
                                         <tr>
                                             <th>乗車地</th>

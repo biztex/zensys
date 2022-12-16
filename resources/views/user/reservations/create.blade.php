@@ -280,7 +280,7 @@
                                                 <span class="errorMessage"></span>
                                             </div>
                                             <select  id="contact_address_pref" name="prefecture" required class="p-region midIpt">
-                                            <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
+                                                <option value="北海道" @if(old('prefecture')=='北海道') selected @endif>北海道</option>
                                                 <option value="青森県" @if(old('prefecture')=='青森県') selected @endif>青森県</option>
                                                 <option value="岩手県" @if(old('prefecture')=='岩手県') selected @endif>岩手県</option>
                                                 <option value="宮城県" @if(old('prefecture')=='宮城県') selected @endif>宮城県</option>
@@ -328,6 +328,7 @@
                                                 <option value="鹿児島県" @if(old('prefecture')=='鹿児島県') selected @endif>鹿児島県</option>
                                                 <option value="沖縄県" @if(old('prefecture')=='沖縄県') selected @endif>沖縄県</option>
                                             </select>
+
                                             <div class="zipP02">
                                                 <p>市区郡町村</p>
                                                 <input type="text" name="address" class="width-half p-locality p-street-address" value="{{ old('address') }}" required>
@@ -382,9 +383,13 @@
 
                                         </td>
                                     </tr>
+
                                     @endif
+
                                 </table>
                             </div>
+
+
                             <script>
                                 var value = 0;
                                 $('input[type=radio][name=radio_sex]').click(function() {
@@ -438,12 +443,41 @@
 
                                     $(".reserveAdd").before('<div class="reserveList helperNone'+ count +'" id="reserveList"></div>')
                                     $(".reserveList.helperNone"+count).load('{{config('app.url')}}html/reservation-companion.php' , function(e){
-
                                         $data_boarding = $(".par_boarding").children().clone();
                                         $data_drop = $(".par_drop").children().clone();
                                         $(this).find('.child_boarding').append($data_boarding);
                                         $(this).find('.child_drop').append($data_drop);
+
+                                        $(".companionAddress").each(function () {
+                                            $this = $(this);
+                                            let eventTag = $(this).find('input[name="companion_postalCode[]"]');
+                                            eventTag.on("input", function() {
+                                                let zipcode = $(this).val();
+                                                let getUrl = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+
+                                                if(zipcode.length > 6 && zipcode.length < 9){
+                                                    $.ajax({
+                                                        method: "POST",
+                                                        url: getUrl,
+                                                        success: function(data) {
+                                                            if(JSON.parse(data).results){
+                                                                let pref = JSON.parse(data).results[0].address1;
+                                                                let address = JSON.parse(data).results[0].address2 + JSON.parse(data).results[0].address3
+                                                                $this.find('select[name="companion_prefecture[]"]').val(pref);
+                                                                $this.find('input[name="companion_address[]"]').val(address);
+                                                            }
+                                                        },
+                                                        error: function (data) {
+                                                        }
+                                                    })
+                                                }
+
+                                            })
+                                        })
+
                                     });
+
+
                                 })
 
                                 $(document).on('click','.reserveDelete',function(){
@@ -1119,6 +1153,57 @@
             //郵便番号
             let regexpZip = /^\d{7}$/;
 
+            $(".companionAddress").each(function(){
+                $this = $(this);
+                let companion_postalCode = $this.find("input[name='companion_postalCode[]']");
+                let companion_address = $this.find("input[name='companion_address[]']");
+                let companion_extended = $this.find("input[name='companion_extended[]']");
+                if(companion_postalCode.val() == ''){
+                    companion_postalCode.addClass("error");
+                    companion_postalCode.parent().next().addClass("error");
+                    companion_postalCode.parent().next().text("※郵便番号を入力してください");
+                    if(top_pos == null){
+                        top_pos = companion_postalCode.offset().top;
+                    }
+                }
+                else{
+                    if(regexpZip.test(companion_postalCode.val()) == true){
+                        companion_postalCode.removeClass("error");
+                        companion_postalCode.parent().next().removeClass("error");
+                    }
+                    else{
+                        companion_postalCode.addClass("error");
+                        companion_postalCode.parent().next().addClass("error");
+                        companion_postalCode.parent().next().text("※郵便番号(半角数字)入力形式を確認してください");
+                        if(top_pos == null){
+                            top_pos = companion_postalCode.offset().top;
+                        }
+                    }
+
+                }
+
+                if(companion_address.val() !== "" ){
+                    companion_address.removeClass("error");
+                }
+                else {
+                    companion_address.addClass("error");
+                    if(top_pos == null){
+                        top_pos = companion_address.offset().top;
+                    }
+                }
+
+                if(companion_extended.val() !== "" ){
+                    companion_extended.removeClass("error");
+                }
+
+                else {
+                    companion_extended.addClass("error");
+                    if(top_pos == null){
+                        top_pos = companion_extended.offset().top;
+                    }
+                }
+            })
+
             if($("input[name='postalcode']").val() == ''){
                 $("input[name='postalcode']").addClass("error");
                 $("input[name='postalcode']").parent().next().addClass("error");
@@ -1655,7 +1740,9 @@
             }
 
 
-        })  ;
+        })
+
+
 
     </script>
 </body>
