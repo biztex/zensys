@@ -894,7 +894,7 @@
 
     $("input[name='add_postalcode']").on("input", function() {
         let zipcode = $(this).val();
-        let getUrl = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+        let getUrl = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
 
         if(zipcode.length > 6 && zipcode.length < 9){
             $.ajax({
@@ -920,7 +920,7 @@
         let eventTag = $(this).find('input[name="companion_postalCode[]"]');
         eventTag.on("input", function() {
             let zipcode = $(this).val();
-            let getUrl = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+            let getUrl = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
 
             if(zipcode.length > 6 && zipcode.length < 9){
                 $.ajax({
