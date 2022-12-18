@@ -278,7 +278,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('住所') }}</label>
+                        <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('市区郡町村') }}</label>
                         <div class="col-md-6">
                             <input id="" type="text" class="form-control" name="add_address" value="{{ old('add_address',$reservations->add_address) }}" required>
                         </div>
@@ -446,7 +446,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('住所') }}</label>
+                                <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('市区郡町村') }}</label>
                                 <div class="col-md-6">
                                     <input id="" type="text" class="form-control" name="companion_address[]" value="{{ old('companion_address',json_decode($reservations->companion_address)[$key]) }}" required>
                                 </div>
