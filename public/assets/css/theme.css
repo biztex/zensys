@@ -80,7 +80,12 @@ select {
     text-align: center;
     font-size: 14px;
 }
+.copyAddress{
+    background: red !important;
+    color: white;
+    border: none !important;
 
+}
 @media screen and (max-width: 768px) {
     input[type=text],
     input[type=email],

@@ -1,5 +1,8 @@
 
-    <span class="requiredRed if-non-member">同行者がいない場合は×で入力枠を閉じて、確認画面へ進んでください。</span>
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <span class="requiredRed if-non-member">同行者がいない場合は×で入力枠を閉じて、確認画面へ進んでください。</span>
+        <div class="mr-5"><button type="button" class="grayBtn copyAddress helperTextOver">参加者と同行者がの住所が同一の場合<br>こちらをクリック</button></div>
+    </div>
     <table class="reserveTable">
         <tr class="nameTr">
             <th>同行者氏名(漢字)<span class="requiredRed">※</span></th>
