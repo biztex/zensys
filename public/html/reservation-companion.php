@@ -1,5 +1,5 @@
 
-    <div class="d-flex align-items-center mb-2">
+    <div class="d-flex align-items-center mb-2 flex-wrap justify-content-center justify-content-md-start">
         <span class="requiredRed if-non-member">同行者がいない場合は×で入力枠を閉じて、確認画面へ進んでください。</span>
         <div class="ml-3"><a type="button" class="grayBtn copyAddress helperTextOver">参加者と同行者がの住所が同一の場合<br>こちらをクリック</a></div>
     </div>
