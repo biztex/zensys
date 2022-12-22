@@ -7,6 +7,16 @@
 .page-wrapper .section.section--detail .calendarHd,
 .page-wrapper .section.section--detail .listItem .listItemCont > *,
 .page-wrapper .section.section--detail .listItem .listItemCont .printBtn {
+  display: block;
+}
+
+.printEnable .page-header,
+.printEnable .page-footer,
+.printEnable .page-wrapper .section,
+.printEnable .page-wrapper .section.section--detail .listItem > *,
+.printEnable .page-wrapper .section.section--detail .calendarHd,
+.printEnable .page-wrapper .section.section--detail .listItem .listItemCont > *,
+.printEnable .page-wrapper .section.section--detail .listItem .listItemCont .printBtn {
   display: none;
 }
 

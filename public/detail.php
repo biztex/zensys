@@ -556,7 +556,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                             </table>
                                         </div>
                                         <div class="detailItem printArea">
-                                            <p class="detailItemHd">行程表 <a href="javascript:;" onclick="window.print();" class="printBtn">印刷する</a></p>
+                                            <p class="detailItemHd">行程表 <a href="javascript:;" onclick="window.print();" class="printBtn" id="printBtn">印刷する</a></p>
                                             <table class="detailTable">
                                                 <colgroup class="pc">
                                                     <col width="">
@@ -1210,7 +1210,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                             </table>
                                         </div>
                                         <div class="detailItem printArea">
-                                            <p class="detailItemHd">行程表 <a href="javascript:;" onclick="window.print();" class="printBtn">印刷する</a></p>
+                                            <p class="detailItemHd">行程表 <a href="javascript:;" onclick="screenPrint()" class="printBtn">印刷する</a></p>
                                             <table class="detailTable">
                                                 <colgroup class="pc">
                                                     <col width="11.2%">
@@ -1910,6 +1910,20 @@ $('.reserve-button').click(function () {
     price_type_id = $('select[name="price_type_id"]').val();
     open("<?= ndAppUrl('reservations/create?plan_id=') ?>" + planId + "&date=" + date + '&is_request=' + resType + '&price_type_id=' + price_type_id, +"_blank");
 });
+function screenPrint(){
+    $('body').addClass('printEnable');
+    print();
+}
+
+
+let ev = document.body.addEventListener("click", bodyClick)
+let printButton = ""
+
+function bodyClick(event){
+    if(event.target.id !== 'printBtn'){
+        $('body').removeClass('printEnable');
+    }
+}
 
 </script>
 
