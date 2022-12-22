@@ -61,10 +61,11 @@ if (isset($_GET["year"]) && isset($_GET["month"])) {
     $current_m = $current_date->format('m');
     $next_m_date = $current_date->modify('first day of next month')->modify('last day of');
 } else {
-    $current_date = new DateTime(substr($plan["start_day"],0,7));
-    $current_y = $current_date->format('Y');
-    $current_m = $current_date->format('m');
-    $next_m_date = $current_date->modify('first day of next month')->modify('last day of');
+    $current = new DateTime('now');
+    $current_date = $current->format('d');;
+    $current_y = $current->format('Y');
+    $current_m = $current->format('m');
+    $next_m_date = $current->modify('first day of next month')->modify('last day of');
 }
 $next_y = $next_m_date->format('Y');
 $next_m = $next_m_date->format('m');
