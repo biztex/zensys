@@ -1513,17 +1513,7 @@ class PlansController extends Controller
         $plans->end_day = $request->end_day
             ? $request->end_day
             : new DateTime('now');
-        // $plans->repetition_flag = $request->repetition_flag;
-        // $plans->repetition_day = $request->repetition_day;
-        // $plans->monday = $request->monday;
-        // $plans->tuesday = $request->tuesday;
-        // $plans->wednesday = $request->wednesday;
-        // $plans->thursday = $request->thursday;
-        // $plans->friday = $request->friday;
-        // $plans->saturday = $request->saturday;
-        // $plans->sunday = $request->sunday;
-        // $plans->holiday_selected = $request->holiday_selected;
-        // $plans->holiday_nonselected = $request->holiday_nonselected;
+
 
         $plans->destination = $request->destination;
         $plans->eat = $request->eat;
@@ -1532,7 +1522,7 @@ class PlansController extends Controller
         $plans->conductor_selected = $request->conductor_selected;
         $plans->notice = $request->notice;
         $plans->notice2 = $request->notice2;
-        // $plans->deadline = $request->deadline;
+
         $plans->institution = $request->institution;
         $plans->transportation = $request->transportation;
         $plans->boarding = $request->boarding;
@@ -1551,7 +1541,7 @@ class PlansController extends Controller
         $plans->age_from = $request->age_from;
         $plans->age_to = $request->age_to;
         $plans->res_type = $request->res_type;
-        //$plans->res_end_flag = $request->res_end_flag;
+
         $plans->res_before_day = $request->res_before_day
             ? $request->res_before_day
             : '0';
@@ -1566,12 +1556,10 @@ class PlansController extends Controller
         $plans->req_before_day = $request->req_before_day;
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
-        // $plans->res_limit_flag = $request->res_limit_flag;
         $plans->res_limit_number = $request->res_limit_number;
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
 
-        //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
         $plans->visa = $request->visa;
@@ -1586,31 +1574,13 @@ class PlansController extends Controller
         $plans->payment_comment = $request->payment_comment;
         $plans->payment_plus_day = $request->payment_plus_day;
         $plans->payment_final_deadline = $request->payment_final_deadline;
-        // $plans->is_discount = $request->is_discount;
         $plans->included_item = $request->included_item;
-        // $plans->place_name = $request->place_name ? $request->place_name : '';
-        // $plans->place_postalcode = $request->place_postalcode;
-        // $plans->place_prefecture = $request->place_prefecture;
-        // $plans->place_address = $request->place_address;
-        // $plans->place_access = $request->place_access;
-        // $plans->place_latitude = $request->place_latitude ? $request->place_latitude : '';
-        // $plans->place_longitude = $request->place_longitude ? $request->place_longitude : '';
-        // $plans->meeting_point_flag = $request->meeting_point_flag;
-        // $plans->meeting_point_name = $request->meeting_point_name;
-        // $plans->meeting_point_postalcode = $request->meeting_point_postalcode;
-        // $plans->meeting_point_prefecture = $request->meeting_point_prefecture;
-        // $plans->meeting_point_address = $request->meeting_point_address;
-        // $plans->meeting_point_access = $request->meeting_point_access;
-        // $plans->meeting_point_latitude = $request->meeting_point_latitude;
-        // $plans->meeting_point_longitude = $request->meeting_point_longitude;
         $plans->question_flag = $request->question_flag;
         $plans->question_content = json_encode($request->question_content);
 
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
-        // $plans->item = $request->item;
-        // $plans->wear = $request->wear;
         $plans->company_name = $request->company_name;
         $plans->company_number = $request->company_number;
         $plans->company_address = $request->company_address;
@@ -1683,21 +1653,7 @@ class PlansController extends Controller
             $price->plan_id = $id;
             $price->type = $request->{'price_type' . $i};
             $price->price = $request->{'price_price' . $i};
-            // $price->price = $request->{'price_price' . $i};
-            // if ($request->{'price_week_flag' . $i}) {
-            //     $price->week_flag = $request->{'price_week_flag' . $i};
-            // } else {
-            //     $price->week_flag = 0;
-            // }
-            // $price->before_price = $request->{'price_before_price' . $i};
-            // $price->monday = $request->{'price_monday' . $i};
-            // $price->tuesday = $request->{'price_tuesday' . $i};
-            // $price->wednesday = $request->{'price_wednesday' . $i};
-            // $price->thursday = $request->{'price_thursday' . $i};
-            // $price->friday = $request->{'price_friday' . $i};
-            // $price->saturday = $request->{'price_saturday' . $i};
-            // $price->sunday = $request->{'price_sunday' . $i};
-            // $price->holiday = $request->{'price_holiday' . $i};
+
             $price->a_1 = $request->{'price_a_1_' . $i};
             $price->a_2 = $request->{'price_a_2_' . $i};
             $price->a_3 = $request->{'price_a_3_' . $i};
@@ -1769,21 +1725,24 @@ class PlansController extends Controller
 
         // stocks
 
+        $old_stocks_data = Stock::where('plan_id', $id)->get();
+        Stock::where('plan_id', $id)->delete(); //既存の販売在庫をすべて削除
+
         $start_day = new Carbon($plans->start_day);
         $end_day = new Carbon($plans->end_day);
         $diff_days = $start_day->diffInDays($end_day);
+
         $loop_count = $diff_days + 1;
+
         for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
             $pc = 0;
             for ($ii = 1; $ii <= 6; $ii++) {
-                if (
-                    isset($request->{'price_type' . $ii}) ||
-                    $request->{'price_monday' . $ii}
-                ) {
+                if (($request->{'price_type' . $ii} == '0' || $request->{'price_type' . $ii}) || $request->{'price_monday' . $ii} ) {
                     $pc++;
                 }
             }
             for ($ii = 1; $ii <= $pc; $ii++) {
+
                 $price_type_id = $request->{'price_type' . $ii};
                 $stock = new Stock();
                 $stock->plan_id = $plans->id;
@@ -1791,76 +1750,26 @@ class PlansController extends Controller
                 $stock->res_date = $start_day;
                 $stock->is_active = 1;
                 $stock->res_type = $plans->res_type;
-                // $stock->limit_number = $plans->res_limit_number
-                //     ? $plans->res_limit_number
-                //     : '0';
+                $stock->limit_number = $plans->res_limit_number
+                    ? $plans->res_limit_number
+                    : '0';
                 $stock->save();
-            }
-        }
 
-        // if ($plans->repetition_flag == 0) {
-        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-        //         if (
-        //             ($plans->monday == 1 && $start_day->isMonday()) ||
-        //             ($plans->tuesday == 1 && $start_day->isTuesday()) ||
-        //             ($plans->wednesday == 1 && $start_day->isWednesday()) ||
-        //             ($plans->thursday == 1 && $start_day->isThursday()) ||
-        //             ($plans->friday == 1 && $start_day->isFriday()) ||
-        //             ($plans->saturday == 1 && $start_day->isSaturday()) ||
-        //             ($plans->sunday == 1 && $start_day->isSunday())
-        //         ) {
-        //             $pc = 0;
-        //             for ($ii = 1; $ii <= 6; $ii++) {
-        //                 if (
-        //                     $request->{'price_type' . $ii} ||
-        //                     $request->{'price_monday' . $ii}
-        //                 ) {
-        //                     $pc++;
-        //                 }
-        //             }
-        //             for ($ii = 1; $ii <= $pc; $ii++) {
-        //                 $price_type_id = $request->{'price_type' . $ii};
-        //                 $stock = new Stock();
-        //                 $stock->plan_id = $plans->id;
-        //                 $stock->price_type_id = $price_type_id;
-        //                 $stock->res_date = $start_day;
-        //                 $stock->is_active = 1;
-        //                 $stock->res_type = $plans->res_type;
-        //                 // $stock->limit_number = $plans->res_limit_number
-        //                 //     ? $plans->res_limit_number
-        //                 //     : '0';
-        //                 $stock->save();
-        //             }
-        //         }
-        //     }
-        // } else {
-        //     for ($i = 0; $i < $loop_count; $i++, $start_day->addDay()) {
-        //         if ($plans->repetition_day == $start_day->day) {
-        //             $pc = 0;
-        //             for ($ii = 1; $ii <= 6; $ii++) {
-        //                 if (
-        //                     $request->{'price_type' . $ii} ||
-        //                     $request->{'price_monday' . $ii}
-        //                 ) {
-        //                     $pc++;
-        //                 }
-        //             }
-        //             for ($ii = 1; $ii <= $pc; $ii++) {
-        //                 $price_type_id = $request->{'price_type' . $ii};
-        //                 $stock = new Stock();
-        //                 $stock->plan_id = $plans->id;
-        //                 $stock->price_type_id = $price_type_id;
-        //                 $stock->res_date = $start_day;
-        //                 $stock->is_active = 1;
-        //                 $stock->res_type = $plans->res_type;
-        //                 // $stock->limit_number = $plans->res_limit_number
-        //                 //     ? $plans->res_limit_number
-        //                 //     : '0';
-        //                 $stock->save();
-        //             }
-        //         }
-        //     }
-        // }
+            }
+
+
+        }
+		foreach ($old_stocks_data as $key => $value) {
+			Stock::where('plan_id', $value->plan_id)
+				->whereDate('res_date', $value->res_date)
+				->where('price_type_id', $value->price_type_id)
+				->update([
+				    'limit_number'  => $value->limit_number,
+				    'rank'          => $value->rank
+				]);
+		}
+
+
         return redirect('/client/plans/edit/' . $plans->id)->with(
             'message',
             '一時保存が完了しました'
@@ -2479,24 +2388,13 @@ class PlansController extends Controller
         $plans->description = $request->description;
         $plans->start_day = $request->start_day;
         $plans->end_day = $request->end_day;
-        // $plans->repetition_flag = $request->repetition_flag;
-        // $plans->repetition_day = $request->repetition_day;
-        // $plans->monday = $request->monday;
-        // $plans->tuesday = $request->tuesday;
-        // $plans->wednesday = $request->wednesday;
-        // $plans->thursday = $request->thursday;
-        // $plans->friday = $request->friday;
-        // $plans->saturday = $request->saturday;
-        // $plans->sunday = $request->sunday;
-        // $plans->holiday_selected = $request->holiday_selected;
-        // $plans->holiday_nonselected = $request->holiday_nonselected;
+
         $plans->is_autoextend = $request->is_autoextend;
         $plans->time_hour = $request->time_hour;
         $plans->time_minute = $request->time_minute;
         $plans->age_from = $request->age_from;
         $plans->age_to = $request->age_to;
         $plans->res_type = $request->res_type;
-        //$plans->res_end_flag = $request->res_end_flag;
         $plans->res_before_day = $request->res_before_day;
         $plans->res_before_type = $request->res_before_type;
         $plans->res_before_time = $request->res_before_time;
@@ -2507,7 +2405,6 @@ class PlansController extends Controller
         $plans->req_before_type = $request->req_before_type;
         $plans->req_before_time = $request->req_before_time;
 
-        // $plans->res_limit_flag = $request->res_limit_flag;
         if($request->res_type == 0){
             $plans->res_limit_number = $request->res_limit_number;
         }
@@ -2516,7 +2413,6 @@ class PlansController extends Controller
         }
         $plans->min_number = $request->min_number;
         $plans->max_number = $request->max_number;
-        //$plans->payment_method = $request->payment_method;
         $plans->cache_flag = $request->cache_flag;
         $plans->card_flag = $request->card_flag;
         $plans->visa = $request->visa;
@@ -2531,31 +2427,14 @@ class PlansController extends Controller
         $plans->payment_comment = $request->payment_comment;
         $plans->payment_plus_day = $request->payment_plus_day;
         $plans->payment_final_deadline = $request->payment_final_deadline;
-        // $plans->is_discount = $request->is_discount;
         $plans->included_item = $request->included_item;
-        // $plans->place_name = $request->place_name;
-        // $plans->place_postalcode = $request->place_postalcode;
-        // $plans->place_prefecture = $request->place_prefecture;
-        // $plans->place_address = $request->place_address;
-        // $plans->place_access = $request->place_access;
-        // $plans->place_latitude = $request->place_latitude;
-        // $plans->place_longitude = $request->place_longitude;
-        // $plans->meeting_point_flag = $request->meeting_point_flag;
-        // $plans->meeting_point_name = $request->meeting_point_name;
-        // $plans->meeting_point_postalcode = $request->meeting_point_postalcode;
-        // $plans->meeting_point_prefecture = $request->meeting_point_prefecture;
-        // $plans->meeting_point_address = $request->meeting_point_address;
-        // $plans->meeting_point_access = $request->meeting_point_access;
-        // $plans->meeting_point_latitude = $request->meeting_point_latitude;
-        // $plans->meeting_point_longitude = $request->meeting_point_longitude;
+
         $plans->question_flag = $request->question_flag;
         $plans->question_content = json_encode($request->question_content);
 
         $plans->answer_flag = $request->answer_flag;
         $plans->caution_flag = $request->caution_flag;
         $plans->caution_content = $request->caution_content;
-        // $plans->item = $request->item;
-        //$plans->wear = $request->wear;
         $plans->company_name = $request->company_name;
         $plans->company_number = $request->company_number;
         $plans->company_address = $request->company_address;
@@ -2641,8 +2520,8 @@ class PlansController extends Controller
 				->whereDate('res_date', $value->res_date)
 				->where('price_type_id', $value->price_type_id)
 				->update([
-					'limit_number'  => $value->limit_number,
-				   'rank'          => $value->rank
+				    'limit_number'  => $value->limit_number,
+				    'rank'          => $value->rank
 				]);
 		}
 
