@@ -423,6 +423,14 @@
                                    // $(".reserveItem").append($("#reserveList"),html())
                                 }
 
+                                $(document).on('click','.copyAddress',function(e){
+                                    let address = $(this).parent().parent().parent().find('table')
+                                    address.find("input[name='companion_postalCode[]']").first().val($("input[name='postalcode_representative']").val());
+                                    address.find("select[name='companion_prefecture[]']").first().val($("select[name='prefecture_representative']").val());
+                                    address.find("input[name='companion_address[]']").first().val($("input[name='address_representative']").val());
+                                    address.find("input[name='companion_extended[]']").first().val($("input[name='extended_representative']").val());
+                                })
+
                                 var count = 1;
 
 
@@ -453,7 +461,7 @@
                                             let eventTag = $(this).find('input[name="companion_postalCode[]"]');
                                             eventTag.on("input", function() {
                                                 let zipcode = $(this).val();
-                                                let getUrl = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
+                                                let getUrl = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + zipcode;
 
                                                 if(zipcode.length > 6 && zipcode.length < 9){
                                                     $.ajax({
