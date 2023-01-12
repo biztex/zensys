@@ -1765,7 +1765,9 @@ class PlansController extends Controller
 				->where('price_type_id', $value->price_type_id)
 				->update([
 				    'limit_number'  => $value->limit_number,
-				    'rank'          => $value->rank
+				    'rank'          => $value->rank,
+                    'is_active'     => $value->is_active,
+
 				]);
 		}
 
@@ -2521,7 +2523,8 @@ class PlansController extends Controller
 				->where('price_type_id', $value->price_type_id)
 				->update([
 				    'limit_number'  => $value->limit_number,
-				    'rank'          => $value->rank
+				    'rank'          => $value->rank,
+                    'is_active'     => $value->is_active,
 				]);
 		}
 
