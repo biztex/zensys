@@ -349,13 +349,13 @@
                                 <div class="row align-items-center col-md-3">
                                     <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('セイ') }}</label>
                                     <div class="col ml-2">
-                                        <input id="" type="text" class="form-control" name="companion_kana_last[]" value="{{ old('companion_kana_last',json_decode($reservations->companion_kana_last)[$key]) }}" required >
+                                        <input id="" type="text" class="form-control" name="companion_kana_first[]" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required >
                                     </div>
                                 </div>
                                 <div class="row align-items-center col-md-3">
                                     <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('メイ') }}</label>
                                     <div class="col ml-2">
-                                    <input id="" type="text" class="form-control" name="companion_kana_first[]" value="{{ old('companion_kana_first',json_decode($reservations->companion_kana_first)[$key]) }}" required>
+                                    <input id="" type="text" class="form-control" name="companion_kana_last[]" value="{{ old('companion_kana_last',json_decode($reservations->companion_kana_last)[$key]) }}" required>
                                     </div>
                                 </div>
                             </div>
