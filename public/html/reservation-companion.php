@@ -147,6 +147,13 @@
                 </div>
             </td>
         </tr>
+        <tr>
+            <th>電話番号<span class="requiredRed">※</span></th>
+            <td>
+                <input class="" type="text" name="companion_telephone[]" pattern="\d{2,4}-?\d{2,4}-\d{3,4}" value="" required placeholder="ハイフンありで入力">
+                <span class="errorMessage"></span>
+            </td>
+        </tr>
         <tr class="child_boarding">
         </tr>
         <tr class="child_drop">

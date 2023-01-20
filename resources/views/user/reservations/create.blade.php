@@ -429,6 +429,7 @@
                                     address.find("select[name='companion_prefecture[]']").first().val($("select[name='prefecture_representative']").val());
                                     address.find("input[name='companion_address[]']").first().val($("input[name='address_representative']").val());
                                     address.find("input[name='companion_extended[]']").first().val($("input[name='extended_representative']").val());
+                                    address.find("input[name='companion_telephone[]']").first().val($("input[name='tel_reservation']").val());
                                 })
 
                                 var count = 1;
@@ -1408,6 +1409,24 @@
                             $(this).addClass("error");
                             $(this).next().addClass("error");
                             $(this).next().text("※乗車地を入力してください。");
+                            if(top_pos == null){
+                                top_pos = $(this).offset().top;
+                            }
+                        }
+                        else{
+                            $(this).removeClass("error");
+                            $(this).next().removeClass("error");
+                        }
+                    };
+                });
+            }
+            if($("input[name='companion_telephone[]']").length > 0){
+                $("input[name='companion_telephone[]']").each(function(){
+                    if($(this).attr("required") != null){
+                        if($(this).val() == ''){
+                            $(this).addClass("error");
+                            $(this).next().addClass("error");
+                            $(this).next().text("※電話番号を入力してください");
                             if(top_pos == null){
                                 top_pos = $(this).offset().top;
                             }

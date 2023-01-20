@@ -289,6 +289,12 @@
                                                 <p>{{$info['companion_address'][$i-1]}} {{$info['companion_extended'][$i-1]}}</p>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <th>電話番号</th>
+                                            <td>
+                                                {{$info['companion_telephone'][$i-1]}}
+                                            </td>
+                                        </tr>
                                         @if( isset($info['drop'][$i]) && $info['boarding'][$i] != null)
                                         <tr>
                                             <th>乗車地</th>

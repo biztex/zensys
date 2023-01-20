@@ -150,6 +150,7 @@ class ReservationsController extends Controller
             'tel2' => ['required', 'string', 'max:50'],
             'is_member' => ['nullable'],
             'is_request' => ['nullable'],
+            'companion_telephone.*' => ['required', 'string'],
         ];
 
         $plan = Plan::find($request->plan_id);
@@ -161,22 +162,7 @@ class ReservationsController extends Controller
         }
 
         $count_member = 0;
-        // for ($i = 0; $i <= 20; $i++) {
-        //     $p_rules = [];
-        //     $count = $request->{'type' . $i . '_number'};
-        //     if ($count > 0) {
-        //         $p_rules = [
-        //             'type' . $i . '_number' => [
-        //                 'required',
-        //                 'numeric',
-        //                 ' min:0',
-        //                 'max:99',
-        //             ],
-        //         ];
-        //         $count_member += $count;
-        //     }
-        //     $rules = array_merge($rules, $p_rules);
-        // }
+
         // 在庫をチェック
         $stock_before_minus = Stock::select()
             ->where('plan_id', $request->plan_id)
@@ -189,29 +175,9 @@ class ReservationsController extends Controller
                     '現在予約在庫がありません。お手数ですが実施会社までお問い合わせください',
             ]);
         }
-        // 参加可能人数をチェック
-        // if ($count_member == 0) {
-        //     throw ValidationException::withMessages([
-        //         'count_member' => '参加人数は最低1名以上必要です',
-        //     ]);
-        // } elseif ($count_member < $plan->min_number) {
-        //     throw ValidationException::withMessages([
-        //         'min_member' =>
-        //             'このプランの最低参加人数は' .
-        //             $plan->min_number .
-        //             '名以上です',
-        //     ]);
-        // } elseif ($count_member > $plan->max_number) {
-        //     throw ValidationException::withMessages([
-        //         'max_member' =>
-        //             'このプランの最大参加人数は' .
-        //             $plan->max_number .
-        //             '名までです',
-        //     ]);
-        // }
+
         $this->validate($request, $rules);
         // 会員追加
-        //if ($request->is_member == 1) {
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             $user = new User();
@@ -318,6 +284,8 @@ class ReservationsController extends Controller
         $temp_companion_birth = [];
         $temp_companion_boarding = [];
         $temp_companion_drop = [];
+        $temp_companion_telephone = [];
+
 
         for($i=1; $i<count($request->add_firstname); $i++){
             $temp_companion_name_first[$i-1]    = $request->add_firstname[$i];
@@ -329,6 +297,7 @@ class ReservationsController extends Controller
             $temp_companion_postalCode[$i-1]    = $request->companion_postalCode[$i-1];
             $temp_companion_prefecture[$i-1]    = $request->companion_prefecture[$i-1];
             $temp_companion_address[$i-1]       = $request->companion_address[$i-1];
+            $temp_companion_telephone[$i-1]     = $request->companion_telephone[$i-1];
             $temp_companion_extended[$i-1]      = $request->companion_extended[$i-1];
             $temp_companion_birth[$i-1]         = $request->birth_year_representative[$i] .'-'.  $request->birth_month_representative[$i].'-' . $request->birth_day_representative[$i];
             if(isset($request->boarding[$i])){
@@ -355,6 +324,7 @@ class ReservationsController extends Controller
         $reservation->companion_birth       = json_encode($temp_companion_birth);
         $reservation->companion_boarding    = json_encode($temp_companion_boarding);
         $reservation->companion_drop        = json_encode($temp_companion_drop);
+        $reservation->companion_telephone   = json_encode($temp_companion_telephone);
 
 
 
@@ -707,6 +677,7 @@ class ReservationsController extends Controller
             'postalcode' => ['required', 'string', 'max:8', new ZipcodeRule],
             'postalcode_representative' => ['required', 'string', 'max:8', new ZipcodeRule],
             'companion_postalCode.*' => ['required', 'string', 'max:8', new ZipcodeRule],
+            'companion_telephone.*' => ['required', 'string'],
             'prefecture' => ['required', 'string', 'max:5'],
             'tel' => ['required', 'string', 'max:50'],
             'birth_year' => ['required', 'numeric'],
@@ -867,6 +838,7 @@ class ReservationsController extends Controller
         $info['companion_prefecture']       = $request->companion_prefecture;
         $info['companion_address']          = $request->companion_address;
         $info['companion_extended']         = $request->companion_extended;
+        $info['companion_telephone']        = $request->companion_telephone;
         $info['birth_year_representative']  = $request->birth_year_representative;
         $info['birth_month_representative'] = $request->birth_month_representative;
         $info['birth_day_representative']   = $request->birth_day_representative;
@@ -1417,6 +1389,7 @@ class ReservationsController extends Controller
         $reservation->companion_prefecture  = json_encode($request->companion_prefecture);
         $reservation->companion_address     = json_encode($request->companion_address);
         $reservation->companion_extended    = json_encode($request->companion_extended);
+        $reservation->companion_telephone   = json_encode($request->companion_telephone);
         $reservation->companion_birth       = json_encode($request->companion_birth);
         $reservation->companion_boarding    = json_encode($request->companion_boarding);
         $reservation->companion_drop        = json_encode($request->companion_drop);

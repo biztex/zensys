@@ -383,6 +383,7 @@
                                 </div>
                             </div>
 
+
                             @if (isset($reservations->companion_postalCode) && count(json_decode($reservations->companion_postalCode)) > 0)
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('郵便番号') }}</label>
@@ -457,6 +458,16 @@
                                     <input id="" type="text" class="form-control" name="companion_extended[]" @if (count(json_decode($reservations->companion_extended))>0) value="{{ old('companion_extended',json_decode($reservations->companion_extended)[$key]) }}" @endif required>
                                 </div>
                             </div>
+                            @endif
+                            @if (isset($reservations->companion_telephone) && count(json_decode($reservations->companion_telephone)) > 0)
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> {{ __('電話番号') }}</label>
+                                <div class="col-md-6">
+                                    <input id="" type="text" class="form-control" name="companion_telephone[]" value="{{ old('companion_telephone',json_decode($reservations->companion_telephone)[$key]) }}" required>
+                                </div>
+                            </div>
+
                             @endif
                             @if (isset($pieces) && count($pieces) > 0)
 
