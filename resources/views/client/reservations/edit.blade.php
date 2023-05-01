@@ -627,7 +627,7 @@
                                 {{ $arr[$i] . $priceName->name }}
                             </td>
                             @for($j=0; $j<count($tmp_arr); $j++)
-                                @if(\App\Helpers::isInNumberOfReservations((array)$Number_of_reservations, $typeid, $tmp_arr[$j]))
+                                @if(\App\Helpers::isInNumberOfReservations((array)$Number_of_reservations, $typeid, $tmp_arr[$j]) && isset($prices[0]))
                                     @if(array_key_exists(sprintf('type%d_%s_%d_number', $typeid,$tmp_arr[$j],$i+1), (array)$Number_of_reservations))
                                         <td style="text-align: right;">{{ number_format($prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))]) }} 円</td>
                                         <input type="hidden" id="price{{$i + 1}}" value="{{ $prices[0][strtolower($tmp_arr[$j].'_'. ((int)$i + 1))] }}">
