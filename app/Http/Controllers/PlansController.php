@@ -1005,17 +1005,6 @@ class PlansController extends Controller
         $plans->end_day = $request->end_day
             ? $request->end_day
             : new DateTime('now');
-        // $plans->repetition_flag = $request->repetition_flag;
-        // $plans->repetition_day = $request->repetition_day;
-        // $plans->monday = $request->monday;
-        // $plans->tuesday = $request->tuesday;
-        // $plans->wednesday = $request->wednesday;
-        // $plans->thursday = $request->thursday;
-        // $plans->friday = $request->friday;
-        // $plans->saturday = $request->saturday;
-        // $plans->sunday = $request->sunday;
-        // $plans->holiday_selected = $request->holiday_selected;
-        // $plans->holiday_nonselected = $request->holiday_nonselected;
         $plans->is_autoextend = $request->is_autoextend;
         $plans->time_hour = $request->time_hour ? $request->time_hour : '0';
         $plans->time_minute = $request->time_minute
