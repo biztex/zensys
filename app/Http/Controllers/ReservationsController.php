@@ -2620,7 +2620,7 @@ class ReservationsController extends Controller
         $plan = $reservation->plan->name;
         $date = date('Y年m月d日',strtotime($reservation->fixed_datetime));
         $payment_limit = Helpers::calcPaymentDeadline(Carbon::today(), $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
-
+        
         $activity      = $reservation->activity_date;
         $name_last     = $reservation->user->name_last;
         $kana_last     = $reservation->user->kana_last;
