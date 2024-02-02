@@ -27,8 +27,8 @@
             <div class="nav-wrapper">
                 <ul class="nav">
                     <li><a href="/">トップ</a></li>
-                    <li><a href="/category/news">新着情報</a></li>
-                    <li><a href="{{ url('list.php') }}">ツアー紹介</a></li>
+                    <li><a href="/category/news">トピックス</a></li>
+                    <li><a href="{{ url('list.php') }}">ツアー情報</a></li>
                     <li><a href="/company">会社概要</a></li>
                     <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
@@ -449,11 +449,11 @@
                     <a href="/" class="logo syamei_footer_logo"><img src="{{ asset('assets/img/logo3.png') }}" alt="" /></a>
                     <div class="company-info">
                         <!-- <p class="company-name">長野電鉄株式会社</p> -->
-                        <p class="post">〒380-0823</p>
-                        <p class="address">長野県長野市南千歳1-17-7<br>長電長野パーキング1F<br class="sp"></p>
+                        <p class="post">〒383-0021</p>
+                        <p class="address">長野県中野市西1-1-1<br>信州中野駅１階<br class="sp"></p>
                         <div>
                             <p class="open"></p>
-                            <p class="tel-mail"><a href="tel:026-227-3535 ">TEL：026-227-3535 </a> <a href="mailto:"></a></p>
+                            <p class="tel-mail"><a href="tel:0269224705">TEL：0269-22-4705 </a> <a href="mailto:"></a></p>
                         </div>
                         <div class="social-link">
                             <div class="facebook">
@@ -473,9 +473,9 @@
                 <div class="menu-list">
                     <span class="menu"><a href="/">トップ</a></span>
                     <span class="menu"><a href="/company">会社概要</a></span>
-                    <span class="menu"><a href="/category/news">新着情報</a></span>
+                    <span class="menu"><a href="/category/news">トピックス</a></span>
                     <span class="menu"><a href="/contact">お問い合わせ</a></span>
-                    <span class="menu"><a href="{{ url('list.php') }}">ツアー紹介</a></span>
+                    <span class="menu"><a href="{{ url('list.php') }}">ツアー情報</a></span>
                     <span class="menu"><a href="/agreement">旅行業約款</a></span>
                 </div>
             </div>

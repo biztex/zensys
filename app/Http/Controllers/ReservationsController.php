@@ -483,6 +483,13 @@ class ReservationsController extends Controller
             } elseif ($reservation->payment_method == PaymentMethodConstants::PREPAY) {
                 // 事前支払い
                 $bank = Bankaccount::find($reservation->plan->company->id);
+                if(is_null($reservation->send_mail_at)){
+                    $SendMailDate = $reservation->created_at;
+                }else{
+                    $SendMailDate = new Carbon($reservation->send_mail_at);
+                }
+                // 期限チェック
+                $payment_limit = Helpers::calcPaymentDeadline($SendMailDate, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
                 // 予約者へメール通知
                 Mail::send(
                     ['text' => 'user.reservations.prepayemail'],
@@ -515,7 +522,8 @@ class ReservationsController extends Controller
                         'bank' => $bank,
                         'prices' => $prices,
                         'priceName' => $priceName,
-                        'type_id' => $typeid
+                        'type_id' => $typeid,
+                        'payment_limit' => $payment_limit,
                     ],
                     function ($message) use ($reservation) {
                         if ($reservation->user->email) {
@@ -2612,7 +2620,7 @@ class ReservationsController extends Controller
         $plan = $reservation->plan->name;
         $date = date('Y年m月d日',strtotime($reservation->fixed_datetime));
         $payment_limit = Helpers::calcPaymentDeadline(Carbon::today(), $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
-
+        
         $activity      = $reservation->activity_date;
         $name_last     = $reservation->user->name_last;
         $kana_last     = $reservation->user->kana_last;

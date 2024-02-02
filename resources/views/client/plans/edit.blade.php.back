@@ -332,96 +332,97 @@
                         </div> -->
                          <!-- <div class="after-road-section-1"></div> -->
                         <hr />
-                        <div class="form-group row mt-5 bg-dark">
+                                                 <div class="form-group row mt-5 bg-dark">
                             <label class="col-md-10 col-form-label text-md-left"><span class="h5"><i class="fas fa-fw fa-cog"></i> 行程表</span></label>
                         </div>
 
 
-                        @foreach ($plans-> road_maps as $road_map)
+                          @foreach ($plans-> road_maps as $road_map)
+
                          <div class="after-road-section-{{ $loop->index  }}">
-                            <div class="mt-5 road-section-{{ $loop->index + 1}}">
-                                <div class="form-group row">
-                                    <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表{{ $loop->index + 1 }}日目</label>
-                                    @if ($loop->last && $loop->count != 1)
-                                    <div class="col-md-3">
-                                        <div type="" class="btn btn-default" name='delete-road-{{ $loop->index + 1 }}' value=''>
-                                            <i class="fas fa-fw fa-window-close"></i> この行程表を削除
-                                        </div>
-                                    </div>
-                                    @elseif (!$loop->first && $loop->count != 1)
-                                    <div class="col-md-3">
-                                        <div type="" class="btn btn-default" name='delete-road-{{ $loop->index + 1 }}' style="display: none;" value=''>
-                                            <i class="fas fa-fw fa-window-close"></i> この行程表を削除
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-md-right"> {{ __('タイトル') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="road_map_title" type="text" class="form-control" name="road_map_title{{ $loop->index + 1 }}" value="{{ old('road_map_title',$road_map->road_map_title) }}">
+
+
+                                                    <div class="form-group row">
+                                <label class="col-md-2 mb-3 col-form-label text-md-right"><span class="badge badge-danger">必須</span> 行程表{{ $loop->index + 1 }}日目</label>
+                                @if ($loop->last && $loop->count != 1)
+                                <div class="col-md-3">
+                                    <div type="" class="btn btn-default" name='delete-road-{{ $loop->index + 1 }}' value=''>
+                                        <i class="fas fa-fw fa-window-close"></i> この行程表を削除
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-md-right"> {{ __('利用宿泊施設') }}</label>
-                                    <div class="col-md-6">
-                                        <input id="road_map_build" type="text" class="form-control" name="road_map_build{{ $loop->index + 1 }}" value="{{ old('road_map_build',$road_map->road_map_build) }}">
+                                @elseif (!$loop->first && $loop->count != 1)
+                                <div class="col-md-3">
+                                    <div type="" class="btn btn-default" name='delete-road-{{ $loop->index + 1 }}' style="display: none;" value=''>
+                                        <i class="fas fa-fw fa-window-close"></i> この行程表を削除
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-md-right"> {{ __('朝食') }}</label>
-                                    <div class="col-md-6 d-flex align-items-center">
-                                    <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
-                                    <input id="road_eat1_1" type="radio"  name="road_eat1_{{ $loop->index + 1 }}" value="1" @if($road_map->road_eat1) checked @endif>
-                                        <span class="custom-control-description" th:text="#{bool.true}">あり</span>
-                                    </label>
-                                    <label class="custom-control custom-radio pl-2  m-0 font-weight-normal" role="button">
-                                    <input id="road_eat1_0" type="radio"  name="road_eat1_{{ $loop->index + 1 }}" value="0" @if(!$road_map->road_eat1)) checked @endif>
-                                        <span class="custom-control-description">なし</span>
-                                    </label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-md-right"> {{ __('昼食') }}</label>
-                                    <div class="col-md-6 d-flex align-items-center">
-                                        <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
-                                            <input id="road_eat2_1" type="radio"  name="road_eat2_{{ $loop->index + 1 }}" value="1" @if($road_map->road_eat2) checked @endif>
-                                            <span class="custom-control-description" th:text="#{bool.true}">あり</span>
-                                        </label >
-                                        <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
-                                            <input id="road_eat2_0" type="radio"  name="road_eat2_{{ $loop->index + 1 }}" value="0"  @if(!$road_map->road_eat2)) checked @endif>
-                                            <span class="custom-control-description" th:text="#{bool.true}">なし</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-md-right"> {{ __('夕食') }}</label>
-                                    <div class="col-md-6 d-flex align-items-center">
-                                        <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
-                                            <input id="road_eat3_1" type="radio"  name="road_eat3_{{ $loop->index + 1 }}" value="1" @if($road_map->road_eat3) checked @endif>
-                                            <span class="custom-control-description" th:text="#{bool.true}">あり</span>
-                                        </label >
-                                        <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
-                                            <input id="road_eat3_0" type="radio"  name="road_eat3_{{ $loop->index + 1 }}" value="0"  @if(!$road_map->road_eat3)) checked @endif>
-                                            <span class="custom-control-description" th:text="#{bool.true}">なし</span>
-                                        </label >
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"> 行程表</label>
-                                    <div class="col-md-6">
-                                    <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map{{ $loop->index + 1 }}" rows="10" >{{ old('road_map',$road_map->road_map) }}</textarea> -->
-                                    <textarea id="road_map" type="textarea" class="form-control" name="road_map{{ $loop->index + 1 }}" rows="10" >{{ $road_map->road_map ? $road_map->road_map : '' }}</textarea>
-                                    </div>
-                                </div>
-                                <script>
-                                    $('#road_map[name=road_map{{ $loop->index + 1 }}]').summernote({
-                                        tabsize: 2,
-                                        minHeight: 250
-                                    });
-                                </script>
-                                </div>
+                                @endif
                             </div>
+                         <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right"> {{ __('タイトル') }}</label>
+                            <div class="col-md-6">
+                                <input id="road_map_title" type="text" class="form-control" name="road_map_title{{ $loop->index + 1 }}" value="{{ old('road_map_title',$road_map->road_map_title) }}">
+                            </div>
+                        </div>
+                         <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right"> {{ __('利用宿泊施設') }}</label>
+                            <div class="col-md-6">
+                                <input id="road_map_build" type="text" class="form-control" name="road_map_build{{ $loop->index + 1 }}" value="{{ old('road_map_build',$road_map->road_map_build) }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right"> {{ __('朝食') }}</label>
+                            <div class="col-md-6 d-flex align-items-center">
+                            <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                            <input id="road_eat1_1" type="radio"  name="road_eat1_{{ $loop->index + 1 }}" value="1" @if($road_map->road_eat1) checked @endif>
+                                <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                             </label>
+                             <label class="custom-control custom-radio pl-2  m-0 font-weight-normal" role="button">
+                             <input id="road_eat1_0" type="radio"  name="road_eat1_{{ $loop->index + 1 }}" value="0" @if(!$road_map->road_eat1)) checked @endif>
+                                <span class="custom-control-description">なし</span>
+                            </label>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right"> {{ __('昼食') }}</label>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat2_1" type="radio"  name="road_eat2_{{ $loop->index + 1 }}" value="1" @if($road_map->road_eat2) checked @endif>
+                                    <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                                </label >
+                                <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat2_0" type="radio"  name="road_eat2_{{ $loop->index + 1 }}" value="0"  @if(!$road_map->road_eat2)) checked @endif>
+                                    <span class="custom-control-description" th:text="#{bool.true}">なし</span>
+                                </label>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right"> {{ __('夕食') }}</label>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <label  class="custom-control custom-radio p-0 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat3_1" type="radio"  name="road_eat3_{{ $loop->index + 1 }}" value="1" @if($road_map->road_eat3) checked @endif>
+                                    <span class="custom-control-description" th:text="#{bool.true}">あり</span>
+                                </label >
+                                <label  class="custom-control custom-radio pl-2 m-0 font-weight-normal" role="button">
+                                    <input id="road_eat3_0" type="radio"  name="road_eat3_{{ $loop->index + 1 }}" value="0"  @if(!$road_map->road_eat3)) checked @endif>
+                                    <span class="custom-control-description" th:text="#{bool.true}">なし</span>
+                                </label >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-right" style="padding: 0 0 3px 0;"> 行程表</label>
+                            <div class="col-md-6">
+                            <!-- <textarea id="codex-editor" type="textarea" class="form-control" name="road_map{{ $loop->index + 1 }}" rows="10" >{{ old('road_map',$road_map->road_map) }}</textarea> -->
+                            <textarea id="road_map" type="textarea" class="form-control" name="road_map{{ $loop->index + 1 }}" rows="10" >{{ $road_map->road_map ? $road_map->road_map : '' }}</textarea>
+                            </div>
+                        </div>
+                        <script>
+                            $('#road_map[name=road_map{{ $loop->index + 1 }}]').summernote({
+                                tabsize: 2,
+                                minHeight: 250
+                            });
+                        </script>
+                    </div>
                          @endforeach
                          <div class="after-road-section-{{ count($plans-> road_maps)  }}"></div>
 
@@ -2344,11 +2345,11 @@ $('div[name="add-road"]').click(function(e) {
         $('input[name="road_eat1"]').attr('name', 'road_eat1_' + (val + 1));
         $('input[name="road_eat2"]').attr('name', 'road_eat2_' + (val + 1));
         $('input[name="road_eat3"]').attr('name', 'road_eat3_' + (val + 1));
-        // $('div[name="delete-road-2"]').click(function() {
-        //     $('.road-section-2, .after-road-section-2').remove();
-        //     var val = Number($('input[name="add-road"]').val());
-        //     $('input[name="add-road"]').val(1);
-        // });
+        $('div[name="delete-road-2"]').click(function() {
+            $('.road-section-2, .after-road-section-2').remove();
+            var val = Number($('input[name="add-road"]').val());
+            $('input[name="add-road"]').val(1);
+        });
         $('div[name="delete-road-2"]').click(function() {
             $('.road-section-2, .after-road-section-2').remove();
             var val = Number($('input[name="add-road"]').val());

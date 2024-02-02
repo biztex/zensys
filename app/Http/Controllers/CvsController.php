@@ -46,7 +46,7 @@ class CvsController extends Controller
         }else{
             $SendMailDate = new Carbon($reservation->send_mail_at);
         }
-        
+
         $payment_limit = Helpers::calcPaymentDeadline($SendMailDate, $reservation->plan->payment_plus_day, $reservation->plan->payment_final_deadline);
 
         $request_data = new CvsAuthorizeRequestDto();
