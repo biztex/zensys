@@ -729,7 +729,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                 foreach ($prices as  $price) {
                                                                                     foreach ($tmp_arr as  $al) {
                                                                                         if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
-                                                                                            echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                                            echo '<a class="selected-date selected-date-A ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                                             echo '<p class="datePrice">'.$stock["rank"];
 
 
@@ -761,7 +761,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                 foreach ($prices as  $price) {
                                                                                     foreach ($tmp_arr as  $al) {
                                                                                         if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
-                                                                                            echo '<a class="selected-date ' . $price['type'] . ' data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                                            echo '<a class="selected-date selected-date-A ' . $price['type'] . ' data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                                             echo '<p class="datePrice">'.$stock["rank"];
 
 
@@ -816,7 +816,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                 foreach ($prices as  $price) {
                                                                                     foreach ($tmp_arr as  $al) {
                                                                                         if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                                                                            echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
+                                                                                            echo '<a class="selected-date selected-date-A " style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
                                                                                             echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
 
                                                                                             if($price[strtolower($al)."_1"]){
@@ -850,7 +850,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                 foreach ($tmp_arr as  $al) {
                                                                                     if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
 
-                                                                                        echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                                        echo '<a class="selected-date selected-date-A ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                                         echo '<p class="datePrice">'.$stock["rank"];
 
 
@@ -1373,16 +1373,16 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                         $day_price = $str;
                                                                     }
                                                                 }
-                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1 && $compare < 0 && $current_date->format('m') == $current_m) {
+                                                                if ($current_date->format('Y-m-d') == $stock["res_date"] && $stock["is_active"] == 1 && $current_date->format('m') == $current_m) {
                                                                     if ($stock["res_type"] == 0) {
                                                                         if( $stock["rank"] != null){
-                                                                            echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
+                                                                            echo '<td ' . ($compare < 0 ? ' class="stock' .$stock["rank"] . '"': 'style="background-color: #fff"'). '><p class="dayP">' . $d . '</p>';
 
                                                                             if ($stock["limit_number"] > 0) {
                                                                                 foreach ($prices as  $price) {
                                                                                     foreach ($tmp_arr as  $al) {
                                                                                         if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
-                                                                                            echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                                            echo $compare < 0 ? '<a class="selected-date selected-date-A ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>' : '<div class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>'; 
                                                                                             echo '<p class="datePrice">'.$stock["rank"];
 
 
@@ -1392,15 +1392,16 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                             if($price[strtolower($al)."_2"]){
                                                                                                 echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
                                                                                             }
+                                                                                            
                                                                                             if($stock["limit_number"] > 3){
-                                                                                                echo '<br>○';
+                                                                                                echo $compare < 0 ? '<br>○' : '<br>-';
                                                                                             }
                                                                                             else{
-                                                                                                echo '<br>△';
+                                                                                                echo $compare < 0 ? '<br>△':'<br>-' ;
 
                                                                                             }
                                                                                             echo '</p>';
-                                                                                            echo '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">';
+                                                                                            echo $compare < 0 ? '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">' : '</div>';
                                                                                         }
 
                                                                                     }
@@ -1414,7 +1415,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                 foreach ($prices as  $price) {
                                                                                     foreach ($tmp_arr as  $al) {
                                                                                         if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
-                                                                                            echo '<a class="selected-date ' . $price['type'] . ' data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                                            echo $compare < 0 ? '<a class="selected-date selected-date-A ' . $price['type'] . ' data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>' : '<a class="selected-date ' . $price['type'] . ' data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                                             echo '<p class="datePrice">'.$stock["rank"];
 
 
@@ -1427,7 +1428,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
 
                                                                                             echo '<br>×';
                                                                                             echo '</p>';
-                                                                                            echo '</div>';
+                                                                                            echo  $compare < 0 ? '</a>' : '</div>';
                                                                                         }
 
                                                                                     }
@@ -1436,7 +1437,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                 foreach ($prices as  $price) {
                                                                                     foreach ($tmp_arr as  $al) {
                                                                                         if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
-                                                                                            echo '<div class="selected-date ' . $price['type'] . ' data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                                            echo '<div class="selected-date selected-date-A' . $price['type'] . ' data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                                             echo '<p class="datePrice">'.$stock["rank"];
 
 
@@ -1462,14 +1463,13 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                         $count++;
                                                                     } else if ($stock["res_type"] == 1) {
                                                                         if( $stock["rank"] != null){
-
-                                                                            echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
+                                                                            echo '<td ' . ($compare < 0 ? ' class="stock' .$stock["rank"] . '"': 'style="background-color: #fff"'). '><p class="dayP">' . $d . '</p>';
                                                                             echo '<p class="datePrice">B<br>残数：4<br>¥70,000<br><font>(¥40,000)</font></p>';
                                                                             if ($stock["limit_number"] > 0) {
                                                                                 foreach ($prices as  $price) {
                                                                                     foreach ($tmp_arr as  $al) {
                                                                                         if($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]){
-                                                                                            echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>';
+                                                                                            echo $compare < 0 ? '<a class="selected-date selected-date-A" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>' : '<div class="selected-date" data-price='.$price_type_name.':'.$day_price.'>';
                                                                                             echo '<p class="datePrice">'.$al.'<br>残数：'.$stock["limit_number"] .'';
 
                                                                                             if($price[strtolower($al)."_1"]){
@@ -1480,7 +1480,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                             }
                                                                                             echo '</p>';
 
-                                                                                            echo '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
+                                                                                            echo $compare < 0 ? '</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">' : '</div>';
                                                                                         }
 
                                                                                     }
@@ -1497,13 +1497,12 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                         $count++;
                                                                     } else if ($stock["res_type"] == 2) {
                                                                         if( $stock["rank"] != null){
-
-                                                                            echo '<td class="stock' .$stock["rank"] . '"><p class="dayP">' . $d . '</p>';
+                                                                            echo '<td ' . ($compare < 0 ? ' class="stock' .$stock["rank"] . '"': 'style="background-color: #fff"'). '><p class="dayP">' . $d . '</p>';
                                                                             foreach ($prices as  $price) {
                                                                                 foreach ($tmp_arr as  $al) {
                                                                                     if(($price[strtolower($al)."_1"] || $price[strtolower($al)."_2"]) && $al == $stock["rank"]){
 
-                                                                                        echo '<a class="selected-date ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
+                                                                                        echo  $compare < 0 ? '<a class="selected-date selected-date-A ' . $price['type'] . '" style="cursor:pointer;" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>' : '<div class="selected-date ' . $price['type'] . '" data-price='.$price['name'].':¥'.number_format($price[strtolower($al)."_1"]).'>';
                                                                                         echo '<p class="datePrice">'.$stock["rank"];
 
 
@@ -1513,9 +1512,9 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                                         if($price[strtolower($al)."_2"]){
                                                                                             echo '<br><font>(¥'.number_format($price[strtolower($al)."_2"]).")</font>";
                                                                                         }
-                                                                                        echo '<br> □ ';
+                                                                                        echo $compare < 0 ? '<br> □ ': '<br> - ';
                                                                                         echo '</p>';
-                                                                                        echo '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">';
+                                                                                        echo $compare < 0 ? '</a><input type="hidden" class="' . $price['type'] . '" value="' . $current_date->format('Y-m-d') . '">' : '</div>';
                                                                                     }
 
                                                                                 }
@@ -1523,7 +1522,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                         //      echo '<a class="selected-date" style="cursor:pointer;" data-price='.$price_type_name.':'.$day_price.'>□</a><input type="hidden" value="' . $current_date->format('Y-m-d') . '">';
                                                                         }
                                                                         else{
-                                                                            echo '<td style="background-color: #777">' . $d . '<br />-</td>';
+                                                                            echo '<td style="background-color: #fff">' . $d . '<br />-</td>';
                                                                         }
                                                                             $count++;
 
@@ -1532,7 +1531,7 @@ $stocks_next = ndCurlExecJson("api/stocks/json/$next_y/$next_m/$plan_id/$priceTy
                                                                 }
                                                             }
                                                             if ($count == 0) {
-                                                                echo '<td style="background-color: #777">' . $d . '<br />-</td>';
+                                                                echo '<td style="background-color: #fff">' . $d . '<br />-</td>';
                                                             }
                                                             if ($w == 6) {
                                                                 echo '</tr>';
@@ -1816,7 +1815,7 @@ $(function() {
 
 // 日付選択時
 $(function() {
-	$('.selected-date').click(function () {
+	$('.selected-date-A').click(function () {
         var price = $(this).data('price');
 		// 事前リセット
 		$('.meeting-time').text('');
