@@ -300,6 +300,7 @@
                         <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
                         <div class="col-md-3">
                         <select name="add_boarding" id="" class="form-control">
+                            <option value="">選択してください</option>
                             @foreach($pieces as $piece)
                                 <option value="{{$piece}}" @if(old('add_boarding',$reservations->add_boarding)== $piece) selected @endif>{{$piece}}</option>
                             @endforeach
@@ -313,8 +314,8 @@
                     <div class="form-group row">
                         <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                         <div class="col-md-3">
-
                             <select name="add_drop" id="" class="form-control">
+                                <option value="">選択してください</option>
                                 @foreach($drops as $drop)
                                     <option value="{{$drop}}" @if(old('add_drop',$reservations->add_drop)== $drop) selected @endif>{{$drop}}</option>
                                 @endforeach
@@ -470,13 +471,14 @@
 
                             @endif
                             @if (isset($pieces) && count($pieces) > 0)
-
+                           
                             <div class="form-group row">
                                 <label for="" class="col-md-3 col-form-label text-md-right">乗車地</label>
                                 <div class="col-md-3">
                                     <select name="companion_boarding[]" id="" class="form-control">
+                                        <option value="">選択してください</option>
                                         @foreach($pieces as $piece)
-                                            <option value="{{$piece}}" @if(old('companion_boarding',json_decode($reservations->companion_boarding)[$key])== $piece) selected @endif>{{$piece}}</option>
+                                            <option value="{{$piece}}" @if(count(json_decode($reservations->companion_boarding)) > 0 ) @if(old('companion_boarding',json_decode($reservations->companion_boarding)[$key])== $piece) selected @endif @endif>{{$piece}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -489,8 +491,9 @@
                                 <label for="" class="col-md-3 col-form-label text-md-right">降車地</label>
                                 <div class="col-md-3">
                                     <select name="companion_drop[]" id="" class="form-control">
+                                        <option value="">選択してください</option>
                                         @foreach($drops as $drop)
-                                            <option value="{{$drop}}" @if(old('companion_drop',json_decode($reservations->companion_drop)[$key])== $drop) selected @endif>{{$drop}}</option>
+                                            <option value="{{$drop}}" @if(count(json_decode($reservations->companion_drop))  > 0 ) @if(old('companion_drop',json_decode($reservations->companion_drop)[$key])== $drop) selected @endif @endif>{{$drop}}</option>
                                         @endforeach
                                     </select>
                                 </div>
